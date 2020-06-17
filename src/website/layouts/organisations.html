@@ -3,71 +3,85 @@
 {% block content %}
 <section class="hero is-primary" style="background-image: url(/{{ hashes['images/bg-pattern-dark.png'] }})">
   <div class="hero-body">
-      <div class="container">
-        <h1 class="title">
-          Organisations using Fastify
-        </h1>
-      </div>
+    <div class="container">
+      <h1 class="title">
+        Organisations using Fastify
+      </h1>
+    </div>
   </div>
 </section>
 
 <section class="section">
-	<div class="container content">
+  <div class="container content">
     <div class="columns is-centered">
-		  <div class="column is-12">
-				<p>Fastify is proudly powering a large ecosystem of organisations and products out there.</p>
-				<p>Below is a list of some of the organisations adopting Fastify.</p>
-				<ul class="organisations-list align-start">
-					{% for organization in data.organisations | shuffle %}
-						<li>
-							<a href="{{ organization.link }}" target="_blank" rel="nofollow">
-								<img src="/{{ hashes['images/organisations/' + organization.image] }}" alt="{{ organization.name }} is using Fastify"/>
-							</a>
-						</li>
-					{% endfor %}
-				</ul>
-				<hr/>
-				<small>The logos displayed in this page are property of the respective organisations and they are
-				not distributed under the same license as Fastify (MIT).</small>
-		  </div>
-	  </div>
-	</div>
+      <div class="column is-12">
+        <p>Fastify is proudly powering a large ecosystem of organisations and products out there.</p>
+        <p>Below is a list of some of the organisations adopting Fastify.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section class="section" id="how-to-be-featured">
-	<div class="container content">
+<section class="section alternate section-logos">
+  <div class="container content">
     <div class="columns is-centered">
-		  <div class="column is-12">
-				<h2>How to be featured here</h2>
-				<p>Is your organisation using Fastify? That's great!</p>
-          <p>If you would like your organisation to have its logo featured in this list, here's how you do it!</p>
-          <p>You can submit your organisation, your logo and other few relevant details by following these steps:</p>
-          <ol>
-            <li>Fork the <a href="https://github.com/fastify/website">Fastify website repository</a> on GitHub.</li>
-            <li>
-              Add the logo in the folder <code>src/website/content/images/organisations</code>.<br/>
-              Please make sure that your logo complies to the following specs:
-              <ul>
-                <li>Encoded in SVG (Scalable Vector Graphics) format</li>
-                <li>Be reasonably optimized/minified (you can use <a href="https://imageoptim.com">imageOptim</a>)</li>
-                <li>Make sure image "width" or "height" are explicitely specified in the "svg" tag</li>
-              </ul>
-            </li>
-            <li>Update the file <code>src/website/data/organisations.yml</code> with a new entry (in alphabetical order by organization name).<br/>
-              Your entry must provide:
-              <ul>
-                <li><code>name</code>: the name of your organisation</li>
-                <li><code>image</code>: the filename of the logo you added in the previous step</li>
-                <li><code>link</code>: a link to a website that represents your organisation (please include <code>http(s)://</code>)</li>
-              </ul>
-              Please, make sure not to break the YAML syntax of the file.
-            </li>
-            <li>Submit a PR!</li>
-          </ol>
-          <p>As soon as your PR is reviewed and merged, your awesome logo will appear in this page.</p>
-		  </div>
-	  </div>
-	</div>
+      <div class="column is-12">
+        <ul class="organisations-list align-start">
+          {% for organization in data.organisations | shuffle %}
+          <li>
+            <a href="{{ organization.link }}" target="_blank" rel="nofollow">
+              <img src="/{{ hashes['images/organisations/' + organization.image] }}"
+                alt="{{ organization.name }} is using Fastify" />
+            </a>
+          </li>
+          {% endfor %}
+
+          <hr />
+          <small>The logos displayed in this page are property of the respective organisations and they are
+            not distributed under the same license as Fastify (MIT).</small>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="how-to-be-featured">
+  <div class="container content">
+    <div class="columns is-centered">
+      <div class="column is-12">
+        <h2>How to be featured here</h2>
+        <p>Is your organisation using Fastify? That's great!</p>
+        <p>If you would like your organisation to have its logo featured in this list, here's how you do it!</p>
+        <p>You can submit your organisation, your logo and other few relevant details by following these steps:</p>
+        <ol>
+          <li>Fork the <a href="https://github.com/fastify/website">Fastify website repository</a> on GitHub.</li>
+          <li>
+            Add the logo in the folder <code>src/website/content/images/organisations</code>.<br />
+            Please make sure that your logo complies to the following specs:
+            <ul>
+              <li>Encoded in SVG (Scalable Vector Graphics) format</li>
+              <li>Be reasonably optimized/minified (you can use <a href="https://imageoptim.com">imageOptim</a>)</li>
+              <li>Make sure image "width" or "height" are explicitely specified in the "svg" tag</li>
+            </ul>
+          </li>
+          <li>Update the file <code>src/website/data/organisations.yml</code> with a new entry (in alphabetical order by
+            organization name).<br />
+            Your entry must provide:
+            <ul>
+              <li><code>name</code>: the name of your organisation</li>
+              <li><code>image</code>: the filename of the logo you added in the previous step</li>
+              <li><code>link</code>: a link to a website that represents your organisation (please include
+                <code>http(s)://</code>)</li>
+            </ul>
+            Please, make sure not to break the YAML syntax of the file.
+          </li>
+          <li>Submit a PR!</li>
+        </ol>
+        <p>As soon as your PR is reviewed and merged, your awesome logo will appear in this page.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 {% endblock %}

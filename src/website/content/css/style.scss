@@ -2,6 +2,12 @@
 
 $link: #04625C;
 $primary: #04625C;
+$primary-alt: #05f4e5;
+$primary-alt-darker: darken(#05f4e5, 10%);
+$white: #fff;
+$light: #eee;
+$black: #111;
+$dark: #333;
 
 @import "../../../../node_modules/bulma/bulma.sass";
 
@@ -212,7 +218,7 @@ a > code {
   padding-bottom: 0;
 }
 
-#openjs-logo {
+.openjs-logo {
   padding: 2em 0 1em 0;
   width: 60%;
   max-width: 380px
@@ -244,7 +250,7 @@ a > code {
 	  border-radius: 50%;
 	  margin: 0 auto;
   }
-  
+
   .good-issue {
     margin: 0 0 .5em 0;
   }
@@ -268,4 +274,90 @@ a > code {
 
 .media.v-center {
   align-items: center;
+}
+
+// lightweight dark mode using some overrides
+@media (prefers-color-scheme: dark) {
+  body {
+    background: $dark;
+    color: $white;
+  }
+  strong {
+    color: $white;
+  }
+  a {
+    color: $primary-alt;
+    &:hover,
+    &:focus{
+      color: $primary-alt-darker;
+    }
+  }
+  .breadcrumb {
+    a {
+      color: $primary-alt;
+      &:hover,
+      &:focus{
+        color: $primary-alt-darker;
+      }
+    }
+  }
+  .menu-label{
+    color: $light;
+  }
+  .menu-list {
+    a {
+      color: $light;
+    }
+  }
+  .title{
+    color: $light;
+  }
+  .box, .card{
+    background: $black;
+    color: $light;
+  }
+  .panel-block{
+    color: $light;
+  }
+  .content{
+    h1, h2, h3, h4, h5, h6{
+      color: $white;
+    }
+    table td,
+    table th{
+      border-color: $black;
+    }
+  }
+  .table{
+    background: #222;
+    color: $white;
+
+    thead{
+      background-color: $black;
+      color: $white;
+    }
+    &.is-striped tbody tr:not(.is-selected):nth-child(2n){
+      background-color: $dark;
+    }
+  }
+  .content table thead td,
+  .content table thead th{
+    color: $white;
+  }
+
+  .section.alternate{
+    background: $dark;
+    border-color: #4a4a4a;
+  }
+  .section.alternate.section-logos{
+    background: $white;
+    color: $dark;
+  }
+  .footer{
+    background: $black;
+  }
+  .openjs-logo{
+    background: $light;
+    padding: 1em;
+  }
 }
