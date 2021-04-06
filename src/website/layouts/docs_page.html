@@ -1,63 +1,47 @@
 {% extends "default.html" %}
 
 {% block content %}
-<section class="hero is-primary" style="background-image: url(/{{ hashes['images/bg-pattern-dark.png'] }})">
-  <div class="hero-body">
+  <section class="hero is-primary" style="background-image: url(/{{ hashes['images/bg-pattern-dark.png'] }})">
+    <div class="hero-body">
       <div class="container">
         <h1 class="title">
           {% set versionTitle = fullVersion %}
           {% if version == 'latest' %}
-            {% set versionTitle = 'latest — ' + data.docs.releases[0].fullVersion %}
+            {% set versionTitle = 'latest — ' + data
+              .docs
+              .releases[0]
+              .fullVersion %}
           {% endif %}
           Documentation ({{ versionTitle }})
         </h1>
       </div>
-  </div>
-</section>
+    </div>
+  </section>
 
-<section class="section">
-	<div class="container">
-    <div class="columns">
+  <section class="section">
+    <div class="container">
+      <div class="columns">
 
-      <div class="column is-3 is-hidden-mobile" data-sticky-container>
-        <aside class="menu sticky">
-          <p class="menu-label">
+        <div class="column is-3 is-hidden-mobile" data-sticky-container>
+          <aside class="menu sticky">
+            <p class="menu-label">
             Table of contents
           </p>
-          <ul class="menu-list">
-            {% for item in data.docs.toc[version] %}
-              <li {% if item.link == '/' + path %}id="doc-menu-section"{% endif %}>
-                <a title="{{ item.name | striptags }}" {% if item.link == '/' + path %}class="is-active"{% endif %} href="{{ item.link }}">{{ item.name }}</a>
-              </li>
-            {% endfor %}
-          </ul>
-          <div class="content" style="margin: .8em; border-top: 1px solid #ccc; padding: .8em 0 0 0">
+            <ul class="menu-list">
+              {% for item in data
+                .docs
+                .toc[version] %}
+                <li {% if item.link == '/' + path %}id="doc-menu-section"{% endif %}>
+                  <a title="{{ item.name | striptags }}" {% if item.link == '/' + path %}class="is-active"{% endif %} href="{{ item.link }}">{{ item.name }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+            <div class="content" style="margin: .8em; border-top: 1px solid #ccc; padding: .8em 0 0 0">
             Docs version
             <div class="field">
-              <div class="control">
-                <div class="select">
-                  <select onchange="if (this.value) window.location.href=this.value">
-                    {% for v in data.docs.versions %}
-                      <option {% if docsPath == v %}selected="selected"{% endif %} value="/docs/{{ v }}">{{ v }}</option>
-                    {% endfor %}
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-        </aside>
-      </div>
-
-      <div class="column is-9">
-        <nav class="breadcrumb">
-          <ul>
-            <li><a href="/" style="padding-left: 0">Fastify</a></li>
-            <li><a href="/docs/">Documentation</a></li>
-            <li>
-              <div class="field">
                 <div class="control">
                   <div class="select">
-                    <select onchange="if (this.value) window.location.href=this.value" style="border: none;">
+                    <select onchange="if (this.value) window.location.href=this.value">
                       {% for v in data.docs.versions %}
                         <option {% if docsPath == v %}selected="selected"{% endif %} value="/docs/{{ v }}">{{ v }}</option>
                       {% endfor %}
@@ -65,75 +49,119 @@
                   </div>
                 </div>
               </div>
-            </li>
-            <li class="is-active"><a>{{ title }}</a></li>
-          </ul>
-        </nav>
-
-        <div id="doc-content" class="content">
-          {{ contents | safe }}
+            </div>
+          </aside>
         </div>
 
-        <hr/>
-        <nav class="level">
-        {% for item in data.docs.toc[version] %}
-          {% if item.link == '/' + path %}
-            <div class="level-left">
-              <div class="level-item">
-                {% if loop.first %}
+        <div class="column is-9">
+          <nav class="breadcrumb">
+            <ul>
+              <li>
+                <a href="/" style="padding-left: 0">Fastify</a>
+              </li>
+              <li>
+                <a href="/docs/">Documentation</a>
+              </li>
+              <li>
+                <div class="field">
+                  <div class="control">
+                    <div class="select">
+                      <select onchange="if (this.value) window.location.href=this.value" style="border: none;">
+                        {% for v in data.docs.versions %}
+                          <option {% if docsPath == v %}selected="selected"{% endif %} value="/docs/{{ v }}">{{ v }}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              {% set partLink = "/docs/" + docsPath + "/" %}
+              {% for part in prefixParts %}
+                {% set partLink = partLink + part + "/" %}
+                <li>
+                  <a href="{{ partLink }}Index/">{{ part }}</a>
+                </li>
+              {% endfor %}
+              <li class="is-active">
+                <a>{{ title }}</a>
+              </li>
+            </ul>
+          </nav>
+
+          <div id="doc-content" class="content">
+            {{ contents | safe }}
+          </div>
+
+          <hr/>
+          <nav class="level">
+            {% for item in data
+              .docs
+              .toc[version] %}
+              {% if item.link == '/' + path %}
+                <div class="level-left">
+                  <div class="level-item">
+                    {% if loop.first %}
                   &nbsp;
                 {% else %}
-                  {% set previous = loop.index0 - 1 %}
-                  {% set previous_page = data.docs.toc[version][previous] %}
-                  <a href="{{ previous_page.link }}" class="button prev">≪ {{ previous_page.name }}</a>
-                {% endif %}
-              </div>
-            </div>
-            <div class="level-right">
-              <div class="level-item">
-                {% if loop.last %}
+                      {% set previous = loop.index0 - 1 %}
+                      {% set previous_page = data
+                        .docs
+                        .toc[version][previous] %}
+                      <a href="{{ previous_page.link }}" class="button prev">≪ {{ previous_page.name }}</a>
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="level-right">
+                  <div class="level-item">
+                    {% if loop.last %}
                   &nbsp;
                 {% else %}
-                  {% set next = loop.index0 + 1 %}
-                  {% set next_page = data.docs.toc[version][next] %}
-                  <a href="{{ next_page.link }}" class="button next">{{ next_page.name }} ≫</a>
-                {% endif %}
-              </div>
-            </div>
-          {% endif %}
-        {% endfor %}
-        </nav>
+                      {% set next = loop.index0 + 1 %}
+                      {% set next_page = data
+                        .docs
+                        .toc[version][next] %}
+                      <a href="{{ next_page.link }}" class="button next">{{ next_page.name }} ≫</a>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </nav>
+        </div>
       </div>
-		</div>
-  </div>
-</section>
+    </div>
+  </section>
 
-<script>
-  // dynamically creates a submenu for the current section based on the content headers
-  var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
-  var currentMenu = document.getElementById('doc-menu-section')
-  if (titles.length && currentMenu) {
-    var submenu = document.createElement('ul')
-    titles.forEach(el => {
-      var currentSubmenuItem = document.createElement('li')
-      var currentSubmenuLink = document.createElement('a')
-      currentSubmenuLink.href = '#' + el.id
-      currentSubmenuLink.title = el.textContent
-      currentSubmenuLink.append(document.createTextNode(el.textContent))
-      currentSubmenuItem.append(currentSubmenuLink)
-      submenu.append(currentSubmenuItem)
+  <script>
+    // dynamically creates a submenu for the current section based on the content headers
+    var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
+    var currentMenu = document.getElementById('doc-menu-section')
+    if (titles.length && currentMenu) {
+      var submenu = document.createElement('ul')
+      titles.forEach(el => {
+        var currentSubmenuItem = document.createElement('li')
+        var currentSubmenuLink = document.createElement('a')
+        currentSubmenuLink.href = '#' + el.id
+        currentSubmenuLink.title = el
+          .textContent
+          currentSubmenuLink
+          .append(document.createTextNode(el.textContent))
+        currentSubmenuItem.append(currentSubmenuLink)
+        submenu.append(currentSubmenuItem)
+      })
+      currentMenu.append(submenu)
+    }
+
+    // dynamically creates header anchor links
+    var headers = document.querySelectorAll('#doc-content h3, #doc-content h4')
+    headers.forEach(el => {
+      var currentAnchorLink = document.createElement('a')
+      currentAnchorLink.className = 'anchor'
+      currentAnchorLink.href = "#" + el
+        .id
+        currentAnchorLink
+        .append(document.createTextNode('¶'))
+      el.insertBefore(currentAnchorLink, el.firstChild);
     })
-    currentMenu.append(submenu)
-  }
-
-  // dynamically creates header anchor links
-  var headers = document.querySelectorAll('#doc-content h3, #doc-content h4')
-  headers.forEach(el => {
-    var currentAnchorLink = document.createElement('a')
-    currentAnchorLink.className = 'anchor'
-    currentAnchorLink.href = "#" + el.id
-    currentAnchorLink.append(document.createTextNode('¶'))
-    el.insertBefore(currentAnchorLink, el.firstChild);
-  })
-</script>
+  </script>
 {% endblock %}
