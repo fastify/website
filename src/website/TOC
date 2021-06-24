@@ -1,0 +1,55 @@
+// recommedations for table of contents; added new Overview paragraph; suggest you add a Terminology section defining things
+
+# Getting Started
+## Overview - Get Faster!
+When it comes to multi-request service we want it fast, cheap and with no frills.  Plus we don’t want to sacrifice 
+security validations and creative development.  Enter Fastify.  It is highly focused on providing the best 
+developer experience with the least overhead and a powerful plugin architecture. It’s inspired by Hapi and Express, 
+and as far as we know it is one of the fastest web frameworks in town.  Get Fastify get happy users FAST!
+
+This guide introduces you to the framework and its features as well as coding recommendations 
+to make the most of your build.  Let’s get going…!
+
+## Install
+
+
+# Infrastructure Setup
+## Server
+## Routes
+## Middleware
+
+# Code Organization
+## Validation and Serialization
+## Fluent Schema
+## Lifecycle
+## Hooks
+## Request
+## Reply
+## Content Type Parser
+
+# Enhancements
+## Decorators
+## Plugins
+
+# Monitoring & Maintenance 
+## Logging
+## Testing
+## Benchmarking
+## Errors
+
+# Tutorials
+## How to write a good plugin
+## Serverless
+
+# Resources
+## Plugins Guide
+## Terminology
+## TypeScript and types support
+## HTTP2
+## Long Term Support
+
+
+// for Terminology section recommended terms to define...
+plugin, register, decorator, Pino, find-my-way routing, asynchronous bootstrapping, fastify-mongo, make-promises-safe, JSON, CLI, HTTP2, done, options, after API
+
+
