@@ -97,6 +97,7 @@
 - name: "Microsoft"
   image: "microsoft.svg"
   link: "https://docs.microsoft.com"
+  pinned: true
 
 - name: "Mr Porter"
   image: "mrp.svg"

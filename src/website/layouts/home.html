@@ -52,7 +52,7 @@
     <div class="columns is-centered">
       <div class="column is-12">
         <ul class="organisations-list">
-          {% set shuffledOrganisations = data.organisations | shuffle %}
+          {% set shuffledOrganisations = data.organisations | shuffleWithPinned %}
           {% for organizationIndex in range(0, 12) %}
             {% set organization = shuffledOrganisations[organizationIndex] %}
             {% if organization %}

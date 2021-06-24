@@ -51,6 +51,19 @@ env.addGlobal('getContext', function () {
 env.addGlobal('currentYear', new Date().getFullYear())
 env.addFilter('md', markdownFilter)
 env.addFilter('shuffle', arr => shuffle(arr))
+env.addFilter('shuffleWithPinned', arr => {
+  const pinned = []
+  const remaining = []
+  for (const e of arr) {
+    if (e.pinned === true) {
+      pinned.push(e)
+    } else {
+      remaining.push(e)
+    }
+  }
+
+  return [...pinned, ...shuffle(remaining)]
+})
 
 Metalsmith(source)
   .source(path.join(source, 'content'))
