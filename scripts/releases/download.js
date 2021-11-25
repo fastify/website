@@ -7,7 +7,7 @@ const axios = require('axios')
 const unzip = require('unzip-stream')
 const parseLinkHeader = require('parse-link-header')
 const compareVersions = require('compare-versions')
-const { fileExists } = require('./utils')
+const { fileExists } = require('../utils')
 
 const repository = process.argv[2] || 'fastify/fastify'
 const dest = resolve(process.argv[3] || 'releases')

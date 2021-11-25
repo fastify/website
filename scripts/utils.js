@@ -2,7 +2,7 @@ const { access } = require('fs')
 const { resolve, join, basename: getBaseName, dirname: getDirName } = require('path')
 const { mkdir, copyFile, readdir } = require('fs').promises
 const crypto = require('crypto')
-const multimatch = require('multimatch')
+const multimatch = import('multimatch')
 const path = require('path')
 
 function fileExists (path) {

@@ -1,10 +1,7 @@
-#!/usr/bin/env node
-
 const { join, dirname, basename } = require('path')
 const { promises: fs } = require('fs')
 const { dump } = require('js-yaml')
-const clone = require('clone')
-const { copyDir, fileExists, getFiles } = require('./utils')
+const { copyDir, fileExists, getFiles } = require('../utils')
 
 const sourceFolder = process.argv[2]
 const destFolder = process.argv[3]
@@ -38,11 +35,8 @@ async function createDocSources (releases) {
     }, {})
     return acc
   }, {})
-  const versions = releases.map(r => r.docsPath)
   await Promise.all(releases.map(copyNestedFoldersForRelease))
-  await createDocsDataFile(join(destFolder, 'data', 'docs.yml'), { versions, toc: indexedToc, releases })
   await processDocFiles(indexedToc, latestRelease)
-  await createIndexFiles(releases)
 }
 
 async function extractTOCFromReleaseStructure (root, release) {
@@ -67,7 +61,7 @@ async function extractTOCFromReleaseStructure (root, release) {
 
     const name = fileName.split('.').slice(0, -1).join('.') // get name without extension
     const sourceFile = join(root, 'docs', filePath === 'reference' ? '' : filePath, fileName)
-    const destinationFile = join(destFolder, 'content', 'docs', release.docsPath, filePath, fileName)
+    const destinationFile = join(destFolder, 'docs', release.docsPath, filePath, fileName)
     const slug = basename(sourceFile, '.md')
     const link = `/docs/${release.docsPath}${filePath !== '' ? '/' + filePath : ''}/${slug}`
 
@@ -84,12 +78,6 @@ async function extractTOCFromReleaseStructure (root, release) {
       label: release.label
     }
 
-    Object.keys(toc).forEach(key => {
-      if (key !== 'sourceFile') {
-        toc[key] = toc[key].replace('Index', 'index')
-      }
-    })
-
     return toc
   })
 
@@ -103,21 +91,6 @@ async function getTOCForRelease (release) {
   const root = join(folder, subFolder)
 
   return extractTOCFromReleaseStructure(root, release)
-}
-
-function createDocsDataFile (destination, docsInfo) {
-  const toDump = clone(docsInfo)
-  // remove sourceFile and destinationFile keys from toc
-  Object.keys(toDump.toc).forEach((version) => {
-    Object.keys(toDump.toc[version]).forEach((section, i) => {
-      toDump.toc[version][section].forEach((item, i) => {
-        delete toDump.toc[version][section][i].sourceFile
-        delete toDump.toc[version][section][i].destinationFile
-      })
-    })
-  })
-
-  return fs.writeFile(destination, dump(toDump), 'utf8')
 }
 
 async function processDocFiles (docs, latestRelease) {
@@ -152,40 +125,12 @@ async function processDocFiles (docs, latestRelease) {
     // remap links
     content = remapLinks(content, item)
 
-    // adds frontmatter
-    content =
-`---
-title: ${item.name}
-layout: docs_page.html
-path: ${item.link}
-version: ${item.version}
-fullVersion: ${item.fullVersion}
-label: ${item.label}
-docsPath: ${item.docsPath}
-section: ${item.section}
-${item.version === 'latest' ? `canonical: "${item.link.replace(/latest/, latestRelease.label)}"` : ''}
-${item.version === 'master' ? `github_url: https://github.com/fastify/fastify/blob/master/docs/${item.fileName}` : ''}
----
-${content}`
-
     await fs.writeFile(item.destinationFile, content, 'utf8')
     console.log(`Created doc page ${item.destinationFile}`)
   }
 }
 
 function remapLinks (content, item) {
-  /*
-    Links remapping rules:
-    /https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/ -> /docs/[VERSION]
-    [XXXX](Plugins.md) -> [XXXX](/docs/[VERSION]/Plugins)
-    [XXXX](Ecosystem.md) -> [XXXX](/ecosystem)
-    [XXXX](/docs/VVVV/Ecosystem.md) -> [XXXX](/ecosystem)
-    [XXXX](/docs/VVVV/YYYY.md) -> [XXXX](/docs/VVVV/YYYY)
-    [XXXX]('./YYYY' "ZZZZ") -> [XXXX]('/docs/[VERSION]/YYYY' "ZZZZ")
-    [XXXX](./YYYY "ZZZZ") -> [XXXX]('/docs/[VERSION]/YYYY' "ZZZZ")
-    href="https://github.com/fastify/fastify/blob/master/docs/YYYY.md -> href="/docs/[VERSION]/YYYY
-    [XXXX](./resources/YYYY.ZZZZ) -> [XXXX](/docs/[VERSION]/resources/YYYY.ZZZZ)
-  */
   const ecosystemLinkRx = /\(\/docs\/[\w\d.-]+\/Ecosystem\.md\)/gi
   const docInternalLinkRx = /\(\/docs\/[\w\d.-]+\/[\w\d-]+(.md)/gi
   const ecosystemLink = /\(Ecosystem\.md\)/gi
@@ -196,52 +141,15 @@ function remapLinks (content, item) {
   const absoluteLinks = /https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/gi
   const docResourcesLink = /\(.\/?resources\/([a-zA-Z0-9\-_]+\..+)\)/gi
   return content
-    .replace(hrefAbsoluteLinks, (match, p1) => `href="/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/${p1}`)
+    .replace(hrefAbsoluteLinks, (_, p1) => `href="/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/${p1}`)
     .replace(absoluteLinks, `/docs/${item.version}`)
-    .replace(ecosystemLinkRx, (match) => '(/ecosystem)')
-    .replace(ecosystemLink, (match) => '(/ecosystem)')
-    .replace(pluginsLink, (match) => `(/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/Plugins)`)
-    .replace(relativeLinks, (match, ...parts) => `(/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/${parts[2]}${parts[3] || ''})`)
-    .replace(relativeLinksWithLabel, (match, ...parts) => `(/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/${parts[1]} "${parts[3]}")`)
+    .replace(ecosystemLinkRx, () => '(/ecosystem)')
+    .replace(ecosystemLink, () => '(/ecosystem)')
+    .replace(pluginsLink, () => `(/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/Plugins)`)
+    .replace(relativeLinks, (_, ...parts) => `(/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/${parts[2]}${parts[3] || ''})`)
+    .replace(relativeLinksWithLabel, (_, ...parts) => `(/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/${parts[1]} "${parts[3]}")`)
     .replace(docInternalLinkRx, (match, p1) => match.replace(p1, ''))
-    .replace(docResourcesLink, (match, p1) => `(/docs/${item.version}/resources/${p1})`)
-}
-
-async function createVersionIndexFile (release) {
-  const content = `---
-title: Documentation - ${release.name}
-layout: docs_version_index.html
-path: /docs/${release.docsPath}
-version: ${release.name}
-fullVersion: ${release.fullVersion}
-label: ${release.label}
-docsPath: ${release.docsPath}
-${release.name === 'latest' ? `canonical: "/docs/${release.label}"` : ''}
-github_url: "https://github.com/fastify/website/blob/master/src/website/layouts/docs_version_index.html"
----`
-
-  const dest = join(destFolder, 'content', 'docs', release.docsPath, 'index.md')
-  await fs.writeFile(dest, content, 'utf8')
-  console.log(`Created doc index page ${dest}`)
-}
-
-async function createIndexFiles (releases) {
-  // create docs index
-
-  const docsIndexContent = `---
-title: Documentation
-layout: docs_index.html
-path: /docs
-github_url: "https://github.com/fastify/website/blob/master/src/website/layouts/docs_index.html"
----`
-
-  const dest = join(destFolder, 'content', 'docs', 'index.md')
-  await fs.writeFile(dest, docsIndexContent, 'utf8')
-  console.log(`Created docs index at ${dest}`)
-
-  for (const release of releases) {
-    await createVersionIndexFile(release)
-  }
+    .replace(docResourcesLink, (_, p1) => `(/docs/${item.version}/resources/${p1})`)
 }
 
 const extractPlugins = (pluginContent) => {
@@ -296,7 +204,7 @@ async function extractEcosystemFromFile (file) {
 
 async function createEcosystemDataFile (masterReleaseDownloadPath) {
   const versionFolder = join(sourceFolder, masterReleaseDownloadPath)
-  const destination = join(destFolder, 'data', 'ecosystem.yml')
+  const destination = join(destFolder, 'ecosystem.yml')
   const files = await fs.readdir(versionFolder)
   const subfolder = files.find(file => file.match(/^fastify-/))
   const ecosystemFile = join(versionFolder, subfolder, 'docs', 'Ecosystem.md')
@@ -317,7 +225,7 @@ async function copyNestedFoldersForRelease (release) {
     .map(dirent => dirent.name)
     .forEach(folder => {
       const src = join(docsSrc, folder)
-      const dest = join(destFolder, 'content', 'docs', release.docsPath, folder)
+      const dest = join(destFolder, 'docs', release.docsPath, folder)
       copyDir(src, dest)
     })
 }
