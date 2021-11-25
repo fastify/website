@@ -49,16 +49,24 @@ const config = {
           src: 'img/logo.svg',
         },
         items: [
+          {to: '/docs/intro', label: 'Docs', position: 'left'},
+          {to: '/ecosystem', label: 'Ecosystem', position: 'left'},
+          {to: '/benchmarks', label: 'Benchmarks', position: 'left'},
+          {to: '/contribute', label: 'Contribute', position: 'left'},
+          {to: '/blog', label: 'Blog', position: 'left'},
           {
-            type: 'doc',
-            docId: 'intro',
-            position: 'right',
-            label: 'Docs',
+            href: 'https://github.com/fastify/help',
+            label: 'Help',
+            position: 'left',
           },
-          {to: '/blog', label: 'Blog', position: 'right'},
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/fastify/fastify',
             label: 'GitHub',
+            position: 'right',
+          },
+          {
+            href: 'https://twitter.com/fastifyjs',
+            label: 'Twitter',
             position: 'right',
           },
         ],
@@ -70,8 +78,8 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
-                to: '/docs/intro',
+                label: 'Docs',
+                to: '/docs',
               },
             ],
           },
