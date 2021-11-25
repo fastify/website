@@ -21,7 +21,7 @@ If you are using promises, you should attach a `.catch()` handler synchronously.
 Fastify follows an all-or-nothing approach and aims to be lean and optimal as much as possible. The developer is responsible for making sure that the errors are handled properly.
 
 #### Errors In Input Data
-Most errors are a result of unexpected input data, so we recommend [validating your input data against a JSON schema](Validation-and-Serialization.md).
+Most errors are a result of unexpected input data, so we recommend [validating your input data against a JSON schema](./Validation-and-Serialization.md).
 
 #### Catching Uncaught Errors In Fastify
 Fastify tries to catch as many uncaught errors as it can without hindering performance. This includes:

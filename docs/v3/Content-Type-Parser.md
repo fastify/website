@@ -12,7 +12,7 @@ Natively, Fastify only supports `'application/json'` and `'text/plain'` content 
 
 As with the other APIs, `addContentTypeParser` is encapsulated in the scope in which it is declared. This means that if you declare it in the root scope it will be available everywhere, while if you declare it inside a plugin it will be available only in that scope and its children.
 
-Fastify automatically adds the parsed request payload to the [Fastify request](Request.md) object which you can access with `request.body`.
+Fastify automatically adds the parsed request payload to the [Fastify request](./Request.md) object which you can access with `request.body`.
 
 ### Usage
 ```js

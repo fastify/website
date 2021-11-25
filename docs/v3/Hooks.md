@@ -33,10 +33,10 @@ By using hooks you can interact directly with the lifecycle of Fastify. There ar
 
 ## Request/Reply Hooks
 
-[Request](Request.md) and [Reply](Reply.md) are the core Fastify objects.<br/>
-`done` is the function to continue with the [lifecycle](Lifecycle.md).
+[Request](./Request.md) and [Reply](./Reply.md) are the core Fastify objects.<br/>
+`done` is the function to continue with the [lifecycle](./Lifecycle.md).
 
-It is easy to understand where each hook is executed by looking at the [lifecycle page](Lifecycle.md).<br/>
+It is easy to understand where each hook is executed by looking at the [lifecycle page](./Lifecycle.md).<br/>
 Hooks are affected by Fastify's encapsulation, and can thus be applied to selected routes. See the [Scopes](#scope) section for more information.
 
 There are eight different hooks that you can use in Request/Reply *(in order of execution)*:

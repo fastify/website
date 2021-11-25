@@ -39,8 +39,8 @@ fastify.use(require('cors')());
 
 ### Changed logging serialization ([#2017](https://github.com/fastify/fastify/pull/2017))
 
-The logging [Serializers](Logging.md) have been updated to now Fastify
-[`Request`](Request.md) and [`Reply`](Reply.md) objects instead of
+The logging [Serializers](./Logging.md) have been updated to now Fastify
+[`Request`](./Request.md) and [`Reply`](./Reply.md) objects instead of
 native ones.
 
 Any custom serializers must be updated if they rely upon `request` or `reply`
@@ -273,7 +273,7 @@ fastify.get('/', (request, reply) => {
 
 - Hooks now have consistent context regardless of how they are registered
 ([#2005](https://github.com/fastify/fastify/pull/2005))
-- Deprecated `request.req` and `reply.res` for [`request.raw`](Request.md) and
+- Deprecated `request.req` and `reply.res` for [`request.raw`](./Request.md) and
 [`reply.raw`](Reply.md) ([#2008](https://github.com/fastify/fastify/pull/2008))
 - Removed `modifyCoreObjects` option ([#2015](https://github.com/fastify/fastify/pull/2015))
 - Added [`connectionTimeout`](./Reference/Server.md#factory-connection-timeout)

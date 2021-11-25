@@ -74,7 +74,7 @@ console.log(util('that is ', 'awesome'))
 Now you will import your utility in every file you need it in. (And do not forget that you will probably also need it in your tests).
 
 Fastify offers you a more elegant and comfortable way to do this, *decorators*.
-Creating a decorator is extremely easy, just use the [`decorate`](Decorators.md) API:
+Creating a decorator is extremely easy, just use the [`decorate`](./Decorators.md) API:
 ```js
 fastify.decorate('util', (a, b) => a + b)
 ```
@@ -179,7 +179,7 @@ fastify.get('/happiness', (request, reply) => {
 })
 ```
 
-We have seen how to extend server functionality and how to handle the encapsulation system, but what if you need to add a function that must be executed every time when the server "[emits](Lifecycle.md)" an event?
+We have seen how to extend server functionality and how to handle the encapsulation system, but what if you need to add a function that must be executed every time when the server "[emits](./Lifecycle.md)" an event?
 
 ## Hooks
 You just built an amazing utility, but now you need to execute that for every request, this is what you will likely do:
@@ -198,7 +198,7 @@ fastify.get('/plugin2', (request, reply) => {
 ```
 I think we all agree that this is terrible. Repeated code, awful readability and it cannot scale.
 
-So what can you do to avoid this annoying issue? Yes, you are right, use a [hook](Hooks.md)!<br/>
+So what can you do to avoid this annoying issue? Yes, you are right, use a [hook](./Hooks.md)!<br/>
 ```js
 fastify.decorate('util', (request, key, value) => { request[key] = value })
 
@@ -264,7 +264,7 @@ module.exports = fp(dbPlugin)
 ```
 You can also tell `fastify-plugin` to check the installed version of Fastify, in case you need a specific API.
 
-As we mentioned earlier, Fastify starts loading its plugins __after__ `.listen()`, `.inject()` or `.ready()` are called and as such, __after__ they have been declared. This means that, even though the plugin may inject variables to the external Fastify instance via [`decorate`](Decorators.md), the decorated variables will not be accessible before calling `.listen()`, `.inject()` or `.ready()`.
+As we mentioned earlier, Fastify starts loading its plugins __after__ `.listen()`, `.inject()` or `.ready()` are called and as such, __after__ they have been declared. This means that, even though the plugin may inject variables to the external Fastify instance via [`decorate`](./Decorators.md), the decorated variables will not be accessible before calling `.listen()`, `.inject()` or `.ready()`.
 
 In case you rely on a variable injected by a preceding plugin and want to pass that in the `options` argument of `register`, you can do so by using a function instead of an object:
 ```js

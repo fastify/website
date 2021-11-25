@@ -35,7 +35,7 @@ fastify.route(options)
 * `url`: the path of the URL to match this route (alias: `path`).
 * `schema`: an object containing the schemas for the request and response.
 They need to be in
-  [JSON Schema](https://json-schema.org/) format, check [here](Validation-and-Serialization.md) for more info.
+  [JSON Schema](https://json-schema.org/) format, check [here](./Validation-and-Serialization.md) for more info.
 
   * `body`: validates the body of the request if it is a POST, PUT, or PATCH method.
   * `querystring` or `query`: validates the querystring. This can be a complete JSON
@@ -57,28 +57,28 @@ They need to be in
 * `onError(request, reply, error, done)`: a [function](Hooks.md#onerror) called when an Error is thrown or send to the client by the route handler.
 * `handler(request, reply)`: the function that will handle this request. The [Fastify server](./Reference/Server.md) will be bound to `this` when the handler is called. Note: using an arrow function will break the binding of `this`.
 * `errorHandler(error, request, reply)`: a custom error handler for the scope of the request. Overrides the default error global handler, and anything set by [`setErrorHandler`](./Reference/Server.md#setErrorHandler), for requests to the route. To access the default handler, you can access `instance.errorHandler`. Note that this will point to fastify's default `errorHandler` only if a plugin hasn't overridden it already.
-* `validatorCompiler({ schema, method, url, httpPart })`: function that builds schemas for request validations. See the [Validation and Serialization](Validation-and-Serialization.md#schema-validator) documentation.
-* `serializerCompiler({ { schema, method, url, httpStatus } })`: function that builds schemas for response serialization. See the [Validation and Serialization](Validation-and-Serialization.md#schema-serializer) documentation.
-* `schemaErrorFormatter(errors, dataVar)`: function that formats the errors from the validation compiler. See the [Validation and Serialization](Validation-and-Serialization.md#error-handling) documentation. Overrides the global schema error formatter handler, and anything set by `setSchemaErrorFormatter`, for requests to the route.
+* `validatorCompiler({ schema, method, url, httpPart })`: function that builds schemas for request validations. See the [Validation and Serialization](./Validation-and-Serialization.md#schema-validator) documentation.
+* `serializerCompiler({ { schema, method, url, httpStatus } })`: function that builds schemas for response serialization. See the [Validation and Serialization](./Validation-and-Serialization.md#schema-serializer) documentation.
+* `schemaErrorFormatter(errors, dataVar)`: function that formats the errors from the validation compiler. See the [Validation and Serialization](./Validation-and-Serialization.md#error-handling) documentation. Overrides the global schema error formatter handler, and anything set by `setSchemaErrorFormatter`, for requests to the route.
 * `bodyLimit`: prevents the default JSON body parser from parsing request bodies larger than this number of bytes. Must be an integer. You may also set this option globally when first creating the Fastify instance with `fastify(options)`. Defaults to `1048576` (1 MiB).
 * `logLevel`: set log level for this route. See below.
 * `logSerializers`: set serializers to log for this route.
 * `config`: object used to store custom configuration.
-* `version`: a [semver](https://semver.org/) compatible string that defined the version of the endpoint. [Example](Routes.md#version).
+* `version`: a [semver](https://semver.org/) compatible string that defined the version of the endpoint. [Example](./Routes.md#version).
 * `prefixTrailingSlash`: string used to determine how to handle passing `/` as a route with a prefix.
   * `both` (default): Will register both `/prefix` and `/prefix/`.
   * `slash`: Will register only `/prefix/`.
   * `no-slash`: Will register only `/prefix`.
 
-  `request` is defined in [Request](Request.md).
+  `request` is defined in [Request](./Request.md).
 
-  `reply` is defined in [Reply](Reply.md).
+  `reply` is defined in [Reply](./Reply.md).
 
 **Notice:** The documentation of `onRequest`, `preParsing`, `preValidation`,
 `preHandler`, `preSerialization`, `onSend`, and `onResponse` are described in
-more detail in [Hooks](Hooks.md). Additionally, to send a response before the
+more detail in [Hooks](./Hooks.md). Additionally, to send a response before the
 request is handled by the `handler` please refer to
-[Respond to a request from a hook](Hooks.md#respond-to-a-request-from-a-hook).
+[Respond to a request from a hook](./Hooks.md#respond-to-a-request-from-a-hook).
 
 Example:
 ```js

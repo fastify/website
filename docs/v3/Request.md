@@ -28,7 +28,7 @@ Request is a core Fastify object containing the following fields:
 - `connection` - Deprecated, use `socket` instead. The underlying connection of the incoming request.
 - `socket` - the underlying connection of the incoming request
 - `context` - A Fastify internal object. You should not use it directly or modify it. It is useful to access one special key:
-  - `context.config` - The route [`config`](Routes.md#routes-config) object.
+  - `context.config` - The route [`config`](./Routes.md#routes-config) object.
 
 ### Headers
 
