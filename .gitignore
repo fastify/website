@@ -5,6 +5,7 @@
 /build
 /releases
 /src/docs
+/src/ecosystem.yml
 
 # Generated files
 .docusaurus
