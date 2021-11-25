@@ -6,15 +6,15 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Fastify test site',
+  title: 'Fastify',
   tagline: 'Fast and low overhead web framework, for Node.js',
-  url: 'https://www.fastify.io/',
-  baseUrl: '/docs/',
+  url: 'https://fastify.io',
+  baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'fastify', // Usually your GitHub org/user name.
-  projectName: 'fastify-next', // Usually your repo name.
+  projectName: 'website-next', // Usually your repo name.
 
   presets: [
     [
@@ -24,8 +24,28 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/fastify/website-next/edit/main/website/',
-          routeBasePath: "/"
+          editUrl: 'https://github.com/fastify/website-next/edit/main/docs/',
+          lastVersion: "current",
+          versions: {
+            current: {
+              label: "v3.x (Current)",
+              path: "v3",
+            },
+            "v2": {
+              label: "v2.x",
+              path: "v2",
+            },
+            "v1": {
+              label: "v1.x",
+              path: "v1",
+            },
+          },
+        },
+        blog: {
+          showReadingTime: true,
+          // Please change this to your repo.
+          editUrl:
+            'https://github.com/fastify/website-next/edit/main/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -38,16 +58,30 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
+        title: 'Fastify',
         logo: {
           alt: 'Fastify Logo',
           src: 'img/fastify-logo.png',
         },
         items: [
           {
-            type: 'doc',
-            docId: 'getting-started',
+            type: "docsVersionDropdown",
+            position: "left"
+          },
+          {
+            type: "doc",
+            docId: "index",
+            position: "left",
+            label: "Docs",
+          },
+          {to: '/ecosystem', label: 'Ecosystem', position: 'left'},
+          {to: '/benchmarks', label: 'Benchmarks', position: 'left'},
+          {to: '/contribute', label: 'Contribute', position: 'left'},
+          {to: '/blog', label: 'Blog', position: 'left'},
+          {
+            href: 'https://github.com/fastify/help',
+            label: 'Help',
             position: 'left',
-            label: 'Docs',
           },
           {
             href: 'https://github.com/fastify/fastify',
@@ -68,8 +102,8 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Getting started',
-                to: '/docs/getting-started',
+                label: 'Docs',
+                to: '/docs/v3/',
               },
             ],
           },

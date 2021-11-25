@@ -1,25 +1,17 @@
-# Docusaurus demo site
+# Website
 
-This website is meant to be a demo for a proposed overhaul to the Fastify docs using Docusaurus.
-
-## About
-
-This project is currently run in docs-only mode, bypassing Docusaurus' ability to serve statically-rendered react pages (ex. for a home page or similar). As such, the `src` directory serves no purpose other than providing a convenient way for us to test that feature.
-
-This demo serves documentation from the `docs` directory, with each markdown file representing a page.
-
-Due to this being a docs-only demo, it uses `/docs` as the base path. ex. when running in development mode use `http://localhost:3000/docs` to access the demo.
+This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
 
 ### Installation
 
 ```
-npm install
+$ yarn
 ```
 
 ### Local Development
 
 ```
-npm run start
+$ yarn start
 ```
 
 This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
@@ -27,7 +19,15 @@ This command starts a local development server and opens up a browser window. Mo
 ### Build
 
 ```
-npm run build
+$ yarn build
 ```
 
 This command generates static content into the `build` directory and can be served using any static contents hosting service.
+
+### Deployment
+
+```
+$ GIT_USER=<Your GitHub username> USE_SSH=true yarn deploy
+```
+
+If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.

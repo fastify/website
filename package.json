@@ -1,5 +1,5 @@
 {
-  "name": "website-next",
+  "name": "fastify-website",
   "version": "0.0.0",
   "private": true,
   "scripts": {
