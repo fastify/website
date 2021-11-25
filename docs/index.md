@@ -6,32 +6,25 @@ sidebar_position: 1
 slug: /
 ---
 
-Let's discover **Docusaurus in less than 5 minutes**.
+The documentation for Fastify is split into two categories:
 
-## Getting Started
++ [Reference documentation](./02-Reference/index.md)
++ [Guides](./01-Guides/index.md)
 
-Get started by **creating a new site**.
+The reference documenation utilizes a very formal style in an effort to document
+Fastify's API and implementation details thoroughly for the developer who
+needs such. The guides category utilizes an informal, educational, style as
+a means to introduce newcomers to core, and advanced, Fastify concepts.
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+## Where To Start
 
-## Generate a new site
+Complete newcomers to Fastify should first read our [Getting Started](./01-Guides/Getting-Started.md) guide.
 
-Generate a new Docusaurus site using the **classic template**:
+Developers experienced with Fastify should consult the
+[reference documentation][Reference] directly to find the topic they are
+seeking more information about.
 
-```shell
-npm init docusaurus@latest my-website classic
-```
 
-## Start your site
+## Additional Documentation
 
-Run the development server:
-
-```shell
-cd my-website
-
-npx docusaurus start
-```
-
-Your site starts at `http://localhost:3000`.
-
-Open `docs/index.md` and edit some lines: the site **reloads automatically** and displays your changes.
++ Fastify's [Long Term Support (LTS)](./LTS.md) policy

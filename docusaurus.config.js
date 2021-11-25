@@ -29,7 +29,7 @@ const config = {
           versions: {
             current: {
               label: "v3.x (Current)",
-              path: "",
+              path: "v3",
             },
             "v2": {
               label: "v2.x",
@@ -103,7 +103,7 @@ const config = {
             items: [
               {
                 label: 'Docs',
-                to: '/docs',
+                to: '/docs/v3/',
               },
             ],
           },
