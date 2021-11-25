@@ -1,5 +1,4 @@
 ---
-id: Benchmarking
 title: Benchmarking
 sidebar_label: Benchmarking
 hide_title: false

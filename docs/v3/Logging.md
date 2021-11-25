@@ -1,5 +1,4 @@
 ---
-id: Logging
 title: Logging
 sidebar_label: Logging
 hide_title: false

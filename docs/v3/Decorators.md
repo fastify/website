@@ -1,5 +1,4 @@
 ---
-id: Decorators
 title: Decorators
 sidebar_label: Decorators
 hide_title: false

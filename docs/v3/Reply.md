@@ -1,5 +1,4 @@
 ---
-id: Reply
 title: Reply
 sidebar_label: Reply
 hide_title: false

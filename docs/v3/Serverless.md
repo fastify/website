@@ -1,5 +1,4 @@
 ---
-id: Serverless
 title: Serverless
 sidebar_label: Serverless
 hide_title: false

@@ -1,5 +1,4 @@
 ---
-id: LTS
 title: Long Term Support
 sidebar_label: Long Term Support
 hide_title: false

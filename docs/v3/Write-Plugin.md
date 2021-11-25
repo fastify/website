@@ -1,5 +1,4 @@
 ---
-id: Write-Plugin
 title: Write Plugin
 sidebar_label: Write Plugin
 hide_title: false

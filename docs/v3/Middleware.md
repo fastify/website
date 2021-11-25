@@ -1,5 +1,4 @@
 ---
-id: Middleware
 title: Middleware
 sidebar_label: Middleware
 hide_title: false

@@ -1,5 +1,4 @@
 ---
-id: Recommendations
 title: Recommendations
 sidebar_label: Recommendations
 hide_title: false

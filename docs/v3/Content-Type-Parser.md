@@ -1,5 +1,4 @@
 ---
-id: Content-Type-Parser
 title: Content-Type Parser
 sidebar_label: Content-Type Parser
 hide_title: false

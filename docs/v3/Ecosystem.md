@@ -1,5 +1,4 @@
 ---
-id: Ecosystem
 title: Ecosystem
 sidebar_label: Ecosystem
 hide_title: false

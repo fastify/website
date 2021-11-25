@@ -1,5 +1,4 @@
 ---
-id: Plugins
 title: Plugins
 sidebar_label: Plugins
 hide_title: false

@@ -1,5 +1,4 @@
 ---
-id: Lifecycle
 title: Lifecycle
 sidebar_label: Lifecycle
 hide_title: false

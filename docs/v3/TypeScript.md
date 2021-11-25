@@ -1,5 +1,4 @@
 ---
-id: TypeScript
 title: TypeScript
 sidebar_label: TypeScript
 hide_title: false

@@ -1,5 +1,4 @@
 ---
-id: Getting-Started
 title: Getting Started
 sidebar_label: Getting Started
 hide_title: false
@@ -108,7 +107,7 @@ Fastify offers an easy platform that helps to solve all of the problems outlined
 
 As with JavaScript, where everything is an object, with Fastify everything is a plugin.<br/>
 Before digging into it, let's see how it works!<br/>
-Let's declare our basic server, but instead of declaring the route inside the entry point, we'll declare it in an external file (check out the [route declaration](./Routes.md) docs).
+Let's declare our basic server, but instead of declaring the route inside the entry point, we'll declare it in an external file (check out the [route declaration](../Routes.md) docs).
 
 ```js
 // ESM
@@ -299,12 +298,12 @@ module.exports = routes
 Wow, that was fast!<br/>
 Let's recap what we have done here since we've introduced some new concepts.<br/>
 As you can see, we used `register` for both the database connector and the registration of the routes.
-This is one of the best features of Fastify, it will load your plugins in the same order you declare them, and it will load the next plugin only once the current one has been loaded. In this way, we can register the database connector in the first plugin and use it in the second *(read [here](Plugins.md#handle-the-scope) to understand how to handle the scope of a plugin)*.
+This is one of the best features of Fastify, it will load your plugins in the same order you declare them, and it will load the next plugin only once the current one has been loaded. In this way, we can register the database connector in the first plugin and use it in the second *(read [here](../Plugins.md#handle-the-scope) to understand how to handle the scope of a plugin)*.
 Plugin loading starts when you call `fastify.listen()`, `fastify.inject()` or `fastify.ready()`
 
 The MongoDB plugin uses the `decorate` API to add custom objects to the Fastify instance, making them available for use everywhere. Use of this API is encouraged to facilitate easy code reuse and to decrease code or logic duplication.
 
-To dig deeper into how Fastify plugins work, how to develop new plugins, and for details on how to use the whole Fastify API to deal with the complexity of asynchronously bootstrapping an application, read [the hitchhiker's guide to plugins](Plugins-Guide.md).
+To dig deeper into how Fastify plugins work, how to develop new plugins, and for details on how to use the whole Fastify API to deal with the complexity of asynchronously bootstrapping an application, read [the hitchhiker's guide to plugins](../Plugins-Guide.md).
 
 ### Loading order of your plugins
 
@@ -369,7 +368,7 @@ fastify.post('/', opts, async (request, reply) => {
 ```
 
 This example shows how to pass an options object to the route, which accepts a `schema` key that contains all of the schemas for route, `body`, `querystring`, `params`, and `headers`.<br/>
-Read [Validation and Serialization](./Validation-and-Serialization.md) to learn more.
+Read [Validation and Serialization](../Validation-and-Serialization.md) to learn more.
 
 ### Serialize your data
 Fastify has first class support for JSON. It is extremely optimized to parse JSON bodies and to serialize JSON output.<br/>
@@ -395,10 +394,10 @@ fastify.get('/', opts, async (request, reply) => {
 ```
 
 By specifying a schema as shown, you can speed up serialization by a factor of 2-3. This also helps to protect against leakage of potentially sensitive data, since Fastify will serialize only the data present in the response schema.
-Read [Validation and Serialization](./Validation-and-Serialization.md) to learn more.
+Read [Validation and Serialization](../Validation-and-Serialization.md) to learn more.
 
 ### Parsing request payloads
-Fastify parses `'application/json'` and `'text/plain'` request payloads natively, with the result accessible from the [Fastify request](./Request.md) object at `request.body`.<br/>
+Fastify parses `'application/json'` and `'text/plain'` request payloads natively, with the result accessible from the [Fastify request](../Request.md) object at `request.body`.<br/>
 The following example returns the parsed body of a request back to the client:
 
 ```js

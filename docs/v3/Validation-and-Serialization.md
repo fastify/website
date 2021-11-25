@@ -1,5 +1,4 @@
 ---
-id: Validation-and-Serialization
 title: Validation and Serialization
 sidebar_label: Validation and Serialization
 hide_title: false

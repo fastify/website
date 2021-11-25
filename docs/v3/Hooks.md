@@ -1,5 +1,4 @@
 ---
-id: Hooks
 title: Hooks
 sidebar_label: Hooks
 hide_title: false

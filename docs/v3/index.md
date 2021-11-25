@@ -1,5 +1,4 @@
 ---
-id: Index
 title: Index
 sidebar_label: Index
 hide_title: false

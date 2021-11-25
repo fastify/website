@@ -1,5 +1,4 @@
 ---
-id: Contributing
 title: Contributing
 sidebar_label: Contributing
 hide_title: false

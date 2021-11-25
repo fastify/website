@@ -1,5 +1,4 @@
 ---
-id: Encapsulation
 title: Encapsulation
 sidebar_label: Encapsulation
 hide_title: false
@@ -13,7 +12,7 @@ encapsulation context governs which [decorators](./Decorators.md), registered
 [routes](./Routes.md). A visual representation of the encapsulation context
 is shown in the following figure:
 
-![Figure 1](../resources/encapsulation_context.svg)
+![Figure 1](./resources/encapsulation_context.svg)
 
 In the above figure, there are several entities:
 

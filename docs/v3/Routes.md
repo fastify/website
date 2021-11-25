@@ -1,5 +1,4 @@
 ---
-id: Routes
 title: Routes
 sidebar_label: Routes
 hide_title: false

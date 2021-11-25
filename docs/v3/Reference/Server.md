@@ -1,5 +1,4 @@
 ---
-id: Server
 title: Server
 sidebar_label: Server
 hide_title: false

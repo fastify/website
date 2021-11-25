@@ -1,5 +1,4 @@
 ---
-id: Errors
 title: Errors
 sidebar_label: Errors
 hide_title: false
