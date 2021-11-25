@@ -4,6 +4,7 @@
 # Production
 /build
 /releases
+/src/docs
 
 # Generated files
 .docusaurus
