@@ -61,7 +61,7 @@ const config = {
         title: 'Fastify',
         logo: {
           alt: 'Fastify Logo',
-          src: 'img/logo.svg',
+          src: 'img/fastify-logo.png',
         },
         items: [
           {

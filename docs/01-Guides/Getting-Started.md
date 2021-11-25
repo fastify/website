@@ -4,22 +4,31 @@ sidebar_label: Getting Started
 hide_title: false
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 Hello! Thank you for checking out Fastify!<br/>
 This document aims to be a gentle introduction to the framework and its features. It is an elementary preface with examples and links to other parts of the documentation.<br/>
 Let's start!
 
 ### Install
-Install with npm:
 
-```
+<Tabs>
+<TabItem value="npm" label="NPM">
+
+```bash
 npm i fastify --save
 ```
 
-Install with yarn:
+</TabItem>
+<TabItem value="yarn" label="Yarn">
 
-```
+```bash
 yarn add fastify
 ```
+
+</TabItem>
+</Tabs>
 
 ### Your first server
 
