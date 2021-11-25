@@ -58,10 +58,10 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'Fastify',
         logo: {
-          alt: 'Fastify Logo',
-          src: 'img/fastify-logo.png',
+          alt: 'Fastify',
+          src: 'img/fastify-logo-black.png',
+          srcDark: 'img/fastify-logo-white.png',
         },
         items: [
           {
