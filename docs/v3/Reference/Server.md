@@ -1,6 +1,10 @@
-<h1 align="center">Fastify</h1>
+---
+id: Server
+title: Server
+sidebar_label: Server
+hide_title: false
+---
 
-<a name="factory"></a>
 ## Factory
 
 The Fastify module exports a factory function that is used to create new
@@ -42,14 +46,12 @@ document describes the properties available in that options object.
 - [initialConfig](./Server.md#initialConfig)
 
 
-<a name="factory-http2"></a>
 ### `http2`
 
 If `true` Node.js core's [HTTP/2](https://nodejs.org/dist/latest-v14.x/docs/api/http2.html) module is used for binding the socket.
 
 + Default: `false`
 
-<a name="factory-https"></a>
 ### `https`
 
 An object used to configure the server's listening socket for TLS. The options
@@ -64,7 +66,6 @@ This option also applies when the
 
 + Default: `null`
 
-<a name="factory-connection-timeout"></a>
 ### `connectionTimeout`
 
 Defines the server timeout in milliseconds. See documentation for
@@ -74,7 +75,6 @@ specified, this option is ignored.
 
 + Default: `0` (no timeout)
 
-<a name="factory-keep-alive-timeout"></a>
 ### `keepAliveTimeout`
 
 Defines the server keep-alive timeout in milliseconds. See documentation for
@@ -84,7 +84,6 @@ is in use. Also, when `serverFactory` option is specified, this option is ignore
 
 + Default: `5000` (5 seconds)
 
-<a name="factory-max-requests-per-socket"></a>
 ### `maxRequestsPerSocket`
 
 Defines the maximum number of requests socket can handle before closing keep alive connection. See documentation for
@@ -95,7 +94,6 @@ is in use. Also, when `serverFactory` option is specified, this option is ignore
 
 + Default: `0` (no limit)
 
-<a name="factory-request-timeout"></a>
 ### `requestTimeout`
 
 Defines the maximum number of milliseconds for receiving the entire request from the client.
@@ -106,7 +104,6 @@ It must be set to a non-zero value (e.g. 120 seconds) to protect against potenti
 
 + Default: `0` (no limit)
 
-<a name="factory-ignore-slash"></a>
 ### `ignoreTrailingSlash`
 
 Fastify uses [find-my-way](https://github.com/delvedor/find-my-way) to handle
@@ -132,20 +129,17 @@ fastify.get('/bar', function (req, reply) {
 })
 ```
 
-<a name="factory-max-param-length"></a>
 ### `maxParamLength`
-You can set a custom length for parameters in parametric (standard, regex, and multi) routes by using `maxParamLength` option; the default value is 100 characters.<br>
-This can be useful especially if you have some regex based route, protecting you against [DoS attacks](https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS).<br>
+You can set a custom length for parameters in parametric (standard, regex, and multi) routes by using `maxParamLength` option; the default value is 100 characters.<br/>
+This can be useful especially if you have some regex based route, protecting you against [DoS attacks](https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS).<br/>
 *If the maximum length limit is reached, the not found route will be invoked.*
 
-<a name="factory-body-limit"></a>
 ### `bodyLimit`
 
 Defines the maximum payload, in bytes, the server is allowed to accept.
 
 + Default: `1048576` (1MiB)
 
-<a name="factory-on-proto-poisoning"></a>
 ### `onProtoPoisoning`
 
 Defines what action the framework must take when parsing a JSON object
@@ -158,7 +152,6 @@ Possible values are `'error'`, `'remove'` and `'ignore'`.
 
 + Default: `'error'`
 
-<a name="factory-on-constructor-poisoning"></a>
 ### `onConstructorPoisoning`
 
 Defines what action the framework must take when parsing a JSON object
@@ -171,7 +164,6 @@ Possible values are `'error'`, `'remove'` and `'ignore'`.
 
 + Default: `'error'`
 
-<a name="factory-logger"></a>
 ### `logger`
 
 Fastify includes built-in logging via the [Pino](https://getpino.io/) logger.
@@ -249,7 +241,6 @@ fastify.addHook('onResponse', (req, reply, done) => {
 
 Please note that this setting will also disable an error log written by the default `onResponse` hook on reply callback errors.
 
-<a name="custom-http-server"></a>
 ### `serverFactory`
 You can pass a custom HTTP server to Fastify by using the `serverFactory` option.<br/>
 `serverFactory` is a function that takes a `handler` parameter, which takes the `request` and `response` objects as parameters, and an options object, which is the same you have passed to Fastify.
@@ -274,7 +265,6 @@ fastify.listen(3000)
 
 Internally Fastify uses the API of Node core HTTP server, so if you are using a custom server you must be sure to have the same API exposed. If not, you can enhance the server instance inside the `serverFactory` function before the `return` statement.<br/>
 
-<a name="schema-json-shorthand"></a>
 ### `jsonShorthand`
 
 + Default: `true`
@@ -305,7 +295,6 @@ fastify.post('/', {
 
 **Note: Fastify does not currently throw on invalid schemas, so if you turn this off in an existing project, you need to be careful that none of your existing schemas become invalid as a result, since they will be treated as a catch-all.**
 
-<a name="factory-case-sensitive"></a>
 ### `caseSensitive`
 
 By default, value equal to `true`, routes are registered as case sensitive. That is, `/foo` is not equivalent to `/Foo`. When set to `false`, routes are registered in a fashion such that `/foo` is equivalent to `/Foo` which is equivalent to `/FOO`.
@@ -324,21 +313,18 @@ Please note that setting this option to `false` goes against
 
 Also note, this setting will not affect query strings. If you want to change the way query strings are handled take a look at [`querystringParser`](./Server.md#querystringparser).
 
-<a name="factory-request-id-header"></a>
 ### `requestIdHeader`
 
 The header name used to know the request-id. See [the request-id](Logging.md#logging-request-id) section.
 
 + Default: `'request-id'`
 
-<a name="factory-request-id-log-label"></a>
 ### `requestIdLogLabel`
 
 Defines the label used for the request identifier when logging the request.
 
 + Default: `'reqId'`
 
-<a name="factory-gen-request-id"></a>
 ### `genReqId`
 
 Function for generating the request-id. It will receive the incoming request as a parameter.
@@ -356,7 +342,6 @@ const fastify = require('fastify')({
 
 **Note: genReqId will _not_ be called if the header set in <code>[requestIdHeader](#requestidheader)</code> is available (defaults to 'request-id').**
 
-<a name="factory-trust-proxy"></a>
 ### `trustProxy`
 
 By enabling the `trustProxy` option, Fastify will know that it is sitting behind a proxy and that the `X-Forwarded-*` header fields may be trusted, which otherwise may be easily spoofed.
@@ -392,16 +377,14 @@ fastify.get('/', (request, reply) => {
 
 **Note: if a request contains multiple <code>x-forwarded-host</code> or <code>x-forwarded-proto</code> headers, it is only the last one that is used to derive <code>request.hostname</code> and <code>request.protocol</code>**
 
-<a name="plugin-timeout"></a>
 ### `pluginTimeout`
 
 The maximum amount of time in *milliseconds* in which a plugin can load.
-If not, [`ready`](Server.md#ready)
+If not, [`ready`](./Server.md#ready)
 will complete with an `Error` with code `'ERR_AVVIO_PLUGIN_TIMEOUT'`.
 
 + Default: `10000`
 
-<a name="factory-querystring-parser"></a>
 ### `querystringParser`
 
 The default query string parser that Fastify uses is the Node.js's core `querystring` module.<br/>
@@ -425,14 +408,12 @@ const fastify = require('fastify')({
 
 Note, if you only want the keys (and not the values) to be case insensitive we recommend using a custom parser to convert only the keys to lowercase.
 
-<a name="exposeHeadRoutes"></a>
 ### `exposeHeadRoutes`
 
 Automatically creates a sibling `HEAD` route for each `GET` route defined. If you want a custom `HEAD` handler without disabling this option, make sure to define it before the `GET` route.
 
 + Default: `false`
 
-<a name="constraints"></a>
 ### `constraints`
 
 Fastify's built in route constraints are provided by `find-my-way`, which allow constraining routes by `version` or `host`. You are able to add new constraint strategies, or override the built in strategies by providing a `constraints` object with strategies for `find-my-way`. You can find more information on constraint strategies in the [find-my-way](https://github.com/delvedor/find-my-way) documentation.
@@ -460,7 +441,6 @@ const fastify = require('fastify')({
 })
 ```
 
-<a name="factory-return-503-on-closing"></a>
 ### `return503OnClosing`
 
 Returns 503 after calling `close` server method.
@@ -468,7 +448,6 @@ If `false`, the server routes the incoming request as usual.
 
 + Default: `true`
 
-<a name="factory-ajv"></a>
 ### `ajv`
 
 Configure the Ajv v6 instance used by Fastify without providing a custom one.
@@ -504,7 +483,6 @@ const fastify = require('fastify')({
 })
 ```
 
-<a name="serializer-opts"></a>
 ### `serializerOpts`
 
 Customize the options of the default [`fast-json-stringify`](https://github.com/fastify/fast-json-stringify#options) instance that serialize the response's payload:
@@ -517,18 +495,16 @@ const fastify = require('fastify')({
 })
 ```
 
-<a name="http2-session-timeout"></a>
 ### `http2SessionTimeout`
 
 Set a default
 [timeout](https://nodejs.org/api/http2.html#http2_http2session_settimeout_msecs_callback) to every incoming HTTP/2 session. The session will be closed on the timeout. Default: `5000` ms.
 
-Note that this is needed to offer the graceful "close" experience when using HTTP/2. 
-The low default has been chosen to mitigate denial of service attacks. 
-When the server is behind a load balancer or can scale automatically this value can be 
-increased to fit the use case. Node core defaults this to `0`. ` 
+Note that this is needed to offer the graceful "close" experience when using HTTP/2.
+The low default has been chosen to mitigate denial of service attacks.
+When the server is behind a load balancer or can scale automatically this value can be
+increased to fit the use case. Node core defaults this to `0`. `
 
-<a name="framework-errors"></a>
 ### `frameworkErrors`
 
 + Default: `null`
@@ -551,7 +527,6 @@ const fastify = require('fastify')({
 })
 ```
 
-<a name="client-error-handler"></a>
 ### `clientErrorHandler`
 
 Set a [clientErrorHandler](https://nodejs.org/api/http.html#http_event_clienterror) that listens to `error` events emitted by client connections and responds with a `400`.
@@ -599,7 +574,6 @@ const fastify = require('fastify')({
 })
 ```
 
-<a name="rewrite-url"></a>
 ### `rewriteUrl`
 
 Set a sync callback function that must return a string that allows rewriting URLs.
@@ -618,11 +592,9 @@ Note that `rewriteUrl` is called _before_ routing, it is not encapsulated and it
 
 ### Server Methods
 
-<a name="server"></a>
 #### server
-`fastify.server`: The Node core [server](https://nodejs.org/api/http.html#http_class_http_server) object as returned by the [**`Fastify factory function`**](Server.md).
+`fastify.server`: The Node core [server](https://nodejs.org/api/http.html#http_class_http_server) object as returned by the [**`Fastify factory function`**](./Server.md).
 
-<a name="after"></a>
 #### after
 Invoked when the current plugin and all the plugins
 that have been registered within it have finished loading.
@@ -665,7 +637,6 @@ await fastify.ready()
 console.log('Everything has been loaded')
 ```
 
-<a name="ready"></a>
 #### ready
 Function called when all the plugins have been loaded.
 It takes an error parameter if something went wrong.
@@ -684,7 +655,6 @@ fastify.ready().then(() => {
 })
 ```
 
-<a name="listen"></a>
 #### listen
 Starts the server on the given port after all the plugins are loaded, internally waits for the `.ready()` event. The callback is the same as the Node core. By default, the server will listen on the address resolved by `localhost` when no specific address is provided (`127.0.0.1` or `::1` depending on the operating system). If listening on any available interface is desired, then specifying `0.0.0.0` for the address will listen on all IPv4 addresses. Using `::` for the address will listen on all IPv6 addresses and, depending on OS, may also listen on all IPv4 addresses. Be careful when deciding to listen on all interfaces; it comes with inherent [security risks](https://web.archive.org/web/20170831174611/https://snyk.io/blog/mongodb-hack-and-secure-defaults/).
 
@@ -789,7 +759,6 @@ fastify.listen({
 }, (err) => {})
 ```
 
-<a name="getDefaultRoute"></a>
 #### getDefaultRoute
 Method to get the `defaultRoute` for the server:
 
@@ -797,7 +766,6 @@ Method to get the `defaultRoute` for the server:
 const defaultRoute = fastify.getDefaultRoute()
 ```
 
-<a name="setDefaultRoute"></a>
 #### setDefaultRoute
 Method to set the `defaultRoute` for the server:
 
@@ -809,7 +777,6 @@ const defaultRoute = function (req, res) {
 fastify.setDefaultRoute(defaultRoute)
 ```
 
-<a name="routing"></a>
 #### routing
 Method to access the `lookup` method of the internal router and match the request to the appropriate handler:
 
@@ -817,15 +784,13 @@ Method to access the `lookup` method of the internal router and match the reques
 fastify.routing(req, res)
 ```
 
-<a name="route"></a>
 #### route
 Method to add routes to the server, it also has shorthand functions, check [here](Routes.md).
 
-<a name="close"></a>
 #### close
-`fastify.close(callback)`: call this function to close the server instance and run the [`'onClose'`](Hooks.md#on-close) hook.<br>
+`fastify.close(callback)`: call this function to close the server instance and run the [`'onClose'`](Hooks.md#on-close) hook.<br/>
 Calling `close` will also cause the server to respond to every new incoming request with a `503` error and destroy that request.
-See [`return503OnClosing` flags](Server.md#factory-return-503-on-closing) for changing this behavior.
+See [`return503OnClosing` flags](./Server.md#factory-return-503-on-closing) for changing this behavior.
 
 If it is called without any arguments, it will return a Promise:
 
@@ -837,20 +802,16 @@ fastify.close().then(() => {
 })
 ```
 
-<a name="decorate"></a>
 #### decorate*
 Function useful if you need to decorate the fastify instance, Reply or Request, check [here](Decorators.md).
 
-<a name="register"></a>
 #### register
 Fastify allows the user to extend its functionality with plugins.
 A plugin can be a set of routes, a server decorator, or whatever, check [here](Plugins.md).
 
-<a name="addHook"></a>
 #### addHook
 Function to add a specific hook in the lifecycle of Fastify, check [here](Hooks.md).
 
-<a name="prefix"></a>
 #### prefix
 The full path that will be prefixed to a route.
 
@@ -878,7 +839,6 @@ fastify.register(function (instance, opts, done) {
 }, { prefix: '/v1' })
 ```
 
-<a name="pluginName"></a>
 #### pluginName
 Name of the current plugin. There are three ways to define a name (in order).
 
@@ -890,35 +850,28 @@ Name of the current plugin. There are three ways to define a name (in order).
 
 Important: If you have to deal with nested plugins, the name differs with the usage of the [fastify-plugin](https://github.com/fastify/fastify-plugin) because no new scope is created and therefore we have no place to attach contextual data. In that case, the plugin name will represent the boot order of all involved plugins in the format of `plugin-A -> plugin-B`.
 
-<a name="log"></a>
 #### log
 The logger instance, check [here](Logging.md).
 
-<a name="version"></a>
 #### version
 Fastify version of the instance. Used for plugin support. See [Plugins](Plugins.md#handle-the-scope) for information on how the version is used by plugins.
 
-<a name="inject"></a>
 #### inject
 Fake HTTP injection (for testing purposes) [here](Testing.md#inject).
 
-<a name="add-schema"></a>
 #### addSchema
 `fastify.addSchema(schemaObj)`, adds a JSON schema to the Fastify instance. This allows you to reuse it everywhere in your application just by using the standard `$ref` keyword.<br/>
 To learn more, read the [Validation and Serialization](Validation-and-Serialization.md) documentation.
 
-<a name="get-schemas"></a>
 #### getSchemas
 `fastify.getSchemas()`, returns a hash of all schemas added via `.addSchema`. The keys of the hash are the `$id`s of the JSON Schema provided.
 
-<a name="get-schema"></a>
 #### getSchema
 `fastify.getSchema(id)`, return the JSON schema added with `.addSchema` and the matching `id`. It returns `undefined` if it is not found.
 
-<a name="set-reply-serializer"></a>
 #### setReplySerializer
 Set the reply serializer for all the routes. This will be used as default if a [Reply.serializer(func)](Reply.md#serializerfunc) has not been set. The handler is fully encapsulated, so different plugins can set different error handlers.
-Note: the function parameter is called only for status `2xx`. Check out the [`setErrorHandler`](Server.md#seterrorhandler) for errors.
+Note: the function parameter is called only for status `2xx`. Check out the [`setErrorHandler`](./Server.md#seterrorhandler) for errors.
 
 ```js
 fastify.setReplySerializer(function (payload, statusCode){
@@ -927,36 +880,29 @@ fastify.setReplySerializer(function (payload, statusCode){
 })
 ```
 
-<a name="set-validator-compiler"></a>
 #### setValidatorCompiler
 Set the schema validator compiler for all routes. See [#schema-validator](Validation-and-Serialization.md#schema-validator).
 
-<a name="set-schema-error-formatter"></a>
 #### setSchemaErrorFormatter
 Set the schema error formatter for all routes. See [#error-handling](Validation-and-Serialization.md#schemaerrorformatter).
 
-<a name="set-serializer-resolver"></a>
 #### setSerializerCompiler
 Set the schema serializer compiler for all routes. See [#schema-serializer](Validation-and-Serialization.md#schema-serializer).
 **Note:** [`setReplySerializer`](#set-reply-serializer) has priority if set!
 
-<a name="validator-compiler"></a>
 #### validatorCompiler
 This property can be used to get the schema validator. If not set, it will be `null` until the server starts, then it will be a function with the signature `function ({ schema, method, url, httpPart })` that returns the input `schema` compiled to a function for validating data.
 The input `schema` can access all the shared schemas added with [`.addSchema`](#add-schema) function.
 
-<a name="serializer-compiler"></a>
 #### serializerCompiler
 This property can be used to get the schema serializer. If not set, it will be `null` until the server starts, then it will be a function with the signature `function ({ schema, method, url, httpPart })` that returns the input `schema` compiled to a function for validating data.
 The input `schema` can access all the shared schemas added with [`.addSchema`](#add-schema) function.
 
-<a name="schema-error-formatter"></a>
 #### schemaErrorFormatter
 This property can be used to set a function to format errors that happen while the `validationCompiler` fails to validate the schema. See [#error-handling](Validation-and-Serialization.md#schemaerrorformatter).
 
-<a name="schema-controller"></a>
 #### schemaController
-This property can be used to fully manage: 
+This property can be used to fully manage:
 - `bucket`: where the schemas of your application will be stored
 - `compilersFactory`: what module must compile the JSON schemas
 
@@ -1009,7 +955,7 @@ const fastify = Fastify({
        * encapsulation context.
        * It may receive as input the schemas of the parent context if some schemas have been added.
        * @param {object} externalSchemas these schemas will be returned by the `bucket.getSchemas()`. Needed to resolve the external references $ref.
-       * @param {object} ajvServerOption the server `ajv` options to build your compilers accordingly 
+       * @param {object} ajvServerOption the server `ajv` options to build your compilers accordingly
        */
       buildValidator: function factory (externalSchemas, ajvServerOption) {
         // This factory function must return a schema validator compiler.
@@ -1026,7 +972,7 @@ const fastify = Fastify({
        * encapsulation context.
        * It may receive as input the schemas of the parent context if some schemas have been added.
        * @param {object} externalSchemas these schemas will be returned by the `bucket.getSchemas()`. Needed to resolve the external references $ref.
-       * @param {object} serializerOptsServerOption the server `serializerOpts` options to build your compilers accordingly 
+       * @param {object} serializerOptsServerOption the server `serializerOpts` options to build your compilers accordingly
        */
       buildSerializer: function factory (externalSchemas, serializerOptsServerOption) {
         // This factory function must return a schema serializer compiler.
@@ -1071,7 +1017,6 @@ const app = fastify({
 // Done! You can now use Ajv 8 options and keywords in your schemas!
 ```
 
-<a name="set-not-found-handler"></a>
 #### setNotFoundHandler
 
 `fastify.setNotFoundHandler(handler(request, reply))`: set the 404 handler. This call is encapsulated by prefix, so different plugins can set different not found handlers if a different [`prefix` option](Plugins.md#route-prefixing-option) is passed to `fastify.register()`. The handler is treated as a regular route handler so requests will go through the full [Fastify lifecycle](Lifecycle.md#lifecycle).
@@ -1105,10 +1050,9 @@ fastify.register(function (instance, options, done) {
 
 Fastify calls setNotFoundHandler to add a default 404 handler at startup before plugins are registered. If you would like to augment the behavior of the default 404 handler, for example with plugins, you can call setNotFoundHandler with no arguments `fastify.setNotFoundHandler()` within the context of these registered plugins.
 
-<a name="set-error-handler"></a>
 #### setErrorHandler
 
-`fastify.setErrorHandler(handler(error, request, reply))`: Set a function that will be called whenever an error happens. The handler is bound to the Fastify instance and is fully encapsulated, so different plugins can set different error handlers. *async-await* is supported as well.<br>
+`fastify.setErrorHandler(handler(error, request, reply))`: Set a function that will be called whenever an error happens. The handler is bound to the Fastify instance and is fully encapsulated, so different plugins can set different error handlers. *async-await* is supported as well.<br/>
 *Note: If the error `statusCode` is less than 400, Fastify will automatically set it at 500 before calling the error handler.*
 
 ```js
@@ -1133,7 +1077,6 @@ if (statusCode >= 500) {
 }
 ```
 
-<a name="print-routes"></a>
 #### printRoutes
 
 `fastify.printRoutes()`: Prints the representation of the internal radix tree used by the router, useful for debugging. Alternatively, `fastify.printRoutes({ commonPrefix: false })` can be used to print the flattened routes tree.<br/>
@@ -1160,7 +1103,7 @@ fastify.ready(() => {
   //     │   └── /hello (GET)
   //     ├── hello/world (GET)
   //     └── helicopter (GET)
-  
+
 })
 ```
 
@@ -1181,7 +1124,7 @@ fastify.ready(() => {
   console.log(fastify.printRoutes({ includeHooks: true }))
   // └── /
   //     ├── test (GET)
-  //     │   • (onRequest) ["anonymous()","namedFunction()"]  
+  //     │   • (onRequest) ["anonymous()","namedFunction()"]
   //     │   └── /hello (GET)
   //     └── hel
   //         ├── lo/world (GET)
@@ -1189,7 +1132,6 @@ fastify.ready(() => {
   //         └── licopter (GET)
 ```
 
-<a name="print-plugins"></a>
 #### printPlugins
 
 `fastify.printPlugins()`: Prints the representation of the internal plugin tree used by the avvio, useful for debugging require order issues.<br/>
@@ -1211,7 +1153,6 @@ fastify.ready(() => {
 })
 ```
 
-<a name="addContentTypeParser"></a>
 #### addContentTypeParser
 
 `fastify.addContentTypeParser(content-type, options, parser)` is used to pass custom parser for a given content type. Useful for adding parsers for custom content types, e.g. `text/json, application/vnd.oasis.opendocument.text`. `content-type` can be a string, string array or RegExp.
@@ -1222,13 +1163,11 @@ fastify.ready(() => {
 fastify.addContentTypeParser('text/json', { asString: true }, fastify.getDefaultJsonParser('ignore', 'ignore'))
 ```
 
-<a name="getDefaultJsonParser"></a>
 #### getDefaultJsonParser
 
 `fastify.getDefaultJsonParser(onProtoPoisoning, onConstructorPoisoning)` takes two arguments. First argument is ProtoType poisoning configuration and second argument is constructor poisoning configuration. See the <a href="https://github.com/fastify/secure-json-parse#api">`secure-json-parse` documentation</a> for more information.
 
 
-<a name="defaultTextParser"></a>
 #### defaultTextParser
 
 `fastify.defaultTextParser()` can be used to parse content as plain text.
@@ -1237,7 +1176,6 @@ fastify.addContentTypeParser('text/json', { asString: true }, fastify.getDefault
 fastify.addContentTypeParser('text/json', { asString: true }, fastify.defaultTextParser())
 ```
 
-<a name="errorHandler"></a>
 #### errorHandler
 
 `fastify.errorHandler` can be used to handle errors using fastify's default error handler.
@@ -1255,7 +1193,6 @@ fastify.get('/', {
 }, handler)
 ```
 
-<a name="initial-config"></a>
 #### initialConfig
 
 `fastify.initialConfig`: Exposes a frozen read-only object registering the initial

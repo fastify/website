@@ -1,5 +1,9 @@
-# Contributing To Fastify
-<a id="contributing"></a>
+---
+id: Contributing
+title: Contributing
+sidebar_label: Contributing
+hide_title: false
+---
 
 Thank you for taking an interest in contributing to Fastify. We are excited
 to receive your support and knowledge. This guide is our attempt to help you
@@ -11,16 +15,14 @@ help us.
 > [Developer Certificate of Origin](https://en.wikipedia.org/wiki/Developer_Certificate_of_Origin).
 
 ## Table Of Contents
-<a id="contributing-toc"></a>
 
-0. [Types Of Contributions We're Looking For](#contribution-types)
-0. [Ground Rules & Expectations](#contributing-rules)
-0. [How To Contribute](#contributing-how-to)
-0. [Setting Up Your Environment](#contributing-environment)
+1. [Types Of Contributions We're Looking For](#contribution-types)
+2. [Ground Rules & Expectations](#contributing-rules)
+3. [How To Contribute](#contributing-how-to)
+4. [Setting Up Your Environment](#contributing-environment)
   * [Using Visual Studio Code](#contributing-vscode)
 
 ## Types Of Contributions We're Looking For
-<a id="contribution-types"></a>
 
 In short, we welcome any type of contribution you are willing to provide. No
 contribution is too small. We gladly accept contributions such as:
@@ -31,7 +33,6 @@ contribution is too small. We gladly accept contributions such as:
 * Reporting previously unknown bugs by opening an issue with a minimal reproduction
 
 ## Ground Rules & Expectations
-<a id="contributing-rules"></a>
 
 Before we get started, here are a few things we expect from you (and that
 you should expect from others):
@@ -47,7 +48,6 @@ you should expect from others):
   can merge your contribution.
 
 ## How To Contribute
-<a id="contributing-how-to"></a>
 
 If you'd like to contribute, start by searching through the
 [issues](https://github.com/fastify/fastify/issues) and
@@ -67,7 +67,6 @@ https://github.com/github/opensource.guide/blob/2868efbf0c14aec821909c19e210c360
 -->
 
 ## Setting Up Your Environment
-<a id="contributing-environment"></a>
 
 Please adhere to the project's code and documentation style. Some popular tools
 that automatically "correct" code and documentation do not follow a style that
@@ -75,7 +74,6 @@ conforms to the styles this project uses. Notably, this project uses
 [StandardJS](https://standardjs.com) for code formatting.
 
 ### Using Visual Studio Code
-<a id="contributing-vscode"></a>
 What follows is how to use [Visual Studio Code (VSCode) portable](https://code.visualstudio.com/docs/editor/portable)
 to create a Fastify specific environment. This guide is written as if you are
 setting up the environment on macOS, but the principles are the same across

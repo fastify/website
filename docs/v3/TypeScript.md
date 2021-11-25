@@ -1,4 +1,9 @@
-<h1 align="center">Fastify</h1>
+---
+id: TypeScript
+title: TypeScript
+sidebar_label: TypeScript
+hide_title: false
+---
 
 ## TypeScript
 
@@ -151,7 +156,7 @@ When you want to use it for validation of some payload in a fastify route you ca
     ```
 
 2. Define the schema you need with `Type` and create the respective type  with `Static`.
-  
+
     ```typescript
     import { Static, Type } from '@sinclair/typebox'
 
@@ -357,7 +362,7 @@ fastify.post<{ Body: FromSchema<typeof todo> }>(
   async (request, reply): Promise<void> => {
 
     /*
-    request.body has type 
+    request.body has type
     {
       [x: string]: unknown;
       description?: string;
@@ -368,7 +373,7 @@ fastify.post<{ Body: FromSchema<typeof todo> }>(
 
     request.body.name // will not throw type error
     request.body.notthere // will throw type error
-    
+
     reply.status(201).send();
   },
 );
@@ -376,7 +381,7 @@ fastify.post<{ Body: FromSchema<typeof todo> }>(
 
 ### Plugins
 
-One of Fastify's most distinguishable features is its extensive plugin ecosystem. Plugin types are fully supported, and take advantage of the [declaration merging]() pattern. This example is broken up into three parts: Creating a TypeScript Fastify Plugin, Creating Type Definitions for a Fastify Plugin, and Using a Fastify Plugin in a TypeScript Project.
+One of Fastify's most distinguishable features is its extensive plugin ecosystem. Plugin types are fully supported, and take advantage of the [declaration merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) pattern. This example is broken up into three parts: Creating a TypeScript Fastify Plugin, Creating Type Definitions for a Fastify Plugin, and Using a Fastify Plugin in a TypeScript Project.
 
 #### Creating a TypeScript Fastify Plugin
 
@@ -982,7 +987,7 @@ A loosely typed object used to constrain the `options` parameter of [`fastify.re
 ##### fastify.FastifyRegister(plugin: [FastifyPlugin][FastifyPlugin], opts: [FastifyRegisterOptions][FastifyRegisterOptions])
 [src](../types/register.d.ts#L9)
 
-This type interface specifies the type for the [`fastify.register()`](Server.md#register) method. The type interface returns a function signature with an underlying generic `Options` which is defaulted to [FastifyPluginOptions][FastifyPluginOptions]. It infers this generic from the FastifyPlugin parameter when calling this function so there is no need to specify the underlying generic. The options parameter is the intersection of the plugin's options and two additional optional properties: `prefix: string` and `logLevel`: [LogLevel][LogLevel].
+This type interface specifies the type for the [`fastify.register()`](./Reference/Server.md#register) method. The type interface returns a function signature with an underlying generic `Options` which is defaulted to [FastifyPluginOptions][FastifyPluginOptions]. It infers this generic from the FastifyPlugin parameter when calling this function so there is no need to specify the underlying generic. The options parameter is the intersection of the plugin's options and two additional optional properties: `prefix: string` and `logLevel`: [LogLevel][LogLevel].
 
 Below is an example of the options inference in action:
 
@@ -1000,7 +1005,7 @@ fastify().register(plugin, { option1: '', option2: true }) // OK - options objec
 
 See the Learn By Example, [Plugins](#plugins) section for more detailed examples of creating TypeScript plugins in Fastify.
 
-##### fastify.FastifyRegisterOptions<Options>
+##### fastify.FastifyRegisterOptions
 [src](../types/register.d.ts#L16)
 
 This type is the intersection of the `Options` generic and a non-exported interface `RegisterOptions` that specifies two optional properties: `prefix: string` and `logLevel`: [LogLevel][LogLevel]. This type can also be specified as a function that returns the previously described intersection.
