@@ -15,7 +15,7 @@ Fastify uses different techniques to optimize its code, many of them are documen
 
 Do you have a question or need some advice? We are more than happy to help you! Just open an issue in our [help repository](https://github.com/fastify/help).
 
-Once you submit a plugin to our [ecosystem list](Ecosystem.md), we will review your code and help you improve it if necessary.
+Once you submit a plugin to our [ecosystem list](./Ecosystem.md), we will review your code and help you improve it if necessary.
 
 ## Documentation
 Documentation is extremely important. If your plugin is not well documented we will not accept it to the ecosystem list. Lack of quality documentation makes it more difficult for people to use your plugin, and will likely result in it going unused.<br/>

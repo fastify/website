@@ -407,15 +407,15 @@ fastify.post('/', opts, async (request, reply) => {
 })
 ```
 
-Read [Content-Type Parser](Content-Type-Parser.md) to learn more about Fastify's default parsing functionality and how to support other content types.
+Read [Content-Type Parser](../Content-Type-Parser.md) to learn more about Fastify's default parsing functionality and how to support other content types.
 
 ### Extend your server
 Fastify is built to be extremely extensible and minimal, we believe that a bare-bones framework is all that is necessary to make great applications possible.<br/>
-In other words, Fastify is not a "batteries included" framework, and relies on an amazing [ecosystem](Ecosystem.md)!
+In other words, Fastify is not a "batteries included" framework, and relies on an amazing [ecosystem](../Ecosystem.md)!
 
 ### Test your server
 Fastify does not offer a testing framework, but we do recommend a way to write your tests that uses the features and architecture of Fastify.<br/>
-Read the [testing](Testing.md) documentation to learn more!
+Read the [testing](../Testing.md) documentation to learn more!
 
 ### Run your server from CLI
 Fastify also has CLI integration thanks to [fastify-cli](https://github.com/fastify/fastify-cli).

@@ -10,7 +10,7 @@ help us.
 
 > ## Note
 > This is an informal guide. Please review the formal
-> [CONTRIBUTING document](/CONTRIBUTING.md) for full details and our
+> [CONTRIBUTING document](https://github.com/fastify/fastify/blob/main/CONTRIBUTING.md) for full details and our
 > [Developer Certificate of Origin](https://en.wikipedia.org/wiki/Developer_Certificate_of_Origin).
 
 ## Table Of Contents
@@ -40,7 +40,7 @@ you should expect from others):
   project is maintained by a diverse set of people from all across the globe.
   Each person has their own views and opinions about the project. Try to listen
   to each other and reach an agreement or compromise.
-* We have a [Code of Conduct](/CODE_OF_CONDUCT.md). You must adhere to it to
+* We have a [Code of Conduct](https://github.com/fastify/fastify/blob/main/CODE_OF_CONDUCT.md). You must adhere to it to
   participate in this project.
 * If you open a pull request, please ensure that your contribution passes all
   tests. If there are test failures, you will need to address them before we
