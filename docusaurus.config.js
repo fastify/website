@@ -28,8 +28,8 @@ const config = {
           lastVersion: "current",
           versions: {
             current: {
-              label: "v3.x",
-              path: "v3",
+              label: "v3.x (Current)",
+              path: "",
             },
             "v2": {
               label: "v2.x",
