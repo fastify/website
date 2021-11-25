@@ -25,6 +25,21 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl: 'https://github.com/fastify/website-next/edit/main/docs/',
+          lastVersion: "current",
+          versions: {
+            current: {
+              label: "v3.x",
+              path: "v3",
+            },
+            "v2": {
+              label: "v2.x",
+              path: "v2",
+            },
+            "v1": {
+              label: "v1.x",
+              path: "v1",
+            },
+          },
         },
         blog: {
           showReadingTime: true,
@@ -49,7 +64,16 @@ const config = {
           src: 'img/logo.svg',
         },
         items: [
-          {to: '/docs', label: 'Docs', position: 'left'},
+          {
+            type: "docsVersionDropdown",
+            position: "left"
+          },
+          {
+            type: "doc",
+            docId: "index",
+            position: "left",
+            label: "Docs",
+          },
           {to: '/ecosystem', label: 'Ecosystem', position: 'left'},
           {to: '/benchmarks', label: 'Benchmarks', position: 'left'},
           {to: '/contribute', label: 'Contribute', position: 'left'},
