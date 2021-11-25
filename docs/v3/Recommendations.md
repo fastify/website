@@ -1,6 +1,9 @@
-<h1 align="center">Fastify</h1>
-
-## Recommendations
+---
+id: Recommendations
+title: Recommendations
+sidebar_label: Recommendations
+hide_title: false
+---
 
 This document contains a set of recommendations when using Fastify.
 

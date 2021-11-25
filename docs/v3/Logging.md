@@ -1,6 +1,9 @@
-<h1 align="center">Fastify</h1>
-
-## Logging
+---
+id: Logging
+title: Logging
+sidebar_label: Logging
+hide_title: false
+---
 
 ### Enable logging
 Logging is disabled by default, and you can enable it by passing

@@ -1,9 +1,10 @@
-<h1 align="center">Fastify</h1>
+---
+id: Errors
+title: Errors
+sidebar_label: Errors
+hide_title: false
+---
 
-<a id="errors"></a>
-## Errors
-
-<a name="error-handling"></a>
 ### Error Handling In Node.js
 
 #### Uncaught Errors

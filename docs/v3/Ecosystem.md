@@ -1,6 +1,9 @@
-<h1 align="center">Fastify</h1>
-
-## Ecosystem
+---
+id: Ecosystem
+title: Ecosystem
+sidebar_label: Ecosystem
+hide_title: false
+---
 
 Plugins maintained by the Fastify team are listed under [Core](#core) while plugins maintained by the community are listed in the [Community](#community) section.
 

@@ -1,6 +1,10 @@
-<h1 align="center">Fastify</h1>
+---
+id: Validation-and-Serialization
+title: Validation and Serialization
+sidebar_label: Validation and Serialization
+hide_title: false
+---
 
-## Validation and Serialization
 Fastify uses a schema-based approach, and even if it is not mandatory we recommend using [JSON Schema](https://json-schema.org/) to validate your routes and serialize your outputs. Internally, Fastify compiles the schema into a highly performant function.
 
 > ## ⚠  Security Notice
@@ -135,7 +139,7 @@ The supported validations are:
 
 All the validations can be a complete JSON Schema object (with a `type` property of `'object'` and a `'properties'` object containing parameters) or a simpler variation in which the `type` and `properties` attributes are forgone and the parameters are listed at the top level (see the example below).
 
-> ℹ If you need to use the lastest version of Ajv (v8) you should read how to do it in the [`schemaController`](./Reference/Server.md#schema-controller) section. It is explained the easier way to avoid to implement a custom validator.
+> ℹ If you need to use the lastest version of Ajv (v8) you should read how to do it in the [`schemaController`](./Reference/Server.md#schemaController) section. It is explained the easier way to avoid to implement a custom validator.
 
 Example:
 ```js
@@ -383,7 +387,7 @@ Fastify's [baseline ajv configuration](https://github.com/epoberezkin/ajv#option
 }
 ```
 
-This baseline configuration can be modified by providing [`ajv.customOptions`](./Reference/Server.md#factory-ajv) to your Fastify factory.
+This baseline configuration can be modified by providing [`ajv.customOptions`](./Reference/Server.md#ajv) to your Fastify factory.
 
 If you want to change or set additional config options, you will need to create your own instance and override the existing one like:
 

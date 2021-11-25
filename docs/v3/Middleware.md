@@ -1,6 +1,9 @@
-<h1 align="center">Fastify</h1>
-
-## Middleware
+---
+id: Middleware
+title: Middleware
+sidebar_label: Middleware
+hide_title: false
+---
 
 Starting with Fastify v3.0.0, middleware is not supported out of the box and requires an external plugin such as [`fastify-express`](https://github.com/fastify/fastify-express) or [`middie`](https://github.com/fastify/middie).
 

@@ -1,4 +1,9 @@
-# Reference Documentation
+---
+id: Reference
+title: Reference
+sidebar_label: Reference
+hide_title: false
+---
 
 ## Table Of Contents
 

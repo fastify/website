@@ -408,7 +408,7 @@ fastify.post('/', opts, async (request, reply) => {
 })
 ```
 
-Read [Content Type Parser](ContentTypeParser.md) to learn more about Fastify's default parsing functionality and how to support other content types.
+Read [Content-Type Parser](Content-Type-Parser.md) to learn more about Fastify's default parsing functionality and how to support other content types.
 
 ### Extend your server
 Fastify is built to be extremely extensible and minimal, we believe that a bare-bones framework is all that is necessary to make great applications possible.<br/>

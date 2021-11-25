@@ -1,4 +1,9 @@
-<h1 align="center">Fastify</h1>
+---
+id: Write-Plugin
+title: Write Plugin
+sidebar_label: Write Plugin
+hide_title: false
+---
 
 # How to write a good plugin
 First, thank you for deciding to write a plugin for Fastify. Fastify is a minimal framework and plugins are its strength, so thank you.<br/>

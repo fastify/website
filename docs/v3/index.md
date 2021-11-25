@@ -1,4 +1,9 @@
-<h1 align="center">Fastify</h1>
+---
+id: Index
+title: Index
+sidebar_label: Index
+hide_title: false
+---
 
 The documentation for Fastify is split into two categories:
 
