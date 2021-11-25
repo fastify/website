@@ -9,7 +9,7 @@ const config = {
   title: 'Fastify',
   tagline: 'Fast and low overhead web framework, for Node.js',
   url: 'https://fastify.io',
-  baseUrl: '/',
+  baseUrl: '/website-next/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
