@@ -76,6 +76,6 @@ If the reply was hijacked, we skip all the below steps. Otherwise, when it is be
 
 Note: `reply sent` means that the JSON payload will be serialized by:
 
-- the [reply serialized](./Reference/Server.md#setreplyserializer) if set
-- or by the [serializer compiler](./Reference/Server.md#setserializercompiler) when a JSON schema has been set for the returning HTTP status code
+- the [reply serialized](./02-Reference/Server.md#setreplyserializer) if set
+- or by the [serializer compiler](./02-Reference/Server.md#setserializercompiler) when a JSON schema has been set for the returning HTTP status code
 - or by the default `JSON.stringify` function

@@ -49,7 +49,7 @@ const config = {
           src: 'img/logo.svg',
         },
         items: [
-          {to: '/docs/intro', label: 'Docs', position: 'left'},
+          {to: '/docs', label: 'Docs', position: 'left'},
           {to: '/ecosystem', label: 'Ecosystem', position: 'left'},
           {to: '/benchmarks', label: 'Benchmarks', position: 'left'},
           {to: '/contribute', label: 'Contribute', position: 'left'},
