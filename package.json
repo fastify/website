@@ -29,7 +29,12 @@
   "devDependencies": {
     "@docusaurus/module-type-aliases": "2.0.0-beta.9",
     "@tsconfig/docusaurus": "^1.0.4",
-    "typescript": "^4.5.2"
+    "clone": "^2.1.2",
+    "compare-versions": "^4.1.1",
+    "multimatch": "^6.0.0",
+    "parse-link-header": "^1.0.1",
+    "typescript": "^4.5.2",
+    "unzip-stream": "^0.3.1"
   },
   "browserslist": {
     "production": [
