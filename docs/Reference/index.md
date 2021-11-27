@@ -4,7 +4,7 @@ sidebar_label: Reference
 hide_title: false
 ---
 
-## Table Of Contents
+## Reference Documentation Table Of Contents
 
 + [Server](./Server.md): Documents the core Fastify API. Includes documentation
 for the factory function and the object returned by the factory function.

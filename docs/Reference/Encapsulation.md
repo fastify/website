@@ -4,8 +4,6 @@ sidebar_label: Encapsulation
 hide_title: false
 ---
 
-## Encapsulation
-
 A fundamental feature of Fastify is the "encapsulation context." The
 encapsulation context governs which [decorators](../Decorators.md), registered
 [hooks](../Hooks.md), and [plugins](../Plugins.md) are available to
@@ -126,6 +124,7 @@ To see this, start the server and issue requests:
 [bearer]: https://github.com/fastify/fastify-bearer-auth
 
 ## Sharing Between Contexts
+<a id="shared-context"></a>
 
 Notice that each context in the prior example inherits _only_ from the parent
 contexts. Parent contexts cannot access any entities within their descendent
