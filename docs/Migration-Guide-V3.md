@@ -273,13 +273,13 @@ fastify.get('/', (request, reply) => {
 - Hooks now have consistent context regardless of how they are registered
 ([#2005](https://github.com/fastify/fastify/pull/2005))
 - Deprecated `request.req` and `reply.res` for [`request.raw`](./Request.md) and
-[`reply.raw`](Reply.md) ([#2008](https://github.com/fastify/fastify/pull/2008))
+[`reply.raw`](./Reply.md) ([#2008](https://github.com/fastify/fastify/pull/2008))
 - Removed `modifyCoreObjects` option ([#2015](https://github.com/fastify/fastify/pull/2015))
 - Added [`connectionTimeout`](./Reference/Server.md#factory-connection-timeout)
 option ([#2086](https://github.com/fastify/fastify/pull/2086))
 - Added [`keepAliveTimeout`](./Reference/Server.md#factory-keep-alive-timeout)
 option ([#2086](https://github.com/fastify/fastify/pull/2086))
-- Added async-await support for [plugins](Plugins.md#async-await)
+- Added async-await support for [plugins](./Plugins.md#async-await)
 ([#2093](https://github.com/fastify/fastify/pull/2093))
 - Added the feature to throw object as error
 ([#2134](https://github.com/fastify/fastify/pull/2134))

@@ -26,8 +26,9 @@ The validation and the serialization tasks are processed by two different, and c
 
 These two separate entities share only the JSON schemas added to Fastify's instance through `.addSchema(schema)`.
 
-<a name="shared-schema"></a>
 #### Adding a shared schema
+<a name="shared-schema"></a>
+
 Thanks to the `addSchema` API, you can add multiple schemas to the Fastify instance and then reuse them in multiple parts of your application.
 As usual, this API is encapsulated.
 
@@ -83,8 +84,8 @@ fastify.post('/', {
 })
 ```
 
-<a name="get-shared-schema"></a>
 #### Retrieving the shared schemas
+<a name="get-shared-schema"></a>
 
 If the validator and the serializer are customized, the `.addSchema` method will not be useful since the actors are no longer
 controlled by Fastify.
@@ -138,7 +139,7 @@ The supported validations are:
 
 All the validations can be a complete JSON Schema object (with a `type` property of `'object'` and a `'properties'` object containing parameters) or a simpler variation in which the `type` and `properties` attributes are forgone and the parameters are listed at the top level (see the example below).
 
-> ℹ If you need to use the lastest version of Ajv (v8) you should read how to do it in the [`schemaController`](./Reference/Server.md#schemaController) section. It is explained the easier way to avoid to implement a custom validator.
+> ℹ If you need to use the lastest version of Ajv (v8) you should read how to do it in the [`schemaController`](./Reference/Server.md#schema-controller) section. It is explained the easier way to avoid to implement a custom validator.
 
 Example:
 ```js
@@ -304,8 +305,8 @@ server.setValidatorCompiler(req => {
 
 For further information see [here](https://ajv.js.org/coercion.html)
 
-<a name="ajv-plugins"></a>
 #### Ajv Plugins
+<a name="ajv-plugins"></a>
 
 You can provide a list of plugins you want to use with the default `ajv` instance.
 Note that the plugin must be **compatible with Ajv v6**.
@@ -368,8 +369,8 @@ fastify.post('/foo', {
 })
 ```
 
-<a name="schema-validator"></a>
 #### Validator Compiler
+<a name="schema-validator"></a>
 
 The `validatorCompiler` is a function that returns a function that validates the body, URL  parameters, headers, and query string.
 The default `validatorCompiler` returns a function that implements the [ajv](https://ajv.js.org/) validation interface.
@@ -386,7 +387,7 @@ Fastify's [baseline ajv configuration](https://github.com/epoberezkin/ajv#option
 }
 ```
 
-This baseline configuration can be modified by providing [`ajv.customOptions`](./Reference/Server.md#ajv) to your Fastify factory.
+This baseline configuration can be modified by providing [`ajv.customOptions`](./Reference/Server.md#factory-ajv) to your Fastify factory.
 
 If you want to change or set additional config options, you will need to create your own instance and override the existing one like:
 
@@ -408,8 +409,8 @@ fastify.setValidatorCompiler(({ schema, method, url, httpPart }) => {
 ```
 _**Note:** If you use a custom instance of any validator (even Ajv), you have to add schemas to the validator instead of Fastify, since Fastify's default validator is no longer used, and Fastify's `addSchema` method has no idea what validator you are using._
 
-<a name="using-other-validation-libraries"></a>
 ##### Using other validation libraries
+<a name="using-other-validation-libraries"></a>
 
 The `setValidatorCompiler` function makes it easy to substitute `ajv` with almost any Javascript validation library ([joi](https://github.com/hapijs/joi/), [yup](https://github.com/jquense/yup/), ...) or a custom one:
 
@@ -506,8 +507,9 @@ const errorHandler = (error, request, reply) => {
 }
 ```
 
-<a name="serialization"></a>
 ### Serialization
+<a name="serialization"></a>
+
 Usually, you will send your data to the clients as JSON, and Fastify has a powerful tool to help you, [fast-json-stringify](https://www.npmjs.com/package/fast-json-stringify), which is used if you have provided an output schema in the route options.
 We encourage you to use an output schema, as it can drastically increase throughput and help prevent accidental disclosure of sensitive information.
 
@@ -549,10 +551,10 @@ const schema = {
 fastify.post('/the/url', { schema }, handler)
 ```
 
-<a name="schema-serializer"></a>
 #### Serializer Compiler
+<a name="schema-serializer"></a>
 
-The `serializerCompiler` is a function that returns a function that must return a string from an input object. You must provide a function to serialize every route where you have defined a `response` JSON Schema.
+The `serializerCompiler` is a function that returns a function that must return a string from an input object. When you define a response JSON Schema, you can change the default serialization method by providing a function to serialize every route where you do.
 
 ```js
 fastify.setSerializerCompiler(({ schema, method, url, httpStatus }) => {
@@ -574,7 +576,7 @@ fastify.get('/user', {
 })
 ```
 
-*If you need a custom serializer in a very specific part of your code, you can set one with [`reply.serializer(...)`](Reply.md#serializerfunc).*
+*If you need a custom serializer in a very specific part of your code, you can set one with [`reply.serializer(...)`](./Reply.md#serializerfunc).*
 
 ### Error Handling
 When schema validation fails for a request, Fastify will automatically return a  status 400 response including the result from the validator in the payload. As an example, if you have the following schema for your route
@@ -839,8 +841,9 @@ const refToSharedSchemaDefinitions = {
 }
 ```
 
-<a name="resources"></a>
 ### Resources
+<a name="resources"></a>
+
 - [JSON Schema](https://json-schema.org/)
 - [Understanding JSON Schema](https://spacetelescope.github.io/understanding-json-schema/)
 - [fast-json-stringify documentation](https://github.com/fastify/fast-json-stringify)

@@ -12,7 +12,7 @@ The core principles of Fastify are performance, low overhead, and providing a go
 *Need some inspiration? You can use the label ["plugin suggestion"](https://github.com/fastify/fastify/issues?q=is%3Aissue+is%3Aopen+label%3A%22plugin+suggestion%22) in our issue tracker!*
 
 ## Code
-Fastify uses different techniques to optimize its code, many of them are documented in our Guides. We highly recommend you read [the hitchhiker's guide to plugins](Plugins-Guide.md) to discover all the APIs you can use to build your plugin and learn how to use them.
+Fastify uses different techniques to optimize its code, many of them are documented in our Guides. We highly recommend you read [the hitchhiker's guide to plugins](./Plugins-Guide.md) to discover all the APIs you can use to build your plugin and learn how to use them.
 
 Do you have a question or need some advice? We are more than happy to help you! Just open an issue in our [help repository](https://github.com/fastify/help).
 

@@ -4,11 +4,9 @@ sidebar_label: TypeScript
 hide_title: false
 ---
 
-## TypeScript
-
 The Fastify framework is written in vanilla JavaScript, and as such type definitions are not as easy to maintain; however, since version 2 and beyond, maintainers and contributors have put in a great effort to improve the types.
 
-The type system was changed in Fastify version 3. The new type system introduces generic constraining and defaulting, plus a new way to define schema types such as a request body, querystring, and more! As the team works on improving framework and type definition synergy, sometimes parts of the API will not be typed or may be typed incorrectly. We encourage you to **contribute** to help us fill in the gaps. Just make sure to read our [`CONTRIBUTING.md`](https://github.com/fastify/fastify/blob/HEAD/CONTRIBUTING.md) file before getting started to make sure things go smoothly!
+The type system was changed in Fastify version 3. The new type system introduces generic constraining and defaulting, plus a new way to define schema types such as a request body, querystring, and more! As the team works on improving framework and type definition synergy, sometimes parts of the API will not be typed or may be typed incorrectly. We encourage you to **contribute** to help us fill in the gaps. Just make sure to read our [`CONTRIBUTING.md`](https://github.com/fastify/fastify/blob/main/CONTRIBUTING.md) file before getting started to make sure things go smoothly!
 
 > The documentation in this section covers Fastify version 3.x typings
 
@@ -722,7 +720,7 @@ const secureServer = fastify({
 })
 ```
 
-For more details on using HTTP2 check out the Fastify [HTTP2](HTTP2.md) documentation page.
+For more details on using HTTP2 check out the Fastify [HTTP2](./HTTP2.md) documentation page.
 
 ###### Example 4: Extended HTTP server
 

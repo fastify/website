@@ -44,7 +44,6 @@ Hooks are affected by Fastify's encapsulation, and can thus be applied to select
 There are eight different hooks that you can use in Request/Reply *(in order of execution)*:
 
 ### onRequest
-
 ```js
 fastify.addHook('onRequest', (request, reply, done) => {
   // Some code
@@ -75,9 +74,7 @@ fastify.addHook('preParsing', (request, reply, payload, done) => {
   done(null, newPayload)
 })
 ```
-
 Or `async/await`:
-
 ```js
 fastify.addHook('preParsing', async (request, reply, payload) => {
   // Some code
@@ -102,9 +99,7 @@ fastify.addHook('preValidation', (request, reply, done) => {
   done()
 })
 ```
-
 Or `async/await`:
-
 ```js
 fastify.addHook('preValidation', async (request, reply) => {
   const importantKey = await generateRandomString()
@@ -113,23 +108,19 @@ fastify.addHook('preValidation', async (request, reply) => {
 ```
 
 ### preHandler
-
 ```js
 fastify.addHook('preHandler', (request, reply, done) => {
   // some code
   done()
 })
 ```
-
 Or `async/await`:
-
 ```js
 fastify.addHook('preHandler', async (request, reply) => {
   // Some code
   await asyncMethod()
 })
 ```
-
 ### preSerialization
 
 If you are using the `preSerialization` hook, you can change (or replace) the payload before it is serialized. For example:
@@ -141,9 +132,7 @@ fastify.addHook('preSerialization', (request, reply, payload, done) => {
   done(err, newPayload)
 })
 ```
-
 Or `async/await`:
-
 ```js
 fastify.addHook('preSerialization', async (request, reply, payload) => {
   return { wrapped: payload }
@@ -153,23 +142,19 @@ fastify.addHook('preSerialization', async (request, reply, payload) => {
 Note: the hook is NOT called if the payload is a `string`, a `Buffer`, a `stream`, or `null`.
 
 ### onError
-
 ```js
 fastify.addHook('onError', (request, reply, error, done) => {
   // Some code
   done()
 })
 ```
-
 Or `async/await`:
-
 ```js
 fastify.addHook('onError', async (request, reply, error) => {
   // Useful for custom error logging
   // You should not use this hook to update the error
 })
 ```
-
 This hook is useful if you need to do some custom error logging or add some specific header in case of error.
 
 It is not intended for changing the error, and calling `reply.send` will throw an exception.
@@ -188,9 +173,7 @@ fastify.addHook('onSend', (request, reply, payload, done) => {
   done(err, newPayload)
 })
 ```
-
 Or `async/await`:
-
 ```js
 fastify.addHook('onSend', async (request, reply, payload) => {
   const newPayload = payload.replace('some-text', 'some-new-text')
@@ -214,16 +197,13 @@ Note: If you change the payload, you may only change it to a `string`, a `Buffer
 
 
 ### onResponse
-
 ```js
 fastify.addHook('onResponse', (request, reply, done) => {
   // Some code
   done()
 })
 ```
-
 Or `async/await`:
-
 ```js
 fastify.addHook('onResponse', async (request, reply) => {
   // Some code
@@ -241,16 +221,13 @@ fastify.addHook('onTimeout', (request, reply, done) => {
   done()
 })
 ```
-
 Or `async/await`:
-
 ```js
 fastify.addHook('onTimeout', async (request, reply) => {
   // Some code
   await asyncMethod()
 })
 ```
-
 `onTimeout` is useful if you need to monitor the request timed out in your service (if the `connectionTimeout` property is set on the Fastify instance). The `onTimeout` hook is executed when a request is timed out and the HTTP socket has been hanged up. Therefore, you will not be able to send data to the client.
 
 
@@ -264,18 +241,15 @@ fastify.addHook('onRequest', (request, reply, done) => {
 ```
 
 If you want to pass a custom error code to the user, just use `reply.code()`:
-
 ```js
 fastify.addHook('preHandler', (request, reply, done) => {
   reply.code(400)
   done(new Error('Some error'))
 })
 ```
-
-*The error will be handled by [`Reply`](Reply.md#errors).*
+*The error will be handled by [`Reply`](./Reply.md#errors).*
 
 Or if you're using `async/await` you can just throw an error:
-
 ```js
 fastify.addHook('onResponse', async (request, reply) => {
   throw new Error('Some error')
@@ -375,10 +349,11 @@ fastify.addHook('onReady', async function () {
 ```
 
 ### onClose
-Triggered when `fastify.close()` is invoked to stop the server. It is useful when [plugins](Plugins.md) need a "shutdown" event, for example, to close an open connection to a database.
+<a name="on-close"></a>
+
+Triggered when `fastify.close()` is invoked to stop the server. It is useful when [plugins](./Plugins.md) need a "shutdown" event, for example, to close an open connection to a database.
 
 The first argument is the Fastify instance, the second one the `done` callback.
-
 ```js
 fastify.addHook('onClose', (instance, done) => {
   // Some code
@@ -387,8 +362,9 @@ fastify.addHook('onClose', (instance, done) => {
 ```
 
 ### onRoute
-Triggered when a new route is registered. Listeners are passed a `routeOptions` object as the sole parameter. The interface is synchronous, and, as such, the listeners are not passed a callback. This hook is encapsulated.
+<a name="on-route"></a>
 
+Triggered when a new route is registered. Listeners are passed a `routeOptions` object as the sole parameter. The interface is synchronous, and, as such, the listeners are not passed a callback. This hook is encapsulated.
 ```js
 fastify.addHook('onRoute', (routeOptions) => {
   //Some code
@@ -418,12 +394,13 @@ fastify.addHook('onRoute', (routeOptions) => {
 ```
 
 ### onRegister
+<a name="on-register"></a>
+
 Triggered when a new plugin is registered and a new encapsulation context is created. The hook will be executed **before** the registered code.
 
 This hook can be useful if you are developing a plugin that needs to know when a plugin context is formed, and you want to operate in that specific context, thus this hook is encapsulated.
 
 **Note:** This hook will not be called if a plugin is wrapped inside [`fastify-plugin`](https://github.com/fastify/fastify-plugin).
-
 ```js
 fastify.decorate('data', [])
 
@@ -454,7 +431,9 @@ fastify.addHook('onRegister', (instance, opts) => {
 ```
 
 ## Scope
-Except for [onClose](#onclose), all hooks are encapsulated. This means that you can decide where your hooks should run by using `register` as explained in the [plugins guide](Plugins-Guide.md). If you pass a function, that function is bound to the right Fastify context and from there you have full access to the Fastify API.
+<a name="scope"></a>
+
+Except for [onClose](#onclose), all hooks are encapsulated. This means that you can decide where your hooks should run by using `register` as explained in the [plugins guide](./Plugins-Guide.md). If you pass a function, that function is bound to the right Fastify context and from there you have full access to the Fastify API.
 
 ```js
 fastify.addHook('onRequest', function (request, reply, done) {
@@ -491,7 +470,10 @@ fastify.register(async function plugin (fastify, opts) {
 
 Warn: if you declare the function with an [arrow function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions), the `this` will not be Fastify, but the one of the current scope.
 
+
 ## Route level hooks
+<a name="route-hooks"></a>
+
 You can declare one or more custom lifecycle hooks ([onRequest](#onrequest), [onResponse](#onresponse), [preParsing](#preparsing), [preValidation](#prevalidation), [preHandler](#prehandler), [preSerialization](#preserialization), [onSend](#onsend), [onTimeout](#ontimeout), and [onError](#onerror)) hook(s) that will be **unique** for the route.
 If you do so, those hooks are always executed as the last hook in their category. 
 

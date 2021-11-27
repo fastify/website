@@ -41,9 +41,8 @@ A "month" is defined as 30 consecutive days.
 
 [semver]: https://semver.org/
 
-<a name="lts-schedule"></a>
-
 ### Schedule
+<a name="lts-schedule"></a>
 
 | Version | Release Date | End Of LTS Date | Node.js              |
 | :------ | :----------- | :-------------- | :------------------- |
@@ -51,9 +50,8 @@ A "month" is defined as 30 consecutive days.
 | 2.0.0   | 2019-02-25   | 2021-01-31      | 6, 8, 10, 12, 14     |
 | 3.0.0   | 2020-07-07   | TBD             | 10, 12, 14, 16       |
 
-<a name="supported-os"></a>
-
 ### CI tested operating systems
+<a name="supported-os"></a>
 
 Fastify uses GitHub Actions for CI testing, please refer to
 [GitHub's documentation regarding workflow runners](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources)

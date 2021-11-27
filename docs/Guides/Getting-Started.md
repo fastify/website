@@ -114,7 +114,7 @@ As with JavaScript, where everything is an object, with Fastify everything is a 
 
 Before digging into it, let's see how it works!
 
-Let's declare our basic server, but instead of declaring the route inside the entry point, we'll declare it in an external file (check out the [route declaration](Routes.md) docs).
+Let's declare our basic server, but instead of declaring the route inside the entry point, we'll declare it in an external file (check out the [route declaration](../Routes.md) docs).
 ```js
 // ESM
 import Fastify from 'fastify'
@@ -309,7 +309,7 @@ Let's recap what we have done here since we've introduced some new concepts.
 
 As you can see, we used `register` for both the database connector and the registration of the routes.
 
-This is one of the best features of Fastify, it will load your plugins in the same order you declare them, and it will load the next plugin only once the current one has been loaded. In this way, we can register the database connector in the first plugin and use it in the second *(read [here](Plugins.md#handle-the-scope) to understand how to handle the scope of a plugin)*.
+This is one of the best features of Fastify, it will load your plugins in the same order you declare them, and it will load the next plugin only once the current one has been loaded. In this way, we can register the database connector in the first plugin and use it in the second *(read [here](../Plugins.md#handle-the-scope) to understand how to handle the scope of a plugin)*.
 
 Plugin loading starts when you call `fastify.listen()`, `fastify.inject()` or `fastify.ready()`
 

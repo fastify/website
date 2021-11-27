@@ -374,7 +374,7 @@ Also note, this setting will not affect query strings. If you want to change the
 ### `requestIdHeader`
 <a name="factory-request-id-header"></a>
 
-The header name used to know the request-id. See [the request-id](../Benchmarking.mdLogging.md#logging-request-id) section.
+The header name used to know the request-id. See [the request-id](../Logging.md#logging-request-id) section.
 
 + Default: `'request-id'`
 

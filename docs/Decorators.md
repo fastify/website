@@ -14,7 +14,7 @@ asynchronously could result in the Fastify instance booting before the
 decoration completes its initialization. To avoid this issue, and register an
 asynchronous decoration, the `register` API, in combination with
 `fastify-plugin`, must be used instead. To learn more, see the
-[Plugins](Plugins.md) documentation.
+[Plugins](./Plugins.md) documentation.
 
 Decorating core objects with this API allows the underlying JavaScript engine
 to optimize the handling of server, request, and reply objects. This is
@@ -150,7 +150,7 @@ fastify.decorateReply('foo', { bar: 'fizz'})
 In this example, the reference of the object is shared with all the requests: **any
 mutation will impact all requests, potentially creating security vulnerabilities or memory leaks**.
 To achieve proper encapsulation across requests configure a new value for each incoming request
-in the [`'onRequest'` hook](Hooks.md#onrequest). Example:
+in the [`'onRequest'` hook](./Hooks.md#onrequest). Example:
 
 ```js
 const fp = require('fastify-plugin')
@@ -192,7 +192,7 @@ In this example, the reference of the object is shared with all the requests: **
 mutation will impact all requests, potentially creating security vulnerabilities or memory leaks**.
 
 To achieve proper encapsulation across requests configure a new value for each incoming request
-in the [`'onRequest'` hook](Hooks.md#onrequest). Example:
+in the [`'onRequest'` hook](./Hooks.md#onrequest). Example:
 
 ```js
 const fp = require('fastify-plugin')
