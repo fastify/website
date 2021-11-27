@@ -4,9 +4,6 @@ sidebar_label: Getting Started
 hide_title: false
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 Hello! Thank you for checking out Fastify!
 
 This document aims to be a gentle introduction to the framework and its features. It is an elementary preface with examples and links to other parts of the documentation.
@@ -14,28 +11,22 @@ This document aims to be a gentle introduction to the framework and its features
 Let's start!
 
 ### Install
+<a name="install"></a>
 
-<Tabs>
-<TabItem value="npm" label="NPM">
-
+Install with npm:
 ```bash
 npm i fastify --save
 ```
 
-</TabItem>
-<TabItem value="yarn" label="Yarn">
-
-```bash
+Install with yarn:
+```
 yarn add fastify
 ```
 
-</TabItem>
-</Tabs>
-
 ### Your first server
+<a name="first-server"></a>
 
 Let's write our first server:
-
 ```js
 // Require the framework and instantiate it
 
@@ -65,8 +56,8 @@ fastify.listen(3000, function (err, address) {
 ```
 
 Do you prefer to use `async/await`? Fastify supports it out-of-the-box.
-(We also suggest using [make-promises-safe](https://github.com/mcollina/make-promises-safe) to avoid file descriptor and memory leaks.)
 
+*(We also suggest using [make-promises-safe](https://github.com/mcollina/make-promises-safe) to avoid file descriptor and memory leaks.)*
 ```js
 // ESM
 import Fastify from 'fastify'
@@ -96,39 +87,36 @@ start()
 Awesome, that was easy.
 
 Unfortunately, writing a complex application requires significantly more code than this example. A classic problem when you are building a new application is how to handle multiple files, asynchronous bootstrapping, and the architecture of your code.
+
 Fastify offers an easy platform that helps to solve all of the problems outlined above, and more!
 
-:::note
+> ## Note
+> The above examples, and subsequent examples in this document, default to listening *only* on the localhost `127.0.0.1` interface. To listen on all available IPv4 interfaces the example should be modified to listen on `0.0.0.0` like so:
+>
+> ```js
+> fastify.listen(3000, '0.0.0.0', function (err, address) {
+>   if (err) {
+>     fastify.log.error(err)
+>     process.exit(1)
+>   }
+>   fastify.log.info(`server listening on ${address}`)
+> })
+> ```
+>
+> Similarly, specify `::1` to accept only local connections via IPv6. Or specify `::` to accept connections on all IPv6 addresses, and, if the operating system supports it, also on all IPv4 addresses.
+>
+> When deploying to a Docker (or another type of) container using `0.0.0.0` or `::` would be the easiest method for exposing the application.
 
-The above examples, and subsequent examples in this document, default to listening only on the localhost `127.0.0.1` interface. To listen on all available IPv4 interfaces the example should be modified to listen on `0.0.0.0` like so:
-
-```js
-fastify.listen(3000, '0.0.0.0', function (err, address) {
-  if (err) {
-    fastify.log.error(err)
-    process.exit(1)
-  }
-  fastify.log.info(`server listening on ${address}`)
-})
-```
-
-Similarly, specify `::1` to accept only local connections via IPv6. Or specify `::` to accept connections on all IPv6 addresses, and, if the operating system supports it, also on all IPv4 addresses.
-
-When deploying to a Docker (or another type of) container using `0.0.0.0` or `::` would be the easiest method for exposing the application.
-
-:::
-
-## Your first plugin
+### Your first plugin
+<a name="first-plugin"></a>
 
 As with JavaScript, where everything is an object, with Fastify everything is a plugin.
 
 Before digging into it, let's see how it works!
-Let's declare our basic server, but instead of declaring the route inside the entry point, we'll declare it in an external file (check out the [route declaration](../Routes.md) docs).
 
-<Tabs>
-<TabItem value="esm" label="ESM">
-
+Let's declare our basic server, but instead of declaring the route inside the entry point, we'll declare it in an external file (check out the [route declaration](Routes.md) docs).
 ```js
+// ESM
 import Fastify from 'fastify'
 import firstRoute from './our-first-route'
 const fastify = Fastify({
@@ -146,10 +134,8 @@ fastify.listen(3000, function (err, address) {
 })
 ```
 
-</TabItem>
-<TabItem value="commonjs" label="CommonJS">
-
 ```js
+// CommonJs
 const fastify = require('fastify')({
   logger: true
 })
@@ -165,51 +151,39 @@ fastify.listen(3000, function (err, address) {
 })
 ```
 
-</TabItem>
-</Tabs>
+```js
+// our-first-route.js
 
-```js title="our-first-route.js"
 async function routes (fastify, options) {
   fastify.get('/', async (request, reply) => {
     return { hello: 'world' }
   })
 }
 
-module.exports = routesver is now listening on ${address}
-})
+module.exports = routes
 ```
-
 In this example, we used the `register` API, which is the core of the Fastify framework. It is the only way to add routes, plugins, et cetera.
 
-At the beginning of this guide, we noted that Fastify provides a foundation that assists with asynchronous bootstrapping of your application. Why is this important? Consider the scenario where a database connection is needed to handle data storage. The database connection needs to be available before the server is accepting connections. How do we address this problem?
+At the beginning of this guide, we noted that Fastify provides a foundation that assists with asynchronous bootstrapping of your application. Why is this important?
+
+Consider the scenario where a database connection is needed to handle data storage. The database connection needs to be available before the server is accepting connections. How do we address this problem?
+
 A typical solution is to use a complex callback, or promises - a system that will mix the framework API with other libraries and the application code.
+
 Fastify handles this internally, with minimum effort!
 
 Let's rewrite the above example with a database connection.
 
+
 First, install `fastify-plugin` and `fastify-mongodb`:
 
-<Tabs>
-<TabItem value="npm" label="NPM">
-
-```bash
+```
 npm i --save fastify-plugin fastify-mongodb
 ```
 
-</TabItem>
-<TabItem value="yarn" label="Yarn">
-
-```bash
-yarn add fastify-plugin fastify-mongodb
-```
-
-</TabItem>
-</Tabs>
-
-<Tabs>
-<TabItem value="esm" label="ESM">
-
-```js title="server.js"
+**server.js**
+```js
+// ESM
 import Fastify from 'fastify'
 import dbConnector from './our-db-connector'
 import firstRoute from './our-first-route'
@@ -229,10 +203,8 @@ fastify.listen(3000, function (err, address) {
 })
 ```
 
-</TabItem>
-<TabItem value="commonjs" label="CommonJS">
-
-```js title="server.js"
+```js
+// CommonJs
 const fastify = require('fastify')({
   logger: true
 })
@@ -247,15 +219,12 @@ fastify.listen(3000, function (err, address) {
   }
   // Server is now listening on ${address}
 })
+
 ```
 
-</TabItem>
-</Tabs>
-
-<Tabs>
-<TabItem value="esm" label="ESM">
-
-```js title="our-db-connector.js"
+**our-db-connector.js**
+```js
+// ESM
 import fastifyPlugin from 'fastify-plugin'
 import fastifyMongo from 'fastify-mongodb'
 
@@ -265,15 +234,14 @@ async function dbConnector (fastify, options) {
   })
 }
 
-// Wrapping a plugin function with fastify-plugin exposes the decorators    
+// Wrapping a plugin function with fastify-plugin exposes the decorators
 // and hooks, declared inside the plugin to the parent scope.
 module.exports = fastifyPlugin(dbConnector)
+
 ```
 
-</TabItem>
-<TabItem value="commonjs" label="CommonJS">
-
-```js title="our-db-connector.js"
+```js
+// CommonJs
 const fastifyPlugin = require('fastify-plugin')
 
 async function dbConnector (fastify, options) {
@@ -282,15 +250,14 @@ async function dbConnector (fastify, options) {
   })
 }
 
-// Wrapping a plugin function with fastify-plugin exposes the decorators    
+// Wrapping a plugin function with fastify-plugin exposes the decorators
 // and hooks, declared inside the plugin to the parent scope.
 module.exports = fastifyPlugin(dbConnector)
+
 ```
 
-</TabItem>
-</Tabs>
-
-```js title="our-first-route.js"
+**our-first-route.js**
+```js
 async function routes (fastify, options) {
   const collection = fastify.mongo.db.collection('test_collection')
 
@@ -339,16 +306,21 @@ module.exports = routes
 Wow, that was fast!
 
 Let's recap what we have done here since we've introduced some new concepts.
-As you can see, we used `register` for both the database connector and the registration of the routes. This is one of the best features of Fastify, it will load your plugins in the same order you declare them, and it will load the next plugin only once the current one has been loaded. In this way, we can register the database connector in the first plugin and use it in the second (read [here](../Plugins.md#handle-the-scope) to understand how to handle the scope of a plugin). Plugin loading starts when you call `fastify.listen()`, `fastify.inject()` or `fastify.ready()`
+
+As you can see, we used `register` for both the database connector and the registration of the routes.
+
+This is one of the best features of Fastify, it will load your plugins in the same order you declare them, and it will load the next plugin only once the current one has been loaded. In this way, we can register the database connector in the first plugin and use it in the second *(read [here](Plugins.md#handle-the-scope) to understand how to handle the scope of a plugin)*.
+
+Plugin loading starts when you call `fastify.listen()`, `fastify.inject()` or `fastify.ready()`
 
 The MongoDB plugin uses the `decorate` API to add custom objects to the Fastify instance, making them available for use everywhere. Use of this API is encouraged to facilitate easy code reuse and to decrease code or logic duplication.
 
 To dig deeper into how Fastify plugins work, how to develop new plugins, and for details on how to use the whole Fastify API to deal with the complexity of asynchronously bootstrapping an application, read [the hitchhiker's guide to plugins](../Plugins-Guide.md).
 
-## Loading order of your plugins
+### Loading order of your plugins
+<a name="plugin-loading-order"></a>
 
 To guarantee consistent and predictable behavior of your application, we highly recommend to always load your code as shown below:
-
 ```
 └── plugins (from the Fastify ecosystem)
 └── your plugins (your custom plugins)
@@ -356,10 +328,9 @@ To guarantee consistent and predictable behavior of your application, we highly 
 └── hooks
 └── your services
 ```
-
 In this way, you will always have access to all of the properties declared in the current scope.
-As discussed previously, Fastify offers a solid encapsulation model, to help you build your application as single and independent services. If you want to register a plugin only for a subset of routes, you just have to replicate the above structure.
 
+As discussed previously, Fastify offers a solid encapsulation model, to help you build your application as single and independent services. If you want to register a plugin only for a subset of routes, you just have to replicate the above structure.
 ```
 └── plugins (from the Fastify ecosystem)
 └── your plugins (your custom plugins)
@@ -382,14 +353,17 @@ As discussed previously, Fastify offers a solid encapsulation model, to help you
           └── your services
 ```
 
-## Validate your data
+### Validate your data
+<a name="validate-data"></a>
 
 Data validation is extremely important and a core concept of the framework.
-To validate incoming requests, Fastify uses [JSON Schema](https://json-schema.org/). (JTD schemas are loosely supported, but `jsonShorthand` must be disabled first)
+
+To validate incoming requests, Fastify uses [JSON Schema](https://json-schema.org/).
+
+(JTD schemas are loosely supported, but `jsonShorthand` must be disabled first)
 
 Let's look at an example demonstrating validation for routes:
-
-``` js
+```js
 const opts = {
   schema: {
     body: {
@@ -406,17 +380,17 @@ fastify.post('/', opts, async (request, reply) => {
   return { hello: 'world' }
 })
 ```
-
-This example shows how to pass an options object to the route, which accepts a `schema` key that contains all of the schemas for `route`, `body`, `querystring`, `params`, and `headers`.
+This example shows how to pass an options object to the route, which accepts a `schema` key that contains all of the schemas for route, `body`, `querystring`, `params`, and `headers`.
 
 Read [Validation and Serialization](../Validation-and-Serialization.md) to learn more.
 
-## Serialize your data
+### Serialize your data
+<a name="serialize-data"></a>
 
 Fastify has first class support for JSON. It is extremely optimized to parse JSON bodies and to serialize JSON output.
-To speed up JSON serialization (yes, it is slow!) use the `response` key of the schema option as shown in the following example:
 
-``` js
+To speed up JSON serialization (yes, it is slow!) use the `response` key of the schema option as shown in the following example:
+```js
 const opts = {
   schema: {
     response: {
@@ -434,16 +408,17 @@ fastify.get('/', opts, async (request, reply) => {
   return { hello: 'world' }
 })
 ```
+By specifying a schema as shown, you can speed up serialization by a factor of 2-3. This also helps to protect against leakage of potentially sensitive data, since Fastify will serialize only the data present in the response schema.
+Read [Validation and Serialization](../Validation-and-Serialization.md) to learn more.
 
-By specifying a schema as shown, you can speed up serialization by a factor of 2-3. This also helps to protect against leakage of potentially sensitive data, since Fastify will serialize only the data present in the response schema. Read [Validation and Serialization](../Validation-and-Serialization.md) to learn more.
-
-## Parsing request payloads
+### Parsing request payloads
+<a name="request-payload"></a>
 
 Fastify parses `'application/json'` and `'text/plain'` request payloads natively, with the result accessible from the [Fastify request](../Request.md) object at `request.body`.
 
 The following example returns the parsed body of a request back to the client:
 
-``` js
+```js
 const opts = {}
 fastify.post('/', opts, async (request, reply) => {
   return request.body
@@ -452,45 +427,35 @@ fastify.post('/', opts, async (request, reply) => {
 
 Read [Content-Type Parser](../Content-Type-Parser.md) to learn more about Fastify's default parsing functionality and how to support other content types.
 
-## Extend your server
+### Extend your server
+<a name="extend-server"></a>
 
 Fastify is built to be extremely extensible and minimal, we believe that a bare-bones framework is all that is necessary to make great applications possible.
+
 In other words, Fastify is not a "batteries included" framework, and relies on an amazing [ecosystem](../Ecosystem.md)!
 
-## Test your server
+### Test your server
+<a name="test-server"></a>
 
 Fastify does not offer a testing framework, but we do recommend a way to write your tests that uses the features and architecture of Fastify.
 
 Read the [testing](../Testing.md) documentation to learn more!
 
-## Run your server from CLI
+### Run your server from CLI
+<a name="cli"></a>
 
 Fastify also has CLI integration thanks to [fastify-cli](https://github.com/fastify/fastify-cli).
 
 First, install `fastify-cli`:
 
-<Tabs>
-<TabItem value="npm" label="NPM">
-
-```bash
+```
 npm i fastify-cli
 ```
-
-</TabItem>
-<TabItem value="yarn" label="Yarn">
-
-```bash
-yarn add fastify-cli
-```
-
-</TabItem>
-</Tabs>
 
 You can also install it globally with `-g`.
 
 Then, add the following lines to `package.json`:
-
-``` json
+```json
 {
   "scripts": {
     "start": "fastify start server.js"
@@ -499,8 +464,8 @@ Then, add the following lines to `package.json`:
 ```
 
 And create your server file(s):
-
-``` js title="server.js"
+```js
+// server.js
 'use strict'
 
 module.exports = async function (fastify, opts) {
@@ -511,12 +476,13 @@ module.exports = async function (fastify, opts) {
 ```
 
 Then run your server with:
-
-``` bash
+```bash
 npm start
 ```
 
 ### Slides and Videos
+<a name="slides"></a>
+
 - Slides
   - [Take your HTTP server to ludicrous speed](https://mcollina.github.io/take-your-http-server-to-ludicrous-speed) by [@mcollina](https://github.com/mcollina)
   - [What if I told you that HTTP can be fast](https://delvedor.github.io/What-if-I-told-you-that-HTTP-can-be-fast) by [@delvedor](https://github.com/delvedor)

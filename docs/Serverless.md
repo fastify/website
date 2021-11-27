@@ -192,7 +192,7 @@ npm i --save-dev @google-cloud/functions-framework
 ```
 
 Than you can run your function locally with Functions Framework:
-``` bash
+```bash
 npx @google-cloud/functions-framework --target=fastifyFunction
 ```
 
