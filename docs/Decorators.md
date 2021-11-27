@@ -72,7 +72,7 @@ for more information on this topic.
 #### `decorate(name, value, [dependencies])`
 <a name="decorate"></a>
 
-This method is used to customize the Fastify [server](./02-Reference/Server.md) instance.
+This method is used to customize the Fastify [server](./Reference/Server.md) instance.
 
 For example, to attach a new method to the server instance:
 
@@ -100,7 +100,7 @@ fastify.utility()
 console.log(fastify.conf.db)
 ```
 
-The decorated [Fastify server](./02-Reference/Server.md) is bound to `this` in route [route](./Routes.md) handlers:
+The decorated [Fastify server](./Reference/Server.md) is bound to `this` in route [route](./Routes.md) handlers:
 
 ```js
 fastify.decorate('db', new DbConnection())
