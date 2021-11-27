@@ -213,10 +213,10 @@ fastify.get('/', function (request, reply) {
 })
 ```
 
-If you want to completely customize the error response, checkout [`setErrorHandler`](https://github.com/fastify/fastify/blob/master/docs/Server.md#seterrorhandler) API.
+If you want to completely customize the error response, checkout [`setErrorHandler`](./Server.md#seterrorhandler) API.
 
 Errors with a `status` or `statusCode` property equal to `404` will be routed to the not found handler.
-See [`server.setNotFoundHandler`](https://github.com/fastify/fastify/blob/master/docs/Server.md#setnotfoundhandler)
+See [`server.setNotFoundHandler`](./Server.md#setnotfoundhandler)
 API to learn more about handling such cases:
 
 ```js
@@ -232,7 +232,7 @@ fastify.get('/', function (request, reply) {
 #### Type of the final payload
 <a name="payload-type"></a>
 
-The type of the sent payload (after serialization and going through any [`onSend` hooks](https://github.com/fastify/fastify/blob/master/docs/Hooks.md#the-onsend-hook)) must be one of the following types, otherwise an error will be thrown:
+The type of the sent payload (after serialization and going through any [`onSend` hooks](./Hooks.md#the-onsend-hook)) must be one of the following types, otherwise an error will be thrown:
 
 - `string`
 - `Buffer`
@@ -271,4 +271,4 @@ fastify.get('/teapot', async function (request, reply) => {
 })
 ```
 
-If you want to know more please review [Routes#async-await](https://github.com/fastify/fastify/blob/master/docs/Routes.md#async-await).
+If you want to know more please review [Routes#async-await](./Routes.md#async-await).

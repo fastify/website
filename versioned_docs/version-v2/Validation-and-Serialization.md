@@ -265,7 +265,7 @@ This example will returns:
 
 You can provide a list of plugins you want to use with Ajv:
 
-> Refer to [`ajv options`](https://github.com/fastify/fastify/blob/master/docs/Server.md#factory-ajv) to check plugins format
+> Refer to [`ajv options`](./Server.md#factory-ajv) to check plugins format
 
 ```js
 const fastify = require('fastify')({
@@ -347,7 +347,7 @@ Fastify's [baseline ajv configuration](https://github.com/epoberezkin/ajv#option
 }
 ```
 
-This baseline configuration can be modified by providing [`ajv.customOptions`](https://github.com/fastify/fastify/blob/master/docs/Server.md#factory-ajv) to your Fastify factory.
+This baseline configuration can be modified by providing [`ajv.customOptions`](./Server.md#factory-ajv) to your Fastify factory.
 
 If you want to change or set additional config options, you will need to create your own instance and override the existing one like:
 

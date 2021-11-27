@@ -5,11 +5,11 @@ hide_title: false
 ---
 
 Fastify allows the user to extend its functionalities with plugins.
-A plugin can be a set of routes, a server [decorator](https://github.com/fastify/fastify/blob/master/docs/Decorators.md) or whatever. The API that you will need to use one or more plugins, is `register`.<br/>
+A plugin can be a set of routes, a server [decorator](./Decorators.md) or whatever. The API that you will need to use one or more plugins, is `register`.<br/>
 
 By default, `register` creates a *new scope*, this means that if you do some changes to the Fastify instance (via `decorate`), this change will not be reflected to the current context ancestors, but only to its sons. This feature allows us to achieve plugin *encapsulation* and *inheritance*, in this way we create a *direct acyclic graph* (DAG) and we will not have issues caused by cross dependencies.
 
-You already see in the [getting started](https://github.com/fastify/fastify/blob/master/docs/Getting-Started.md#register) section how using this API is pretty straightforward.
+You already see in the [getting started](./Getting-Started.md#register) section how using this API is pretty straightforward.
 ```
 fastify.register(plugin, [options])
 ```
@@ -19,8 +19,8 @@ fastify.register(plugin, [options])
 
 The optional `options` parameter for `fastify.register` supports a predefined set of options that Fastify itself will use, except when the plugin has been wrapped with [fastify-plugin](https://github.com/fastify/fastify-plugin). This options object will also be passed to the plugin upon invocation, regardless of whether or not the plugin has been wrapped. The currently supported list of Fastify specific options is:
 
-+ [`logLevel`](https://github.com/fastify/fastify/blob/master/docs/Routes.md#custom-log-level)
-+ [`prefix`](https://github.com/fastify/fastify/blob/master/docs/Plugins.md#route-prefixing-options)
++ [`logLevel`](./Routes.md#custom-log-level)
++ [`prefix`](./Plugins.md#route-prefixing-options)
 
 It is possible that Fastify will directly support other options in the future. Thus, to avoid collisions, a plugin should consider namespacing its options. For example, a plugin `foo` might be registered like so:
 
@@ -47,7 +47,7 @@ fastify.register(require('fastify-foo'), {
 #### Route Prefixing option
 <a name="route-prefixing-option"></a>
 
-If you pass an option with the key `prefix` with a `string` value, Fastify will use it to prefix all the routes inside the register, for more info check [here](https://github.com/fastify/fastify/blob/master/docs/Routes.md#route-prefixing).<br/>
+If you pass an option with the key `prefix` with a `string` value, Fastify will use it to prefix all the routes inside the register, for more info check [here](./Routes.md#route-prefixing).<br/>
 Be aware that if you use [`fastify-plugin`](https://github.com/fastify/fastify-plugin) this option won't work.
 
 #### Error handling
@@ -108,14 +108,14 @@ module.exports = function (fastify, opts, next) {
   next()
 }
 ```
-Sometimes, you will need to know when the server is about to close, for example because you must close a connection to a database. To know when this is going to happen, you can use the [`'onClose'`](https://github.com/fastify/fastify/blob/master/docs/Hooks.md#on-close) hook.
+Sometimes, you will need to know when the server is about to close, for example because you must close a connection to a database. To know when this is going to happen, you can use the [`'onClose'`](./Hooks.md#on-close) hook.
 
 Do not forget that `register` will always create a new Fastify scope, if you don't need that, read the following section.
 
 ### Handle the scope
 <a name="handle-scope"></a>
 
-If you are using `register` only for extending the functionality of the server with  [`decorate`](https://github.com/fastify/fastify/blob/master/docs/Decorators.md), it is your responsibility to tell Fastify to not create a new scope, otherwise your changes will not be accessible by the user in the upper scope.
+If you are using `register` only for extending the functionality of the server with  [`decorate`](./Decorators.md), it is your responsibility to tell Fastify to not create a new scope, otherwise your changes will not be accessible by the user in the upper scope.
 
 You have two ways to tell Fastify to avoid the creation of a new context:
 - Use the [`fastify-plugin`](https://github.com/fastify/fastify-plugin) module

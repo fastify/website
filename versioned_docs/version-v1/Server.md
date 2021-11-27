@@ -7,9 +7,7 @@ hide_title: false
 <a name="factory"></a>
 ## Factory
 
-The Fastify module exports a factory function that is used to create new
-<a href="https://github.com/fastify/fastify/blob/master/docs/Server.md"><code><b>Fastify server</b></code></a>
-instances. This factory function accepts an options object which is used to
+The Fastify module exports a factory function that is used to create new [`Fastify server`](./Server.md) instances. This factory function accepts an options object which is used to
 customize the resulting instance. This document describes the properties
 available in that options object.
 
@@ -28,10 +26,7 @@ are the same as the Node.js core
 [`createServer` method](https://nodejs.org/dist/latest-v8.x/docs/api/https.html#https_https_createserver_options_requestlistener).
 When this property is `null`, the socket will not be configured for TLS.
 
-This option also applies when the
-<a href="https://github.com/fastify/fastify/blob/master/docs/Server.md#factory-http2">
-<code><b>http2</b></code>
-</a> option is set.
+This option also applies when the [`http2`](./Server.md#factory-http2) option is set.
 
 + Default: `null`
 
@@ -169,7 +164,7 @@ Please note this setting this option to `false` goes against
 ### `requestIdHeader`
 <a name="factory-request-id-header"></a>
 
-The header name used to know the request id. See [the request id](https://github.com/fastify/fastify/blob/master/docs/Logging.md#logging-request-id) section.
+The header name used to know the request id. See [the request id](./Logging.md#logging-request-id) section.
 
 + Default: `'request-id'`
 
@@ -209,7 +204,7 @@ fastify.get('/', (request, reply) => {
 ### `pluginTimeout`
 
 The maximum amount of time in milliseconds in which a plugin can load.
-If not, [`ready`](https://github.com/fastify/fastify/blob/master/docs/Server.md#ready)
+If not, [`ready`](./Server.md#ready)
 will complete with an `Error` with code `'ERR_AVVIO_PLUGIN_TIMEOUT'`.
 
 + Default: `0` (disabled)
@@ -217,7 +212,7 @@ will complete with an `Error` with code `'ERR_AVVIO_PLUGIN_TIMEOUT'`.
 ### `versioning`
 <a name="versioning"></a>
 
-By default you can version your routes with [semver versioning](https://github.com/fastify/fastify/blob/master/docs/Routes.md#version), which is provided by `find-my-way`. There is still an option to provide custom versioning strategy. You can find more information in the [find-my-way](https://github.com/delvedor/find-my-way#versioned-routes) documentation.
+By default you can version your routes with [semver versioning](./Routes.md#version), which is provided by `find-my-way`. There is still an option to provide custom versioning strategy. You can find more information in the [find-my-way](https://github.com/delvedor/find-my-way#versioned-routes) documentation.
 
 ```js
 const versioning = {
@@ -247,7 +242,7 @@ const fastify = require('fastify')({
 #### server
 <a name="server"></a>
 
-`fastify.server`: The Node core [server](https://nodejs.org/api/http.html#http_class_http_server) object as returned by the [**`Fastify factory function`**](https://github.com/fastify/fastify/blob/master/docs/Server.md).
+`fastify.server`: The Node core [server](https://nodejs.org/api/http.html#http_class_http_server) object as returned by the [**`Fastify factory function`**](./Server.md).
 
 #### after
 <a name="after"></a>
@@ -368,34 +363,34 @@ If the `port` is omitted (or is set to zero), a random available port is automat
 #### route
 <a name="route"></a>
 
-Method to add routes to the server, it also has shorthand functions, check [here](https://github.com/fastify/fastify/blob/master/docs/Routes.md).
+Method to add routes to the server, it also has shorthand functions, check [here](./Routes.md).
 
 #### close
 <a name="close"></a>
 
-`fastify.close(callback)`: call this function to close the server instance and run the [`'onClose'`](https://github.com/fastify/fastify/blob/master/docs/Hooks.md#on-close) hook.<br/>
+`fastify.close(callback)`: call this function to close the server instance and run the [`'onClose'`](./Hooks.md#on-close) hook.<br/>
 Calling `close` will also cause the server to respond to every new incoming request with a `503` error and destroy that request.
 
 #### decorate
 <a name="decorate"></a>
 
-Function useful if you need to decorate the fastify instance, Reply or Request, check [here](https://github.com/fastify/fastify/blob/master/docs/Decorators.md).
+Function useful if you need to decorate the fastify instance, Reply or Request, check [here](./Decorators.md).
 
 #### register
 <a name="register"></a>
 
 Fastify allows the user to extend its functionality with plugins.
-A plugin can be a set of routes, a server decorator or whatever, check [here](https://github.com/fastify/fastify/blob/master/docs/Plugins.md).
+A plugin can be a set of routes, a server decorator or whatever, check [here](./Plugins.md).
 
 #### use
 <a name="use"></a>
 
-Function to add middlewares to Fastify, check [here](https://github.com/fastify/fastify/blob/master/docs/Middlewares.md).
+Function to add middlewares to Fastify, check [here](./Middlewares.md).
 
 #### addHook
 <a name="addHook"></a>
 
-Function to add a specific hook in the lifecycle of Fastify, check [here](https://github.com/fastify/fastify/blob/master/docs/Hooks.md).
+Function to add a specific hook in the lifecycle of Fastify, check [here](./Hooks.md).
 
 #### basepath
 <a name="base-path"></a>
@@ -429,28 +424,28 @@ fastify.register(function (instance, opts, next) {
 #### log
 <a name="log"></a>
 
-The logger instance, check [here](https://github.com/fastify/fastify/blob/master/docs/Logging.md).
+The logger instance, check [here](./Logging.md).
 
 #### inject
 <a name="inject"></a>
 
-Fake http injection (for testing purposes) [here](https://github.com/fastify/fastify/blob/master/docs/Testing.md#inject).
+Fake http injection (for testing purposes) [here](./Testing.md#inject).
 
 #### addSchema
 <a name="add-schema"></a>
 
 `fastify.addSchema(schemaObj)`, adds a shared schema to the Fastify instance. This allows you to reuse it everywhere in your application just by writing the schema id that you need.<br/>
-To learn more, see [shared schema example](https://github.com/fastify/fastify/blob/master/docs/Validation-and-Serialization.md#shared-schema) in the [Validation and Serialization](https://github.com/fastify/fastify/blob/master/docs/Validation-and-Serialization.md) documentation.
+To learn more, see [shared schema example](./Validation-and-Serialization.md#shared-schema) in the [Validation and Serialization](./Validation-and-Serialization.md) documentation.
 
 #### setSchemaCompiler
 <a name="set-schema-compiler"></a>
 
-Set the schema compiler for all routes [here](https://github.com/fastify/fastify/blob/master/docs/Validation-and-Serialization.md#schema-compiler).
+Set the schema compiler for all routes [here](./Validation-and-Serialization.md#schema-compiler).
 
 #### setNotFoundHandler
 <a name="set-not-found-handler"></a>
 
-`fastify.setNotFoundHandler(handler(request, reply))`: set the 404 handler. This call is encapsulated by prefix, so different plugins can set different not found handlers if a different [`prefix` option](https://github.com/fastify/fastify/blob/master/docs/Plugins.md#route-prefixing-option) is passed to `fastify.register()`. The handler is treated like a regular route handler so requests will go through the full [Fastify lifecycle](https://github.com/fastify/fastify/blob/master/docs/Lifecycle.md#lifecycle).
+`fastify.setNotFoundHandler(handler(request, reply))`: set the 404 handler. This call is encapsulated by prefix, so different plugins can set different not found handlers if a different [`prefix` option](./Plugins.md#route-prefixing-option) is passed to `fastify.register()`. The handler is treated like a regular route handler so requests will go through the full [Fastify lifecycle](./Lifecycle.md#lifecycle).
 
 You can also register [beforeHandler](https://www.fastify.io/docs/latest/Hooks/#beforehandler) hook for the 404 handler.
 

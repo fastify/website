@@ -130,7 +130,7 @@ The logger accepts either a `'stream'` or a `'file'` as the destination.
 
 A promise may not be fulfilled with 'undefined' when statusCode is not 204.
 
-<a id="FST_ERR_REP_ALREADY_SENT"></a>
+<a name="FST_ERR_REP_ALREADY_SENT"></a>
 #### FST_ERR_REP_ALREADY_SENT
 
 A response was already sent.
@@ -160,7 +160,7 @@ The JSON schema provided for serialization of a route response is not valid.
 
 The JSON schema provided for validation to a route is not valid.
 
-<a id="FST_ERR_SEND_INSIDE_ONERR"></a>
+<a name="FST_ERR_SEND_INSIDE_ONERR"></a>
 #### FST_ERR_SEND_INSIDE_ONERR
 
 You cannot use `send` inside the `onError` hook.

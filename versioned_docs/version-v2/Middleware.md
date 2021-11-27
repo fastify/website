@@ -6,7 +6,7 @@ hide_title: false
 
 Fastify provides an asynchronous [middleware engine](https://github.com/fastify/middie) out-of-the-box, which is compatible with [Express](https://expressjs.com/) and [Restify](http://restify.com/) middleware.
 
-*For help with understanding when middleware is executed, take a look at the [lifecycle](https://github.com/fastify/fastify/blob/master/docs/Lifecycle.md) page.*
+*For help with understanding when middleware is executed, take a look at the [lifecycle](./Lifecycle.md) page.*
 
 Fastify middleware don't support the full syntax `middleware(err, req, res, next)`, because error handling is done inside Fastify.
 Furthermore, methods added by Express and Restify to the enhanced versions of `req` and `res` are not supported in Fastify middlewares.
@@ -32,7 +32,7 @@ const helmet = require('fastify-helmet')
 fastify.register(helmet)
 ```
 
-Remember that middleware can be encapsulated, this means that you can decide where your middleware should run by using `register` as explained in the [plugins guide](https://github.com/fastify/fastify/blob/master/docs/Plugins-Guide.md).
+Remember that middleware can be encapsulated, this means that you can decide where your middleware should run by using `register` as explained in the [plugins guide](./Plugins-Guide.md).
 
 Fastify middleware also do not expose the `send` method or other methods specific to the Fastify [Reply](./Reply.md#reply) instance. This is because Fastify wraps the incoming `req` and `res` Node instances using the [Request](./Request.md#request) and [Reply](./Reply.md#reply) objects internally, but this is done after the middleware phase. If you need to create middleware, you have to use the Node `req` and `res` instances. Otherwise, you can use the `preHandler` hook which already has the [Request](./Request.md#request) and [Reply](./Reply.md#reply) Fastify instances. For more information, see [Hooks](./Hooks.md#hooks).
 

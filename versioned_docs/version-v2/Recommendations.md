@@ -10,7 +10,7 @@ Fastify.
 - [Use A Reverse Proxy](#use-a-reverse-proxy)
 
 ## Use A Reverse Proxy
-<a id="reverseproxy"></a>
+<a name="reverseproxy"></a>
 
 Node.js is an early adopter of frameworks shipping with an easy to use web
 server within the standard library. Previously, with languages like PHP or

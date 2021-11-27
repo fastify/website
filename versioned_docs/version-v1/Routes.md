@@ -17,7 +17,7 @@ fastify.route(options)
 * `url`: the path of the url to match this route (alias: `path`).
 * `schema`: an object containing the schemas for the request and response.
 They need to be in
-  [JSON Schema](http://json-schema.org/) format, check [here](https://github.com/fastify/fastify/blob/master/docs/Validation-and-Serialization.md) for more info.
+  [JSON Schema](http://json-schema.org/) format, check [here](./Validation-and-Serialization.md) for more info.
 
   * `body`: validates the body of the request if it is a POST or a
     PUT.
@@ -28,17 +28,17 @@ They need to be in
   * `response`: filter and generate a schema for the response, setting a
     schema allows us to have 10-20% more throughput.
 * `attachValidation`: attach `validationError` to request, if there is a schema validation error, instead of sending the error to the error handler.
-* `beforeHandler(request, reply, done)`: a [function](https://github.com/fastify/fastify/blob/master/docs/Hooks.md#before-handler) called just before the request handler, useful if you need to perform authentication at route level for example, it could also be and array of functions.
+* `beforeHandler(request, reply, done)`: a [function](./Hooks.md#before-handler) called just before the request handler, useful if you need to perform authentication at route level for example, it could also be and array of functions.
 * `handler(request, reply)`: the function that will handle this request.
-* `schemaCompiler(schema)`: the function that build the schema for the validations. See [here](https://github.com/fastify/fastify/blob/master/docs/Validation-and-Serialization.md#schema-compiler)
+* `schemaCompiler(schema)`: the function that build the schema for the validations. See [here](./Validation-and-Serialization.md#schema-compiler)
 * `bodyLimit`: prevents the default JSON body parser from parsing request bodies larger than this number of bytes. Must be an integer. You may also set this option globally when first creating the Fastify instance with `fastify(options)`. Defaults to `1048576` (1 MiB).
 * `logLevel`: set log level for this route. See below.
 * `config`: object used to store custom configuration.
 * `version`: a [semver](http://semver.org/) compatible string that defined the version of the endpoint. [Example](https://github.com/fastify/fastify/blob/versioned-routes/docs/Routes.md#version).
 
-  `request` is defined in [Request](https://github.com/fastify/fastify/blob/master/docs/Request.md).
+  `request` is defined in [Request](./Request.md).
 
-  `reply` is defined in [Reply](https://github.com/fastify/fastify/blob/master/docs/Reply.md).
+  `reply` is defined in [Reply](./Reply.md).
 
 
 Example:
@@ -245,7 +245,7 @@ Be aware that if you use [`fastify-plugin`](https://github.com/fastify/fastify-p
 It could happen that you need different log levels in your routes, with Fastify achieve this is very straightforward.<br/>
 You just need to pass the option `logLevel` to the plugin option or the route option with the [value](https://github.com/pinojs/pino/blob/master/docs/API.md#discussion-3) that you need.
 
-Be aware that if you set the `logLevel` at plugin level, also the [`setNotFoundHandler`](https://github.com/fastify/fastify/blob/master/docs/Server.md#setnotfoundhandler) and [`setErrorHandler`](https://github.com/fastify/fastify/blob/master/docs/Server.md#seterrorhandler) will be affected.
+Be aware that if you set the `logLevel` at plugin level, also the [`setNotFoundHandler`](./Server.md#setnotfoundhandler) and [`setErrorHandler`](./Server.md#seterrorhandler) will be affected.
 
 ```js
 // server.js
@@ -315,4 +315,4 @@ If you declare multiple versions with the same major or minor, Fastify will alwa
 If the request will not have the `Accept-Version` header, a 404 error will be returned.
 
 #### Custom
-It's possible to define a custom versioning logic. This can be done through the [`versioning`](https://github.com/fastify/fastify/blob/master/docs/Server.md#versioning) configuration, when creating a fastify server instance.
+It's possible to define a custom versioning logic. This can be done through the [`versioning`](./Server.md#versioning) configuration, when creating a fastify server instance.

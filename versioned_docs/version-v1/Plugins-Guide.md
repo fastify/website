@@ -23,7 +23,7 @@ Fastify was built from the beginning to be an extremely modular system. We built
 <a name="register"></a>
 
 As in JavaScript everything is an object, in Fastify everything is a plugin.<br/>
-Your routes, your utilities and so on are all plugins. To add a new plugin, whatever its functionality is, in Fastify you have a nice and unique api to use: [`register`](https://github.com/fastify/fastify/blob/master/docs/Plugins.md).
+Your routes, your utilities and so on are all plugins. To add a new plugin, whatever its functionality is, in Fastify you have a nice and unique api to use: [`register`](./Plugins.md).
 ```js
 fastify.register(
   require('./my-plugin'),
@@ -77,7 +77,7 @@ console.log(util('that is ', ' awesome'))
 And now you will import your utility in every file you need it. (And don't forget that you will probably also need it in your test).
 
 Fastify offers you a way nicer and elegant way to do this, *decorators*.
-Create a decorator is extremely easy, just use the [`decorate`](https://github.com/fastify/fastify/blob/master/docs/Decorators.md) api:
+Create a decorator is extremely easy, just use the [`decorate`](./Decorators.md) api:
 ```js
 fastify.decorate('util', (a, b) => a + b)
 ```
@@ -180,7 +180,7 @@ fastify.get('/happiness', (request, reply) => {
 })
 ```
 
-We've seen how to extend server functionality and how handle the encapsulation system, but what if you need to add a function that must be executed every time that the server "[emits](https://github.com/fastify/fastify/blob/master/docs/Lifecycle.md)" an event?
+We've seen how to extend server functionality and how handle the encapsulation system, but what if you need to add a function that must be executed every time that the server "[emits](./Lifecycle.md)" an event?
 
 ## Hooks
 <a name="hooks"></a>
@@ -201,7 +201,7 @@ fastify.get('/plugin2', (request, reply) => {
 ```
 I think we all agree that this is terrible. Code repeat, awful readability and it cannot scale.
 
-So what can you do to avoid this annoying issue? Yes, you are right, use an [hook](https://github.com/fastify/fastify/blob/master/docs/Hooks.md)!<br/>
+So what can you do to avoid this annoying issue? Yes, you are right, use an [hook](./Hooks.md)!<br/>
 ```js
 fastify.decorate('util', (request, key, value) => { request[key] = value })
 
@@ -248,7 +248,7 @@ As you probably noticed at this time, `request` and `reply` are not the standard
 ## Middlewares
 <a name="middlewares"></a>
 
-Fastify [supports](https://github.com/fastify/fastify/blob/master/docs/Middlewares.md) out of the box Express/Restify/Connect middlewares, this means that you can just drop-in your old code and it will work! *(faster, by the way)*<br/>
+Fastify [supports](./Middlewares.md) out of the box Express/Restify/Connect middlewares, this means that you can just drop-in your old code and it will work! *(faster, by the way)*<br/>
 Let's say that you are arriving from Express, and you already have some Middleware that does exactly what you need, and you don't want to redo all the work.
 How we can do that? Checkout our middlewares engine, [middie](https://github.com/fastify/middie).
 ```js
