@@ -105,13 +105,20 @@ fastify.route({
 ```
 
 ### Shorthand declaration
-The above route declaration is more *Hapi*-like, but if you prefer an *Express/Restify* approach, we support it as well:<br/>
-`fastify.get(path, [options], handler)`<br/>
-`fastify.head(path, [options], handler)`<br/>
-`fastify.post(path, [options], handler)`<br/>
-`fastify.put(path, [options], handler)`<br/>
-`fastify.delete(path, [options], handler)`<br/>
-`fastify.options(path, [options], handler)`<br/>
+The above route declaration is more *Hapi*-like, but if you prefer an *Express/Restify* approach, we support it as well:
+
+`fastify.get(path, [options], handler)`
+
+`fastify.head(path, [options], handler)`
+
+`fastify.post(path, [options], handler)`
+
+`fastify.put(path, [options], handler)`
+
+`fastify.delete(path, [options], handler)`
+
+`fastify.options(path, [options], handler)`
+
 `fastify.patch(path, [options], handler)`
 
 Example:
@@ -158,7 +165,8 @@ fastify.get('/', opts)
 > Note: if the handler is specified in both the `options` and as the third parameter to the shortcut method then throws duplicate `handler` error.
 
 ### Url building
-Fastify supports both static and dynamic URLs.<br/>
+Fastify supports both static and dynamic URLs.
+
 To register a **parametric** path, use the *colon* before the parameter name. For **wildcard**, use the *star*.
 *Remember that static routes are always checked before parametric and wildcard.*
 
@@ -309,7 +317,8 @@ and `/something/`.
 See the `prefixTrailingSlash` route option above to change this behavior.
 
 ### Custom Log Level
-It could happen that you need different log levels in your routes; Fastify achieves this in a very straightforward way.<br/>
+It could happen that you need different log levels in your routes; Fastify achieves this in a very straightforward way.
+
 You just need to pass the option `logLevel` to the plugin option or the route option with the [value](https://github.com/pinojs/pino/blob/master/docs/api.md#level-string) that you need.
 
 Be aware that if you set the `logLevel` at plugin level, also the [`setNotFoundHandler`](./Reference/Server.md#setnotfoundhandler) and [`setErrorHandler`](./Reference/Server.md#seterrorhandler) will be affected.
@@ -414,8 +423,10 @@ Fastify supports constraining routes to match only certain requests based on som
 
 #### Version Constraints
 
-You can provide a `version` key in the `constraints` option to a route. Versioned routes allow you to declare multiple handlers for the same HTTP route path, which will then be matched according to each request's `Accept-Version` header. The `Accept-Version` header value should follow the [semver](http://semver.org/) specification, and routes should be declared with exact semver versions for matching.<br/>
-Fastify will require a request `Accept-Version` header to be set if the route has a version set, and will prefer a versioned route to a non-versioned route for the same path. Advanced version ranges and pre-releases currently are not supported.<br/>
+You can provide a `version` key in the `constraints` option to a route. Versioned routes allow you to declare multiple handlers for the same HTTP route path, which will then be matched according to each request's `Accept-Version` header. The `Accept-Version` header value should follow the [semver](http://semver.org/) specification, and routes should be declared with exact semver versions for matching.
+
+Fastify will require a request `Accept-Version` header to be set if the route has a version set, and will prefer a versioned route to a non-versioned route for the same path. Advanced version ranges and pre-releases currently are not supported.
+
 *Be aware that using this feature will cause a degradation of the overall performances of the router.*
 
 ```js
@@ -457,7 +468,8 @@ fastify.inject({
 > })
 > ```
 
-If you declare multiple versions with the same major or minor, Fastify will always choose the highest compatible with the `Accept-Version` header value.<br/>
+If you declare multiple versions with the same major or minor, Fastify will always choose the highest compatible with the `Accept-Version` header value.
+
 If the request will not have the `Accept-Version` header, a 404 error will be returned.
 
 It is possible to define a custom version matching logic. This can be done through the [`constraints`](./Reference/Server.md#constraints) configuration when creating a Fastify server instance.

@@ -7,8 +7,10 @@ hide_title: false
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Hello! Thank you for checking out Fastify!<br/>
-This document aims to be a gentle introduction to the framework and its features. It is an elementary preface with examples and links to other parts of the documentation.<br/>
+Hello! Thank you for checking out Fastify!
+
+This document aims to be a gentle introduction to the framework and its features. It is an elementary preface with examples and links to other parts of the documentation.
+
 Let's start!
 
 ### Install

@@ -6,7 +6,8 @@ hide_title: false
 
 ## Plugins
 Fastify allows the user to extend its functionalities with plugins.
-A plugin can be a set of routes, a server [decorator](./Decorators.md), or whatever. The API that you will need to use one or more plugins, is `register`.<br/>
+A plugin can be a set of routes, a server [decorator](./Decorators.md), or whatever. The API that you will need to use one or more plugins, is `register`.
+
 
 By default, `register` creates a *new scope*, this means that if you make some changes to the Fastify instance (via `decorate`), this change will not be reflected by the current context ancestors, but only to its descendants. This feature allows us to achieve plugin *encapsulation* and *inheritance*, in this way we create a *direct acyclic graph* (DAG) and we will not have issues caused by cross dependencies.
 
@@ -66,11 +67,13 @@ The Fastify instance passed on to the function is the latest state of the **exte
 Keep in mind that the Fastify instance passed on to the function is the same as the one that will be passed into the plugin, a copy of the external Fastify instance rather than a reference. Any usage of the instance will behave the same as it would if called within the plugins function i.e. if `decorate` is called, the decorated variables will be available within the plugins function unless it was wrapped with [`fastify-plugin`](https://github.com/fastify/fastify-plugin).
 
 #### Route Prefixing option
-If you pass an option with the key `prefix` with a `string` value, Fastify will use it to prefix all the routes inside the register, for more info check [here](./Routes.md#route-prefixing).<br/>
+If you pass an option with the key `prefix` with a `string` value, Fastify will use it to prefix all the routes inside the register, for more info check [here](./Routes.md#route-prefixing).
+
 Be aware that if you use [`fastify-plugin`](https://github.com/fastify/fastify-plugin) this option will not work.
 
 #### Error handling
-The error handling is done by [avvio](https://github.com/mcollina/avvio#error-handling).<br/>
+The error handling is done by [avvio](https://github.com/mcollina/avvio#error-handling).
+
 As a general rule, it is highly recommended that you handle your errors in the next `after` or `ready` block, otherwise you will get them inside the `listen` callback.
 
 ```js
@@ -131,7 +134,8 @@ export default plugin
 ```
 
 ### Create a plugin
-Creating a plugin is very easy, you just need to create a function that takes three parameters, the `fastify` instance, an `options` object, and the `done` callback.<br/>
+Creating a plugin is very easy, you just need to create a function that takes three parameters, the `fastify` instance, an `options` object, and the `done` callback.
+
 Example:
 ```js
 module.exports = function (fastify, opts, done) {

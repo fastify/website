@@ -154,9 +154,12 @@ Active:  npm installs packages and node dependencies.
 
 When creating a new guide, API, or reference in the `/docs/` directory, use short titles that best describe the topic of your documentation. Name your files in kebab-cases and avoid Raw or camelCase. To learn more about kebab-case you can visit this medium article on [Case Styles](https://medium.com/better-programming/string-case-styles-camel-pascal-snake-and-kebab-case-981407998841).
 
-**Examples**: <br/>
->`hook-and-plugins.md`, <br/> 
- `adding-test-plugins.md`, <br/>
+**Examples**: 
+
+>`hook-and-plugins.md`, 
+ 
+ `adding-test-plugins.md`, 
+
  `removing-requests.md`.
 
 ### Hyperlinks

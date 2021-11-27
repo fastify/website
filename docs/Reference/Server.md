@@ -167,8 +167,10 @@ fastify.get('/bar', function (req, reply) {
 ```
 
 ### `maxParamLength`
-You can set a custom length for parameters in parametric (standard, regex, and multi) routes by using `maxParamLength` option; the default value is 100 characters.<br/>
-This can be useful especially if you have some regex based route, protecting you against [DoS attacks](https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS).<br/>
+You can set a custom length for parameters in parametric (standard, regex, and multi) routes by using `maxParamLength` option; the default value is 100 characters.
+
+This can be useful especially if you have some regex based route, protecting you against [DoS attacks](https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS).
+
 *If the maximum length limit is reached, the not found route will be invoked.*
 
 ### `bodyLimit`
@@ -279,7 +281,8 @@ fastify.addHook('onResponse', (req, reply, done) => {
 Please note that this setting will also disable an error log written by the default `onResponse` hook on reply callback errors.
 
 ### `serverFactory`
-You can pass a custom HTTP server to Fastify by using the `serverFactory` option.<br/>
+You can pass a custom HTTP server to Fastify by using the `serverFactory` option.
+
 `serverFactory` is a function that takes a `handler` parameter, which takes the `request` and `response` objects as parameters, and an options object, which is the same you have passed to Fastify.
 
 ```js
@@ -300,7 +303,8 @@ fastify.get('/', (req, reply) => {
 fastify.listen(3000)
 ```
 
-Internally Fastify uses the API of Node core HTTP server, so if you are using a custom server you must be sure to have the same API exposed. If not, you can enhance the server instance inside the `serverFactory` function before the `return` statement.<br/>
+Internally Fastify uses the API of Node core HTTP server, so if you are using a custom server you must be sure to have the same API exposed. If not, you can enhance the server instance inside the `serverFactory` function before the `return` statement.
+
 
 ### `jsonShorthand`
 
@@ -424,7 +428,8 @@ will complete with an `Error` with code `'ERR_AVVIO_PLUGIN_TIMEOUT'`.
 
 ### `querystringParser`
 
-The default query string parser that Fastify uses is the Node.js's core `querystring` module.<br/>
+The default query string parser that Fastify uses is the Node.js's core `querystring` module.
+
 You can change this default setting by passing the option `querystringParser` and use a custom one, such as [`qs`](https://www.npmjs.com/package/qs).
 
 ```js
@@ -825,7 +830,8 @@ fastify.routing(req, res)
 Method to add routes to the server, it also has shorthand functions, check [here](../Routes.md).
 
 #### close
-`fastify.close(callback)`: call this function to close the server instance and run the [`'onClose'`](../Hooks.md#on-close) hook.<br/>
+`fastify.close(callback)`: call this function to close the server instance and run the [`'onClose'`](../Hooks.md#on-close) hook.
+
 Calling `close` will also cause the server to respond to every new incoming request with a `503` error and destroy that request.
 See [`return503OnClosing` flags](./Server.md#factory-return-503-on-closing) for changing this behavior.
 
@@ -897,7 +903,8 @@ Fastify version of the instance. Used for plugin support. See [Plugins](../Plugi
 Fake HTTP injection (for testing purposes) [here](../Testing.md#inject).
 
 #### addSchema
-`fastify.addSchema(schemaObj)`, adds a JSON schema to the Fastify instance. This allows you to reuse it everywhere in your application just by using the standard `$ref` keyword.<br/>
+`fastify.addSchema(schemaObj)`, adds a JSON schema to the Fastify instance. This allows you to reuse it everywhere in your application just by using the standard `$ref` keyword.
+
 To learn more, read the [Validation and Serialization](../Validation-and-Serialization.md) documentation.
 
 #### getSchemas
@@ -1089,7 +1096,8 @@ Fastify calls setNotFoundHandler to add a default 404 handler at startup before 
 
 #### setErrorHandler
 
-`fastify.setErrorHandler(handler(error, request, reply))`: Set a function that will be called whenever an error happens. The handler is bound to the Fastify instance and is fully encapsulated, so different plugins can set different error handlers. *async-await* is supported as well.<br/>
+`fastify.setErrorHandler(handler(error, request, reply))`: Set a function that will be called whenever an error happens. The handler is bound to the Fastify instance and is fully encapsulated, so different plugins can set different error handlers. *async-await* is supported as well.
+
 *Note: If the error `statusCode` is less than 400, Fastify will automatically set it at 500 before calling the error handler.*
 
 ```js
@@ -1116,7 +1124,8 @@ if (statusCode >= 500) {
 
 #### printRoutes
 
-`fastify.printRoutes()`: Prints the representation of the internal radix tree used by the router, useful for debugging. Alternatively, `fastify.printRoutes({ commonPrefix: false })` can be used to print the flattened routes tree.<br/>
+`fastify.printRoutes()`: Prints the representation of the internal radix tree used by the router, useful for debugging. Alternatively, `fastify.printRoutes({ commonPrefix: false })` can be used to print the flattened routes tree.
+
 *Remember to call it inside or after a `ready` call.*
 
 ```js
@@ -1171,7 +1180,8 @@ fastify.ready(() => {
 
 #### printPlugins
 
-`fastify.printPlugins()`: Prints the representation of the internal plugin tree used by the avvio, useful for debugging require order issues.<br/>
+`fastify.printPlugins()`: Prints the representation of the internal plugin tree used by the avvio, useful for debugging require order issues.
+
 *Remember to call it inside or after a `ready` call.*
 
 ```js

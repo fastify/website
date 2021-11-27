@@ -4,7 +4,8 @@ sidebar_label: Request
 hide_title: false
 ---
 
-The first parameter of the handler function is `Request`.<br/>
+The first parameter of the handler function is `Request`.
+
 Request is a core Fastify object containing the following fields:
 - `query` - the parsed querystring, its format is specified by [`querystringParser`](./Reference/Server.md#querystringparser)
 - `body` - the request payload, see [Content Type Parser](./Content-Type-Parser.md) for details on what request payloads Fastify natively parses and how to support other content types
