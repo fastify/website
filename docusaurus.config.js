@@ -77,7 +77,11 @@ const config = {
           {to: '/ecosystem', label: 'Ecosystem', position: 'left'},
           {to: '/benchmarks', label: 'Benchmarks', position: 'left'},
           {to: '/contribute', label: 'Contribute', position: 'left'},
-          {to: '/blog', label: 'Blog', position: 'left'},
+          {
+            href: 'https://medium.com/@fastifyjs',
+            label: 'Blog',
+            position: 'left',
+          },
           {
             href: 'https://github.com/fastify/help',
             label: 'Help',
