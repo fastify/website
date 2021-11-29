@@ -37,7 +37,13 @@ main.page-content {
   min-height: 80vh;
 }
 
+.github-buttons span + span {
+  margin-left: 8px;
+}
+
 .hero {
+  align-items: stretch;
+  padding: 0;
   background: #000 0% 0% repeat;
   background-size: 54px;
 }

@@ -1,7 +1,9 @@
-import Head from "@docusaurus/Head";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import { acknowledgements } from "@site/src/data/acknowledgements";
+import { organizations } from "@site/src/data/organizations";
 import Layout from "@theme/Layout";
 import React from "react";
+import GitHubButton from "react-github-btn";
 
 // function HomepageHeader() {
 //   const {siteConfig} = useDocusaurusContext();
@@ -24,18 +26,20 @@ import React from "react";
 
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
+
+  // Shuffle array
+  const shuffled = organizations.sort(() => 0.5 - Math.random());
+  let displayedOrganizations = shuffled.slice(0, 12);
+
   return (
     <Layout
       title={`Hello from ${siteConfig.title}`}
       description="Description will go into a meta tag in <head />"
     >
-      <Head>
-        <script async defer src="https://buttons.github.io/buttons.js"></script>
-      </Head>
       <main>
         <div
           className="hero"
-          style={{ backgroundImage: "/img/bg-pattern-dark.png" }}
+          style={{ backgroundImage: "url(/img/bg-pattern-dark.png)" }}
         >
           <div className="hero-body">
             <div className="container">
@@ -50,25 +54,23 @@ export default function Home(): JSX.Element {
                 Fast and low overhead web framework, for Node.js
               </h2>
               <div className="github-buttons">
-                <a
-                  className="github-button"
+                <GitHubButton
                   href="https://github.com/fastify/fastify"
                   data-icon="octicon-star"
+                  aria-label="Star fastify/fastify on GitHub"
                   data-size="large"
                   data-show-count="true"
-                  aria-label="Star fastify/fastify on GitHub"
                 >
                   Star
-                </a>
-                <a
-                  className="github-button"
+                </GitHubButton>
+                <GitHubButton
                   href="https://github.com/fastify/fastify/fork"
                   data-icon="octicon-repo-forked"
-                  data-size="large"
                   aria-label="Fork fastify/fastify on GitHub"
+                  data-size="large"
                 >
                   Fork
-                </a>
+                </GitHubButton>
               </div>
             </div>
           </div>
@@ -122,17 +124,20 @@ export default function Home(): JSX.Element {
             <div className="columns is-centered">
               <div className="column is-12">
                 <ul className="organisations-list">
-                  {/* {% set shuffledOrganisations = data.organisations | shuffle %}
-          {% for organizationIndex in range(0, 12) %}
-            {% set organization = shuffledOrganisations[organizationIndex] %}
-            {% if organization %}
-            <li>
-              <a href="{{ organization.link }}" target="_blank" rel="noopener" rel="nofollow">
-                <img src="/{{ hashes['images/organisations/' + organization.image] }}" alt="{{ organization.name }} is using Fastify"/>
-              </a>
-            </li>
-            {% endif %}
-          {% endfor %} */}
+                  {displayedOrganizations.map((organization) => (
+                    <li>
+                      <a
+                        href={organization.link}
+                        target="_blank"
+                        rel="noopener nofollow"
+                      >
+                        <img
+                          src={`/img/organisations/${organization.image}`}
+                          alt={`${organization.name} is using Fastify`}
+                        />
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -262,27 +267,33 @@ export default function Home(): JSX.Element {
                   This project is kindly <strong>sponsored by</strong>:
                 </p>
                 <ul>
-                  {/* {% for link in data.acknowledgements.sponsors %}
-            <li>
-              <a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.name }}</a>
-            </li>
-          {% endfor %} */}
+                  {acknowledgements.sponsors.map((sponsor) => (
+                    <li>
+                      <a href={sponsor.url} target="_blank" rel="noopener">
+                        {sponsor.name}
+                      </a>
+                    </li>
+                  ))}
                 </ul>
                 <p>Past Sponsors:</p>
                 <ul>
-                  {/* {% for link in data.acknowledgements.past_sponsors %}
-            <li>
-              <a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.name }}</a>{% if link.reason %} ({{ link.reason }}){% endif %}
-            </li>
-          {% endfor %} */}
+                  {acknowledgements.past_sponsors.map((sponsor) => (
+                    <li>
+                      <a href={sponsor.url} target="_blank" rel="noopener">
+                        {sponsor.name}
+                      </a>
+                    </li>
+                  ))}
                 </ul>
                 <p>Also thanks to:</p>
                 <ul>
-                  {/* {% for link in data.acknowledgements.others %}
-            <li>
-              <a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.name }}</a>{% if link.reason %} ({{ link.reason }}){% endif %}
-            </li>
-          {% endfor %} */}
+                  {acknowledgements.others.map((sponsor) => (
+                    <li>
+                      <a href={sponsor.url} target="_blank" rel="noopener">
+                        {sponsor.name}
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div className="column is-6">
@@ -298,7 +309,7 @@ export default function Home(): JSX.Element {
                   <a href="https://openjsf.org/" target="_blank" rel="noopener">
                     <img
                       id="openjs-logo"
-                      src="/{{ hashes['images/openjsf-knockout.svg'] }}"
+                      src="/img/openjsf-knockout.svg"
                       alt="OpenJS Logo"
                     />
                   </a>
