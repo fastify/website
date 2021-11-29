@@ -302,19 +302,19 @@ a svg {
   );
 }
 
-/* .contributor-links {
-  padding: .5em 0 0 0;
-
-  .icon__icon.npm:hover {
-    color: #EA2039;
-  }
-
-  .icon__icon.twitter:hover {
-    color: #1DA1F2;
-  }
+.contributor-links {
+  padding: 0.5em 0 0 0;
 }
 
-#good-first-issues {
+.contributor-links .icon__icon.npm:hover {
+  color: #ea2039;
+}
+
+.contributor-links .icon__icon.twitter:hover {
+  color: #1da1f2;
+}
+
+/* #good-first-issues {
 	display: flex;
   flex-direction: column;
 
