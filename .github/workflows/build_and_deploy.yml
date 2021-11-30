@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  BASE_URL: /website-next/
+
 jobs:
   build_and_deploy:
     name: Build and Deploy
@@ -13,9 +16,11 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v2
       - name: Install Packages
-        run: yarn install
+        run: npm install
       - name: Build App
-        run: yarn build
+        run: npm run build
+      - name: Copy Static Files
+        run: cp -r static/ build/website-next/
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.6
         with:

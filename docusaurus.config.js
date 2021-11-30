@@ -4,12 +4,14 @@
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
+const baseUrl = process.env.BASE_URL || "/";
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Fastify",
   tagline: "Fast and low overhead web framework, for Node.js",
   url: "https://fastify.io",
-  baseUrl: "/website-next/",
+  baseUrl: baseUrl,
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
