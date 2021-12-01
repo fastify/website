@@ -1,5 +1,5 @@
 ---
-title: Guides
+title: Guides Documentation
 ---
 
 ## General

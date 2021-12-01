@@ -2,7 +2,7 @@
 title: Write Plugin
 ---
 
-# How to write a good plugin
+## How to write a good plugin
 First, thank you for deciding to write a plugin for Fastify. Fastify is a minimal framework and plugins are its strength, so thank you.
 
 The core principles of Fastify are performance, low overhead, and providing a good experience to our users. When writing a plugin, it is important to keep these principles in mind. Therefore, in this document, we will analyze what characterizes a quality plugin.
