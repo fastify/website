@@ -3,7 +3,7 @@ title: Encapsulation
 ---
 
 A fundamental feature of Fastify is the "encapsulation context." The
-encapsulation context governs which [decorators](../Reference/Decorators.md), registered
+encapsulation context governs which [decorators](./Decorators.md), registered
 [hooks](./Hooks.md), and [plugins](./Plugins.md) are available to
 [routes](./Routes.md). A visual representation of the encapsulation context
 is shown in the following figure:

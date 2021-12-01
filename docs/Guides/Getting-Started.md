@@ -12,10 +12,9 @@ Let's start!
 <a id="install"></a>
 
 Install with npm:
-```bash
+```
 npm i fastify --save
 ```
-
 Install with yarn:
 ```
 yarn add fastify

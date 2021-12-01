@@ -896,7 +896,7 @@ fastify.close().then(() => {
 #### decorate*
 <a id="decorate"></a>
 
-Function useful if you need to decorate the fastify instance, Reply or Request, check [here](../Reference/Decorators.md).
+Function useful if you need to decorate the fastify instance, Reply or Request, check [here](./Decorators.md).
 
 #### register
 <a id="register"></a>
