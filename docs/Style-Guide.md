@@ -1,7 +1,5 @@
 ---
 title: Style Guide
-sidebar_label: Style Guide
-hide_title: false
 ---
 
 ## Welcome

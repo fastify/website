@@ -1,7 +1,5 @@
 ---
 title: TypeScript
-sidebar_label: TypeScript
-hide_title: false
 ---
 
 The Fastify framework is written in vanilla JavaScript, and as such type definitions are not as easy to maintain; however, since version 2 and beyond, maintainers and contributors have put in a great effort to improve the types.

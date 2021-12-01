@@ -1,7 +1,5 @@
 ---
 title: V3 Migration Guide
-sidebar_label: V3 Migration Guide
-hide_title: false
 ---
 
 This guide is intended to help with migration from Fastify v2 to v3.

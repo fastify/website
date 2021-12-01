@@ -1,7 +1,5 @@
 ---
 title: Docusaurus Demo
-sidebar_label: Docusaurus Demo
-hide_title: false
 sidebar_position: 1
 slug: /
 ---
