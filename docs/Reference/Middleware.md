@@ -1,7 +1,5 @@
 ---
 title: Middleware
-sidebar_label: Middleware
-hide_title: false
 ---
 
 Starting with Fastify v3.0.0, middleware is not supported out of the box and requires an external plugin such as [`fastify-express`](https://github.com/fastify/fastify-express) or [`middie`](https://github.com/fastify/middie).
@@ -26,12 +24,12 @@ await fastify.register(require('middie'))
 fastify.use(require('cors')())
 ```
 
-Remember that middleware can be encapsulated; this means that you can decide where your middleware should run by using `register` as explained in the [plugins guide](./Plugins-Guide.md).
+Remember that middleware can be encapsulated; this means that you can decide where your middleware should run by using `register` as explained in the [plugins guide](../Guides/Plugins-Guide.md).
 
 Fastify middleware do not expose the `send` method or other methods specific to the Fastify [Reply](./Reply.md#reply) instance. This is because Fastify wraps the incoming `req` and `res` Node instances using the [Request](./Request.md#request) and [Reply](./Reply.md#reply) objects internally, but this is done after the middleware phase. If you need to create middleware, you have to use the Node `req` and `res` instances. Otherwise, you can use the `preHandler` hook that already has the [Request](./Request.md#request) and [Reply](./Reply.md#reply) Fastify instances. For more information, see [Hooks](./Hooks.md#hooks).
 
 #### Restrict middleware execution to certain paths
-<a name="restrict-usage"></a>
+<a id="restrict-usage"></a>
 
 If you need to only run middleware under certain paths, just pass the path as the first parameter to `use` and you are done!
 

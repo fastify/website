@@ -1,32 +1,30 @@
 ---
 title: Plugins Guide
-sidebar_label: Plugins Guide
-hide_title: false
 ---
 
-# The hitchhiker's guide to plugins
+## The hitchhiker's guide to plugins
 First of all, `DON'T PANIC`!
 
 Fastify was built from the beginning to be an extremely modular system. We built a powerful API that allows you to add methods and utilities to Fastify by creating a namespace. We built a system that creates an encapsulation model, which allows you to split your application into multiple microservices at any moment, without the need to refactor the entire application.
 
 **Table of contents**
 - [The hitchhiker's guide to plugins](#the-hitchhikers-guide-to-plugins)
-  - [Register](#register)
-  - [Decorators](#decorators)
-  - [Hooks](#hooks)
-  - [How to handle encapsulation and distribution](#how-to-handle-encapsulation-and-distribution)
-  - [ESM support](#esm-support)
-  - [Handle errors](#handle-errors)
-  - [Custom errors](#custom-errors)
-  - [Emit Warnings](#emit-warnings)
-  - [Let's start!](#lets-start)
+- [Register](#register)
+- [Decorators](#decorators)
+- [Hooks](#hooks)
+- [How to handle encapsulation and distribution](#how-to-handle-encapsulation-and-distribution)
+- [ESM support](#esm-support)
+- [Handle errors](#handle-errors)
+- [Custom errors](#custom-errors)
+- [Emit Warnings](#emit-warnings)
+- [Let's start!](#lets-start)
 
 ## Register
-<a name="register"></a>
+<a id="register"></a>
 
 As with JavaScript, where everything is an object, in Fastify everything is a plugin.
 
-Your routes, your utilities, and so on are all plugins. To add a new plugin, whatever its functionality may be, in Fastify you have a nice and unique API: [`register`](./Plugins.md).
+Your routes, your utilities, and so on are all plugins. To add a new plugin, whatever its functionality may be, in Fastify you have a nice and unique API: [`register`](../Reference/Plugins.md).
 ```js
 fastify.register(
   require('./my-plugin'),
@@ -67,7 +65,7 @@ module.exports = function (fastify, options, done) {
 Well, now you know how to use the `register` API and how it works, but how do we add new functionality to Fastify and even better, share them with other developers?
 
 ## Decorators
-<a name="decorators"></a>
+<a id="decorators"></a>
 
 Okay, let's say that you wrote a utility that is so good that you decided to make it available along with all your code. How would you do it? Probably something like the following:
 ```js
@@ -83,7 +81,7 @@ console.log(util('that is ', 'awesome'))
 Now you will import your utility in every file you need it in. (And do not forget that you will probably also need it in your tests).
 
 Fastify offers you a more elegant and comfortable way to do this, *decorators*.
-Creating a decorator is extremely easy, just use the [`decorate`](./Decorators.md) API:
+Creating a decorator is extremely easy, just use the [`decorate`](../Reference/Decorators.md) API:
 ```js
 fastify.decorate('util', (a, b) => a + b)
 ```
@@ -191,10 +189,10 @@ fastify.get('/happiness', (request, reply) => {
 })
 ```
 
-We have seen how to extend server functionality and how to handle the encapsulation system, but what if you need to add a function that must be executed every time when the server "[emits](./Lifecycle.md)" an event?
+We have seen how to extend server functionality and how to handle the encapsulation system, but what if you need to add a function that must be executed every time when the server "[emits](../Reference/Lifecycle.md)" an event?
 
 ## Hooks
-<a name="hooks"></a>
+<a id="hooks"></a>
 
 You just built an amazing utility, but now you need to execute that for every request, this is what you will likely do:
 ```js
@@ -212,7 +210,7 @@ fastify.get('/plugin2', (request, reply) => {
 ```
 I think we all agree that this is terrible. Repeated code, awful readability and it cannot scale.
 
-So what can you do to avoid this annoying issue? Yes, you are right, use a [hook](./Hooks.md)!
+So what can you do to avoid this annoying issue? Yes, you are right, use a [hook](../Reference/Hooks.md)!
 
 ```js
 fastify.decorate('util', (request, key, value) => { request[key] = value })
@@ -260,7 +258,7 @@ As you probably noticed by now, `request` and `reply` are not the standard Nodej
 
 
 ## How to handle encapsulation and distribution
-<a name="distribution"></a>
+<a id="distribution"></a>
 
 Perfect, now you know (almost) all of the tools that you can use to extend Fastify. Nevertheless, chances are that you came across one big issue: how is distribution handled?
 
@@ -284,7 +282,7 @@ module.exports = fp(dbPlugin)
 ```
 You can also tell `fastify-plugin` to check the installed version of Fastify, in case you need a specific API.
 
-As we mentioned earlier, Fastify starts loading its plugins __after__ `.listen()`, `.inject()` or `.ready()` are called and as such, __after__ they have been declared. This means that, even though the plugin may inject variables to the external Fastify instance via [`decorate`](./Decorators.md), the decorated variables will not be accessible before calling `.listen()`, `.inject()` or `.ready()`.
+As we mentioned earlier, Fastify starts loading its plugins __after__ `.listen()`, `.inject()` or `.ready()` are called and as such, __after__ they have been declared. This means that, even though the plugin may inject variables to the external Fastify instance via [`decorate`](../Reference/Decorators.md), the decorated variables will not be accessible before calling `.listen()`, `.inject()` or `.ready()`.
 
 In case you rely on a variable injected by a preceding plugin and want to pass that in the `options` argument of `register`, you can do so by using a function instead of an object:
 ```js
@@ -307,7 +305,7 @@ fastify.register(require('your-plugin'), parent => {
 In the above example, the `parent` variable of the function passed in as the second argument of `register` is a copy of the **external Fastify instance** that the plugin was registered at. This means that we are able to access any variables that were injected by preceding plugins in the order of declaration.
 
 ## ESM support
-<a name="esm-support"></a>
+<a id="esm-support"></a>
 
 ESM is supported as well from [Node.js `v13.3.0`](https://nodejs.org/api/esm.html) and above! Just export your plugin as ESM module and you are good to go!
 
@@ -340,7 +338,7 @@ fastify.listen(3000, (err, address) => {
 ```
 
 ## Handle errors
-<a name="handle-errors"></a>
+<a id="handle-errors"></a>
 
 It can happen that one of your plugins fails during startup. Maybe you expect it and you have a custom logic that will be triggered in that case. How can you implement this?
 The `after` API is what you need. `after` simply registers a callback that will be executed just after a register, and it can take up to three parameters.
@@ -362,7 +360,7 @@ fastify
 ```
 
 ## Custom errors
-<a name="custom-errors"></a>
+<a id="custom-errors"></a>
 
 If your plugin needs to expose custom errors, you can easily generate consistent error objects across your codebase and plugins with the [`fastify-error`](https://github.com/fastify/fastify-error) module.
 
@@ -373,7 +371,7 @@ console.log(new CustomError())
 ```
 
 ## Emit Warnings
-<a name="emit-warnings"></a>
+<a id="emit-warnings"></a>
 
 If you want to deprecate an API, or you want to warn the user about a specific use case, you can use the [`fastify-warning`](https://github.com/fastify/fastify-warning) module.
 
@@ -384,7 +382,7 @@ warning.emit('FST_ERROR_CODE')
 ```
 
 ## Let's start!
-<a name="start"></a>
+<a id="start"></a>
 
 Awesome, now you know everything you need to know about Fastify and its plugin system to start building your first plugin, and please if you do, tell us! We will add it to the [*ecosystem*](https://github.com/fastify/fastify#ecosystem) section of our documentation!
 

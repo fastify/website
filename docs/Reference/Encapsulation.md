@@ -1,13 +1,11 @@
 ---
 title: Encapsulation
-sidebar_label: Encapsulation
-hide_title: false
 ---
 
 A fundamental feature of Fastify is the "encapsulation context." The
-encapsulation context governs which [decorators](../Decorators.md), registered
-[hooks](../Hooks.md), and [plugins](../Plugins.md) are available to
-[routes](../Routes.md). A visual representation of the encapsulation context
+encapsulation context governs which [decorators](./Decorators.md), registered
+[hooks](./Hooks.md), and [plugins](./Plugins.md) are available to
+[routes](./Routes.md). A visual representation of the encapsulation context
 is shown in the following figure:
 
 ![Figure 1](../resources/encapsulation_context.svg)
@@ -27,7 +25,7 @@ _child plugins_ registered within the containing _child context_, but the
 containing _child context_ **does not** have access to the _child plugins_
 registered within its _grandchild context_.
 
-Given that everything in Fastify is a [plugin](../Plugins.md), except for the
+Given that everything in Fastify is a [plugin](./Plugins.md), except for the
 _root context_, every "context" and "plugin" in this example is a plugin
 that can consist of decorators, hooks, plugins, and routes. Thus, to put
 this example into concrete terms, consider a basic scenario of a REST API
@@ -124,7 +122,7 @@ To see this, start the server and issue requests:
 [bearer]: https://github.com/fastify/fastify-bearer-auth
 
 ## Sharing Between Contexts
-<a name="shared-context"></a>
+<a id="shared-context"></a>
 
 Notice that each context in the prior example inherits _only_ from the parent
 contexts. Parent contexts cannot access any entities within their descendent

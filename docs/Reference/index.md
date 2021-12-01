@@ -1,7 +1,5 @@
 ---
-title: Reference
-sidebar_label: Reference
-hide_title: false
+title: Reference Documentation
 ---
 
 ## Reference Documentation Table Of Contents

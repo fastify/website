@@ -1,7 +1,5 @@
 ---
 title: Logging
-sidebar_label: Logging
-hide_title: false
 ---
 
 ### Enable logging
@@ -84,9 +82,9 @@ const fastify = require('fastify')({
 })
 ```
 
-<a name="logging-request-id"></a>
+<a id="logging-request-id"></a>
 
-By default, Fastify adds an ID to every request for easier tracking. If the "request-id" header is present its value is used, otherwise a new incremental ID is generated. See Fastify Factory [`requestIdHeader`](./Reference/Server.md#factory-request-id-header) and Fastify Factory [`genReqId`](./Reference/Server.md#genreqid) for customization options.
+By default, Fastify adds an ID to every request for easier tracking. If the "request-id" header is present its value is used, otherwise a new incremental ID is generated. See Fastify Factory [`requestIdHeader`](./Server.md#factory-request-id-header) and Fastify Factory [`genReqId`](./Server.md#genreqid) for customization options.
 
 The default logger is configured with a set of standard serializers that serialize objects with `req`, `res`, and `err` properties. The object received by `req` is the Fastify [`Request`](./Request.md) object, while the object received by `res` is the Fastify [`Reply`](./Reply.md) object.
 This behaviour can be customized by specifying custom serializers.
