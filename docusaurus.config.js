@@ -66,10 +66,6 @@ const config = {
         },
         items: [
           {
-            type: "docsVersionDropdown",
-            position: "left",
-          },
-          {
             type: "doc",
             docId: "index",
             position: "left",
@@ -87,6 +83,10 @@ const config = {
             href: "https://github.com/fastify/help",
             label: "Help",
             position: "left",
+          },
+          {
+            type: "docsVersionDropdown",
+            position: "right",
           },
           {
             href: "https://github.com/fastify/fastify",
