@@ -6,25 +6,6 @@ import Layout from "@theme/Layout";
 import React from "react";
 import GitHubButton from "react-github-btn";
 
-// function HomepageHeader() {
-//   const {siteConfig} = useDocusaurusContext();
-//   return (
-//     <header className={clsx('hero hero--primary', styles.heroBanner)}>
-//       <div className="container">
-//         <h1 className="hero__title">{siteConfig.title}</h1>
-//         <p className="hero__subtitle">{siteConfig.tagline}</p>
-//         <div className={styles.buttons}>
-//           <Link
-//             className="button button--secondary button--lg"
-//             to="/docs/intro">
-//             Docusaurus Tutorial - 5min ⏱️
-//           </Link>
-//         </div>
-//       </div>
-//     </header>
-//   );
-// }
-
 const svgicons = {
   twitter: (
     <svg
@@ -88,14 +69,14 @@ export default function Home(): JSX.Element {
       <main>
         <div
           className="hero"
-          style={{ backgroundImage: "url(/img/bg-pattern-dark.png)" }}
+          style={{ backgroundImage: "url(/website-next/img/bg-pattern-dark.png)" }}
         >
           <div className="hero-body">
             <div className="container">
               <h1 className="title">
                 <img
                   className="logo"
-                  src="/img/fastify-logo-white.png"
+                  src="/website-next/img/fastify-logo-white.png"
                   alt="Fastify"
                 />
               </h1>
@@ -181,7 +162,7 @@ export default function Home(): JSX.Element {
                         rel="noopener nofollow"
                       >
                         <img
-                          src={`/img/organisations/${organization.image}`}
+                          src={`/website-next/img/organisations/${organization.image}`}
                           alt={`${organization.name} is using Fastify`}
                         />
                       </a>

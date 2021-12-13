@@ -4,14 +4,14 @@
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
-const baseUrl = process.env.BASE_URL || "/";
+const BASE_URL = process.env.BASE_URL || "/";
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Fastify",
   tagline: "Fast and low overhead web framework, for Node.js",
   url: "https://fastify.io",
-  baseUrl: baseUrl,
+  baseUrl: BASE_URL,
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
@@ -42,11 +42,6 @@ const config = {
               path: "v1",
             },
           },
-        },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          editUrl: "https://github.com/fastify/website-next/edit/main/blog/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
