@@ -1,13 +1,15 @@
 #!/bin/bash
 
-repo="fastify/fastify"
+org="fastify"
+repo="$org/fastify"
 
 downloadRelease() {
-  echo $1 >> releases.downloaded
   outputFile="./downloads/$1.tar.gz"
   gh release download $1 --repo $repo --archive=tar.gz -O $outputFile --skip-existing
   echo "Downloaded $repo > $1"
-  tar -xzf $outputFile -C "./downloads"
+
+  mkdir -p "./releases/$1/"
+  tar -xzf $outputFile -C "./releases/$1/" --include "*/docs/*" --strip-components=1
 }
 
 gh release list --repo $repo --limit 999 --exclude-drafts \
@@ -17,7 +19,6 @@ gh release list --repo $repo --limit 999 --exclude-drafts \
 npm i semver -g > /dev/null
 relesesOrderedList=$(semver -r ">=1.x" $(cat releases.tag))
 
-echo "" > releases.downloaded
 mkdir -p downloads
 
 major=1

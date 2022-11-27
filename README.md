@@ -1,4 +1,4 @@
-# Website
+# Fastify Website
 
 This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
 
@@ -17,6 +17,15 @@ $ yarn start
 This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
 
 ### Build
+
+```
+cd scripts
+npm install
+./download-releases.sh
+node process-releases.js
+```
+
+- `versions.json` is generated
 
 ```
 $ yarn build

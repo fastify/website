@@ -22,7 +22,7 @@ const config = {
 
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'zh-Hans'],
+    locales: ['en'],
   },
 
   presets: [
@@ -32,6 +32,8 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
+          showLastUpdateTime: true,
+          includeCurrentVersion: true,
           editUrl: 'https://github.com/fastify/website-next/edit/main/docs/'
         },
         blog: {
@@ -70,10 +72,10 @@ const config = {
             type: "docsVersionDropdown",
             position: "right",
           },
-          {
-            type: 'localeDropdown',
-            position: 'right',
-          },
+          // {
+          //   type: 'localeDropdown',
+          //   position: 'right',
+          // },
           {
             href: 'https://github.com/fastify/website-next',
             position: 'right',
