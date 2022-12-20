@@ -5,6 +5,7 @@ import { team } from "@site/src/data/team";
 import Layout from "@theme/Layout";
 import React from "react";
 import GitHubButton from "react-github-btn";
+import Link from "@docusaurus/Link";
 
 const svgicons = {
   twitter: (
