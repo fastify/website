@@ -69,7 +69,9 @@ export default function Home(): JSX.Element {
       <main>
         <div
           className="hero"
-          style={{ backgroundImage: "url(/website-next/img/bg-pattern-dark.png)" }}
+          style={{
+            backgroundImage: "url(/website-next/img/bg-pattern-dark.png)",
+          }}
         >
           <div className="hero-body">
             <div className="container">
@@ -259,12 +261,12 @@ export default function Home(): JSX.Element {
                 </p>
                 <div className="block">
                   <p>
-                    <a
+                    <Link
                       className="button is-primary is-large is-flex-mobile"
-                      href="/benchmarks"
+                      to="/benchmarks"
                     >
                       Check out our benchmarks
-                    </a>
+                    </Link>
                   </p>
                 </div>
               </div>
