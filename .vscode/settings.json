@@ -1,4 +1,24 @@
 {
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "workbench.colorCustomizations": {
+    "[GitHub Dark]": {
+      "tab.activeBackground": "#0d0d0d",
+      "tab.activeBorder": "#ffff00"
+    },
+    "activityBar.background": "#61EFCD",
+    "activityBar.foreground": "#1C6B58",
+    "activityBar.inactiveForeground": "#444444",
+    "activityBar.activeBorder": "#9e1032",
+    "activityBar.activeBackground": "#2F9980",
+    "activityBar.border": "#2F9980",
+    "titleBar.activeBackground": "#44DAB6",
+    "titleBar.activeForeground": "#1C6B58",
+    "titleBar.inactiveBackground": "#60bea7",
+    "titleBar.inactiveForeground": "#444444",
+    "titleBar.border": "#2F9980",
+    "statusBar.background": "#42CCAB",
+    "statusBar.foreground": "#1C6B58",
+    "statusBar.border": "#2F9980"
+  }
 }

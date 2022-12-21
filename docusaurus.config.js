@@ -1,51 +1,51 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require("prism-react-renderer/themes/github");
-const darkCodeTheme = require("prism-react-renderer/themes/dracula");
+const lightCodeTheme = require('prism-react-renderer/themes/github');
+const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
-const BASE_URL = process.env.BASE_URL || "/";
+const BASE_URL = process.env.BASE_URL || '/';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "Fastify",
-  tagline: "Fast and low overhead web framework, for Node.js",
-  url: "https://fastify.io",
+  title: 'Fastify',
+  tagline: 'Fast and low overhead web framework, for Node.js',
+  url: 'https://fastify.io',
   baseUrl: BASE_URL,
-  onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "warn",
-  favicon: "img/favicon.ico",
-  organizationName: "fastify", // Usually your GitHub org/user name.
-  projectName: "website-next", // Usually your repo name.
+  onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'warn',
+  favicon: 'img/favicon.ico',
+
+  // GitHub pages deployment config.
+  organizationName: 'fastify', // Usually your GitHub org/user name.
+  projectName: 'website-next', // Usually your repo name.
+
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en'],
+  },
 
   presets: [
     [
-      "@docusaurus/preset-classic",
+      'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          sidebarPath: require.resolve("./sidebars.js"),
-          // Please change this to your repo.
-          editUrl: "https://github.com/fastify/website-next/edit/main/docs/",
-          lastVersion: "current",
-          versions: {
-            current: {
-              label: "v3.x (Current)",
-              path: "v3",
-            },
-            v2: {
-              label: "v2.x",
-              path: "v2",
-            },
-            v1: {
-              label: "v1.x",
-              path: "v1",
-            },
-          },
+          sidebarPath: require.resolve('./sidebars.js'),
+          showLastUpdateTime: true,
+          includeCurrentVersion: true,
+          editUrl: 'https://github.com/fastify/website-next/edit/main/docs/'
+        },
+        blog: {
+          showReadingTime: true,
+          editUrl: 'https://github.com/fastify/website-next/edit/main/docs/'
         },
         theme: {
-          customCss: require.resolve("./src/css/custom.css"),
+          customCss: require.resolve('./src/css/custom.css'),
         },
+        sitemap: {
+          ignorePatterns: ['/scripts/**']
+        }
       }),
     ],
   ],
@@ -54,95 +54,100 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
+        title: 'Fastify',
         logo: {
-          alt: "Fastify",
-          src: "img/fastify-logo-black.png",
-          srcDark: "img/fastify-logo-white.png",
+          alt: 'Fastify Cheetah Logo',
+          src: 'img/logos/fastify-black.png',
+          srcDark: 'img/logos/fastify-white.png',
         },
         items: [
           {
-            type: "doc",
-            docId: "index",
-            position: "left",
-            label: "Docs",
+            type: 'doc',
+            docId: 'index',
+            position: 'left',
+            label: 'Tutorial',
           },
-          { to: "/ecosystem", label: "Ecosystem", position: "left" },
-          { to: "/benchmarks", label: "Benchmarks", position: "left" },
-          { to: "/contribute", label: "Contribute", position: "left" },
-          {
-            href: "https://medium.com/@fastifyjs",
-            label: "Blog",
-            position: "left",
-          },
-          {
-            href: "https://github.com/fastify/help",
-            label: "Help",
-            position: "left",
-          },
+          { to: '/blog', label: 'Blog', position: 'left' },
           {
             type: "docsVersionDropdown",
             position: "right",
           },
+          // {
+          //   type: 'localeDropdown',
+          //   position: 'right',
+          // },
           {
-            href: "https://github.com/fastify/fastify",
-            label: "GitHub",
-            position: "right",
-          },
-          {
-            href: "https://twitter.com/fastifyjs",
-            label: "Twitter",
-            position: "right",
+            href: 'https://github.com/fastify/website-next',
+            position: 'right',
+            className: 'header-github-link',
+            'aria-label': 'GitHub repository',
           },
         ],
       },
       footer: {
-        style: "dark",
+        style: 'dark',
         links: [
           {
-            title: "Docs",
+            title: 'Docs',
             items: [
               {
-                label: "Docs",
-                to: "/docs/v3/",
+                label: 'Tutorial',
+                to: '/docs/intro',
               },
             ],
           },
           {
-            title: "Community",
+            title: 'Community',
             items: [
               {
-                label: "Stack Overflow",
-                href: "https://stackoverflow.com/questions/tagged/fastify",
+                label: 'Stack Overflow',
+                href: 'https://stackoverflow.com/questions/tagged/fastify',
               },
               {
-                label: "Discord",
-                href: "https://discord.gg/D3FZYPy",
+                label: 'Discord',
+                href: 'https://discord.gg/fastify',
               },
               {
-                label: "Twitter",
-                href: "https://twitter.com/fastifyjs",
+                label: 'Twitter',
+                href: 'https://twitter.com/fastifyjs',
               },
             ],
           },
           {
-            title: "More",
+            title: 'More',
             items: [
               {
-                label: "Blog",
-                href: "https://medium.com/@fastifyjs",
+                label: 'Blog',
+                to: '/blog',
               },
               {
-                label: "GitHub",
-                href: "https://github.com/fastify/fastify",
+                label: 'GitHub',
+                href: 'https://github.com/fastify/website-next',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} No One. This is a demo website.`,
+        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+        magicComments: [
+          {
+            className: 'theme-code-block-highlighted-line',
+            line: 'highlight-next-line',
+            block: { start: 'highlight-start', end: 'highlight-end' },
+          },
+          {
+            className: 'code-block-error-line',
+            line: 'This will error',
+          },
+        ],
+      },
+      algolia: {
+        appId: 'DMPMC33PLU',
+        apiKey: '12d46b3bfeee6511031cfe00778f3e45',
+        indexName: 'fastify',
       },
     }),
 };

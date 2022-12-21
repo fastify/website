@@ -1,0 +1,21 @@
+{
+  "name": "@fastify/website-scripts",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Internal scripts for the Fastify website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Manuel Spigolon <behemoth89@gmail.com> (https://github.com/Eomm)",
+  "license": "MIT",
+  "devDependencies": {
+    "standard": "^17.0.0"
+  },
+  "dependencies": {
+    "directory-tree": "^3.4.0",
+    "execa": "^5.1.1",
+    "semver": "^7.3.8"
+  }
+}
