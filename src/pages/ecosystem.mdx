@@ -1,0 +1,22 @@
+import {PluginsTable, PluginsCount} from '@site/src/components/ecosystem/plugins'
+
+<br/>
+
+## Ecosystem 
+
+- <PluginsCount/>
+- A core plugin is a plugin maintained by the fastify team, and we make our best to maintain them according to https://github.com/fastify/fastify/blob/master/Reference/docs/LTS.md.
+- We guarantee that every community plugin respects Fastify best practices (tests, etc) at the time they have been added to the list. We offer no guarantee on their maintenance.
+- Can't find the plugin you're looking for? No problem, [it's easy to write one!](https://www.fastify.io/docs/master/Reference/Plugins)
+  
+<br/>
+
+### Core
+
+<PluginsTable group="corePlugins"/>  
+
+<br/>
+
+### Community
+
+<PluginsTable group="communityPlugins"/>
