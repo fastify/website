@@ -60,7 +60,7 @@ export class PluginsTable extends React.Component {
                 <tbody>
                     {
                         plugins[this.props.group].map(plugin =>
-                            <PluginsTableRow plugin={plugin} nameFilter={this.state.nameFilter} descriptionFilter={this.state.descriptionFilter} />
+                            <PluginsTableRow key={plugin.name} plugin={plugin} nameFilter={this.state.nameFilter} descriptionFilter={this.state.descriptionFilter} />
                         )
                     }
                 </tbody>
