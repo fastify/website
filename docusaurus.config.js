@@ -61,12 +61,12 @@ const config = {
           srcDark: 'img/logos/fastify-white.png',
         },
         items: [
-          {
-            type: 'doc',
-            docId: 'index',
-            position: 'left',
-            label: 'Tutorial',
-          },
+          // {
+          //   type: 'doc',
+          //   docId: 'index',
+          //   position: 'left',
+          //   label: 'Tutorial',
+          // },
           { to: '/blog', label: 'Blog', position: 'left' },
           {
             type: "docsVersionDropdown",
