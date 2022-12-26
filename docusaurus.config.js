@@ -32,7 +32,7 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          showLastUpdateTime: true,
+          showLastUpdateTime: true, 
           includeCurrentVersion: true,
           editUrl: 'https://github.com/fastify/website-next/edit/main/docs/'
         },
@@ -61,12 +61,12 @@ const config = {
           srcDark: 'img/logos/fastify-white.png',
         },
         items: [
-          {
-            type: 'doc',
-            docId: 'index',
-            position: 'left',
-            label: 'Tutorial',
-          },
+          // {
+          //   type: 'doc',
+          //   docId: 'index',
+          //   position: 'left',
+          //   label: 'Tutorial',
+          // },
           { to: '/blog', label: 'Blog', position: 'left' },
           {
             type: "docsVersionDropdown",
