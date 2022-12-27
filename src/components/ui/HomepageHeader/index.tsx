@@ -7,10 +7,15 @@ import styles from "./index.module.css";
 const HomepageHeader = () => {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <header className={clsx("hero hero--primary", styles.heroBanner)}>
+    // <header className={clsx("hero hero--primary", styles.heroBanner)}>
+    <header className={styles.hero} data-theme="light">
       <div className="container">
-        <h1 className="hero__title">{siteConfig.title}</h1>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
+        <img
+          alt={siteConfig.title}
+          className={styles.heroLogo}
+          src={`img/logos/fastify-white.png`}
+        />
+        <p className={styles.heroProjectTagline}>{siteConfig.tagline}</p>
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
