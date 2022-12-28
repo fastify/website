@@ -25,6 +25,7 @@ const HomepageHeader = () => {
           </Link>
         </div>
       </div>
+      
     </header>
   );
 };
