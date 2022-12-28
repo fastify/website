@@ -1,11 +1,16 @@
-import {PluginsTable, PluginsCount} from '@site/src/components/ecosystem/plugins'
+import {PluginsTable} from '@site/src/components/ecosystem/plugins_table'
 import { Link } from 'react-router-dom';
+import plugins from './plugins.json'
+
+export function PluginCount(props) {
+    return (<b>{props.plugins.length}</b>)
+}
 
 <br/>
 
 ## Ecosystem 
 
-- <PluginsCount/>
+- There are <PluginCount plugins={plugins.corePlugins}/> core plugins and <PluginCount plugins={plugins.communityPlugins}/> community plugins
 - A core plugin is a plugin maintained by the fastify team, and we do our best to maintain them according to the Fastify [Long Term Support]( https://github.com/fastify/fastify/blob/main/docs/Reference/LTS.md) policy.
 - We guarantee that every community plugin respects Fastify best practices (tests, etc) at the time they have been added to the list. We offer no guarantee on their maintenance.
 - Can't find the plugin you're looking for? No problem, <Link to='plugins'>it's easy to write one!</Link>
@@ -14,10 +19,10 @@ import { Link } from 'react-router-dom';
 
 ### Core Plugins
 
-<PluginsTable group="corePlugins"/>  
+<PluginsTable plugins={plugins.corePlugins}/>  
 
 <br/>
 
 ### Community Plugins
 
-<PluginsTable group="communityPlugins"/>
+<PluginsTable plugins={plugins.communityPlugins}/>
