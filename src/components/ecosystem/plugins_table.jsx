@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactMarkdown from 'react-markdown'
+import Link from '@docusaurus/Link';
 
 export class PluginsTable extends React.Component {
     constructor(props) {
@@ -34,7 +36,7 @@ export class PluginsTable extends React.Component {
                     <input type="text" onKeyUp={(event) => this.setState({ descriptionFilter: event.target.value })} size="40" />
                 </div>
                 {
-                    filtered.map((plugin, index) => [<div class={`grid-item-${index % 2}`}>{plugin.name}</div>, <div class={`grid-item-${index % 2}`}>{plugin.description}</div>])
+                    filtered.map((plugin, index) => [<div class={`grid-item-${index % 2}`}><Link to={plugin.url}>{plugin.name}</Link></div>, <div class={`grid-item-${index % 2}`}><ReactMarkdown>{plugin.description}</ReactMarkdown></div>])
                 }
             </div>
         );
