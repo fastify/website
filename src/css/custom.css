@@ -54,3 +54,21 @@
   padding: 0 var(--ifm-pre-padding);
   border-left: 3px solid #ff000080;
 }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.grid-item-header {
+  padding-bottom: 5px;
+  border-bottom: 1px solid lightgray;
+}
+
+.grid-item-0 {
+  background-color: white;
+}
+
+.grid-item-1 {
+  background-color: lightgray;
+}

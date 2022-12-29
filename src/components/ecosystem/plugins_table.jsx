@@ -1,5 +1,4 @@
 import React from 'react';
-import PluginsTableRow from './plugins_table_row'
 
 export class PluginsTable extends React.Component {
     constructor(props) {
@@ -27,23 +26,17 @@ export class PluginsTable extends React.Component {
         }
 
         return (
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name<br />
-                            <input type="text" onKeyUp={(event) => this.setState({ nameFilter: event.target.value })} />
-                        </th>
-                        <th>Description<br />
-                            <input type="text" onKeyUp={(event) => this.setState({ descriptionFilter: event.target.value })} size="40" />
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        filtered.map(plugin => <PluginsTableRow key={plugin.name} url={plugin.url} name={plugin.name} description={plugin.description} />)
-                    }
-                </tbody>
-            </table>
+            <div class="grid-container">
+                <div class="grid-item-header"><b>Name</b><br />
+                    <input type="text" onKeyUp={(event) => this.setState({ nameFilter: event.target.value })} />
+                </div>
+                <div class="grid-item-header"><b>Description</b><br />
+                    <input type="text" onKeyUp={(event) => this.setState({ descriptionFilter: event.target.value })} size="40" />
+                </div>
+                {
+                    filtered.map((plugin, index) => [<div class={`grid-item-${index % 2}`}>{plugin.name}</div>, <div class={`grid-item-${index % 2}`}>{plugin.description}</div>])
+                }
+            </div>
         );
     }
 
