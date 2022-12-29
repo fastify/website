@@ -10,14 +10,22 @@ export class PluginsTable extends React.Component {
         }
     }
 
-    isVisible(plugin) {
-        const nameCondition = this.state.nameFilter == undefined || plugin.name.includes(this.state.nameFilter)
-        const descriptionCondition = this.state.descriptionFilter == undefined || plugin.description.includes(this.state.descriptionFilter)
-
-        return nameCondition && descriptionCondition
-    }
-
     render() {
+        let filtered = this.props.plugins.filter(plugin => {
+            const nameCondition = this.state.nameFilter == undefined || plugin.name.includes(this.state.nameFilter)
+            const descriptionCondition = this.state.descriptionFilter == undefined || plugin.description.includes(this.state.descriptionFilter)
+
+            return nameCondition && descriptionCondition
+        })
+
+        if (filtered.length == 0) {
+            filtered = [{
+                "name": "No Plugin matches filter",
+                "url": "",
+                "description": "No plugin matches filter"
+            }]
+        }
+
         return (
             <table>
                 <thead>
@@ -32,11 +40,7 @@ export class PluginsTable extends React.Component {
                 </thead>
                 <tbody>
                     {
-                        this.props.plugins.map(plugin => {
-                            if (this.isVisible(plugin)) {
-                                return <PluginsTableRow key={plugin.name} url={plugin.url} name={plugin.name} description={plugin.description} />
-                            }
-                        })
+                        filtered.map(plugin => <PluginsTableRow key={plugin.name} url={plugin.url} name={plugin.name} description={plugin.description} />)
                     }
                 </tbody>
             </table>
