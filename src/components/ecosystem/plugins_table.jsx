@@ -12,19 +12,19 @@ export class PluginsTable extends React.Component {
     }
 
     render() {
-        let filtered = this.props.plugins.filter(plugin => {
+        const filtered = this.props.plugins.filter(plugin => {
             const nameCondition = this.state.nameFilter == undefined || plugin.name.includes(this.state.nameFilter)
             const descriptionCondition = this.state.descriptionFilter == undefined || plugin.description.includes(this.state.descriptionFilter)
 
             return nameCondition && descriptionCondition
         })
 
+        const empty_row = []
         if (filtered.length == 0) {
-            filtered = [{
-                "name": "No Plugin matches filter",
-                "url": "",
-                "description": "No plugin matches filter"
-            }]
+            empty_row.push({
+                "name": "No match",
+                "description": "No match"
+            })
         }
 
         return (
@@ -37,6 +37,9 @@ export class PluginsTable extends React.Component {
                 </div>
                 {
                     filtered.map((plugin, index) => [<div class={`grid-item-${index % 2}`}><Link to={plugin.url}>{plugin.name}</Link></div>, <div class={`grid-item-${index % 2}`}><ReactMarkdown>{plugin.description}</ReactMarkdown></div>])
+                }
+                {
+                    empty_row.map((row) => [<div class={'grid-item-0'}>{row.name}</div>, <div class={'grid-item-0'}>{row.description}</div>])
                 }
             </div>
         );
