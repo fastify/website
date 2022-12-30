@@ -21,3 +21,5 @@ yarn-error.log*
 
 scripts/downloads/*
 scripts/releases/*
+
+.eslintcache

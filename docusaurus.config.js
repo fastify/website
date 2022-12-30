@@ -1,10 +1,10 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const lightCodeTheme = require('prism-react-renderer/themes/github')
+const darkCodeTheme = require('prism-react-renderer/themes/dracula')
 
-const BASE_URL = process.env.BASE_URL || '/';
+const BASE_URL = process.env.BASE_URL || '/'
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -34,18 +34,18 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           showLastUpdateTime: true,
           includeCurrentVersion: true,
-          editUrl: 'https://github.com/fastify/website-next/edit/main/docs/'
+          editUrl: 'https://github.com/fastify/website-next/edit/main/docs/',
         },
         blog: {
           showReadingTime: true,
-          editUrl: 'https://github.com/fastify/website-next/edit/main/docs/'
+          editUrl: 'https://github.com/fastify/website-next/edit/main/docs/',
         },
         theme: {
           customCss: [require.resolve('./src/css/custom.css'), require.resolve('./src/css/ecosystem.css'),]
         },
         sitemap: {
-          ignorePatterns: ['/scripts/**']
-        }
+          ignorePatterns: ['/scripts/**'],
+        },
       }),
     ],
   ],
@@ -70,8 +70,8 @@ const config = {
           { to: '/ecosystem', label: 'Ecosystem', position: 'left' },
           { to: '/blog', label: 'Blog', position: 'left' },
           {
-            type: "docsVersionDropdown",
-            position: "right",
+            type: 'docsVersionDropdown',
+            position: 'right',
           },
           // {
           //   type: 'localeDropdown',
@@ -151,6 +151,6 @@ const config = {
         indexName: 'fastify',
       },
     }),
-};
+}
 
-module.exports = config;
+module.exports = config

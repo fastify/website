@@ -1,0 +1,6 @@
+dist/
+.next/
+lib/
+.vscode/
+action/
+.docusaurus/
