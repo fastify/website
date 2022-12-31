@@ -39,6 +39,49 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <section className="section">
+          <div className="container content">
+            <div className="columns is-centered">
+              <div className="column is-12">
+                <h1 className="title">Who is using Fastify?</h1>
+                <p>
+                  Fastify is proudly powering a large ecosystem of organisations
+                  and products out there.
+                </p>
+                <p>
+                  Discover{" "}
+                  <a href="/organisations">more organisations using Fastify</a>.
+                  Do you want your organisation to{" "}
+                  <a href="/organisations#how-to-be-featured">
+                    be featured here
+                  </a>
+                  ?
+                </p>
+              </div>
+            </div>
+            <div className="columns is-centered">
+              <div className="column is-12">
+                <ul className="organisations-list">
+                  {displayedOrganizations.map((organization) => (
+                    <li>
+                      <a
+                        href={organization.link}
+                        target="_blank"
+                        rel="noopener nofollow"
+                      >
+                        <img
+                          src={`/website-next/img/organisations/${organization.image}`}
+                          alt={`${organization.name} is using Fastify`}
+                        />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
     </Layout>
   );
