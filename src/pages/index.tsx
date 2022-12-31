@@ -5,8 +5,11 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
 import HomepageFeatures from "@site/src/components/HomepageFeatures";
 import HomepageHeader from "@site/src/components/ui/HomepageHeader/index";
+import { organizations } from "../utils/constants/organisations";
+import styles from "./index.module.css";
 
 export default function Home() {
+  
   const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
@@ -62,8 +65,8 @@ export default function Home() {
             </div>
             <div className="columns is-centered">
               <div className="column is-12">
-                <ul className="organisations-list">
-                  {displayedOrganizations.map((organization) => (
+                <ul className={styles.organisationsList}>
+                  {organizations.map((organization) => (
                     <li>
                       <a
                         href={organization.link}
@@ -71,7 +74,7 @@ export default function Home() {
                         rel="noopener nofollow"
                       >
                         <img
-                          src={`/website-next/img/organisations/${organization.image}`}
+                          src={`/img/organisations/${organization.image}`}
                           alt={`${organization.name} is using Fastify`}
                         />
                       </a>
