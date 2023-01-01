@@ -375,6 +375,63 @@ export default function Home() {
             </div>
           </div>
         </section>
+        <section className="section alternate">
+          <div className="container content">
+            <div className="flex p-20 justify-between">
+              <div>
+                <h1 className="title">Acknowledgments</h1>
+                <p>
+                  This project is kindly
+                  <strong>sponsored by</strong>:
+                </p>
+                <ol>
+                  <li>
+                    <a>NearForm</a>
+                  </li>
+                  <li>
+                    <a>Platformatic</a>
+                  </li>
+                </ol>
+                <p>
+                  This project is kindly
+                  <strong>sponsored by</strong>:
+                </p>
+                <ol>
+                  <li>
+                    <a>LetzDoIt</a>
+                  </li>
+                  <li>
+                    <a>Microsoft</a>
+                  </li>
+                </ol>
+                <p>
+                  Also thanks to:
+                  <strong>sponsored by</strong>:
+                </p>
+                <ol>
+                  <li>
+                    <a>The amazing Fastify community</a>
+                  </li>
+                </ol>
+              </div>
+              <div className="spacer"></div>
+              <div>
+                <h1 className="title">Hosted by</h1>
+                <p>
+                  We are an At Large project at the
+                  <a href="https://openjsf.org/">OpenJS Foundation</a>
+                </p>
+                <a href="https://openjsf.org/" target="_blank" rel="noopener">
+                  <img
+                    id="openjs-logo"
+                    src="/img/logos/openjsf.svg"
+                    alt="OpenJS Logo"
+                  />
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
     </Layout>
   );
