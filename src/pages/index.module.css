@@ -33,11 +33,11 @@
   justify-items: center;
 }
 
-.organisations-list.align-start {
+.organisationsList.align-start {
   justify-content: flex-start;
 }
 
-.organisations-list li {
+.organisationsList li {
   align-items: center;
   display: flex;
   justify-content: center;
@@ -45,11 +45,11 @@
   max-height: 60px;
 }
 
-.organisations-list li a {
+.organisationsList li a {
   text-decoration: none;
 }
 
-.organisations-list li a img {
+.organisationsList li a img {
   height: auto;
   max-width: 100%;
   max-height: 60px;
@@ -58,7 +58,7 @@
   transition: all 0.5s;
 }
 
-.organisations-list li a:hover img {
+.organisationsList li a:hover img {
   filter: none;
   -webkit-filter: none;
 }
