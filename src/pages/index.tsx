@@ -187,6 +187,24 @@ export default function Home() {
           <div className="container content">
             <div className="columns is-centered">
               <div className="column is-12">
+                <h1 className="title">Using CLI</h1>
+                <p>Get fastify-cli with NPM:</p>
+                <CodeBlock className="language-bash">
+                  {"npm install --global fastify-cli"}
+                </CodeBlock>
+                <p>Then scaffold a new project with:</p>
+
+                <CodeBlock className="language-bash">
+                  {"fastify generate myproject"}
+                </CodeBlock>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="section alternate">
+          <div className="container content">
+            <div className="columns is-centered">
+              <div className="column is-12">
                 <h1 className="title">Request/Response validation and hooks</h1>
                 <p>Of course, Fastify can do much more than this.</p>
                 <p>
