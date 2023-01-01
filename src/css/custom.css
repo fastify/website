@@ -60,6 +60,11 @@
   grid-template-columns: 1fr 1fr;
 }
 
+.grid-container input {
+  width: 80%;
+  font-size: 1.2em;
+}
+
 .grid-item-header {
   padding-bottom: 5px;
 }
