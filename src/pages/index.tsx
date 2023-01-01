@@ -12,6 +12,7 @@ import CustomHighLight from "../components/ui/CustomHighLight";
 import QuickStartGuide from "@site/src/components/MDXComponents/QuickStartGuide.mdx";
 import ReqResHooks from "@site/src/components/MDXComponents/ReqResHooks.mdx";
 import TypeScriptSupport from "@site/src/components/MDXComponents/TypeScriptSupport.mdx";
+import Button from "@site/src/components/Button/index.js";
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
@@ -268,6 +269,38 @@ export default function Home() {
                   to learn more about all the features that Fastify has to
                   offer.
                 </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="section alternate">
+          <div className="container content">
+            <div className="flex p-20">
+              <div>
+                <h1 className="title">A fast web framework</h1>
+                <p>
+                  Leveraging our experience with Node.js performance, Fastify
+                  has been built from the ground up to be
+                  <strong>as fast as possible</strong>. Have a look at our
+                  <a href="/benchmarks">benchmarks section</a> to compare
+                  fastify performance to other common web frameworks.
+                </p>
+                <Button label={"Check out our benchmarks"} />
+              </div>
+              <div className="spacer"></div>
+              <div>
+                <h1 className="title">Ecosystem</h1>
+                <p>
+                  Fastify has an ever-growing ecosystem of plugins. Probably
+                  there is already a plugin for your favourite database or
+                  template language. Have a look at the{" "}
+                  <a href="/ecosystem">Ecosystem page</a> to navigate through
+                  the currently available plugins. Can't you find the plugin you
+                  are looking for? No problem,{" "}
+                  <a href="/docs/master/Plugins">it's very easy to write one</a>
+                  !
+                </p>
+                <Button label={"Explore 253 plugins"} />
               </div>
             </div>
           </div>
