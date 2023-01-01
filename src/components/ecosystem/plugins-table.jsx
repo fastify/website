@@ -30,10 +30,10 @@ const PluginsTable = (props) => {
                 <input type="text" onKeyUp={(event) => setDescriptionFilter(event.target.value)} size="40" />
             </div>
             {
-                filtered.map((plugin, index) => [<div key={`plugin-name-${index}`} className={`grid-item-${index % 2}`}><Link to={plugin.url}>{plugin.name}</Link></div>, <div key={`plugin-description-${index}`} className={`grid-item-${index % 2}`}><ReactMarkdown>{plugin.description}</ReactMarkdown></div>])
+                filtered.map((plugin, index) => [<div key={`plugin-name-${index}`} className={`grid-item grid-item-${index % 2}`}><Link to={plugin.url}>{plugin.name}</Link></div>, <div key={`plugin-description-${index}`} className={`grid-item grid-item-${index % 2}`}><ReactMarkdown skipHtml={true}>{plugin.description}</ReactMarkdown></div>])
             }
             {
-                emptyRow.map((row) => [<div key="no-result-name" className={'grid-item-0'}>{row.name}</div>, <div key="no-result-description" className={'grid-item-0'}>{row.description}</div>])
+                emptyRow.map((row) => [<div key="no-result-name" className="grid-item grid-item-0">{row.name}</div>, <div key="no-result-description" className="grid-item grid-item-0">{row.description}</div>])
             }
         </div>
     );
