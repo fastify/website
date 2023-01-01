@@ -7,7 +7,9 @@ import HomepageFeatures from "@site/src/components/HomepageFeatures";
 import HomepageHeader from "@site/src/components/ui/HomepageHeader/index";
 import { organizations } from "../utils/constants/organisations";
 import styles from "./index.module.css";
-
+import CodeBlock from "@theme/CodeBlock";
+import CustomHighLight from "../components/ui/CustomHighLight";
+import Content from "@site/src/components/QuickStartGuide/index.mdx";
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
   return (
@@ -151,6 +153,31 @@ export default function Home() {
                     TypeScript community.
                   </li>
                 </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="section alternate">
+          <div className="container content">
+            <div className="columns is-centered">
+              <div className="column is-12">
+                <h1 className="title">Quick start</h1>
+                <p>Get fastify with NPM:</p>
+                <CodeBlock className="language-bash">
+                  {"npm install fastify"}
+                </CodeBlock>
+                <p>
+                  Then create <CustomHighLight text={"server.js"} /> and add the
+                  following content:
+                </p>
+
+                <Content />
+                <p>Finally, launch the server with:</p>
+                <CodeBlock className="language-bash">{"node server"}</CodeBlock>
+                <p>and you can test it with:</p>
+                <CodeBlock className="language-bash">
+                  {"curl http://localhost:3000"}
+                </CodeBlock>
               </div>
             </div>
           </div>
