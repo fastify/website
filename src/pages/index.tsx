@@ -257,6 +257,17 @@ export default function Home() {
                   typings on <CustomHighLight text={"reply.res"} />.
                 </p>
                 <TypeScriptSupport />
+                <p>
+                  Visit the{" "}
+                  <a
+                    href="https://www.fastify.io/docs/latest"
+                    aria-label="Documentation"
+                  >
+                    Documentation
+                  </a>{" "}
+                  to learn more about all the features that Fastify has to
+                  offer.
+                </p>
               </div>
             </div>
           </div>
