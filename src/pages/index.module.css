@@ -22,7 +22,6 @@
   justify-content: center;
 }
 
-
 .organisationsList {
   margin: 0 0 0 0 !important;
   display: flex;
@@ -61,4 +60,15 @@
 .organisationsList li a:hover img {
   filter: none;
   -webkit-filter: none;
+}
+
+.teamImg {
+  width: 96px;
+  height: 96px;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+}
+
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
 }

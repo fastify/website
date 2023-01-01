@@ -5,7 +5,8 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
 import HomepageFeatures from "@site/src/components/HomepageFeatures";
 import HomepageHeader from "@site/src/components/ui/HomepageHeader/index";
-import { organizations } from "../utils/constants/organisations";
+import { organizations } from "../utils/data/organisations";
+import { team } from "../utils/data/team";
 import styles from "./index.module.css";
 import CodeBlock from "@theme/CodeBlock";
 import CustomHighLight from "../components/ui/CustomHighLight";
@@ -301,6 +302,75 @@ export default function Home() {
                   !
                 </p>
                 <Button label={"Explore 253 plugins"} />
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="section team">
+          <div className="container content">
+            <div className="columns is-centered">
+              <div className="column is-12">
+                <h1 className="title">The team</h1>
+                <p>In alphabetical order</p>
+                {team.map((section) => (
+                  <>
+                    <div className="content">
+                      <h2>{section.name}</h2>
+                    </div>
+                    <div className={styles.teamGrid}>
+                      {section.people
+                        .sort((a, b) => (a.sortname > b.sortname ? 1 : -1))
+                        .map((member) => (
+                          <div>
+                            <div className="flex">
+                              <figure className={styles.teamImg}>
+                                <img
+                                  src={member.picture}
+                                  alt={`${member.name}'s profile picture`}
+                                />
+                              </figure>
+
+                              <div className="media-content">
+                                <p className="title is-5">{member.name}</p>
+                                <p className="subtitle is-6 contributor-links">
+                                  {member.links.github && (
+                                    <a
+                                      href={member.links.github}
+                                      target="_blank"
+                                      rel="noopener"
+                                      title={`Check out ${member.name}'s Github profile`}
+                                    >
+                                      {/* {svgicons.github} */}
+                                    </a>
+                                  )}
+                                  {member.links.npm && (
+                                    <a
+                                      href={member.links.npm}
+                                      target="_blank"
+                                      rel="noopener"
+                                      title={`Check out ${member.name}'s NPM profile`}
+                                    >
+                                      {/* {svgicons.npm} */}
+                                    </a>
+                                  )}
+                                  {member.links.twitter && (
+                                    <a
+                                      href={member.links.twitter}
+                                      target="_blank"
+                                      rel="noopener"
+                                      title={`Check out ${member.name}'s Twitter profile`}
+                                    >
+                                      {/* {svgicons.twitter} */}
+                                    </a>
+                                  )}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                    </div>
+                  </>
+                ))}
               </div>
             </div>
           </div>
