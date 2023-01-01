@@ -57,18 +57,27 @@
 
 .grid-container {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 1fr 1fr;
+}
+
+.grid-container input {
+  width: 80%;
+  font-size: 1.2em;
 }
 
 .grid-item-header {
   padding-bottom: 5px;
-  border-bottom: 1px solid lightgray;
+}
+
+.grid-item {
+  padding: 5px;
+  border-radius: 5px;
 }
 
 .grid-item-0 {
-  background-color: white;
+  background-color: var(--ifm-table-background);
 }
 
 .grid-item-1 {
-  background-color: lightgray;
+  background-color: var(--ifm-table-stripe-background);
 }
