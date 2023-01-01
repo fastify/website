@@ -70,5 +70,5 @@
 }
 
 .grid-item-1 {
-  background-color: lightgray;
+  background-color: var(--ifm-table-stripe-background);
 }
