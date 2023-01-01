@@ -9,7 +9,8 @@ import { organizations } from "../utils/constants/organisations";
 import styles from "./index.module.css";
 import CodeBlock from "@theme/CodeBlock";
 import CustomHighLight from "../components/ui/CustomHighLight";
-import Content from "@site/src/components/QuickStartGuide/index.mdx";
+import QuickStartGuide from "@site/src/components/MDXComponents/QuickStartGuide.mdx";
+import ReqResHooks from "@site/src/components/MDXComponents/ReqResHooks.mdx";
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
   return (
@@ -171,13 +172,30 @@ export default function Home() {
                   following content:
                 </p>
 
-                <Content />
+                <QuickStartGuide />
                 <p>Finally, launch the server with:</p>
                 <CodeBlock className="language-bash">{"node server"}</CodeBlock>
                 <p>and you can test it with:</p>
                 <CodeBlock className="language-bash">
                   {"curl http://localhost:3000"}
                 </CodeBlock>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="section alternate">
+          <div className="container content">
+            <div className="columns is-centered">
+              <div className="column is-12">
+                <h1 className="title">Request/Response validation and hooks</h1>
+                <p>Of course, Fastify can do much more than this.</p>
+                <p>
+                  For example, you can easily provide input and output
+                  validation using JSON Schema and perform specific operations
+                  before the handler is executed:
+                </p>
+
+                <ReqResHooks />
               </div>
             </div>
           </div>
