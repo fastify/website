@@ -66,7 +66,7 @@
 }
 
 .grid-item-0 {
-  background-color: white;
+  background-color: var(--ifm-table-background);
 }
 
 .grid-item-1 {
