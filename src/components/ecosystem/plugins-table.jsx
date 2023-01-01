@@ -13,9 +13,9 @@ const PluginsTable = (props) => {
         return nameCondition && descriptionCondition
     })
 
-    const empty_row = []
+    const emptyRow = []
     if (filtered.length == 0) {
-        empty_row.push({
+        emptyRow.push({
             "name": "No match",
             "description": "No match"
         })
@@ -33,7 +33,7 @@ const PluginsTable = (props) => {
                 filtered.map((plugin, index) => [<div class={`grid-item-${index % 2}`}><Link to={plugin.url}>{plugin.name}</Link></div>, <div class={`grid-item-${index % 2}`}><ReactMarkdown>{plugin.description}</ReactMarkdown></div>])
             }
             {
-                empty_row.map((row) => [<div class={'grid-item-0'}>{row.name}</div>, <div class={'grid-item-0'}>{row.description}</div>])
+                emptyRow.map((row) => [<div class={'grid-item-0'}>{row.name}</div>, <div class={'grid-item-0'}>{row.description}</div>])
             }
         </div>
     );
