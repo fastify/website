@@ -11,6 +11,8 @@ import CodeBlock from "@theme/CodeBlock";
 import CustomHighLight from "../components/ui/CustomHighLight";
 import QuickStartGuide from "@site/src/components/MDXComponents/QuickStartGuide.mdx";
 import ReqResHooks from "@site/src/components/MDXComponents/ReqResHooks.mdx";
+import TypeScriptSupport from "@site/src/components/MDXComponents/TypeScriptSupport.mdx";
+
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
   return (
@@ -193,7 +195,7 @@ export default function Home() {
                   {"npm install --global fastify-cli"}
                 </CodeBlock>
                 <p>Then scaffold a new project with:</p>
-
+                Of course, Fastify can do much more than this.
                 <CodeBlock className="language-bash">
                   {"fastify generate myproject"}
                 </CodeBlock>
@@ -214,6 +216,47 @@ export default function Home() {
                 </p>
 
                 <ReqResHooks />
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="section alternate">
+          <div className="container content">
+            <div className="columns is-centered">
+              <div className="column is-12">
+                <h1 className="title">TypeScript Support</h1>
+                <p>
+                  Fastify is shipped with a typings file, but you may need to
+                  install <CustomHighLight text={"@types/node"} />, depending on
+                  the Node.js version you are using.
+                </p>
+                <p>The following example creates a http server.</p>
+                <p>We pass the relevant typings for our http version used.</p>
+                <p>
+                  By passing types we get correctly typed access to the
+                  underlying http objects in routes.
+                </p>
+                <p>
+                  If using http2 we'd pass{" "}
+                  <CustomHighLight
+                    text={
+                      "<http2.Http2Server, http2.Http2ServerRequest, http2.Http2ServerResponse>"
+                    }
+                  />
+                  .
+                </p>
+                <p>
+                  For https pass{" "}
+                  <CustomHighLight text={"http2.Http2SecureServer"} />
+                  or <CustomHighLight text={"http.SecureServer"} /> instead of
+                  Server.
+                </p>
+                <p>
+                  This ensures within the server handler we also get{" "}
+                  <CustomHighLight text={"http.ServerResponse"} /> with correct
+                  typings on <CustomHighLight text={"reply.res"} />.
+                </p>
+                <TypeScriptSupport />
               </div>
             </div>
           </div>
