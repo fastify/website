@@ -9,7 +9,7 @@ import { organizations } from "../utils/data/organisations";
 import { team } from "../utils/data/team";
 import styles from "./index.module.css";
 import CodeBlock from "@theme/CodeBlock";
-import CustomHighLight from "../components/ui/CustomHighLight";
+import CustomHighLight from "../components/CustomHighLight";
 import QuickStartGuide from "@site/src/components/MDXComponents/QuickStartGuide.mdx";
 import ReqResHooks from "@site/src/components/MDXComponents/ReqResHooks.mdx";
 import TypeScriptSupport from "@site/src/components/MDXComponents/TypeScriptSupport.mdx";
