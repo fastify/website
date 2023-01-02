@@ -65,11 +65,19 @@
   justify-content: space-between;
 }
 
-.spacer{
+.spacer {
   padding: 0 40px;
 }
 
-.section .container p {
+.vertical-spacer {
+  padding: 40px 0;
+}
+
+.section {
+  padding: 40px 0;
+}
+
+.container p {
   margin: 0.8em 0;
 }
 
@@ -77,17 +85,27 @@
   margin: 0;
 }
 
+.section.alternate {
+  background: #fdfdfd;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
 #openjs-logo {
   padding: 2em 0 1em 0;
   width: 60%;
-  max-width: 380px
+  max-width: 380px;
 }
 
 .container {
   height: auto;
 }
-.container  {
+.container {
   height: auto;
   padding-top: 0;
   padding-bottom: 0;
+}
+
+.content .hljs {
+  background: transparent;
 }

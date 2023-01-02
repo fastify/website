@@ -287,8 +287,8 @@ export default function Home() {
                 <p>
                   Leveraging our experience with Node.js performance, Fastify
                   has been built from the ground up to be
-                  <strong>as fast as possible</strong>. Have a look at our
-                  <a href="/benchmarks">benchmarks section</a> to compare
+                  <strong>&nbsp;as fast as possible</strong>. Have a look at our
+                  <a href="/benchmarks">&nbsp;benchmarks section</a> to compare
                   fastify performance to other common web frameworks.
                 </p>
                 <Button label={"Check out our benchmarks"} />
@@ -387,44 +387,38 @@ export default function Home() {
                 <h1 className="title">Acknowledgments</h1>
                 <p>
                   This project is kindly
-                  <strong>sponsored by</strong>:
+                  <strong>&nbsp;sponsored by</strong>:
                 </p>
-                <ol>
+                <ul>
                   <li>
                     <a>NearForm</a>
                   </li>
                   <li>
                     <a>Platformatic</a>
                   </li>
-                </ol>
-                <p>
-                  This project is kindly
-                  <strong>sponsored by</strong>:
-                </p>
-                <ol>
+                </ul>
+                <p>Past Sponsors:</p>
+                <ul>
                   <li>
                     <a>LetzDoIt</a>
                   </li>
                   <li>
                     <a>Microsoft</a>
                   </li>
-                </ol>
-                <p>
-                  Also thanks to:
-                  <strong>sponsored by</strong>:
-                </p>
-                <ol>
+                </ul>
+                <p>Also thanks to:</p>
+                <ul>
                   <li>
                     <a>The amazing Fastify community</a>
                   </li>
-                </ol>
+                </ul>
               </div>
               <div className="spacer"></div>
               <div>
                 <h1 className="title">Hosted by</h1>
                 <p>
                   We are an At Large project at the
-                  <a href="https://openjsf.org/">OpenJS Foundation</a>
+                  <a href="https://openjsf.org/">&nbsp;OpenJS Foundation</a>
                 </p>
                 <a href="https://openjsf.org/" target="_blank" rel="noopener">
                   <img
