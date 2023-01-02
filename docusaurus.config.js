@@ -41,7 +41,7 @@ const config = {
           editUrl: 'https://github.com/fastify/website-next/edit/main/docs/'
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: [require.resolve('./src/css/custom.css'), require.resolve('./src/css/ecosystem.css'),]
         },
         sitemap: {
           ignorePatterns: ['/scripts/**']
@@ -61,12 +61,13 @@ const config = {
           srcDark: 'img/logos/fastify-white.png',
         },
         items: [
-          {
-            type: 'doc',
-            docId: 'index',
-            position: 'left',
-            label: 'Tutorial',
-          },
+          // {
+          //   type: 'doc',
+          //   docId: 'index',
+          //   position: 'left',
+          //   label: 'Tutorial',
+          // },
+          { to: '/ecosystem', label: 'Ecosystem', position: 'left' },
           { to: '/blog', label: 'Blog', position: 'left' },
           {
             type: "docsVersionDropdown",
