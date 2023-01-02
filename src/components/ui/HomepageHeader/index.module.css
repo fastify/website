@@ -11,20 +11,19 @@
 }
 
 .hero {
-  background-color: #000;
-  padding: 48px;
+  background: #000 0% 0% repeat;
+  background-size: 54px;
+  padding: 3rem 0
 }
 
 .heroProjectTagline {
   color: #fff;
-  font-size: 20px;
-  margin: 0;
+  font-weight: bold;
+  text-shadow: 2px 1px 1px black;
 }
 
-.heroLogo{
-    position: relative;
-    width:  400px;
-    height: 150px;
+.hero .heroLogo {
+  max-width: 320px;
 }
 
 @media screen and (max-width: 996px) {
@@ -37,8 +36,4 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.githubButtons{
-
 }

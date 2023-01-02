@@ -17,6 +17,11 @@ import Button from "@site/src/components/Button/index.js";
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
+
+  // Shuffle organisations
+  const shuffled = organizations.sort(() => 0.5 - Math.random());
+  let displayedOrganizations = shuffled.slice(0, 12);
+
   return (
     <Layout
       title={`Hello from ${siteConfig.title}`}
@@ -72,7 +77,7 @@ export default function Home() {
             <div className="columns is-centered">
               <div className="column is-12">
                 <ul className={styles.organisationsList}>
-                  {organizations.map((organization) => (
+                  {displayedOrganizations.map((organization) => (
                     <li>
                       <a
                         href={organization.link}

@@ -68,3 +68,26 @@
 .spacer{
   padding: 0 40px;
 }
+
+.section .container p {
+  margin: 0.8em 0;
+}
+
+.section.team .container p {
+  margin: 0;
+}
+
+#openjs-logo {
+  padding: 2em 0 1em 0;
+  width: 60%;
+  max-width: 380px
+}
+
+.container {
+  height: auto;
+}
+.container  {
+  height: auto;
+  padding-top: 0;
+  padding-bottom: 0;
+}

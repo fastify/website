@@ -10,7 +10,7 @@ const HomepageHeader = () => {
   return (
     // <header className={clsx("hero hero--primary", styles.heroBanner)}>
     <header className={styles.hero} data-theme="light">
-      <div className="container">
+       <div className="container">
         <h1>
           <img
             alt={siteConfig.title}
