@@ -13,7 +13,12 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ['react', 'react-hooks', 'regexp', '@docusaurus'],
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
+  plugins: ['react', 'react-hooks', 'regexp', '@docusaurus', 'check-file'],
   globals: {
     JSX: true,
   },
@@ -22,12 +27,36 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:regexp/recommended',
-    'prettier',
+    'plugin:mdx/recommended',
     'plugin:@docusaurus/all',
+    'prettier',
   ],
   rules: {
     'react/prop-types': 'off',
     '@docusaurus/string-literal-i18n-messages': 'error',
     '@docusaurus/no-untranslated-text': 'warn',
+    'check-file/filename-naming-convention': [
+      'error',
+      {
+        './**/README.md': 'SCREAMING_SNAKE_CASE',
+        'src/components/**/': 'PASCAL_CASE',
+        'src/pages/**/': 'KEBAB_CASE',
+        'src/css/**/': 'KEBAB_CASE',
+      },
+      {
+        ignoreMiddleExtensions: true,
+      },
+    ],
+    'check-file/folder-naming-convention': [
+      'error',
+      {
+        'src/components/**/': 'PASCAL_CASE',
+        'src/pages/**/': 'KEBAB_CASE',
+        'src/css/**/': 'KEBAB_CASE',
+        'scripts/**/': 'KEBAB_CASE',
+        'docs/**/': 'KEBAB_CASE',
+        'static/*/': 'KEBAB_CASE',
+      },
+    ],
   },
 }

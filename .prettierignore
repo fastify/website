@@ -4,3 +4,4 @@ lib/
 .vscode/
 action/
 .docusaurus/
+/scripts/releases/
