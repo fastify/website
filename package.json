@@ -34,6 +34,7 @@
   "devDependencies": {
     "@docusaurus/eslint-plugin": "^2.2.0",
     "@docusaurus/module-type-aliases": "2.2.0",
+    "@fastify/pre-commit": "^2.0.2",
     "babel-eslint": "^10.1.0",
     "eslint": "^8.30.0",
     "eslint-config-prettier": "^8.5.0",
@@ -62,5 +63,10 @@
   },
   "engines": {
     "node": ">=16.14"
+  },
+  "pre-commit": {
+    "run": [
+      "format"
+    ]
   }
 }

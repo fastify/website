@@ -39,9 +39,9 @@ module.exports = {
       'error',
       {
         './**/README.md': 'SCREAMING_SNAKE_CASE',
-        'src/components/**/': 'PASCAL_CASE',
-        'src/pages/**/': 'KEBAB_CASE',
-        'src/css/**/': 'KEBAB_CASE',
+        'src/components/(?!index).*': 'PASCAL_CASE',
+        'src/pages/**/*': 'KEBAB_CASE',
+        'src/css/**/*': 'KEBAB_CASE',
       },
       {
         ignoreMiddleExtensions: true,
