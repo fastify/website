@@ -68,6 +68,7 @@ const config = {
           //   label: 'Tutorial',
           // },
           { to: '/ecosystem', label: 'Ecosystem', position: 'left' },
+          { to: '/benchmarks', label: 'Benchmarks', position: 'left' },
           // { to: '/blog', label: 'Blog', position: 'left' },
           {
             type: 'docsVersionDropdown',
