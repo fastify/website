@@ -1,28 +1,28 @@
-import PluginsTable from '@site/src/components/ecosystem/plugins-table'
-import Link  from '@docusaurus/Link';
+import PluginsTable from '@site/src/components/Ecosystem/PluginsTable'
+import Link from '@docusaurus/Link'
 import plugins from './plugins.json'
 
 export function PluginCount(props) {
-    return (<b>{props.plugins.length}</b>)
+  return <b>{props.plugins.length}</b>
 }
 
-<br/>
+<br />
 
-## Ecosystem 
+## Ecosystem
 
 - There are <PluginCount plugins={plugins.corePlugins}/> core plugins and <PluginCount plugins={plugins.communityPlugins}/> community plugins
-- A core plugin is a plugin maintained by the fastify team, and we do our best to maintain them according to the Fastify [Long Term Support]( https://github.com/fastify/fastify/blob/main/docs/Reference/LTS.md) policy.
+- A core plugin is a plugin maintained by the fastify team, and we do our best to maintain them according to the Fastify [Long Term Support](https://github.com/fastify/fastify/blob/main/docs/Reference/LTS.md) policy.
 - We guarantee that every community plugin respects Fastify best practices (tests, etc) at the time they have been added to the list. We offer no guarantee on their maintenance.
 - Can't find the plugin you're looking for? No problem, <Link to='plugins'>it's easy to write one!</Link>
-  
-<br/>
+
+<br />
 
 ### Core Plugins
 
-<PluginsTable plugins={plugins.corePlugins}/>  
+<PluginsTable plugins={plugins.corePlugins} />
 
-<br/>
+<br />
 
 ### Community Plugins
 
-<PluginsTable plugins={plugins.communityPlugins}/>
+<PluginsTable plugins={plugins.communityPlugins} />

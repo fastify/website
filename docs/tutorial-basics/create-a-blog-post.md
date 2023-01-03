@@ -32,25 +32,25 @@ Feel free to play around and edit this post as much you like.
 ```
 
 ```jsx {1,4-6,11}
-import React from "react";
+import React from 'react'
 function MyComponent(props) {
   if (props.isBar) {
-    return <div>Bar</div>;
+    return <div>Bar</div>
   }
-  return <div>Foo</div>;
+  return <div>Foo</div>
 }
-export default MyComponent;
+export default MyComponent
 ```
 
 ```js
-import React from "react";
+import React from 'react'
 function MyComponent(props) {
   if (props.isBar) {
-    return <div>Bar</div>;
+    return <div>Bar</div>
   }
-  return <div>Foo</div>;
+  return <div>Foo</div>
 }
-export default MyComponent;
+export default MyComponent
 ```
 
 ```js
@@ -60,26 +60,26 @@ module.exports = {
       magicComments: [
         // Remember to extend the default highlight class name as well!
         {
-          className: "theme-code-block-highlighted-line",
-          line: "highlight-next-line",
-          block: { start: "highlight-start", end: "highlight-end" },
+          className: 'theme-code-block-highlighted-line',
+          line: 'highlight-next-line',
+          block: { start: 'highlight-start', end: 'highlight-end' },
         },
         // highlight-start
         {
-          className: "code-block-error-line",
-          line: "This will error",
+          className: 'code-block-error-line',
+          line: 'This will error',
         },
         // highlight-end
       ],
     },
   },
-};
+}
 ```
 
 ```js
-const name = null;
+const name = null
 // This will error
-console.log(name.toUpperCase());
+console.log(name.toUpperCase())
 // Uncaught TypeError: Cannot read properties of null (reading 'toUpperCase')
 ```
 
