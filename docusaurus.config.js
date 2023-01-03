@@ -68,7 +68,7 @@ const config = {
           //   label: 'Tutorial',
           // },
           { to: '/ecosystem', label: 'Ecosystem', position: 'left' },
-          { to: '/blog', label: 'Blog', position: 'left' },
+          // { to: '/blog', label: 'Blog', position: 'left' },
           {
             type: 'docsVersionDropdown',
             position: 'right',
@@ -117,10 +117,10 @@ const config = {
           {
             title: 'More',
             items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
+              // {
+              //   label: 'Blog',
+              //   to: '/blog',
+              // },
               {
                 label: 'GitHub',
                 href: 'https://github.com/fastify/website-next',
