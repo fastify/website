@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# Usage:
+# Downalod all major releases:
+# - ./scripts/download-releases.sh --major
+# Downalod all greatest minor releases:
+# - ./scripts/download-releases.sh --minor 
+# Filter by major version:
+# - ./scripts/download-releases.sh --minor 4
+
+# Requirements:
+# - gh CLI https://cli.github.com/
+
 org="fastify"
 repo="$org/fastify"
 
@@ -16,8 +27,9 @@ gh release list --repo $repo --limit 999 --exclude-drafts \
   | cut -f1 \
   | grep "^v[0-9.]*$" > releases.tag
 
-npm i semver -g > /dev/null
-relesesOrderedList=$(semver -r ">=1.x" $(cat releases.tag))
+# npm i semver -g > /dev/null
+relesesOrderedList=$(npx --yes semver -r ">=1.x" $(cat releases.tag))
+printf "%s\n" "${relesesOrderedList[@]}" > releases.tag
 
 mkdir -p downloads
 
@@ -27,15 +39,25 @@ lastItem=none
 for i in $relesesOrderedList
 do
   currentMajor=$(echo $i | cut -d. -f1)
-  # resp=$(semver -r ">=${major}.${minor}" ${i})
+  currentMinor=$(echo $i | cut -d. -f2)
 
-  if [[ $major -eq $currentMajor ]]; then
+  if [[ $2 ]] && [[ $currentMajor -ne $2 ]]; then
+    continue
+  fi
+
+  # echo "compare $i with $major.$minor"
+  if ([[ $1 == "--major" ]] && [[ $major -eq $currentMajor ]]) ||
+     ([[ $1 == "--minor" ]] && [[ $major -eq $currentMajor ]] && [[ $minor -eq $currentMinor ]]) ; then
     lastItem=$i
     continue
   fi
-  downloadRelease "v$lastItem"
+
+  if [[ $lastItem != "none" ]]; then
+    downloadRelease "v$lastItem"
+  fi
 
   major=$currentMajor
-  minor=$(echo $i | cut -d. -f2)
+  minor=$currentMinor
+  lastItem=$i
 done
 downloadRelease "v$lastItem"
