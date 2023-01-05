@@ -10,14 +10,11 @@ const execa = require('execa')
 
 processReleases({
   webSiteRoot: path.resolve(__dirname, '..'),
-  releasesFolder: path.join(__dirname, './releases')
+  releasesFolder: path.join(__dirname, './releases'),
 })
 
 async function processReleases(opts) {
-  const {
-    webSiteRoot,
-    releasesFolder
-  } = opts
+  const { webSiteRoot, releasesFolder } = opts
 
   const versions = []
 
@@ -40,7 +37,10 @@ async function processReleases(opts) {
     await execa('cp', ['-r', path.join(docTree.path, '/') + '.', docDestination])
     console.log(`Copied ${docTree.releseTag} to ${docDestination}`)
 
-    await execa('cp', [path.join(webSiteRoot, 'sidebars.js'), path.join(webSiteRoot, 'versioned_sidebars', `version-${docTree.releseTag}-sidebars.js`)])
+    await execa('cp', [
+      path.join(webSiteRoot, 'sidebars.js'),
+      path.join(webSiteRoot, 'versioned_sidebars', `version-${docTree.releseTag}-sidebars.js`),
+    ])
 
     versions.push(docTree.releseTag)
   }
@@ -48,13 +48,26 @@ async function processReleases(opts) {
   console.log(`Wrote ${versions.length} versions to versions.json`)
 
   // Fixes (Expected corresponding JSX closing tag for <br>) <br> -> <br />
-  await execa('find', [path.join(webSiteRoot, 'versioned_docs'), '-type', 'f', '-exec', 'sed', '-i', '', 's/<br>/<br \\/>/g', '{}', ';'])
+  await execa('find', [
+    path.join(webSiteRoot, 'versioned_docs'),
+    '-type',
+    'f',
+    '-exec',
+    'sed',
+    '-i',
+    '',
+    's/<br>/<br \\/>/g',
+    '{}',
+    ';',
+  ])
 
   console.log('Done')
 }
 
 function* getDocFolders(lookupFolder) {
-  const releasesTree = dirTree(lookupFolder, { attributes: ['type', 'extension'] })
+  const releasesTree = dirTree(lookupFolder, {
+    attributes: ['type', 'extension'],
+  })
   for (const fileTree of releasesTree.children) {
     if (fileTree.type === 'directory') {
       assert(fileTree.children.length, 1, 'expected only one docs folder')
@@ -63,7 +76,7 @@ function* getDocFolders(lookupFolder) {
         semver: semver.parse(fileTree.name),
         releseTag: fileTree.name,
         path: fileTree.children[0].path,
-        files: fileTree.children[0].children
+        files: fileTree.children[0].children,
       }
     }
   }

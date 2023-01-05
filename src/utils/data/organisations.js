@@ -1,227 +1,227 @@
 export const organizations = [
-    {
-      name: "2hire",
-      image: "2hire.svg",
-      link: "https://2hire.io/",
-    },
-    {
-      name: "aasaam",
-      image: "aasaam.svg",
-      link: "https://aasaam.com/",
-    },
-    {
-      name: "car2go",
-      image: "car2go.svg",
-      link: "https://www.car2go.com",
-    },
-    {
-      name: "Care.com",
-      image: "care.svg",
-      link: "https://www.care.com/",
-    },
-    {
-      name: "ClearGlass",
-      image: "clearglass.svg",
-      link: "https://clearglass.com/",
-    },
-    {
-      name: "Codecks",
-      image: "codecks.svg",
-      link: "https://www.codecks.io/",
-    },
-    {
-      name: "Commons Host",
-      image: "commonshost.svg",
-      link: "https://commons.host",
-    },
-    {
-      name: "Compressor",
-      image: "compressor.svg",
-      link: "https://compressor.io",
-    },
-    {
-      name: "evilfactorylabs",
-      image: "evilfactorylabs.svg",
-      link: "https://evilfactorylabs.org/",
-    },
-    {
-      name: "Elo7",
-      image: "elo7.svg",
-      link: "https://www.elo7.com.br",
-    },
-    {
-      name: "Discord Bots Catalog",
-      image: "discordbotscatalog.svg",
-      link: "https://top-bots.xyz",
-    },
-    {
-      name: "fabfitfun",
-      image: "fabfitfun.svg",
-      link: "https://fabfitfun.com/",
-    },
-    {
-      name: "Find a Discord",
-      image: "findadiscord.svg",
-      link: "https://findadiscord.com",
-    },
-    {
-      name: "Future Foundry",
-      image: "future-foundry.svg",
-      link: "https://futurefoundry.co",
-    },
-    {
-      name: "Genesys",
-      image: "genesys.svg",
-      link: "https://www.genesys.com",
-    },
-    {
-      name: "GEOLYTIX",
-      image: "geolytix.svg",
-      link: "https://geolytix.co.uk",
-    },
-    {
-      name: "Global CTO Forum",
-      image: "global-cto-forum.svg",
-      link: "https://www.globalctoforum.org",
-    },
-    {
-      name: "Gumlet",
-      image: "gumlet.svg",
-      link: "https://www.gumlet.com",
-    },
-    {
-      name: "heply",
-      image: "heply.svg",
-      link: "https://heply.it/",
-    },
-    {
-      name: "Habit",
-      image: "habit.svg",
-      link: "https://habit.global/",
-    },
-    {
-      name: "HospitalRun",
-      image: "hospitalrun.svg",
-      link: "https://hospitalrun.io/",
-    },
-    {
-      name: "hotstar",
-      image: "hotstar.svg",
-      link: "https://tech.hotstar.com/",
-    },
-    {
-      name: "Knock",
-      image: "knock.svg",
-      link: "https://www.knock.com",
-    },
-    {
-      name: "localistars",
-      image: "localistars.svg",
-      link: "https://localistars.com",
-    },
-    {
-      name: "LogDNA",
-      image: "logdna.svg",
-      link: "https://logdna.com",
-    },
-    {
-      name: "locize",
-      image: "locize.svg",
-      link: "https://locize.com",
-    },
-    {
-      name: "MIA Platform",
-      image: "mia-platform.svg",
-      link: "https://www.mia-platform.eu",
-    },
-    {
-      name: "Microsoft",
-      image: "microsoft.svg",
-      link: "https://docs.microsoft.com",
-    },
-    {
-      name: "Mr Porter",
-      image: "mrp.svg",
-      link: "https://www.mrporter.com",
-    },
-    {
-      name: "MV Labs",
-      image: "mvlabs.svg",
-      link: "https://www.mvlabs.it",
-    },
-    {
-      name: "Nearform",
-      image: "nearform.svg",
-      link: "https://nearform.com",
-    },
-    {
-      name: "Net-A-Porter",
-      image: "net-a-porter.svg",
-      link: "https://net-a-porter.com",
-    },
-    {
-      name: "Nucleode",
-      image: "nucleode.svg",
-      link: "https://www.nucleode.com",
-    },
-    {
-      name: "Quero Educação",
-      image: "quero-educacao.svg",
-      link: "https://sobre.quero.com/",
-    },
-    {
-      name: "Radity",
-      image: "radity.svg",
-      link: "https://www.radity.com",
-    },
-    {
-      name: "retraced",
-      image: "retraced.svg",
-      link: "https://retraced.co",
-    },
-    {
-      name: "RuneAudio",
-      image: "runeaudio.svg",
-      link: "https://www.runeaudio.com",
-    },
-    {
-      name: "Satiurn",
-      image: "satiurn.svg",
-      link: "https://www.satiurn.com/",
-    },
-    {
-      name: "Seznam.cz",
-      image: "seznam.cz.svg",
-      link: "https://www.seznam.cz/",
-    },
-    {
-      name: "Swiss Dev Jobs",
-      image: "swissdev-javascript-jobs-200-200.svg",
-      link: "https://swissdevjobs.ch/",
-    },
-    {
-      name: "The Outnet",
-      image: "theoutnet.svg",
-      link: "https://theoutnet.com/",
-    },
-    {
-      name: "Unhandled",
-      image: "unhandled.svg",
-      link: "https://unhandled.net",
-    },
-    {
-      name: "UNIQ",
-      image: "uniq.svg",
-      link: "https://www.uniq.id/",
-    },
-    {
-      name: "Vectra",
-      image: "vectra.svg",
-      link: "https://vectra.ai",
-    },
-    {
-      name: "Yeovil District Hospital NHS Foundation Trust",
-      image: "ydhnhsft.svg",
-      link: "https://yeovilhospital.co.uk",
-    },
-  ];
+  {
+    name: '2hire',
+    image: '2hire.svg',
+    link: 'https://2hire.io/',
+  },
+  {
+    name: 'aasaam',
+    image: 'aasaam.svg',
+    link: 'https://aasaam.com/',
+  },
+  {
+    name: 'car2go',
+    image: 'car2go.svg',
+    link: 'https://www.car2go.com',
+  },
+  {
+    name: 'Care.com',
+    image: 'care.svg',
+    link: 'https://www.care.com/',
+  },
+  {
+    name: 'ClearGlass',
+    image: 'clearglass.svg',
+    link: 'https://clearglass.com/',
+  },
+  {
+    name: 'Codecks',
+    image: 'codecks.svg',
+    link: 'https://www.codecks.io/',
+  },
+  {
+    name: 'Commons Host',
+    image: 'commonshost.svg',
+    link: 'https://commons.host',
+  },
+  {
+    name: 'Compressor',
+    image: 'compressor.svg',
+    link: 'https://compressor.io',
+  },
+  {
+    name: 'evilfactorylabs',
+    image: 'evilfactorylabs.svg',
+    link: 'https://evilfactorylabs.org/',
+  },
+  {
+    name: 'Elo7',
+    image: 'elo7.svg',
+    link: 'https://www.elo7.com.br',
+  },
+  {
+    name: 'Discord Bots Catalog',
+    image: 'discordbotscatalog.svg',
+    link: 'https://top-bots.xyz',
+  },
+  {
+    name: 'fabfitfun',
+    image: 'fabfitfun.svg',
+    link: 'https://fabfitfun.com/',
+  },
+  {
+    name: 'Find a Discord',
+    image: 'findadiscord.svg',
+    link: 'https://findadiscord.com',
+  },
+  {
+    name: 'Future Foundry',
+    image: 'future-foundry.svg',
+    link: 'https://futurefoundry.co',
+  },
+  {
+    name: 'Genesys',
+    image: 'genesys.svg',
+    link: 'https://www.genesys.com',
+  },
+  {
+    name: 'GEOLYTIX',
+    image: 'geolytix.svg',
+    link: 'https://geolytix.co.uk',
+  },
+  {
+    name: 'Global CTO Forum',
+    image: 'global-cto-forum.svg',
+    link: 'https://www.globalctoforum.org',
+  },
+  {
+    name: 'Gumlet',
+    image: 'gumlet.svg',
+    link: 'https://www.gumlet.com',
+  },
+  {
+    name: 'heply',
+    image: 'heply.svg',
+    link: 'https://heply.it/',
+  },
+  {
+    name: 'Habit',
+    image: 'habit.svg',
+    link: 'https://habit.global/',
+  },
+  {
+    name: 'HospitalRun',
+    image: 'hospitalrun.svg',
+    link: 'https://hospitalrun.io/',
+  },
+  {
+    name: 'hotstar',
+    image: 'hotstar.svg',
+    link: 'https://tech.hotstar.com/',
+  },
+  {
+    name: 'Knock',
+    image: 'knock.svg',
+    link: 'https://www.knock.com',
+  },
+  {
+    name: 'localistars',
+    image: 'localistars.svg',
+    link: 'https://localistars.com',
+  },
+  {
+    name: 'LogDNA',
+    image: 'logdna.svg',
+    link: 'https://logdna.com',
+  },
+  {
+    name: 'locize',
+    image: 'locize.svg',
+    link: 'https://locize.com',
+  },
+  {
+    name: 'MIA Platform',
+    image: 'mia-platform.svg',
+    link: 'https://www.mia-platform.eu',
+  },
+  {
+    name: 'Microsoft',
+    image: 'microsoft.svg',
+    link: 'https://docs.microsoft.com',
+  },
+  {
+    name: 'Mr Porter',
+    image: 'mrp.svg',
+    link: 'https://www.mrporter.com',
+  },
+  {
+    name: 'MV Labs',
+    image: 'mvlabs.svg',
+    link: 'https://www.mvlabs.it',
+  },
+  {
+    name: 'Nearform',
+    image: 'nearform.svg',
+    link: 'https://nearform.com',
+  },
+  {
+    name: 'Net-A-Porter',
+    image: 'net-a-porter.svg',
+    link: 'https://net-a-porter.com',
+  },
+  {
+    name: 'Nucleode',
+    image: 'nucleode.svg',
+    link: 'https://www.nucleode.com',
+  },
+  {
+    name: 'Quero Educação',
+    image: 'quero-educacao.svg',
+    link: 'https://sobre.quero.com/',
+  },
+  {
+    name: 'Radity',
+    image: 'radity.svg',
+    link: 'https://www.radity.com',
+  },
+  {
+    name: 'retraced',
+    image: 'retraced.svg',
+    link: 'https://retraced.co',
+  },
+  {
+    name: 'RuneAudio',
+    image: 'runeaudio.svg',
+    link: 'https://www.runeaudio.com',
+  },
+  {
+    name: 'Satiurn',
+    image: 'satiurn.svg',
+    link: 'https://www.satiurn.com/',
+  },
+  {
+    name: 'Seznam.cz',
+    image: 'seznam.cz.svg',
+    link: 'https://www.seznam.cz/',
+  },
+  {
+    name: 'Swiss Dev Jobs',
+    image: 'swissdev-javascript-jobs-200-200.svg',
+    link: 'https://swissdevjobs.ch/',
+  },
+  {
+    name: 'The Outnet',
+    image: 'theoutnet.svg',
+    link: 'https://theoutnet.com/',
+  },
+  {
+    name: 'Unhandled',
+    image: 'unhandled.svg',
+    link: 'https://unhandled.net',
+  },
+  {
+    name: 'UNIQ',
+    image: 'uniq.svg',
+    link: 'https://www.uniq.id/',
+  },
+  {
+    name: 'Vectra',
+    image: 'vectra.svg',
+    link: 'https://vectra.ai',
+  },
+  {
+    name: 'Yeovil District Hospital NHS Foundation Trust',
+    image: 'ydhnhsft.svg',
+    link: 'https://yeovilhospital.co.uk',
+  },
+]
