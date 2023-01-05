@@ -12,7 +12,8 @@ import CodeBlock from "@theme/CodeBlock";
 import CustomHighLight from "../components/CustomHighLight";
 import QuickStartGuide from "@site/src/components/MDXComponents/QuickStartGuide/QuickStartGuide.mdx";
 import QuickStartGuideWithAsyncAwait from "@site/src/components/MDXComponents/QuickStartGuide/QuickStartGuideWithAsyncAwait.mdx";
-import ReqResHooks from "@site/src/components/MDXComponents/ReqResHooks.mdx";
+import ReqResHooks from "@site/src/components/MDXComponents/ReqResHooks/ReqResHooks.mdx";
+import ReqResHooksWithAsyncAwait from "@site/src/components/MDXComponents/ReqResHooks/ReqResHooksWithAsyncAwait.mdx";
 import TypeScriptSupport from "@site/src/components/MDXComponents/TypeScriptSupport.mdx";
 import Button from "@site/src/components/Button/index.js";
 
@@ -286,8 +287,10 @@ export default function Home() {
                   validation using JSON Schema and perform specific operations
                   before the handler is executed:
                 </p>
-
-                <ReqResHooks />
+                <div className="flex justify-end">
+                  <span>async/await</span> <ToggleSwitch />
+                </div>
+                {isToggled ? <ReqResHooksWithAsyncAwait /> : <ReqResHooks />}
               </div>
             </div>
           </div>
