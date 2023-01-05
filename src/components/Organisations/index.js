@@ -3,7 +3,6 @@ import organizations from '../../utils/data/organisations.json'
 import Shuffle from '../Shuffle'
 import styles from './index.module.css'
 
-
 const Organisations = () => {
   return (
     <ul className={styles.organisationsList}>

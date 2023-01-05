@@ -3,7 +3,6 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Layout from '@theme/Layout'
 import HomepageHeader from '@site/src/components/HomepageHeader/index'
 
-
 import styles from './index.module.css'
 import CodeBlock from '@theme/CodeBlock'
 import CustomHighLight from '../components/CustomHighLight'
@@ -20,7 +19,6 @@ import Organisations from '../components/Organisations'
 export default function Home() {
   const { siteConfig } = useDocusaurusContext()
   const [isToggled, setIsToggled] = useState(false)
-
 
   const ToggleSwitch = () => {
     const onToggle = () => setIsToggled(!isToggled)
@@ -71,7 +69,7 @@ export default function Home() {
             </div>
             <div className="columns is-centered">
               <div className="column is-12">
-               <Organisations/>
+                <Organisations />
               </div>
             </div>
           </div>
