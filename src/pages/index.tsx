@@ -244,7 +244,7 @@ export default function Home() {
                 <p>We pass the relevant typings for our http version used.</p>
                 <p>By passing types we get correctly typed access to the underlying http objects in routes.</p>
                 <p>
-                  If using http2 we&39;d pass
+                  If using http2 we&#39;d pass
                   <CustomHighLight text={'<http2.Http2Server, http2.Http2ServerRequest, http2.Http2ServerResponse>'} />.
                 </p>
                 <p>
@@ -290,8 +290,8 @@ export default function Home() {
                 <p>
                   Fastify has an ever-growing ecosystem of plugins. Probably there is already a plugin for your
                   favourite database or template language. Have a look at the <a href="/ecosystem">Ecosystem page</a> to
-                  navigate through the currently available plugins. Can&39;t you find the plugin you are looking for? No
-                  problem, <a href="/docs/master/Plugins">it&39;s very easy to write one</a>!
+                  navigate through the currently available plugins. Can&#39;t you find the plugin you are looking for? No
+                  problem, <a href="/docs/master/Plugins">it&#39;s very easy to write one</a>!
                 </p>
                 <Button label={'Explore 253 plugins'} />
               </div>
