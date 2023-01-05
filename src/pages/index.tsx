@@ -146,16 +146,16 @@ export default function Home() {
                     <strong>Extensible:</strong> Fastify is fully extensible via its hooks, plugins and decorators.
                   </li>
                   <li>
-                    <strong>Schema based:</strong> even if it is not mandatory we recommend to use{' '}
+                    <strong>Schema based:</strong> even if it is not mandatory we recommend to use
                     <a href="http://json-schema.org/" target="_blank" rel="noreferrer">
                       JSON Schema
-                    </a>{' '}
+                    </a>
                     to validate your routes and serialize your outputs, internally Fastify compiles the schema in a
                     highly performant function.
                   </li>
                   <li>
                     <strong>Logging:</strong> logs are extremely important but are costly; we chose the best logger to
-                    almost remove this cost,{' '}
+                    almost remove this cost,
                     <a href="https://github.com/pinojs/pino" target="_blank" rel="noreferrer">
                       Pino
                     </a>
@@ -166,10 +166,10 @@ export default function Home() {
                     developers in their daily use, without sacrificing performance and security.
                   </li>
                   <li>
-                    <strong>TypeScript ready:</strong> we work hard to maintain a{' '}
+                    <strong>TypeScript ready:</strong> we work hard to maintain a
                     <a href="https://www.typescriptlang.org/" aria-label="Link to TypeScript website">
                       TypeScript
-                    </a>{' '}
+                    </a>
                     type declaration file so we can support the growing TypeScript community.
                   </li>
                 </ul>
@@ -237,14 +237,14 @@ export default function Home() {
               <div className="column is-12">
                 <h1 className="title">TypeScript Support</h1>
                 <p>
-                  Fastify is shipped with a typings file, but you may need to install{' '}
+                  Fastify is shipped with a typings file, but you may need to install
                   <CustomHighLight text={'@types/node'} />, depending on the Node.js version you are using.
                 </p>
                 <p>The following example creates a http server.</p>
                 <p>We pass the relevant typings for our http version used.</p>
                 <p>By passing types we get correctly typed access to the underlying http objects in routes.</p>
                 <p>
-                  If using http2 we'd pass{' '}
+                  If using http2 we&39;d pass
                   <CustomHighLight text={'<http2.Http2Server, http2.Http2ServerRequest, http2.Http2ServerResponse>'} />.
                 </p>
                 <p>
@@ -252,7 +252,7 @@ export default function Home() {
                   or <CustomHighLight text={'http.SecureServer'} /> instead of Server.
                 </p>
                 <p>
-                  This ensures within the server handler we also get <CustomHighLight text={'http.ServerResponse'} />{' '}
+                  This ensures within the server handler we also get <CustomHighLight text={'http.ServerResponse'} />
                   with correct typings on <CustomHighLight text={'reply.res'} />.
                 </p>
                 <div className="flex justify-end">
@@ -261,10 +261,10 @@ export default function Home() {
                 {isToggled ? <TypeScriptSupportWithAsyncAwait /> : <TypeScriptSupport />}
 
                 <p>
-                  Visit the{' '}
+                  Visit the
                   <a href="https://www.fastify.io/docs/latest" aria-label="Documentation">
                     Documentation
-                  </a>{' '}
+                  </a>
                   to learn more about all the features that Fastify has to offer.
                 </p>
               </div>
@@ -273,7 +273,7 @@ export default function Home() {
         </section>
         <section className="section alternate">
           <div className="container content">
-          <div className={styles.responsiveContainer}>
+            <div className={styles.responsiveContainer}>
               <div>
                 <h1 className="title">A fast web framework</h1>
                 <p>
@@ -290,8 +290,8 @@ export default function Home() {
                 <p>
                   Fastify has an ever-growing ecosystem of plugins. Probably there is already a plugin for your
                   favourite database or template language. Have a look at the <a href="/ecosystem">Ecosystem page</a> to
-                  navigate through the currently available plugins. Can't you find the plugin you are looking for? No
-                  problem, <a href="/docs/master/Plugins">it's very easy to write one</a>!
+                  navigate through the currently available plugins. Can&39;t you find the plugin you are looking for? No
+                  problem, <a href="/docs/master/Plugins">it&39;s very easy to write one</a>!
                 </p>
                 <Button label={'Explore 253 plugins'} />
               </div>

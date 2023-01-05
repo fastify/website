@@ -20,11 +20,10 @@
   .heroBanner {
     padding: 2rem;
   }
-  .responsiveContainer{
+  .responsiveContainer {
     display: block;
   }
 }
-
 
 .buttons {
   display: flex;
