@@ -14,7 +14,8 @@ import QuickStartGuide from "@site/src/components/MDXComponents/QuickStartGuide/
 import QuickStartGuideWithAsyncAwait from "@site/src/components/MDXComponents/QuickStartGuide/QuickStartGuideWithAsyncAwait.mdx";
 import ReqResHooks from "@site/src/components/MDXComponents/ReqResHooks/ReqResHooks.mdx";
 import ReqResHooksWithAsyncAwait from "@site/src/components/MDXComponents/ReqResHooks/ReqResHooksWithAsyncAwait.mdx";
-import TypeScriptSupport from "@site/src/components/MDXComponents/TypeScriptSupport.mdx";
+import TypeScriptSupport from "@site/src/components/MDXComponents/TypeScriptSupport/TypeScriptSupport.mdx";
+import TypeScriptSupportWithAsyncAwait from "@site/src/components/MDXComponents/TypeScriptSupport/TypeScriptSupportWithAsyncAwait.mdx";
 import Button from "@site/src/components/Button/index.js";
 
 export default function Home() {
@@ -331,8 +332,15 @@ export default function Home() {
                   <CustomHighLight text={"http.ServerResponse"} /> with correct
                   typings on <CustomHighLight text={"reply.res"} />.
                 </p>
+                <div className="flex justify-end">
+                  <span>async/await</span> <ToggleSwitch />
+                </div>
+                {isToggled ? (
+                  <TypeScriptSupportWithAsyncAwait />
+                ) : (
+                  <TypeScriptSupport />
+                )}
 
-                <TypeScriptSupport />
                 <p>
                   Visit the{" "}
                   <a
