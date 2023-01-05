@@ -116,7 +116,7 @@ export default function Home() {
                 <ul className={styles.organisationsList}>
                   {displayedOrganizations.map((organization, index) => (
                     <li key={index}>
-                      <a href={organization.link} target="_blank" rel="noopener">
+                      <a href={organization.link} target="_blank" rel="noreferrer">
                         <img
                           src={`/img/organisations/${organization.image}`}
                           alt={`${organization.name} is using Fastify`}
@@ -147,7 +147,7 @@ export default function Home() {
                   </li>
                   <li>
                     <strong>Schema based:</strong> even if it is not mandatory we recommend to use{' '}
-                    <a href="http://json-schema.org/" target="_blank" rel="noopener">
+                    <a href="http://json-schema.org/" target="_blank" rel="noreferrer">
                       JSON Schema
                     </a>{' '}
                     to validate your routes and serialize your outputs, internally Fastify compiles the schema in a
@@ -156,7 +156,7 @@ export default function Home() {
                   <li>
                     <strong>Logging:</strong> logs are extremely important but are costly; we chose the best logger to
                     almost remove this cost,{' '}
-                    <a href="https://github.com/pinojs/pino" target="_blank" rel="noopener">
+                    <a href="https://github.com/pinojs/pino" target="_blank" rel="noreferrer">
                       Pino
                     </a>
                     !
@@ -326,7 +326,7 @@ export default function Home() {
                                       <a
                                         href={member.links.github}
                                         target="_blank"
-                                        rel="noopener"
+                                        rel="noreferrer"
                                         title={`Check out ${member.name}&#39;s Github profile`}>
                                         {svgicons.github}
                                       </a>
@@ -335,7 +335,7 @@ export default function Home() {
                                       <a
                                         href={member.links.npm}
                                         target="_blank"
-                                        rel="noopener"
+                                        rel="noreferrer"
                                         title={`Check out ${member.name}&#39;s NPM profile`}>
                                         {svgicons.npm}
                                       </a>
@@ -344,7 +344,7 @@ export default function Home() {
                                       <a
                                         href={member.links.twitter}
                                         target="_blank"
-                                        rel="noopener"
+                                        rel="noreferrer"
                                         title={`Check out ${member.name}&#39;s Twitter profile`}>
                                         {svgicons.twitter}
                                       </a>
@@ -402,7 +402,7 @@ export default function Home() {
                   We are an At Large project at the
                   <a href="https://openjsf.org/">&nbsp;OpenJS Foundation</a>
                 </p>
-                <a href="https://openjsf.org/" target="_blank" rel="noopener">
+                <a href="https://openjsf.org/" target="_blank" rel="noreferrer">
                   <img id="openjs-logo" src="/img/logos/openjsf.svg" alt="OpenJS Logo" />
                 </a>
               </div>
