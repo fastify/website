@@ -411,41 +411,42 @@ export default function Home() {
                                   alt={`${member.name}'s profile picture`}
                                 />
                               </figure>
-
-                              <div className="media-content">
-                                <p className="title is-5">{member.name}</p>
-                                <p className="subtitle is-6 contributor-links">
-                                  {member.links.github && (
-                                    <a
-                                      href={member.links.github}
-                                      target="_blank"
-                                      rel="noopener"
-                                      title={`Check out ${member.name}'s Github profile`}
-                                    >
-                                      {svgicons.github}
-                                    </a>
-                                  )}
-                                  {member.links.npm && (
-                                    <a
-                                      href={member.links.npm}
-                                      target="_blank"
-                                      rel="noopener"
-                                      title={`Check out ${member.name}'s NPM profile`}
-                                    >
-                                      {svgicons.npm}
-                                    </a>
-                                  )}
-                                  {member.links.twitter && (
-                                    <a
-                                      href={member.links.twitter}
-                                      target="_blank"
-                                      rel="noopener"
-                                      title={`Check out ${member.name}'s Twitter profile`}
-                                    >
-                                      {svgicons.twitter}
-                                    </a>
-                                  )}
-                                </p>
+                              <div className={styles.center}>
+                                <div>
+                                  <p className="title is-5">{member.name}</p>
+                                  <p className="subtitle is-6 contributor-links">
+                                    {member.links.github && (
+                                      <a
+                                        href={member.links.github}
+                                        target="_blank"
+                                        rel="noopener"
+                                        title={`Check out ${member.name}'s Github profile`}
+                                      >
+                                        {svgicons.github}
+                                      </a>
+                                    )}
+                                    {member.links.npm && (
+                                      <a
+                                        href={member.links.npm}
+                                        target="_blank"
+                                        rel="noopener"
+                                        title={`Check out ${member.name}'s NPM profile`}
+                                      >
+                                        {svgicons.npm}
+                                      </a>
+                                    )}
+                                    {member.links.twitter && (
+                                      <a
+                                        href={member.links.twitter}
+                                        target="_blank"
+                                        rel="noopener"
+                                        title={`Check out ${member.name}'s Twitter profile`}
+                                      >
+                                        {svgicons.twitter}
+                                      </a>
+                                    )}
+                                  </p>
+                                </div>
                               </div>
                             </div>
                           </div>

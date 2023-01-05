@@ -113,3 +113,9 @@
 .toggleSwitch input[type="checkbox"]:checked + .switch {
   background-color: #336699;
 }
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
