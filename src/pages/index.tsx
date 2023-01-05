@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Layout from '@theme/Layout'
-import HomepageHeader from '@site/src/components/ui/HomepageHeader/index'
+import HomepageHeader from '@site/src/components/HomepageHeader/index'
 import { organizations } from '../utils/data/organisations'
 import { team } from '../utils/data/team'
 import styles from './index.module.css'
@@ -114,8 +114,8 @@ export default function Home() {
             <div className="columns is-centered">
               <div className="column is-12">
                 <ul className={styles.organisationsList}>
-                  {displayedOrganizations.map((organization) => (
-                    <li>
+                  {displayedOrganizations.map((organization, index) => (
+                    <li key={index}>
                       <a href={organization.link} target="_blank" rel="noopener nofollow">
                         <img
                           src={`/img/organisations/${organization.image}`}
@@ -304,16 +304,16 @@ export default function Home() {
               <div className="column is-12">
                 <h1 className="title">The team</h1>
                 <p>In alphabetical order</p>
-                {team.map((section) => (
-                  <>
+                {team.map((section, index) => (
+                  <div key={index}>
                     <div className="content">
                       <h2>{section.name}</h2>
                     </div>
                     <div className={styles.teamGrid}>
                       {section.people
                         .sort((a, b) => (a.sortname > b.sortname ? 1 : -1))
-                        .map((member) => (
-                          <div>
+                        .map((member, index) => (
+                          <div key={index}>
                             <div className="flex">
                               <figure className={styles.teamImg}>
                                 <img src={member.picture} alt={`${member.name}'s profile picture`} />
@@ -327,7 +327,7 @@ export default function Home() {
                                         href={member.links.github}
                                         target="_blank"
                                         rel="noopener"
-                                        title={`Check out ${member.name}'s Github profile`}>
+                                        title={`Check out ${member.name}&#39;s Github profile`}>
                                         {svgicons.github}
                                       </a>
                                     )}
@@ -336,7 +336,7 @@ export default function Home() {
                                         href={member.links.npm}
                                         target="_blank"
                                         rel="noopener"
-                                        title={`Check out ${member.name}'s NPM profile`}>
+                                        title={`Check out ${member.name}&#39;s NPM profile`}>
                                         {svgicons.npm}
                                       </a>
                                     )}
@@ -345,7 +345,7 @@ export default function Home() {
                                         href={member.links.twitter}
                                         target="_blank"
                                         rel="noopener"
-                                        title={`Check out ${member.name}'s Twitter profile`}>
+                                        title={`Check out ${member.name}&#39;s Twitter profile`}>
                                         {svgicons.twitter}
                                       </a>
                                     )}
@@ -356,7 +356,7 @@ export default function Home() {
                           </div>
                         ))}
                     </div>
-                  </>
+                  </div>
                 ))}
               </div>
             </div>
