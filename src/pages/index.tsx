@@ -116,7 +116,7 @@ export default function Home() {
                 <ul className={styles.organisationsList}>
                   {displayedOrganizations.map((organization, index) => (
                     <li key={index}>
-                      <a href={organization.link} target="_blank" rel="noopener nofollow">
+                      <a href={organization.link} target="_blank" rel="noopener">
                         <img
                           src={`/img/organisations/${organization.image}`}
                           alt={`${organization.name} is using Fastify`}
