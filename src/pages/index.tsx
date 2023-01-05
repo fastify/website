@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Layout from '@theme/Layout'
 import HomepageHeader from '@site/src/components/HomepageHeader/index'
-import { organizations } from '../utils/data/organisations'
+
 
 import styles from './index.module.css'
 import CodeBlock from '@theme/CodeBlock'
@@ -15,15 +15,12 @@ import TypeScriptSupport from '@site/src/components/MDXComponents/TypeScriptSupp
 import TypeScriptSupportWithAsyncAwait from '@site/src/components/MDXComponents/TypeScriptSupport/TypeScriptSupportWithAsyncAwait.mdx'
 import Button from '@site/src/components/Button/index.js'
 import Team from '../components/Team'
+import Organisations from '../components/Organisations'
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext()
   const [isToggled, setIsToggled] = useState(false)
- 
 
-  // Shuffle organisations
-  const shuffled = organizations.sort(() => 0.5 - Math.random())
-  let displayedOrganizations = shuffled.slice(0, 12)
 
   const ToggleSwitch = () => {
     const onToggle = () => setIsToggled(!isToggled)
@@ -74,18 +71,7 @@ export default function Home() {
             </div>
             <div className="columns is-centered">
               <div className="column is-12">
-                <ul className={styles.organisationsList}>
-                  {displayedOrganizations.map((organization, index) => (
-                    <li key={index}>
-                      <a href={organization.link} target="_blank" rel="noreferrer">
-                        <img
-                          src={`/img/organisations/${organization.image}`}
-                          alt={`${organization.name} is using Fastify`}
-                        />
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+               <Organisations/>
               </div>
             </div>
           </div>
@@ -265,7 +251,7 @@ export default function Home() {
               <div className="column is-12">
                 <h1 className="title">The team</h1>
                 <p>In alphabetical order</p>
-             <Team/>
+                <Team />
               </div>
             </div>
           </div>

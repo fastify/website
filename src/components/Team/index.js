@@ -1,5 +1,5 @@
 import React from 'react'
-import team from '../../utils/data/t.json'
+import team from '../../utils/data/team.json'
 import styles from './index.module.css'
 
 const svgicons = {
