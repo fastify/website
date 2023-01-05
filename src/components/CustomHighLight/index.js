@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./index.module.css";
 
-const CustomHighLight = ({text}) => {
-  return <span className={styles.textHighlight}>{text}</span>;
+const CustomHighLight = ({text:Str}) => {
+  return <code className={styles.textHighlight}>{text}</code>;
 };
 
 export default CustomHighLight;
