@@ -273,7 +273,7 @@ export default function Home() {
         </section>
         <section className="section alternate">
           <div className="container content">
-            <div className="flex p-20">
+          <div className={styles.responsiveContainer}>
               <div>
                 <h1 className="title">A fast web framework</h1>
                 <p>
@@ -364,7 +364,7 @@ export default function Home() {
         </section>
         <section className="section alternate">
           <div className="container content">
-            <div className="flex p-20 justify-between">
+            <div className={styles.responsiveContainer}>
               <div>
                 <h1 className="title">Acknowledgments</h1>
                 <p>
