@@ -11,8 +11,7 @@
 }
 
 .hero {
-  background: #000 0% 0% repeat;
-  background-size: 54px;
+  background: url('https://www.fastify.io/images/bg-pattern-dark.3f8cda863b3bbf52.png');
   padding: 3rem 0;
 }
 
