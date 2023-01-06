@@ -1,8 +1,20 @@
+import benchmark_data from './benchmarks.json'
+import BenchmarkInfo from '../components/Benchmarks/BenchmarkInfo'
+
+export function BenchmarkSection() {
+  const max_value = Math.max(...benchmark_data.map((framework) => parseInt(framework.requests) || 0))
+  return benchmark_data.map((framework) => (
+    <BenchmarkInfo name={framework.name} req={framework.requests} progress_value={framework.requests / max_value} />
+  ))
+}
+
 Leveraging our experience with Node.js performance, Fastify has been built from the ground up to be as fast as possible.
 
 All the code used for our benchmarks is [available on GitHub](https://github.com/fastify/benchmarks/).
 
 Here's a brief summary on how fastify overhead performed against the some other well known Node.js web frameworks:
+
+<BenchmarkSection />
 
 Please note that this is a synthetic, "hello world" benchmark that aims to evaluate the framework overhead. The overhead that each framework has on your application depends on your application, **you should always benchmark if performance matters to you**.
 
