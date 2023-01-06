@@ -23,7 +23,7 @@ const getDataAsJSON = async (url) => {
 
 const getCommits = async () => {
   const commits = await getDataAsJSON(
-    'https://api.github.com/repos/fastify/benchmarks/commits?path=benchmark-results.json&per_page=100',
+    'https://api.github.com/repos/fastify/benchmarks/commits?path=benchmark-results.json&per_page=15',
   )
   return commits.map((commit) => commit.sha)
 }
