@@ -4,7 +4,12 @@ import BenchmarkInfo from '../components/Benchmarks/BenchmarkInfo'
 export function BenchmarkSection() {
   const max_value = Math.max(...benchmark_data.map((framework) => parseInt(framework.requests) || 0))
   return benchmark_data.map((framework) => (
-    <BenchmarkInfo name={framework.name} req={framework.requests} progress_value={framework.requests / max_value} />
+    <BenchmarkInfo
+      key={framework.name}
+      name={framework.name}
+      req={framework.requests}
+      progress_value={framework.requests / max_value}
+    />
   ))
 }
 
