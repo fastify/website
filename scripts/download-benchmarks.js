@@ -65,7 +65,7 @@ const downloadData = async () => {
       }
     }
 
-    return
+    throw new Error('Unable to find a valid benchmark result')
   }
 
   return data
