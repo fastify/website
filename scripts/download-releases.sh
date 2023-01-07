@@ -34,7 +34,7 @@ gh release list --repo $repo --limit 999 --exclude-drafts \
 
 # npm i semver -g > /dev/null
 relesesOrderedList=$(npx --yes semver -r ">=1.x" $(cat $releaseFile))
-printf "%s\n" "${relesesOrderedList[@]}" > $releaseFile
+# printf "%s\n" "${relesesOrderedList[@]}" > $releaseFile
 
 mkdir -p downloads
 
