@@ -46,6 +46,10 @@ async function processReleases(opts) {
     versions.push(docTree.releseTag)
   }
 
+  if (versions.length === 0) {
+    throw new Error('Something went wrong: No versions found')
+  }
+
   versions.sort((a, b) => semver.compare(a, b)).reverse()
   await fs.writeFile(path.join(webSiteRoot, 'versions.json'), JSON.stringify(versions, null, 2))
   console.log(`Wrote ${versions.length} versions to versions.json`)
