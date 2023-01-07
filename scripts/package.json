@@ -10,10 +10,10 @@
   "keywords": [],
   "author": "Manuel Spigolon <behemoth89@gmail.com> (https://github.com/Eomm)",
   "license": "MIT",
-  "devDependencies": {},
   "dependencies": {
     "directory-tree": "^3.4.0",
     "execa": "^5.1.1",
+    "glob": "^8.0.3",
     "semver": "^7.3.8"
   }
 }

@@ -19,7 +19,7 @@ releaseFile="$baseDir/releases.tag"
 
 downloadRelease() {
   outputFile="$baseDir/downloads/$1.tar.gz"
-  gh release download $1 --repo $repo --archive=tar.gz -O $outputFile --skip-existing
+  gh release download "v$1" --repo $repo --archive=tar.gz -O $outputFile --skip-existing
   echo "Downloaded $repo > $1"
 
   mkdir -p "$baseDir/releases/$1/"
@@ -55,11 +55,11 @@ do
   fi
 
   if [[ $lastItem != "none" ]]; then
-    downloadRelease "v$lastItem"
+    downloadRelease $lastItem
   fi
 
   major=$currentMajor
   minor=$currentMinor
   lastItem=$i
 done
-downloadRelease "v$lastItem"
+downloadRelease $lastItem

@@ -25,24 +25,35 @@ const config = {
     locales: ['en'],
   },
 
+  // https://docusaurus.io/docs/using-plugins#using-presets
   presets: [
     [
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
+        // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs#configuration
         docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
+          editUrl: 'https://github.com/fastify/website-next/edit/main/docs/',
+          editCurrentVersion: true,
+          sidebarPath: 'sidebars.js',
+          sidebarCollapsed: false,
           showLastUpdateTime: true,
+          breadcrumbs: true,
           includeCurrentVersion: false,
-          editUrl: 'https://github.com/fastify/website-next/edit/main/docs/',
         },
-        blog: {
-          showReadingTime: true,
-          editUrl: 'https://github.com/fastify/website-next/edit/main/docs/',
-        },
+
+        // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog#configuration
+        blog: false,
+
+        // https://docusaurus.io/docs/api/themes/@docusaurus/theme-classic
         theme: {
           customCss: [require.resolve('./src/css/custom.css'), require.resolve('./src/css/ecosystem.css')],
         },
+
+        // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-pages#configuration
+        pages: {},
+
+        // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-sitemap#configuration
         sitemap: {
           ignorePatterns: ['/scripts/**'],
         },
@@ -53,8 +64,10 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      // https://docusaurus.io/docs/api/themes/configuration
+      image: 'img/logos/fastify-black.png',
       navbar: {
-        title: 'Fastify',
+        title: 'Home',
         logo: {
           alt: 'Fastify Cheetah Logo',
           src: 'img/logos/fastify-black.png',
@@ -62,11 +75,17 @@ const config = {
         },
         items: [
           // {
-          //   type: 'doc',
-          //   docId: 'index',
+          //   type: 'docSidebar',
           //   position: 'left',
-          //   label: 'Tutorial',
+          //   sidebarId: 'tutorialSidebar',
+          //   label: 'API',
           // },
+          {
+            type: 'docSidebar',
+            sidebarId: 'tutorialSidebar',
+            position: 'left',
+            label: 'Docs',
+          },
           { to: '/ecosystem', label: 'Ecosystem', position: 'left' },
           // { to: '/blog', label: 'Blog', position: 'left' },
           {

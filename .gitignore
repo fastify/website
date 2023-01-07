@@ -27,4 +27,5 @@ scripts/releases/*
 versioned_docs/*
 !versioned_docs/.keep
 
-versioned_sidebars/*.js
+versioned_sidebars/*
+!versioned_sidebars/.keep

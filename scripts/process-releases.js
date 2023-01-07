@@ -4,6 +4,7 @@ const assert = require('assert')
 const path = require('path')
 const fs = require('fs').promises
 
+// const glob = require('glob')
 const dirTree = require('directory-tree')
 const semver = require('semver')
 const execa = require('execa')
@@ -18,10 +19,10 @@ async function processReleases(opts) {
 
   const versions = []
 
-  await execa('rm', ['-f', path.join(webSiteRoot, 'versioned_sidebars/version*')])
+  await execa('rm', ['-f', path.join(webSiteRoot, './versioned_sidebars/version*')])
   console.log('Cleaned up versioned_sidebars folder')
 
-  await execa('rm', ['-rf', path.join(webSiteRoot, 'versioned_docs', `version*`)])
+  await execa('rm', ['-rf', path.join(webSiteRoot, './versioned_docs/version*')])
   console.log('Cleaned up versioned_docs folder')
 
   for (const docTree of getDocFolders(releasesFolder)) {
@@ -39,9 +40,16 @@ async function processReleases(opts) {
     console.log(`Copied ${docTree.releseTag} to ${docDestination}`)
 
     await execa('cp', [
-      path.join(webSiteRoot, 'sidebars.js'),
-      path.join(webSiteRoot, 'versioned_sidebars', `version-${docTree.releseTag}-sidebars.js`),
+      path.join(webSiteRoot, 'sidebars.json'),
+      path.join(webSiteRoot, 'versioned_sidebars', `version-${docTree.releseTag}-sidebars.json`),
     ])
+
+    // const files = glob.sync(`${docDestination}/**/index.md`, { nodir: true, nocase: true })
+    // await Promise.all(files.map(readme => {
+    //   // rename index.md to README.md so docusaurus can handle it
+    //   const newReadme = readme.replace('index.md', 'README.md')
+    //   return fs.rename(readme, newReadme)
+    // }))
 
     versions.push(docTree.releseTag)
   }
@@ -54,7 +62,7 @@ async function processReleases(opts) {
   await fs.writeFile(path.join(webSiteRoot, 'versions.json'), JSON.stringify(versions, null, 2))
   console.log(`Wrote ${versions.length} versions to versions.json`)
 
-  // Fixes (Expected corresponding JSX closing tag for <br>) <br> -> <br />
+  // Fixes (Expected corresponding JSX closing tag for <br>) <br> --to--> <br />
   await execa('find', [
     path.join(webSiteRoot, 'versioned_docs'),
     '-type',
@@ -64,6 +72,20 @@ async function processReleases(opts) {
     '-i',
     '',
     's/<br>/<br \\/>/g',
+    '{}',
+    ';',
+  ])
+
+  // Remove the <h1> title from the docs
+  await execa('find', [
+    path.join(webSiteRoot, 'versioned_docs'),
+    '-type',
+    'f',
+    '-exec',
+    'sed',
+    '-i',
+    '',
+    's/<h1 align="center">.*<\\/h1>//g',
     '{}',
     ';',
   ])

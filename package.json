@@ -7,6 +7,7 @@
     "start": "docusaurus start",
     "build": "docusaurus build",
     "build:website": "./scripts/build-website.sh",
+    "build:clean-all": "rm -rf ./versioned_docs/version* ./versioned_sidebars/version* ./scripts/releases/* ./scripts/downloads/*",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
