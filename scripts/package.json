@@ -9,11 +9,15 @@
   },
   "keywords": [],
   "author": "Manuel Spigolon <behemoth89@gmail.com> (https://github.com/Eomm)",
+  "contributors": [
+    "Massimiliano Fanciulli <fanciulli@gmail.com> (https://github.com/fanciulli)"
+  ],
   "license": "MIT",
   "devDependencies": {},
   "dependencies": {
     "directory-tree": "^3.4.0",
     "execa": "^5.1.1",
-    "semver": "^7.3.8"
+    "semver": "^7.3.8",
+    "undici": "^5.14.0"
   }
 }

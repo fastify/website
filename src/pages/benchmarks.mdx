@@ -1,16 +1,17 @@
 import '../css/benchmark.css'
 
-import benchmark_data from './benchmarks.json'
+import benchmarkData from './benchmarks.json'
 import BenchmarkInfo from '../components/Benchmarks/BenchmarkInfo'
 
 export function BenchmarkSection() {
-  const maxValue = Math.max(...benchmark_data.map((framework) => parseInt(framework.requests) || 0))
-  return benchmark_data.map((framework) => (
+  return benchmarkData.frameworks.map((framework) => (
     <BenchmarkInfo
       key={framework.name}
       name={framework.name}
       req={framework.requests}
-      progressValue={framework.requests / max_value}
+      progressValue={framework.requests / benchmarkData.reference}
+      test={framework.test}
+      repository={framework.repository}
     />
   ))
 }

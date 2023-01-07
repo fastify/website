@@ -1,235 +1,35 @@
-[
-  {
-    "name": "polkadot",
-    "version": "1.0.0",
-    "hasRouter": false,
-    "requests": "62799.2",
-    "latency": "15.44",
-    "throughput": "11.20"
-  },
-  { "name": "bare", "version": "10.13.0", "requests": "61769.6", "latency": "15.70", "throughput": "11.02" },
-  {
-    "name": "h3-router",
-    "version": "0.8.6",
-    "hasRouter": true,
-    "requests": "61224.8",
-    "latency": "15.81",
-    "throughput": "10.04"
-  },
-  {
-    "name": "0http",
-    "version": "3.4.1",
-    "hasRouter": true,
-    "requests": "61162.4",
-    "latency": "15.87",
-    "throughput": "10.91"
-  },
-  {
-    "name": "fastify",
-    "version": "4.9.2",
-    "hasRouter": true,
-    "requests": "61001.6",
-    "latency": "15.89",
-    "throughput": "10.94"
-  },
-  { "name": "h3", "version": "0.8.6", "requests": "60525.6", "latency": "16.00", "throughput": "9.93" },
-  {
-    "name": "polka",
-    "version": "0.5.2",
-    "hasRouter": true,
-    "requests": "60313.6",
-    "latency": "16.07",
-    "throughput": "10.76"
-  },
-  {
-    "name": "foxify",
-    "version": "0.10.20",
-    "hasRouter": true,
-    "requests": "59852.8",
-    "latency": "16.21",
-    "throughput": "9.82"
-  },
-  { "name": "connect", "version": "3.7.0", "requests": "57830.2", "latency": "16.80", "throughput": "10.31" },
-  { "name": "micro", "version": "9.4.1", "requests": "57349.6", "latency": "16.93", "throughput": "10.23" },
-  {
-    "name": "restana",
-    "version": "4.9.6",
-    "hasRouter": true,
-    "requests": "56785.6",
-    "latency": "17.18",
-    "throughput": "10.13"
-  },
-  {
-    "name": "rayo",
-    "version": "1.3.10",
-    "hasRouter": true,
-    "requests": "56719.2",
-    "latency": "17.13",
-    "throughput": "10.11"
-  },
-  {
-    "name": "server-base-router",
-    "version": "7.1.32",
-    "hasRouter": true,
-    "requests": "56380.0",
-    "latency": "17.24",
-    "throughput": "10.05"
-  },
-  { "name": "server-base", "version": "7.1.32", "requests": "56053.6", "latency": "17.35", "throughput": "10.00" },
-  { "name": "yeps", "version": "1.1.1", "requests": "54696.0", "latency": "17.78", "throughput": "9.75" },
-  {
-    "name": "connect-router",
-    "version": "1.3.7",
-    "hasRouter": true,
-    "requests": "52648.0",
-    "latency": "18.49",
-    "throughput": "9.39"
-  },
-  {
-    "name": "micro-route",
-    "version": "2.5.0",
-    "hasRouter": true,
-    "requests": "52604.0",
-    "latency": "18.50",
-    "throughput": "9.38"
-  },
-  { "name": "trek-engine", "version": "1.0.5", "requests": "49996.0", "latency": "19.51", "throughput": "8.20" },
-  {
-    "name": "trek-router",
-    "version": "1.2.0",
-    "hasRouter": true,
-    "requests": "49481.6",
-    "latency": "19.72",
-    "throughput": "8.12"
-  },
-  {
-    "name": "vapr",
-    "version": "0.6.0",
-    "hasRouter": true,
-    "requests": "48892.8",
-    "latency": "19.96",
-    "throughput": "8.02"
-  },
-  {
-    "name": "yeps-router",
-    "version": "1.2.0",
-    "hasRouter": true,
-    "requests": "44951.2",
-    "latency": "21.75",
-    "throughput": "8.02"
-  },
-  { "name": "koa", "version": "2.13.4", "requests": "44372.8", "latency": "22.04", "throughput": "7.91" },
-  { "name": "spirit", "version": "0.6.1", "requests": "44215.2", "latency": "22.12", "throughput": "7.89" },
-  {
-    "name": "spirit-router",
-    "version": "0.5.0",
-    "hasRouter": true,
-    "requests": "43845.6",
-    "latency": "22.31",
-    "throughput": "7.82"
-  },
-  {
-    "name": "total.js",
-    "version": "3.4.13",
-    "hasRouter": true,
-    "requests": "41391.2",
-    "latency": "23.65",
-    "throughput": "12.67"
-  },
-  {
-    "name": "take-five",
-    "version": "2.0.0",
-    "hasRouter": true,
-    "requests": "41020.0",
-    "latency": "23.87",
-    "throughput": "14.75"
-  },
-  {
-    "name": "koa-isomorphic-router",
-    "version": "1.0.1",
-    "hasRouter": true,
-    "requests": "40889.0",
-    "latency": "23.95",
-    "throughput": "7.29"
-  },
-  {
-    "name": "restify",
-    "version": "8.6.1",
-    "hasRouter": true,
-    "requests": "38980.0",
-    "latency": "25.15",
-    "throughput": "7.03"
-  },
-  {
-    "name": "koa-router",
-    "version": "12.0.0",
-    "hasRouter": true,
-    "requests": "37425.0",
-    "latency": "26.22",
-    "throughput": "6.67"
-  },
-  {
-    "name": "hapi",
-    "version": "20.2.2",
-    "hasRouter": true,
-    "requests": "33867.4",
-    "latency": "29.02",
-    "throughput": "6.04"
-  },
-  {
-    "name": "microrouter",
-    "version": "3.1.3",
-    "hasRouter": true,
-    "requests": "33407.4",
-    "latency": "29.42",
-    "throughput": "5.96"
-  },
-  {
-    "name": "trpc-router",
-    "version": "9.27.4",
-    "hasRouter": true,
-    "requests": "28211.6",
-    "latency": "34.94",
-    "throughput": "6.24"
-  },
-  {
-    "name": "egg.js",
-    "version": "3.3.3",
-    "hasRouter": true,
-    "requests": "19526.8",
-    "latency": "50.68",
-    "throughput": "6.98"
-  },
-  {
-    "name": "express",
-    "version": "4.18.2",
-    "hasRouter": true,
-    "requests": "13783.8",
-    "latency": "72.00",
-    "throughput": "2.46"
-  },
-  {
-    "name": "express-route-prefix",
-    "version": "4.18.2",
-    "hasRouter": true,
-    "requests": "12052.6",
-    "latency": "82.42",
-    "throughput": "4.46"
-  },
-  {
-    "name": "fastify-big-json",
-    "version": "4.9.2",
-    "hasRouter": true,
-    "requests": "11914.0",
-    "latency": "83.45",
-    "throughput": "137.08"
-  },
-  {
-    "name": "express-with-middlewares",
-    "version": "4.18.2",
-    "hasRouter": true,
-    "requests": "11798.0",
-    "latency": "84.20",
-    "throughput": "4.39"
-  }
-]
+{
+  "reference": 71768,
+  "frameworks": [
+    {
+      "name": "Fastify",
+      "requests": "48241.6",
+      "test": "https://github.com/fastify/benchmarks/blob/master/benchmarks/fastify.cjs",
+      "repository": "https://github.com/fastify/fastify"
+    },
+    {
+      "name": "Koa",
+      "requests": "39428.2",
+      "test": "https://github.com/fastify/benchmarks/blob/master/benchmarks/koa.cjs",
+      "repository": "https://github.com/koajs/koa"
+    },
+    {
+      "name": "Express",
+      "requests": "11386.2",
+      "test": "https://github.com/fastify/benchmarks/blob/master/benchmarks/express.cjs",
+      "repository": "https://github.com/expressjs/express"
+    },
+    {
+      "name": "Restify",
+      "requests": "36459.4",
+      "test": "https://github.com/fastify/benchmarks/blob/master/benchmarks/restify.cjs",
+      "repository": "https://github.com/restify/node-restify"
+    },
+    {
+      "name": "Hapi",
+      "requests": "33561.6",
+      "test": "https://github.com/fastify/benchmarks/blob/master/benchmarks/hapi.cjs",
+      "repository": "https://github.com/hapijs/hapi"
+    }
+  ]
+}

@@ -40,13 +40,7 @@ const config = {
           showReadingTime: true,
           editUrl: 'https://github.com/fastify/website-next/edit/main/docs/',
         },
-        theme: {
-          customCss: [
-            require.resolve('./src/css/custom.css'),
-            require.resolve('./src/css/ecosystem.css'),
-            require.resolve('./src/css/benchmark.css'),
-          ],
-        },
+        theme: {},
         sitemap: {
           ignorePatterns: ['/scripts/**'],
         },
