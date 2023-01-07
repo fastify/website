@@ -72,7 +72,7 @@ const downloadData = async () => {
 }
 
 const execute = async () => {
-  bearer_token = process.argv[2]
+  bearerToken = process.argv[2]
 
   const data = await downloadData()
   if (data) {
