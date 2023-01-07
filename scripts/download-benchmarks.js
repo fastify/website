@@ -79,7 +79,7 @@ const execute = async () => {
   const data = await downloadData()
   if (data) {
     console.log('File is ok, saving to filesystem')
-    await writeFile('../src/pages/benchmarks.json', JSON.stringify(data))
+    await writeFile(path.join(__dirname, '../src/pages/benchmarks.json'), JSON.stringify(data))
   } else {
     console.log('Cannot find suitable data')
     process.exit(1)
