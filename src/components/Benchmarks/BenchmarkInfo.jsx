@@ -4,7 +4,7 @@ import Translate from '@docusaurus/Translate'
 
 const BenchmarkInfo = (props) => {
   return (
-    <div className="box">
+    <div className="box shadow--md">
       <div className="level">
         <div className="level-left">
           <h2>{props.name}</h2>
