@@ -47,7 +47,9 @@ const getBlob = async (blob_url) => {
 const downloadData = async () => {
   const data = await getDataAsJSON(URL_BENCHMARK)
   const isDataOk = await checkData(data)
-  if (!isDataOk) {
+  if (isDataOk) {
+    return data
+  }
     console.log('Fetched file contains N/As. Searching for previous revision')
     const commits = await getCommits()
 
