@@ -11,6 +11,8 @@
 # Requirements:
 # - gh CLI https://cli.github.com/
 
+set -x
+
 org="fastify"
 repo="$org/fastify"
 
