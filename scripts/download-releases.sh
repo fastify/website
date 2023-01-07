@@ -14,22 +14,25 @@
 org="fastify"
 repo="$org/fastify"
 
+baseDir=$(dirname "$0")
+releaseFile="$baseDir/releases.tag"
+
 downloadRelease() {
-  outputFile="./downloads/$1.tar.gz"
+  outputFile="$baseDir/downloads/$1.tar.gz"
   gh release download $1 --repo $repo --archive=tar.gz -O $outputFile --skip-existing
   echo "Downloaded $repo > $1"
 
-  mkdir -p "./releases/$1/"
-  tar -xzf $outputFile -C "./releases/$1/" --include "*/docs/*" --strip-components=1
+  mkdir -p "$baseDir/releases/$1/"
+  tar -xzf $outputFile -C "$baseDir/releases/$1/" --include "*/docs/*" --strip-components=1
 }
 
 gh release list --repo $repo --limit 999 --exclude-drafts \
   | cut -f1 \
-  | grep "^v[0-9.]*$" > releases.tag
+  | grep "^v[0-9.]*$" > $releaseFile
 
 # npm i semver -g > /dev/null
-relesesOrderedList=$(npx --yes semver -r ">=1.x" $(cat releases.tag))
-printf "%s\n" "${relesesOrderedList[@]}" > releases.tag
+relesesOrderedList=$(npx --yes semver -r ">=1.x" $(cat $releaseFile))
+printf "%s\n" "${relesesOrderedList[@]}" > $releaseFile
 
 mkdir -p downloads
 

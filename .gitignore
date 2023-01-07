@@ -23,3 +23,8 @@ scripts/downloads/*
 scripts/releases/*
 
 .eslintcache
+
+versioned_docs/*
+!versioned_docs/.keep
+
+versioned_sidebars/*.js

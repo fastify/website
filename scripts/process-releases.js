@@ -21,19 +21,20 @@ async function processReleases(opts) {
   await execa('rm', ['-f', path.join(webSiteRoot, 'versioned_sidebars/version*')])
   console.log('Cleaned up versioned_sidebars folder')
 
+  await execa('rm', ['-rf', path.join(webSiteRoot, 'versioned_docs', `version*`)])
+  console.log('Cleaned up versioned_docs folder')
+
   for (const docTree of getDocFolders(releasesFolder)) {
     console.log(`Processing ${docTree.releseTag}`)
 
     // todo convert links to relative
 
+    const docSource = path.join(docTree.path, '/')
     const docDestination = path.join(webSiteRoot, 'versioned_docs', `version-${docTree.releseTag}`)
-
-    await execa('rm', ['-rf', docDestination])
-    console.log('Cleaned up versioned_docs folder')
 
     await execa('mkdir', ['-p', docDestination])
 
-    console.log(path.join(docTree.path, '/'))
+    console.log(`Coping ${docSource}`)
     await execa('cp', ['-r', path.join(docTree.path, '/') + '.', docDestination])
     console.log(`Copied ${docTree.releseTag} to ${docDestination}`)
 
@@ -44,6 +45,8 @@ async function processReleases(opts) {
 
     versions.push(docTree.releseTag)
   }
+
+  versions.sort((a, b) => semver.compare(a, b)).reverse()
   await fs.writeFile(path.join(webSiteRoot, 'versions.json'), JSON.stringify(versions, null, 2))
   console.log(`Wrote ${versions.length} versions to versions.json`)
 
@@ -70,13 +73,18 @@ function* getDocFolders(lookupFolder) {
   })
   for (const fileTree of releasesTree.children) {
     if (fileTree.type === 'directory') {
-      assert(fileTree.children.length, 1, 'expected only one docs folder')
-      assert(fileTree.children[0].name, 'docs', 'expected only one docs folder')
-      yield {
-        semver: semver.parse(fileTree.name),
-        releseTag: fileTree.name,
-        path: fileTree.children[0].path,
-        files: fileTree.children[0].children,
+      try {
+        assert(fileTree.children.length, 1, 'expected only one docs folder')
+        assert(fileTree.children[0].name, 'docs', 'expected only one docs folder')
+        yield {
+          semver: semver.parse(fileTree.name),
+          releseTag: fileTree.name,
+          path: fileTree.children[0].path,
+          files: fileTree.children[0].children,
+        }
+      } catch (err) {
+        console.log(`Error processing release [${fileTree.name}] because ${err.message} `)
+        console.error(err)
       }
     }
   }

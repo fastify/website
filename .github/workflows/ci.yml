@@ -20,4 +20,4 @@ jobs:
       - name: Run Linting
         run: npm run lint
       - name: Check the build
-        run: npm run build
+        run: npm run build:website

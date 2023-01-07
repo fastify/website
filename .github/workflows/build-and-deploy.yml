@@ -22,7 +22,7 @@ jobs:
       - name: Install Packages
         run: npm install
       - name: Build App
-        run: npm run build
+        run: npm run build:website
       - name: Copy Static Files
         run: cp -r static/ build/website-next/
       - name: Deploy

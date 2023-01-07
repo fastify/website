@@ -33,7 +33,7 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           showLastUpdateTime: true,
-          includeCurrentVersion: true,
+          includeCurrentVersion: false,
           editUrl: 'https://github.com/fastify/website-next/edit/main/docs/',
         },
         blog: {
