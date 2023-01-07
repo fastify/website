@@ -82,6 +82,7 @@ const execute = async () => {
     await writeFile('../src/pages/benchmarks.json', JSON.stringify(data))
   } else {
     console.log('Cannot find suitable data')
+    process.exit(1)
   }
 }
 
