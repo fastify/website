@@ -6,6 +6,8 @@
 # Prerequisites:
 # - Install GitHub CLI: https://cli.github.com/
 
+npm --prefix ./scripts install
+
 ####### Download Phase
 
 # TODO download v1
