@@ -21,3 +21,5 @@ jobs:
         run: npm run lint
       - name: Check the build
         run: npm run build:website
+        env:
+          GH_TOKEN: ${{ github.token }}

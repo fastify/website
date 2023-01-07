@@ -23,6 +23,8 @@ jobs:
         run: npm install
       - name: Build App
         run: npm run build:website
+        env:
+          GH_TOKEN: ${{ github.token }}
       - name: Copy Static Files
         run: cp -r static/ build/website-next/
       - name: Deploy
