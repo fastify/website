@@ -1,5 +1,13 @@
+:root {
+  --fty-box-primary: var(--ifm-color-secondary-lightest);
+}
+
+[data-theme='dark'] {
+  --fty-box-primary: var(--ifm-color-secondary-darkest);
+}
+
 .box {
-  background-color: #fff;
+  background-color: var(--fty-box-primary);
   border-radius: 6px;
   box-shadow: 0 0.5em 1em -0.125em rgba(10 10 10/ 10%), 0 0 0 1px rgba(10 10 10/ 2%);
   color: #4a4a4a;
