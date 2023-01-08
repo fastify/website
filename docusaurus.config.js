@@ -36,10 +36,10 @@ const config = {
           editUrl: 'https://github.com/fastify/website-next/edit/main/docs/',
           editCurrentVersion: true,
           sidebarPath: 'sidebars.js',
-          sidebarCollapsed: false,
           showLastUpdateTime: true,
           breadcrumbs: true,
           includeCurrentVersion: false,
+          sidebarItemsGenerator: require('./sidebar.js'),
         },
 
         // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog#configuration
@@ -66,6 +66,11 @@ const config = {
     ({
       // https://docusaurus.io/docs/api/themes/configuration
       image: 'img/logos/fastify-black.png',
+      docs: {
+        sidebar: {
+          autoCollapseCategories: true,
+        },
+      },
       navbar: {
         title: 'Home',
         logo: {
@@ -76,18 +81,17 @@ const config = {
         items: [
           // {
           //   type: 'docSidebar',
+          //   sidebarId: 'docsSidebar',
           //   position: 'left',
-          //   sidebarId: 'tutorialSidebar',
-          //   label: 'API',
+          //   label: 'Docs',
           // },
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
+            type: 'doc',
+            docId: 'index',
             position: 'left',
             label: 'Docs',
           },
           { to: '/ecosystem', label: 'Ecosystem', position: 'left' },
-          // { to: '/blog', label: 'Blog', position: 'left' },
           {
             type: 'docsVersionDropdown',
             position: 'right',
