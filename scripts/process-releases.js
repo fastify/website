@@ -8,7 +8,7 @@ const fs = require('fs').promises
 const glob = require('glob')
 const dirTree = require('directory-tree')
 const semver = require('semver')
-const execa = require('execa')
+const replace = require('replace')
 const prependFile = require('prepend-file')
 
 const sidebarsTemplate = require('../sidebars-template.json')
@@ -97,14 +97,15 @@ async function processReleases(opts) {
   log.info(`Wrote %d versions to versions.json`, orderedVersions.length)
 
   // ### Finalization
-  await fixHtmlTags(join(webSiteRoot, 'versioned_docs'))
+  await fixHtmlTags(versionedFolder)
+  await fixBrokenLinks(versionedFolder)
 
   log.info('Done')
 }
 
 async function copyDocumentation(docSource, docDestination) {
   await fs.rmdir(docDestination, { recursive: true, force: true }).catch(() => {})
-  await execa('mkdir', ['-p', docDestination])
+  await fs.mkdir(docDestination, { recursive: true })
   await copyDir(`${docSource}.`, docDestination)
 }
 
@@ -133,7 +134,7 @@ function* getDocFolders(lookupFolder) {
 
 async function copyDir(from, to) {
   log.debug(`Coping %s`, from)
-  await execa('cp', ['-r', from, to])
+  await fs.cp(from, to, { recursive: true, force: true })
   log.debug(`Copied to %s`, to)
 }
 
@@ -165,15 +166,66 @@ ${Object.entries(metadataJson)
 }
 
 async function fixHtmlTags(dir) {
-  for (const pattern of [
-    // Fixes (Expected corresponding JSX closing tag for <br>) <br> --to--> <br />
-    's/<br>/<br \\/>/g',
+  const silent = true
 
-    // Remove the <h1> title from the docs
-    's/<h1 align="center">.*<\\/h1>//g',
-  ]) {
-    await execa('find', [dir, '-type', 'f', '-exec', 'sed', '-i', '', pattern, '{}', ';'])
-  }
+  // Fixes (Expected corresponding JSX closing tag for <br>) <br> --to--> <br />
+  replace({
+    regex: /<br>/g,
+    replacement: '<br />',
+    paths: [dir],
+    recursive: true,
+    silent,
+  })
+
+  // Remove the <h1> title from the docs
+  replace({
+    regex: /<h1 align="center">.*<\/h1>/g,
+    replacement: '',
+    paths: [dir],
+    recursive: true,
+    silent,
+  })
+}
+
+async function fixBrokenLinks(dir) {
+  const silent = true
+
+  // typo in the docs
+  replace({
+    regex: /Referece/g,
+    replacement: 'Reference',
+    paths: [
+      join(dir, 'version-v4.0.x/Guides/'), //
+      join(dir, 'version-v4.1.x/Guides/'),
+    ],
+    recursive: true,
+    silent,
+  })
+
+  // typo filename in the docs
+  replace({
+    regex: /Reference\/index/g,
+    replacement: 'Reference/Index',
+    paths: [
+      join(dir, 'version-v4.0.x/'), //
+      join(dir, 'version-v4.1.x/'),
+    ],
+    recursive: true,
+    silent: false,
+  })
+
+  // dobule parenthesis in the docs
+  // ((../Guides/Getting-Started.md#your-first-plugin))
+  replace({
+    regex: /\((\(\.\.\/Guides\/Getting-Started\.md.*\))\)/g,
+    replacement: '$1',
+    paths: [
+      join(dir, 'version-v4.0.x/Reference/'), //
+      join(dir, 'version-v4.1.x/Reference/'),
+    ],
+    recursive: true,
+    silent,
+  })
 }
 
 function writeJsonFile(to, json) {

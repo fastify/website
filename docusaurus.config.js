@@ -44,6 +44,7 @@ const config = {
           versions: {
             [versions[0]]: {
               path: 'latest',
+              label: `latest (${versions[1]})`,
             },
             [versions[1]]: {
               banner: 'none',
