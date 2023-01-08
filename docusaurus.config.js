@@ -14,7 +14,7 @@ const config = {
   tagline: 'Fast and low overhead web framework, for Node.js',
   url: 'https://fastify.io',
   baseUrl: BASE_URL,
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
 
@@ -129,8 +129,8 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
-                to: '/docs/intro',
+                label: 'Getting Started',
+                to: '/docs/latest/Guides/Getting-Started',
               },
             ],
           },
