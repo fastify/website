@@ -4,6 +4,8 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github')
 const darkCodeTheme = require('prism-react-renderer/themes/dracula')
 
+const versions = require('./versions.json')
+
 const BASE_URL = process.env.BASE_URL || '/'
 
 /** @type {import('@docusaurus/types').Config} */
@@ -35,10 +37,18 @@ const config = {
         docs: {
           editUrl: 'https://github.com/fastify/website-next/edit/main/docs/',
           editCurrentVersion: true,
-          sidebarPath: 'sidebars.js',
+          sidebarPath: 'sidebar.js',
           showLastUpdateTime: true,
           breadcrumbs: true,
           includeCurrentVersion: false,
+          versions: {
+            [versions[0]]: {
+              path: 'latest',
+            },
+            [versions[1]]: {
+              banner: 'none',
+            },
+          },
           sidebarItemsGenerator: require('./sidebar.js'),
         },
 

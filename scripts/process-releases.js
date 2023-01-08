@@ -2,6 +2,7 @@
 
 const assert = require('assert')
 const path = require('path')
+const { join } = path
 const fs = require('fs').promises
 
 const glob = require('glob')
@@ -23,40 +24,46 @@ const log = require('pino')({
 
 processReleases({
   webSiteRoot: path.resolve(__dirname, '..'),
-  releasesFolder: path.join(__dirname, './releases'),
+  releasesFolder: join(__dirname, './releases'),
 })
 
 async function processReleases(opts) {
   const { webSiteRoot, releasesFolder } = opts
 
+  const versionedFolder = join(webSiteRoot, 'versioned_docs')
+  const sidebarFolder = join(webSiteRoot, 'versioned_sidebars')
+
   const docsVersions = []
 
-  await fs.rm(path.join(webSiteRoot, './versioned_sidebars/*'), { force: true })
+  await fs.rm(join(sidebarFolder, './*'), { force: true })
   log.info('Cleaned up versioned_sidebars folder')
 
   for (const docTree of getDocFolders(releasesFolder)) {
     log.info(`Processing ${docTree.releseTag}`)
 
     const versionName = `v${docTree.semver.major}.${docTree.semver.minor}.x`
-    const docSource = path.join(docTree.path, '/')
-    const docDestination = path.join(webSiteRoot, 'versioned_docs', `version-${versionName}`)
+    const docSource = join(docTree.path, '/')
+    const docDestination = join(versionedFolder, `version-${versionName}`)
 
+    //
     // ### Preparation
-    await fs.rmdir(docDestination, { recursive: true, force: true }).catch(() => {})
-    await execa('mkdir', ['-p', docDestination])
+    await copyDocumentation(docSource, docDestination)
 
-    // ### Basic setup
-    await copyDir(`${docSource}.`, docDestination)
-
-    const sidebarPath = path.join(webSiteRoot, 'versioned_sidebars', `version-${versionName}-sidebars.json`)
+    //
+    // ### Configuration
+    const sidebarPath = join(sidebarFolder, `version-${versionName}-sidebars.json`)
     await writeJsonFile(sidebarPath, sidebarsTemplate)
     log.debug(`Created sidebar %s`, sidebarPath)
 
     await generateCategoriesFiles(docDestination)
     log.debug(`Generated categories`)
 
-    // ### Process files
-    await addMetadataToFile(path.join(docDestination, 'index.md'), { displayed_sidebar: 'docsSidebar' })
+    //
+    // ### Customization
+    await addMetadataToFile(join(docDestination, 'index.md'), {
+      title: 'Introduction',
+      displayed_sidebar: 'docsSidebar',
+    })
 
     // todo convert links to relative
 
@@ -67,42 +74,38 @@ async function processReleases(opts) {
     throw new Error('Something went wrong: No versions found')
   }
 
-  const versions = docsVersions
+  const orderedVersions = docsVersions
     .sort((a, b) => semver.compare(a.tag, b.tag))
     .reverse()
     .map((v) => v.versionName)
-  await writeJsonFile(path.join(webSiteRoot, 'versions.json'), versions)
-  log.info(`Wrote %d versions to versions.json`, versions.length)
 
-  // Fixes (Expected corresponding JSX closing tag for <br>) <br> --to--> <br />
-  await execa('find', [
-    path.join(webSiteRoot, 'versioned_docs'),
-    '-type',
-    'f',
-    '-exec',
-    'sed',
-    '-i',
-    '',
-    's/<br>/<br \\/>/g',
-    '{}',
-    ';',
-  ])
+  //
+  // ### Latest version
+  // to support the legacy URL /docs/latest/* we need to copy the latest version and rename it to `latest`
+  const latestVersion = orderedVersions[0]
+  const latestVersionName = 'latest'
+  await copyDocumentation(
+    join(versionedFolder, `version-${latestVersion}/`),
+    join(versionedFolder, `version-${latestVersionName}`),
+  )
+  await fs.copyFile(
+    join(sidebarFolder, `version-${latestVersion}-sidebars.json`),
+    join(sidebarFolder, `version-${latestVersionName}-sidebars.json`),
+  )
 
-  // Remove the <h1> title from the docs
-  await execa('find', [
-    path.join(webSiteRoot, 'versioned_docs'),
-    '-type',
-    'f',
-    '-exec',
-    'sed',
-    '-i',
-    '',
-    's/<h1 align="center">.*<\\/h1>//g',
-    '{}',
-    ';',
-  ])
+  await writeJsonFile(join(webSiteRoot, 'versions.json'), [latestVersionName, ...orderedVersions])
+  log.info(`Wrote %d versions to versions.json`, orderedVersions.length)
+
+  // ### Finalization
+  await fixHtmlTags(join(webSiteRoot, 'versioned_docs'))
 
   log.info('Done')
+}
+
+async function copyDocumentation(docSource, docDestination) {
+  await fs.rmdir(docDestination, { recursive: true, force: true }).catch(() => {})
+  await execa('mkdir', ['-p', docDestination])
+  await copyDir(`${docSource}.`, docDestination)
 }
 
 function* getDocFolders(lookupFolder) {
@@ -144,7 +147,7 @@ async function generateCategoriesFiles(docsDir) {
         label: path.basename(pathParsed.dir),
       }
 
-      return writeJsonFile(path.join(pathParsed.dir, '_category_.json'), category)
+      return writeJsonFile(join(pathParsed.dir, '_category_.json'), category)
     }),
   )
 }
@@ -159,6 +162,18 @@ ${Object.entries(metadataJson)
 ---
 `,
   )
+}
+
+async function fixHtmlTags(dir) {
+  for (const pattern of [
+    // Fixes (Expected corresponding JSX closing tag for <br>) <br> --to--> <br />
+    's/<br>/<br \\/>/g',
+
+    // Remove the <h1> title from the docs
+    's/<h1 align="center">.*<\\/h1>//g',
+  ]) {
+    await execa('find', [dir, '-type', 'f', '-exec', 'sed', '-i', '', pattern, '{}', ';'])
+  }
 }
 
 function writeJsonFile(to, json) {
