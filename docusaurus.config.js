@@ -188,6 +188,22 @@ const config = {
         indexName: 'fastify',
       },
     }),
+
+  plugins: [
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        createRedirects(existingPath) {
+          if (existingPath.startsWith('/docs/latest')) {
+            // Legacy/Retro compatibility:
+            // to keep old links working, we need to apply redirects
+            return existingPath.replace('/docs/latest', '/docs/master')
+          }
+          return undefined
+        },
+      },
+    ],
+  ],
 }
 
 module.exports = config
