@@ -211,7 +211,7 @@ async function fixBrokenLinks(dir) {
       join(dir, 'version-v4.1.x/'),
     ],
     recursive: true,
-    silent: false,
+    silent,
   })
 
   // dobule parenthesis in the docs

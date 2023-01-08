@@ -35,8 +35,11 @@ const config = {
       ({
         // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs#configuration
         docs: {
-          editUrl: 'https://github.com/fastify/website-next/edit/main/docs/',
-          editCurrentVersion: true,
+          editUrl: (editPage) => {
+            // We want users to submit doc updates to the upstream/next version!
+            return `https://github.com/fastify/fastify/edit/main/docs/${editPage.docPath}`
+          },
+          editCurrentVersion: false,
           sidebarPath: 'sidebar.js',
           showLastUpdateTime: true,
           breadcrumbs: true,
