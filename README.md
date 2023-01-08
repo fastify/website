@@ -4,47 +4,38 @@ This website is built using [Docusaurus 2](https://docusaurus.io/), a modern sta
 
 ### Installation
 
-```
-$ yarn
+```bash
+npm install
+npm --prefix ./scripts install
 ```
 
 ### Local Development
 
-```
-$ yarn start
+```bash
+$ npm start
 ```
 
 This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
 
 ### Build
 
-```
-cd scripts
-npm install
-./download-releases.sh
-node process-releases.js
+```bash
+npm run build:website
 ```
 
-- `versions.json` is generated
+- `versions.json` is generated when building the website
 
-```
-$ yarn build
+```bash
+npm build
 ```
 
 This command generates static content into the `build` directory and can be served using any static contents hosting service.
 
 ### Deployment
 
-Using SSH:
+The website is deployed to GitHub pages using the `gh-pages` branch when a merge to `main` is done.
 
-```
-$ USE_SSH=true yarn deploy
-```
+## Good to know
 
-Not using SSH:
-
-```
-$ GIT_USER=<Your GitHub username> yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+- Read [here](https://github.com/fastify/website-next/issues/32) for the specs
+- If the markdown file from the main repo has a `# Title`, the title will be used as the sidebar label

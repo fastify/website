@@ -29,7 +29,7 @@ processReleases({
 async function processReleases(opts) {
   const { webSiteRoot, releasesFolder } = opts
 
-  const versions = []
+  const docsVersions = []
 
   await fs.rm(path.join(webSiteRoot, './versioned_sidebars/*'), { force: true })
   log.info('Cleaned up versioned_sidebars folder')
@@ -37,36 +37,40 @@ async function processReleases(opts) {
   for (const docTree of getDocFolders(releasesFolder)) {
     log.info(`Processing ${docTree.releseTag}`)
 
-    // todo convert links to relative
-
+    const versionName = `v${docTree.semver.major}.${docTree.semver.minor}.x`
     const docSource = path.join(docTree.path, '/')
-    const docDestination = path.join(webSiteRoot, 'versioned_docs', `version-${docTree.releseTag}`)
+    const docDestination = path.join(webSiteRoot, 'versioned_docs', `version-${versionName}`)
 
+    // ### Preparation
     await fs.rmdir(docDestination, { recursive: true, force: true }).catch(() => {})
-
     await execa('mkdir', ['-p', docDestination])
 
-    log.debug(`Coping %s`, docSource)
-    await execa('cp', ['-r', path.join(docTree.path, '/') + '.', docDestination])
-    log.debug(`Copied %s to %s`, docTree.releseTag, docDestination)
+    // ### Basic setup
+    await copyDir(`${docSource}.`, docDestination)
 
-    const sidebarPath = path.join(webSiteRoot, 'versioned_sidebars', `version-${docTree.releseTag}-sidebars.json`)
-    log.debug(`Coping %s`, sidebarPath)
+    const sidebarPath = path.join(webSiteRoot, 'versioned_sidebars', `version-${versionName}-sidebars.json`)
     await writeJsonFile(sidebarPath, sidebarsTemplate)
+    log.debug(`Created sidebar %s`, sidebarPath)
 
     await generateCategoriesFiles(docDestination)
     log.debug(`Generated categories`)
 
+    // ### Process files
     await addMetadataToFile(path.join(docDestination, 'index.md'), { displayed_sidebar: 'docsSidebar' })
 
-    versions.push(docTree.releseTag)
+    // todo convert links to relative
+
+    docsVersions.push({ tag: docTree.releseTag, versionName })
   }
 
-  if (versions.length === 0) {
+  if (docsVersions.length === 0) {
     throw new Error('Something went wrong: No versions found')
   }
 
-  versions.sort((a, b) => semver.compare(a, b)).reverse()
+  const versions = docsVersions
+    .sort((a, b) => semver.compare(a.tag, b.tag))
+    .reverse()
+    .map((v) => v.versionName)
   await writeJsonFile(path.join(webSiteRoot, 'versions.json'), versions)
   log.info(`Wrote %d versions to versions.json`, versions.length)
 
@@ -122,6 +126,12 @@ function* getDocFolders(lookupFolder) {
       }
     }
   }
+}
+
+async function copyDir(from, to) {
+  log.debug(`Coping %s`, from)
+  await execa('cp', ['-r', from, to])
+  log.debug(`Copied to %s`, to)
 }
 
 // Adds for each `index` file a `_category_.json` file to customize the sidebar
