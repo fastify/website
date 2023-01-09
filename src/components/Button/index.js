@@ -18,4 +18,7 @@ const Button = forwardRef(({ label, onClick, props }) => {
   )
 })
 
+// set display name
+Button.displayName = 'Button'
+
 export default Button
