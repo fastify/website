@@ -103,9 +103,6 @@
 
 .container {
   height: auto;
-}
-.container {
-  height: auto;
   padding-top: 0;
   padding-bottom: 0;
 }
@@ -115,96 +112,13 @@
 }
 
 .contributor-links {
-  padding: 0.5em 0 0 0;
+  padding: 0.5em 0 0;
 }
+
 .contributor-links.icon__icon.npm:hover {
   color: #ea2039;
 }
 
 .contributor-linksicon__icon.twitter:hover {
   color: #1da1f2;
-}
-
-.swappable-async-await {
-  background: #f5f5f5;
-}
-
-.swappable-async-await pre {
-  background: transparent;
-}
-
-.swappable-async-await input[type='checkbox'] {
-  position: absolute;
-  opacity: 0;
-}
-
-.swappable-async-await pre.no-async {
-  display: none;
-}
-
-.swappable-async-await .swap-button-box {
-  text-align: right;
-  padding: 1em 1em 0;
-}
-
-.swappable-async-await .swap-button-box > label {
-  display: inline-block;
-  font-family: monospace;
-  font-size: 0.8em;
-  cursor: pointer;
-}
-
-.swappable-async-await .toggle-checkbox {
-  font-size: 24px;
-  display: inline-block;
-  vertical-align: top;
-}
-
-.swappable-async-await .toggle-checkbox input[type='checkbox'] {
-  position: absolute;
-  opacity: 0;
-}
-
-.swappable-async-await .toggle-checkbox label {
-  width: 2em;
-  height: 1em;
-  position: relative;
-  cursor: pointer;
-  display: block;
-}
-
-.swappable-async-await .toggle-checkbox label:before {
-  content: '';
-  position: absolute;
-  width: 2em;
-  height: 1em;
-  left: 0.1em;
-  transition: background 0.1s ease;
-  background: #bbb;
-  border-radius: 50px;
-  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5);
-}
-
-.swappable-async-await .toggle-checkbox label:after {
-  content: '';
-  position: absolute;
-  width: 1em;
-  height: 1em;
-  border-radius: 50px;
-  left: 0;
-  transition: all 0.2s ease;
-  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
-  background: #fcfff4;
-  animation: switch-off 0.2s ease-out;
-  z-index: 2;
-}
-
-.swappable-async-await .toggle-checkbox input[type='checkbox']:checked + label:before {
-  background: #70c1b3;
-  box-shadow: inset 0px 1px 1px rgba(84, 152, 140, 0.5);
-}
-
-.swappable-async-await .toggle-checkbox input[type='checkbox']:checked + label:after {
-  animation: switch-on 0.2s ease-out;
-  left: 1.1em;
 }

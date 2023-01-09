@@ -20,6 +20,7 @@
   .heroBanner {
     padding: 2rem;
   }
+
   .responsiveContainer {
     display: block;
   }
@@ -37,9 +38,11 @@
   width: 50px;
   height: 25px;
 }
+
 .toggleSwitch input[type='checkbox'] {
   display: none;
 }
+
 .toggleSwitch .switch {
   position: absolute;
   cursor: pointer;
@@ -51,6 +54,7 @@
   left: 0;
   transition: background-color 0.2s ease;
 }
+
 .toggleSwitch .switch::before {
   position: absolute;
   content: '';
@@ -62,12 +66,14 @@
   border-radius: 50%;
   transition: transform 0.3s ease;
 }
+
 .toggleSwitch input[type='checkbox']:checked + .switch::before {
   transform: translateX(25px);
-  background-color: #6699cc;
+  background-color: #69c;
 }
+
 .toggleSwitch input[type='checkbox']:checked + .switch {
-  background-color: #336699;
+  background-color: #369;
 }
 
 .center {

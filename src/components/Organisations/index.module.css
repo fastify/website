@@ -1,5 +1,5 @@
 .organisationsList {
-  margin: 0 0 0 0 !important;
+  margin: 0 !important;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -28,12 +28,10 @@
   height: auto;
   max-width: 100%;
   max-height: 60px;
-  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
   filter: grayscale(100%);
   transition: all 0.5s;
 }
 
 .organisationsList li a:hover img {
   filter: none;
-  -webkit-filter: none;
 }
