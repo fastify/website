@@ -62,4 +62,11 @@ do
   minor=$currentMinor
   lastItem=$i
 done
-downloadRelease $lastItem
+
+if [[ $lastItem != "none" ]]; then
+  downloadRelease $lastItem
+else
+  # throw en error
+  echo "No release found. Did you run 'gh login' ?"
+  exit 1
+fi

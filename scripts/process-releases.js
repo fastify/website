@@ -104,7 +104,7 @@ async function processReleases(opts) {
 }
 
 async function copyDocumentation(docSource, docDestination) {
-  await fs.rmdir(docDestination, { recursive: true, force: true }).catch(() => {})
+  await fs.rm(docDestination, { recursive: true, force: true }).catch(() => {})
   await fs.mkdir(docDestination, { recursive: true })
   await copyDir(`${docSource}.`, docDestination)
 }
