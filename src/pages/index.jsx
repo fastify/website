@@ -12,9 +12,9 @@ import ReqResHooks from '@site/src/components/MDXComponents/ReqResHooks/ReqResHo
 import ReqResHooksWithAsyncAwait from '@site/src/components/MDXComponents/ReqResHooks/ReqResHooksWithAsyncAwait.mdx'
 import TypeScriptSupport from '@site/src/components/MDXComponents/TypeScriptSupport/TypeScriptSupport.mdx'
 import TypeScriptSupportWithAsyncAwait from '@site/src/components/MDXComponents/TypeScriptSupport/TypeScriptSupportWithAsyncAwait.mdx'
-import Button from '@site/src/components/Button/index.js'
 import Team from '../components/Team'
 import Organisations from '../components/Organisations'
+import plugins from './plugins.json'
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext()
@@ -227,7 +227,9 @@ export default function Home() {
                   <a href="/benchmarks">&nbsp;benchmarks section</a> to compare fastify performance to other common web
                   frameworks.
                 </p>
-                <Button label={'Check out our benchmarks'} />
+                <a href="/benchmarks" class="button button--lg button--primary">
+                  Check out our benchmarks
+                </a>
               </div>
               <div className="spacer"></div>
               <div>
@@ -238,7 +240,9 @@ export default function Home() {
                   navigate through the currently available plugins. Can&#39;t you find the plugin you are looking for?
                   No problem, <a href="/docs/master/Plugins">it&#39;s very easy to write one</a>!
                 </p>
-                <Button label={'Explore 253 plugins'} />
+                <a href="/ecosystem" class="button button--lg button--primary">
+                  Explore {plugins.corePlugins.length + plugins.communityPlugins.length} plugins
+                </a>
               </div>
             </div>
           </div>
