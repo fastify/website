@@ -1,38 +1,24 @@
-/**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
- */
+:root {
+  --fty-hero-text: #ededed;
+  --fty-hero-color-filter: 0;
+}
 
-.heroBanner {
-  padding: 4rem 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+[data-theme='dark'] {
+  --fty-hero-text: #ededed;
+  --fty-hero-color-filter: 1;
 }
 
 .hero {
   background: url('https://www.fastify.io/images/bg-pattern-dark.3f8cda863b3bbf52.png');
-  padding: 3rem 0;
+  filter: invert(var(--fty-hero-color-filter));
+  padding: 3rem 2rem;
 }
 
-.heroProjectTagline {
-  color: #fff;
-  font-weight: bold;
-  text-shadow: 2px 1px 1px black;
-}
-
-.hero .heroLogo {
+.hero img {
   max-width: 320px;
 }
 
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
-  }
-}
-
-.buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.hero h2 {
+  color: var(--fty-hero-text);
+  font-weight: bold;
 }
