@@ -1,3 +1,5 @@
+import React from 'react'
+
 const svgicons = {
   twitter: (
     <svg
