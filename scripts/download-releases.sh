@@ -67,6 +67,6 @@ if [[ $lastItem != "none" ]]; then
   downloadRelease $lastItem
 else
   # throw en error
-  echo "No release found. Did you run 'gh login' ?"
+  echo "No release found. Did you run 'gh auth login' ?"
   exit 1
 fi

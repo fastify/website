@@ -2,6 +2,8 @@
 
 This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
 
+## Local Development
+
 ### Installation
 
 ```bash
@@ -9,27 +11,36 @@ npm install
 npm --prefix ./scripts install
 ```
 
-### Local Development
+### Run
 
 ```bash
 $ npm start
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+This command starts a local development server and opens up a browser window.  
+Most changes are reflected live without having to restart the server.
+
+Note that only the documentations listed in the `versions.json` file will be available.  
+So, if you have a long version list, your local enviroment will be slowed down.
 
 ### Build
+
+To run the build locally, you need [GitHub CLI](https://cli.github.com/) installed.  
+The following command will:
+
+- Download all the Fastify's releases from GitHub
+- Process each release to generate the versioned Docusaurus documentation
+- Generate the static website
 
 ```bash
 npm run build:website
 ```
 
+During this process:
+
 - `versions.json` is generated when building the website
 
-```bash
-npm build
-```
-
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+By running `npm run serve`, you will load locally the production build from the `/build` folder.
 
 ### Deployment
 
