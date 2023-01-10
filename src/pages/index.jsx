@@ -55,23 +55,15 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section">
-          <div className="container content">
-            <div className="columns is-centered">
-              <div className="column is-12">
-                <h1 className="title">Who is using Fastify?</h1>
-                <p>Fastify is proudly powering a large ecosystem of organisations and products out there.</p>
-                <p>
-                  Discover <a href="/organisations">more organisations using Fastify</a>. Do you want your organisation
-                  to <a href="/organisations#how-to-be-featured">be featured here</a>?
-                </p>
-              </div>
-            </div>
-            <div className="columns is-centered">
-              <div className="column is-12">
-                <Organisations />
-              </div>
-            </div>
+        <section>
+          <div className="container">
+            <h1>Who is using Fastify?</h1>
+            <p>Fastify is proudly powering a large ecosystem of organisations and products out there.</p>
+            <p>
+              Discover <a href="/organisations">more organisations using Fastify</a>. Do you want your organisation to{' '}
+              <a href="/organisations#how-to-be-featured">be featured here</a>?
+            </p>
+            <Organisations />
           </div>
         </section>
         <section className="section alternate">
