@@ -30,3 +30,5 @@ versioned_docs/*
 
 versioned_sidebars/*
 !versioned_sidebars/.keep
+
+static/generated/*.json
