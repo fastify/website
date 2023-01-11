@@ -6,6 +6,8 @@
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
     "build": "docusaurus build",
+    "build:website": "./scripts/build-website.sh",
+    "build:clean-all": "rm -rf ./versioned_docs/version* ./versioned_sidebars/version* ./scripts/releases/* ./scripts/downloads/* ./.docusaurus",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -23,6 +25,7 @@
   },
   "dependencies": {
     "@docusaurus/core": "2.2.0",
+    "@docusaurus/plugin-client-redirects": "^2.2.0",
     "@docusaurus/preset-classic": "2.2.0",
     "@mdx-js/react": "^1.6.22",
     "clsx": "^1.2.1",

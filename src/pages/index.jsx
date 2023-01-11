@@ -4,6 +4,7 @@ import Layout from '@theme/Layout'
 import HomepageHeader from '@site/src/components/HomepageHeader/index'
 
 import styles from './index.module.css'
+
 import CodeBlock from '@theme/CodeBlock'
 import CustomHighLight from '../components/CustomHighLight'
 import QuickStartGuide from '@site/src/components/MDXComponents/QuickStartGuide/QuickStartGuide.mdx'
@@ -32,7 +33,8 @@ export default function Home() {
 
   return (
     <Layout title={`Hello from ${siteConfig.title}`} description="Description will go into a meta tag in <head />">
-      <HomepageHeader />
+      <
+      />
       <main>
         <section className="section">
           <div className="container content">

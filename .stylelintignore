@@ -1,3 +1,9 @@
+dist/
+.next/
+lib/
+.vscode/
+action/
+.docusaurus/
 /scripts/releases/
 versioned_docs/**/*
 versioned_sidebars/*-sidebars.js
