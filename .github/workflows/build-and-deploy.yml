@@ -11,7 +11,7 @@ env:
 jobs:
   build_and_deploy:
     name: Build and Deploy
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Git Checkout
         uses: actions/checkout@v3
@@ -22,7 +22,9 @@ jobs:
       - name: Install Packages
         run: npm install
       - name: Build App
-        run: npm run build
+        run: npm run build:website
+        env:
+          GH_TOKEN: ${{ github.token }}
       - name: Copy Static Files
         run: cp -r static/ build/website-next/
       - name: Deploy

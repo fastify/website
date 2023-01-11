@@ -4,6 +4,8 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github')
 const darkCodeTheme = require('prism-react-renderer/themes/dracula')
 
+const versions = require('./versions.json')
+
 const BASE_URL = process.env.BASE_URL || '/'
 
 /** @type {import('@docusaurus/types').Config} */
@@ -12,7 +14,7 @@ const config = {
   tagline: 'Fast and low overhead web framework, for Node.js',
   url: 'https://fastify.io',
   baseUrl: BASE_URL,
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
 
@@ -25,27 +27,50 @@ const config = {
     locales: ['en'],
   },
 
+  // https://docusaurus.io/docs/using-plugins#using-presets
   presets: [
     [
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
+        // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs#configuration
         docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
+          editUrl: (editPage) => {
+            // We want users to submit doc updates to the upstream/next version!
+            return `https://github.com/fastify/fastify/edit/main/docs/${editPage.docPath}`
+          },
+          editCurrentVersion: false,
+          sidebarPath: 'sidebar.js',
           showLastUpdateTime: true,
-          includeCurrentVersion: true,
-          editUrl: 'https://github.com/fastify/website-next/edit/main/docs/',
+          breadcrumbs: true,
+          includeCurrentVersion: false,
+          versions: {
+            [versions[0]]: {
+              path: 'latest',
+              label: `latest (${versions[1]})`,
+            },
+            [versions[1]]: {
+              banner: 'none',
+            },
+          },
+          sidebarItemsGenerator: require('./sidebar.js'),
         },
-        blog: {
-          showReadingTime: true,
-          editUrl: 'https://github.com/fastify/website-next/edit/main/docs/',
-        },
+
+        // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog#configuration
+        blog: false,
+
+        // https://docusaurus.io/docs/api/themes/@docusaurus/theme-classic
         theme: {
           customCss: [
             require.resolve('./src/css/custom.css'), //
             require.resolve('./src/css/ecosystem.css'), //
           ],
         },
+
+        // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-pages#configuration
+        pages: {},
+
+        // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-sitemap#configuration
         sitemap: {
           ignorePatterns: ['/scripts/**'],
         },
@@ -56,8 +81,15 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      // https://docusaurus.io/docs/api/themes/configuration
+      image: 'img/logos/fastify-black.png',
+      docs: {
+        sidebar: {
+          autoCollapseCategories: true,
+        },
+      },
       navbar: {
-        title: 'Fastify',
+        title: 'Home',
         logo: {
           alt: 'Fastify Cheetah Logo',
           src: 'img/logos/fastify-black.png',
@@ -65,14 +97,19 @@ const config = {
         },
         items: [
           // {
-          //   type: 'doc',
-          //   docId: 'index',
+          //   type: 'docSidebar',
+          //   sidebarId: 'docsSidebar',
           //   position: 'left',
-          //   label: 'Tutorial',
+          //   label: 'Docs',
           // },
+          {
+            type: 'doc',
+            docId: 'index',
+            position: 'left',
+            label: 'Docs',
+          },
           { to: '/ecosystem', label: 'Ecosystem', position: 'left' },
           { to: '/benchmarks', label: 'Benchmarks', position: 'left' },
-          // { to: '/blog', label: 'Blog', position: 'left' },
           {
             type: 'docsVersionDropdown',
             position: 'right',
@@ -96,8 +133,8 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
-                to: '/docs/intro',
+                label: 'Getting Started',
+                to: '/docs/latest/Guides/Getting-Started',
               },
             ],
           },
@@ -155,6 +192,22 @@ const config = {
         indexName: 'fastify',
       },
     }),
+
+  plugins: [
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        createRedirects(existingPath) {
+          if (existingPath.startsWith('/docs/latest')) {
+            // Legacy/Retro compatibility:
+            // to keep old links working, we need to apply redirects
+            return existingPath.replace('/docs/latest', '/docs/master')
+          }
+          return undefined
+        },
+      },
+    ],
+  ],
 }
 
 module.exports = config

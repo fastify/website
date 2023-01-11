@@ -13,10 +13,13 @@
     "Massimiliano Fanciulli <fanciulli@gmail.com> (https://github.com/fanciulli)"
   ],
   "license": "MIT",
-  "devDependencies": {},
   "dependencies": {
     "directory-tree": "^3.4.0",
-    "execa": "^5.1.1",
+    "glob": "^8.0.3",
+    "pino": "^8.8.0",
+    "pino-pretty": "^9.1.1",
+    "prepend-file": "^2.0.1",
+    "replace": "^1.2.2",
     "semver": "^7.3.8",
     "undici": "^5.14.0"
   }
