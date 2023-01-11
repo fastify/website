@@ -2,66 +2,111 @@
 
 const assert = require('assert')
 const path = require('path')
+const { join } = path
 const fs = require('fs').promises
 
+const glob = require('glob')
 const dirTree = require('directory-tree')
 const semver = require('semver')
-const execa = require('execa')
+const replace = require('replace')
+const prependFile = require('prepend-file')
+
+const sidebarsTemplate = require('../sidebars-template.json')
+const log = require('pino')({
+  level: process.env.LOG_LEVEL || 'debug',
+  transport: {
+    target: 'pino-pretty',
+    options: {
+      colorize: true,
+    },
+  },
+})
 
 processReleases({
   webSiteRoot: path.resolve(__dirname, '..'),
-  releasesFolder: path.join(__dirname, './releases'),
+  releasesFolder: join(__dirname, './releases'),
 })
 
 async function processReleases(opts) {
   const { webSiteRoot, releasesFolder } = opts
 
-  const versions = []
+  const versionedFolder = join(webSiteRoot, 'versioned_docs')
+  const sidebarFolder = join(webSiteRoot, 'versioned_sidebars')
 
-  await execa('rm', ['-f', path.join(webSiteRoot, 'versioned_sidebars/version*')])
-  console.log('Cleaned up versioned_sidebars folder')
+  const docsVersions = []
+
+  await fs.rm(join(sidebarFolder, './*'), { force: true })
+  log.info('Cleaned up versioned_sidebars folder')
 
   for (const docTree of getDocFolders(releasesFolder)) {
-    console.log(`Processing ${docTree.releseTag}`)
+    log.info(`Processing ${docTree.releseTag}`)
+
+    const versionName = `v${docTree.semver.major}.${docTree.semver.minor}.x`
+    const docSource = join(docTree.path, '/')
+    const docDestination = join(versionedFolder, `version-${versionName}`)
+
+    //
+    // ### Preparation
+    await copyDocumentation(docSource, docDestination)
+
+    //
+    // ### Configuration
+    const sidebarPath = join(sidebarFolder, `version-${versionName}-sidebars.json`)
+    await writeJsonFile(sidebarPath, sidebarsTemplate)
+    log.debug(`Created sidebar %s`, sidebarPath)
+
+    await generateCategoriesFiles(docDestination)
+    log.debug(`Generated categories`)
+
+    //
+    // ### Customization
+    await addMetadataToFile(join(docDestination, 'index.md'), {
+      title: 'Introduction',
+      displayed_sidebar: 'docsSidebar',
+    })
 
     // todo convert links to relative
 
-    const docDestination = path.join(webSiteRoot, 'versioned_docs', `version-${docTree.releseTag}`)
-
-    await execa('rm', ['-rf', docDestination])
-    console.log('Cleaned up versioned_docs folder')
-
-    await execa('mkdir', ['-p', docDestination])
-
-    console.log(path.join(docTree.path, '/'))
-    await execa('cp', ['-r', path.join(docTree.path, '/') + '.', docDestination])
-    console.log(`Copied ${docTree.releseTag} to ${docDestination}`)
-
-    await execa('cp', [
-      path.join(webSiteRoot, 'sidebars.js'),
-      path.join(webSiteRoot, 'versioned_sidebars', `version-${docTree.releseTag}-sidebars.js`),
-    ])
-
-    versions.push(docTree.releseTag)
+    docsVersions.push({ tag: docTree.releseTag, versionName })
   }
-  await fs.writeFile(path.join(webSiteRoot, 'versions.json'), JSON.stringify(versions, null, 2))
-  console.log(`Wrote ${versions.length} versions to versions.json`)
 
-  // Fixes (Expected corresponding JSX closing tag for <br>) <br> -> <br />
-  await execa('find', [
-    path.join(webSiteRoot, 'versioned_docs'),
-    '-type',
-    'f',
-    '-exec',
-    'sed',
-    '-i',
-    '',
-    's/<br>/<br \\/>/g',
-    '{}',
-    ';',
-  ])
+  if (docsVersions.length === 0) {
+    throw new Error('Something went wrong: No versions found')
+  }
 
-  console.log('Done')
+  const orderedVersions = docsVersions
+    .sort((a, b) => semver.compare(a.tag, b.tag))
+    .reverse()
+    .map((v) => v.versionName)
+
+  //
+  // ### Latest version
+  // to support the legacy URL /docs/latest/* we need to copy the latest version and rename it to `latest`
+  const latestVersion = orderedVersions[0]
+  const latestVersionName = 'latest'
+  await copyDocumentation(
+    join(versionedFolder, `version-${latestVersion}/`),
+    join(versionedFolder, `version-${latestVersionName}`),
+  )
+  await fs.copyFile(
+    join(sidebarFolder, `version-${latestVersion}-sidebars.json`),
+    join(sidebarFolder, `version-${latestVersionName}-sidebars.json`),
+  )
+
+  await writeJsonFile(join(webSiteRoot, 'versions.json'), [latestVersionName, ...orderedVersions])
+  log.info(`Wrote %d versions to versions.json`, orderedVersions.length)
+
+  // ### Finalization
+  await fixHtmlTags(versionedFolder)
+  await fixBrokenLinks(versionedFolder)
+
+  log.info('Done')
+}
+
+async function copyDocumentation(docSource, docDestination) {
+  await fs.rm(docDestination, { recursive: true, force: true }).catch(() => {})
+  await fs.mkdir(docDestination, { recursive: true })
+  await copyDir(`${docSource}.`, docDestination)
 }
 
 function* getDocFolders(lookupFolder) {
@@ -70,14 +115,119 @@ function* getDocFolders(lookupFolder) {
   })
   for (const fileTree of releasesTree.children) {
     if (fileTree.type === 'directory') {
-      assert(fileTree.children.length, 1, 'expected only one docs folder')
-      assert(fileTree.children[0].name, 'docs', 'expected only one docs folder')
-      yield {
-        semver: semver.parse(fileTree.name),
-        releseTag: fileTree.name,
-        path: fileTree.children[0].path,
-        files: fileTree.children[0].children,
+      try {
+        assert(fileTree.children.length, 1, 'expected only one docs folder')
+        assert(fileTree.children[0].name, 'docs', 'expected only one docs folder')
+        yield {
+          semver: semver.parse(fileTree.name),
+          releseTag: fileTree.name,
+          path: fileTree.children[0].path,
+          files: fileTree.children[0].children,
+        }
+      } catch (err) {
+        log.info(`Error processing release [${fileTree.name}] because ${err.message} `)
+        console.error(err)
       }
     }
   }
+}
+
+async function copyDir(from, to) {
+  log.debug(`Coping %s`, from)
+  await fs.cp(from, to, { recursive: true, force: true })
+  log.debug(`Copied to %s`, to)
+}
+
+// Adds for each `index` file a `_category_.json` file to customize the sidebar
+async function generateCategoriesFiles(docsDir) {
+  const files = glob.sync(`${docsDir}/**/index.md`, { nodir: true, nocase: true })
+  await Promise.all(
+    files.map((readme) => {
+      const pathParsed = path.parse(readme)
+      const category = {
+        label: path.basename(pathParsed.dir),
+      }
+
+      return writeJsonFile(join(pathParsed.dir, '_category_.json'), category)
+    }),
+  )
+}
+
+async function addMetadataToFile(file, metadataJson) {
+  await prependFile(
+    file,
+    `---
+${Object.entries(metadataJson)
+  .map(([key, value]) => `${key}: ${value}`)
+  .join('\n')}
+---
+`,
+  )
+}
+
+async function fixHtmlTags(dir) {
+  const silent = true
+
+  // Fixes (Expected corresponding JSX closing tag for <br>) <br> --to--> <br />
+  replace({
+    regex: /<br>/g,
+    replacement: '<br />',
+    paths: [dir],
+    recursive: true,
+    silent,
+  })
+
+  // Remove the <h1> title from the docs
+  replace({
+    regex: /<h1 align="center">.*<\/h1>/g,
+    replacement: '',
+    paths: [dir],
+    recursive: true,
+    silent,
+  })
+}
+
+async function fixBrokenLinks(dir) {
+  const silent = true
+
+  // typo in the docs
+  replace({
+    regex: /Referece/g,
+    replacement: 'Reference',
+    paths: [
+      join(dir, 'version-v4.0.x/Guides/'), //
+      join(dir, 'version-v4.1.x/Guides/'),
+    ],
+    recursive: true,
+    silent,
+  })
+
+  // typo filename in the docs
+  replace({
+    regex: /Reference\/index/g,
+    replacement: 'Reference/Index',
+    paths: [
+      join(dir, 'version-v4.0.x/'), //
+      join(dir, 'version-v4.1.x/'),
+    ],
+    recursive: true,
+    silent,
+  })
+
+  // dobule parenthesis in the docs
+  // ((../Guides/Getting-Started.md#your-first-plugin))
+  replace({
+    regex: /\((\(\.\.\/Guides\/Getting-Started\.md.*\))\)/g,
+    replacement: '$1',
+    paths: [
+      join(dir, 'version-v4.0.x/Reference/'), //
+      join(dir, 'version-v4.1.x/Reference/'),
+    ],
+    recursive: true,
+    silent,
+  })
+}
+
+function writeJsonFile(to, json) {
+  return fs.writeFile(to, JSON.stringify(json, null, 2))
 }
