@@ -7,9 +7,18 @@
 }
 
 .box {
-  background-color: var(--fty-box-primary);
+  background-color: var(--ifm-card-background-color);
   border-radius: 6px;
   color: #4a4a4a;
+  display: block;
+  padding: 1.25rem;
+  margin: 1.25rem;
+}
+
+[data-theme='dark'] .box {
+  background-color: var(--ifm-card-background-color);
+  border-radius: 6px;
+  color: #f9f6f6;
   display: block;
   padding: 1.25rem;
   margin: 1.25rem;
