@@ -23,6 +23,7 @@ scripts/downloads/*
 scripts/releases/*
 
 .eslintcache
+.yarn
 
 versioned_docs/*
 !versioned_docs/.keep

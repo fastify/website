@@ -61,7 +61,10 @@ const config = {
 
         // https://docusaurus.io/docs/api/themes/@docusaurus/theme-classic
         theme: {
-          customCss: [require.resolve('./src/css/custom.css'), require.resolve('./src/css/ecosystem.css')],
+          customCss: [
+            require.resolve('./src/css/custom.css'), //
+            require.resolve('./src/css/ecosystem.css'), //
+          ],
         },
 
         // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-pages#configuration
@@ -106,6 +109,7 @@ const config = {
             label: 'Docs',
           },
           { to: '/ecosystem', label: 'Ecosystem', position: 'left' },
+          { to: '/benchmarks', label: 'Benchmarks', position: 'left' },
           {
             type: 'docsVersionDropdown',
             position: 'right',

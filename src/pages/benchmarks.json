@@ -1,0 +1,35 @@
+{
+  "reference": 71768,
+  "frameworks": [
+    {
+      "name": "Fastify",
+      "requests": "48241.6",
+      "test": "https://github.com/fastify/benchmarks/blob/master/benchmarks/fastify.cjs",
+      "repository": "https://github.com/fastify/fastify"
+    },
+    {
+      "name": "Koa",
+      "requests": "39428.2",
+      "test": "https://github.com/fastify/benchmarks/blob/master/benchmarks/koa.cjs",
+      "repository": "https://github.com/koajs/koa"
+    },
+    {
+      "name": "Express",
+      "requests": "11386.2",
+      "test": "https://github.com/fastify/benchmarks/blob/master/benchmarks/express.cjs",
+      "repository": "https://github.com/expressjs/express"
+    },
+    {
+      "name": "Restify",
+      "requests": "36459.4",
+      "test": "https://github.com/fastify/benchmarks/blob/master/benchmarks/restify.cjs",
+      "repository": "https://github.com/restify/node-restify"
+    },
+    {
+      "name": "Hapi",
+      "requests": "33561.6",
+      "test": "https://github.com/fastify/benchmarks/blob/master/benchmarks/hapi.cjs",
+      "repository": "https://github.com/hapijs/hapi"
+    }
+  ]
+}
