@@ -21,6 +21,7 @@
     "prepend-file": "^2.0.1",
     "replace": "^1.2.2",
     "semver": "^7.3.8",
-    "undici": "^5.14.0"
+    "undici": "^5.14.0",
+    "yaml": "^2.2.1"
   }
 }

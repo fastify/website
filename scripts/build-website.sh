@@ -23,6 +23,7 @@ node ./scripts/process-releases.js
 
 node ./scripts/build-plugin-list.js
 node ./scripts/download-benchmarks.js
+node ./scripts/build-static-data.js
 
 ####### Build Phase
 

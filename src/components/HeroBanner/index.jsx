@@ -4,9 +4,9 @@ import React from 'react'
 
 function HeroBanner({ title }) {
   return (
-    <div className="hero-banner">
+    <header className="hero-banner">
       <h1 className="hero-title">{title}</h1>
-    </div>
+    </header>
   )
 }
 
