@@ -32,6 +32,7 @@ module.exports = {
     'prettier',
   ],
   rules: {
+    camelcase: 'error',
     'react/prop-types': 'off',
     '@docusaurus/string-literal-i18n-messages': 'error',
     '@docusaurus/no-untranslated-text': 'warn',

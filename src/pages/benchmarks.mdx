@@ -1,15 +1,15 @@
-import HeroBanner from '../components/HeroBanner'
+import HeroBanner from '@site/src/components/HeroBanner'
+import BenchmarkInfo from '@site/src/components/BenchmarkInfo'
 
-import benchmarkData from './benchmarks.json'
-import BenchmarkInfo from '../components/BenchmarkInfo'
+import benchmarksData from '@site/static/generated/benchmarks.json'
 
 export function BenchmarkSection() {
-  return benchmarkData.frameworks.map((framework) => (
+  return benchmarksData.frameworks.map((framework) => (
     <BenchmarkInfo
       key={framework.name}
       name={framework.name}
       req={framework.requests}
-      progressValue={framework.requests / benchmarkData.reference}
+      progressValue={framework.requests / benchmarksData.reference}
       test={framework.test}
       repository={framework.repository}
     />
