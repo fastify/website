@@ -62,7 +62,7 @@ async function processReleases(opts) {
     // ### Customization
     await addMetadataToFile(join(docDestination, 'index.md'), {
       title: 'Introduction',
-      displayed_sidebar: 'docsSidebar',
+      [`displayed_sidebar`]: 'docsSidebar',
     })
 
     // todo convert links to relative

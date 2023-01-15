@@ -54,10 +54,10 @@ async function downloadBenchmarks(githubUrl) {
     const commitSha = commits[commit]
     log.debug(`Checking commit %s`, commitSha)
 
-    const tree_url = await getTree(commitSha)
-    const benchmarl_url = await getUrlFromTree(tree_url)
+    const treeUrl = await getTree(commitSha)
+    const benchmarlUrl = await getUrlFromTree(treeUrl)
 
-    const data = await getBlob(benchmarl_url)
+    const data = await getBlob(benchmarlUrl)
     if (isValidBenchmark(data)) {
       return buildBenchmarksJSON(data)
     }
@@ -76,15 +76,15 @@ const getTree = async (commitSha) => {
   return commit.tree.url
 }
 
-const getUrlFromTree = async (tree_url) => {
-  const tree = await getDataAsJSON(tree_url)
+const getUrlFromTree = async (treeUrl) => {
+  const tree = await getDataAsJSON(treeUrl)
   return tree.tree.find((item) => item.path == 'benchmark-results.json').url
 }
 
-const getBlob = async (blob_url) => {
-  const blob = await getDataAsJSON(blob_url)
-  const decoded_content = Buffer.from(blob.content, 'base64')
-  return JSON.parse(decoded_content)
+const getBlob = async (blobUrl) => {
+  const blob = await getDataAsJSON(blobUrl)
+  const decodedContent = Buffer.from(blob.content, 'base64')
+  return JSON.parse(decodedContent)
 }
 
 function buildBenchmarksJSON(data) {
