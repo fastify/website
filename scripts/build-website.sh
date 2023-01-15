@@ -22,6 +22,7 @@ node ./scripts/process-releases.js
 ####### Data Generation Phase
 
 node ./scripts/build-plugin-list.js
+node ./scripts/download-benchmarks.js
 
 ####### Build Phase
 

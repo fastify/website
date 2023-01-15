@@ -1,12 +1,14 @@
-import PluginsTable from '@site/src/components/Ecosystem/PluginsTable'
 import Link from '@docusaurus/Link'
+import HeroBanner from '@site/src/components/HeroBanner'
+import PluginsTable from '@site/src/components/Ecosystem/PluginsTable'
+
 import plugins from '@site/static/generated/plugins.json'
 
 export function PluginCount(props) {
   return <b>{props.plugins.length}</b>
 }
 
-# Ecosystem
+<HeroBanner title="Plugins" />
 
 - There are <PluginCount plugins={plugins.corePlugins}/> core plugins and <PluginCount plugins={plugins.communityPlugins}/> community plugins
 - A core plugin is a plugin maintained by the fastify team, and we do our best to maintain them according to the Fastify [Long Term Support](https://github.com/fastify/fastify/blob/main/docs/Reference/LTS.md) policy

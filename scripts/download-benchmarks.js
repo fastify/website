@@ -1,27 +1,69 @@
 'use strict'
-const { request } = require('undici')
+
+const path = require('node:path')
 const { writeFile } = require('node:fs/promises')
-const path = require('path')
+
+const { request } = require('undici')
+
 const arrayDefaultFrameworks = require('./frameworks.json')
-const frameworkTags = arrayDefaultFrameworks.map((framework) => framework.tag)
+const frameworkTags = arrayDefaultFrameworks.map(({ tag }) => tag)
+
+const log = require('pino')({
+  level: process.env.LOG_LEVEL || 'debug',
+  transport: {
+    target: 'pino-pretty',
+    options: {
+      colorize: true,
+    },
+  },
+})
 
 const URL_BENCHMARK = 'https://raw.githubusercontent.com/fastify/benchmarks/master/benchmark-results.json'
 const GITHUB_BASE_URL = 'https://api.github.com/repos/fastify/benchmarks'
-let bearerToken = ''
 
-const checkData = (data) => {
-  return data.filter((item) => frameworkTags.includes(item.name)).every((currentValue) => !isNaN(currentValue.requests))
+const OUTPUT_FILE = path.join(__dirname, '../static/generated/benchmarks.json')
+
+execute({
+  downloadUrl: URL_BENCHMARK,
+  outputFile: OUTPUT_FILE,
+})
+
+async function execute({ downloadUrl, outputFile }) {
+  const data = await downloadBenchmarks(downloadUrl)
+  if (data) {
+    log.debug('File is ok, saving to filesystem')
+
+    await writeFile(outputFile, JSON.stringify(data, null, 2))
+    log.info('Wrote the benchmarks file to %s', outputFile)
+  } else {
+    log.error('Cannot find suitable data - Please check the URL %s', URL_BENCHMARK)
+    process.exit(1)
+  }
 }
 
-const getDataAsJSON = async (url) => {
-  const { body } = await request(url, {
-    headers: {
-      'User-Agent': 'fastify-docusaurus-script',
-      Accept: 'application/vnd.github+json',
-      Authorization: `Bearer ${bearerToken}`,
-    },
-  })
-  return body.json()
+async function downloadBenchmarks(githubUrl) {
+  const data = await getDataAsJSON(githubUrl)
+  if (isValidBenchmark(data)) {
+    return buildBenchmarksJSON(data)
+  }
+
+  log.warn('Fetched file contains `N/A` data. Searching for previous revision')
+
+  const commits = await getCommits()
+  for (let commit in commits) {
+    const commitSha = commits[commit]
+    log.debug(`Checking commit %s`, commitSha)
+
+    const tree_url = await getTree(commitSha)
+    const benchmarl_url = await getUrlFromTree(tree_url)
+
+    const data = await getBlob(benchmarl_url)
+    if (isValidBenchmark(data)) {
+      return buildBenchmarksJSON(data)
+    }
+  }
+
+  throw new Error('Unable to find a valid benchmark result')
 }
 
 const getCommits = async () => {
@@ -29,8 +71,8 @@ const getCommits = async () => {
   return commits.map((commit) => commit.sha)
 }
 
-const getTree = async (commit_sha) => {
-  const commit = await getDataAsJSON(`${GITHUB_BASE_URL}/git/commits/${commit_sha}`)
+const getTree = async (commitSha) => {
+  const commit = await getDataAsJSON(`${GITHUB_BASE_URL}/git/commits/${commitSha}`)
   return commit.tree.url
 }
 
@@ -45,69 +87,38 @@ const getBlob = async (blob_url) => {
   return JSON.parse(decoded_content)
 }
 
-const buildJSON = (data) => {
+function buildBenchmarksJSON(data) {
+  const maxSpeed = data
+    .filter(({ requests }) => !isNaN(requests))
+    .map(({ requests }) => parseInt(requests))
+    .reduce((max, req) => (req > max ? req : max), 0)
+
   const json = {
-    reference: 0,
-    frameworks: [],
-  }
-  for (const framework of arrayDefaultFrameworks) {
-    const item = data.find((item) => item.name == framework.tag)
-    json.frameworks.push({
-      name: framework.name,
-      requests: item.requests,
-      test: framework.test,
-      repository: framework.repository,
-    })
+    reference: maxSpeed,
+    frameworks: arrayDefaultFrameworks.map((framework) => {
+      const item = data.find(({ name }) => name == framework.tag)
+      return {
+        ...framework,
+        requests: item.requests,
+      }
+    }),
   }
 
   return json
 }
 
-const downloadData = async () => {
-  const data = await getDataAsJSON(URL_BENCHMARK)
-  const isDataOk = await checkData(data)
-  if (isDataOk) {
-    return buildJSON(data)
-  }
-  console.log('Fetched file contains N/As. Searching for previous revision')
-  const commits = await getCommits()
-
-  for (let commit in commits) {
-    const commit_sha = commits[commit]
-    console.log(`Checking commit ${commit_sha}`)
-
-    const tree_url = await getTree(commit_sha)
-    const benchmarl_url = await getUrlFromTree(tree_url)
-
-    const pdata = await getBlob(benchmarl_url)
-    const isPDataOk = await checkData(pdata)
-    if (isPDataOk) {
-      return buildJSON(pdata)
-    }
-  }
-
-  throw new Error('Unable to find a valid benchmark result')
+function isValidBenchmark(data) {
+  return data
+    .filter((item) => frameworkTags.includes(item.name)) //
+    .every((item) => !isNaN(item.requests))
 }
 
-const execute = async () => {
-  bearerToken = process.argv[2]
-  const reference = parseInt(process.argv[3])
-
-  const data = await downloadData()
-  if (data) {
-    console.log('File is ok, saving to filesystem')
-
-    data.reference = reference
-    await writeFile(path.join(__dirname, '../src/pages/benchmarks.json'), JSON.stringify(data))
-  } else {
-    console.log('Cannot find suitable data')
-    process.exit(1)
-  }
+async function getDataAsJSON(url) {
+  const { body } = await request(url, {
+    headers: {
+      'User-Agent': 'fastify-docusaurus-script',
+      Accept: 'application/vnd.github+json',
+    },
+  })
+  return body.json()
 }
-
-/**
- * Run as follows (from scripts forlder)
- * node download-benchmarks.js <BEARER_TOKEN> <REFRENCE_VALUE>
- * where <BEARER_TOKEN> is a valid Git API Key and <REFRENCE_VALUE> is the reference for the bar visualization
- */
-execute()

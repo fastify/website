@@ -75,7 +75,7 @@ function extractPlugins(pluginContent) {
     return {
       name,
       url,
-      description: description.charAt(0).toUpperCase() + description.slice(1)
+      description: description.charAt(0).toUpperCase() + description.slice(1),
     }
   })
   return plugins
