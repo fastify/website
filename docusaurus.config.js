@@ -1,12 +1,17 @@
 // @ts-check
-// Note: type annotations allow type checking and IDEs autocompletion
 
 const lightCodeTheme = require('prism-react-renderer/themes/github')
 const darkCodeTheme = require('prism-react-renderer/themes/dracula')
 
+const u = require('./docusaurus.config.utils')
+
 const versions = require('./versions.json')
 
-const BASE_URL = process.env.BASE_URL || '/'
+const BASE_URL = process.env.BASE_URL ?? '/'
+
+const isDev = process.env.NODE_ENV === 'development'
+
+u.checkGeneratedData()
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -19,8 +24,8 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // GitHub pages deployment config.
-  organizationName: 'fastify', // Usually your GitHub org/user name.
-  projectName: 'website-next', // Usually your repo name.
+  organizationName: 'fastify',
+  projectName: 'website-next',
 
   i18n: {
     defaultLocale: 'en',
@@ -33,6 +38,8 @@ const config = {
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
+        debug: true, // force debug plugin usage
+
         // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs#configuration
         docs: {
           editUrl: (editPage) => {
@@ -43,16 +50,9 @@ const config = {
           sidebarPath: 'sidebar.js',
           showLastUpdateTime: true,
           breadcrumbs: true,
-          includeCurrentVersion: false,
-          versions: {
-            [versions[0]]: {
-              path: 'latest',
-              label: `latest (${versions[1]})`,
-            },
-            [versions[1]]: {
-              banner: 'none',
-            },
-          },
+          includeCurrentVersion: isDev,
+          versions: u.getVersionLabels(versions),
+          onlyIncludeVersions: u.getVersionsIncluded({ versions, fastBuild: isDev }),
           sidebarItemsGenerator: require('./sidebar.js'),
         },
 
