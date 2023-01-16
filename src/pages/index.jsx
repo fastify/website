@@ -220,7 +220,7 @@ export default function Home() {
                   <a href="/benchmarks">&nbsp;benchmarks section</a> to compare fastify performance to other common web
                   frameworks.
                 </p>
-                <a href="/benchmarks" class="button button--lg button--primary">
+                <a href="/benchmarks" className="button button--lg button--primary">
                   Check out our benchmarks
                 </a>
               </div>
