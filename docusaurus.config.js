@@ -1,12 +1,17 @@
 // @ts-check
-// Note: type annotations allow type checking and IDEs autocompletion
 
 const lightCodeTheme = require('prism-react-renderer/themes/github')
 const darkCodeTheme = require('prism-react-renderer/themes/dracula')
 
+const u = require('./docusaurus.config.utils')
+
 const versions = require('./versions.json')
 
-const BASE_URL = process.env.BASE_URL || '/'
+const BASE_URL = process.env.BASE_URL ?? '/'
+
+const isDev = process.env.NODE_ENV === 'development'
+
+u.checkGeneratedData()
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -19,8 +24,8 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // GitHub pages deployment config.
-  organizationName: 'fastify', // Usually your GitHub org/user name.
-  projectName: 'website-next', // Usually your repo name.
+  organizationName: 'fastify',
+  projectName: 'website-next',
 
   i18n: {
     defaultLocale: 'en',
@@ -33,6 +38,8 @@ const config = {
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
+        debug: true, // force debug plugin usage
+
         // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs#configuration
         docs: {
           editUrl: (editPage) => {
@@ -43,16 +50,9 @@ const config = {
           sidebarPath: 'sidebar.js',
           showLastUpdateTime: true,
           breadcrumbs: true,
-          includeCurrentVersion: false,
-          versions: {
-            [versions[0]]: {
-              path: 'latest',
-              label: `latest (${versions[1]})`,
-            },
-            [versions[1]]: {
-              banner: 'none',
-            },
-          },
+          includeCurrentVersion: isDev,
+          versions: u.getVersionLabels(versions),
+          onlyIncludeVersions: u.getVersionsIncluded({ versions, fastBuild: isDev }),
           sidebarItemsGenerator: require('./sidebar.js'),
         },
 
@@ -61,7 +61,10 @@ const config = {
 
         // https://docusaurus.io/docs/api/themes/@docusaurus/theme-classic
         theme: {
-          customCss: [require.resolve('./src/css/custom.css'), require.resolve('./src/css/ecosystem.css')],
+          customCss: [
+            require.resolve('./src/css/custom.css'), //
+            require.resolve('./src/css/ecosystem.css'), //
+          ],
         },
 
         // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-pages#configuration
@@ -106,6 +109,7 @@ const config = {
             label: 'Docs',
           },
           { to: '/ecosystem', label: 'Ecosystem', position: 'left' },
+          { to: '/benchmarks', label: 'Benchmarks', position: 'left' },
           {
             type: 'docsVersionDropdown',
             position: 'right',
@@ -191,14 +195,27 @@ const config = {
 
   plugins: [
     [
+      // This plugin does not work in dev mode
       '@docusaurus/plugin-client-redirects',
       {
         createRedirects(existingPath) {
+          // Legacy/Retro compatibility:
+
+          // Redirect for old /docs/master/ URLs
           if (existingPath.startsWith('/docs/latest')) {
-            // Legacy/Retro compatibility:
-            // to keep old links working, we need to apply redirects
             return existingPath.replace('/docs/latest', '/docs/master')
           }
+
+          // Redirect for old /docs/v3.<x>.<y>/ URLs to the latest v3 version
+          if (existingPath.startsWith('/docs/v3')) {
+            return u.manageRedirects({
+              existingPath,
+              major: '3',
+              versions,
+              versionsShipped: require('./versions-shipped.json'),
+            })
+          }
+
           return undefined
         },
       },

@@ -62,7 +62,7 @@ async function processReleases(opts) {
     // ### Customization
     await addMetadataToFile(join(docDestination, 'index.md'), {
       title: 'Introduction',
-      displayed_sidebar: 'docsSidebar',
+      [`displayed_sidebar`]: 'docsSidebar',
     })
 
     // todo convert links to relative
@@ -96,7 +96,11 @@ async function processReleases(opts) {
   await writeJsonFile(join(webSiteRoot, 'versions.json'), [latestVersionName, ...orderedVersions])
   log.info(`Wrote %d versions to versions.json`, orderedVersions.length)
 
-  // ### Finalization
+  // The releases.tag file is generated during the release download process
+  const versionsShipped = (await fs.readFile(join(__dirname, `releases.tag`), 'utf8')).split('\n')
+  await writeJsonFile(join(webSiteRoot, 'versions-shipped.json'), versionsShipped)
+  log.info(`Wrote %d versions to versions-shipped.json`, versionsShipped.length)
+
   await fixHtmlTags(versionedFolder)
   await fixBrokenLinks(versionedFolder)
 

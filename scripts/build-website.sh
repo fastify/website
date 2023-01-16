@@ -12,7 +12,7 @@ npm --prefix ./scripts install
 
 # TODO download v1
 # TODO download v2
-# TODO download v3
+sh ./scripts/download-releases.sh --major 3
 sh ./scripts/download-releases.sh --minor 4
 
 ####### Process Markdown Phase
@@ -21,7 +21,9 @@ node ./scripts/process-releases.js
 
 ####### Data Generation Phase
 
-# TODO node build-plugin-list.js
+node ./scripts/build-plugin-list.js
+node ./scripts/download-benchmarks.js
+node ./scripts/build-static-data.js
 
 ####### Build Phase
 

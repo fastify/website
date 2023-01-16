@@ -23,9 +23,12 @@ scripts/downloads/*
 scripts/releases/*
 
 .eslintcache
+.yarn
 
 versioned_docs/*
 !versioned_docs/.keep
 
 versioned_sidebars/*
 !versioned_sidebars/.keep
+
+static/generated/*.json
