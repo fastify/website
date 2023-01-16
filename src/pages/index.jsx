@@ -233,7 +233,7 @@ export default function Home() {
                   navigate through the currently available plugins. Can&#39;t you find the plugin you are looking for?
                   No problem, <a href="/docs/master/Plugins">it&#39;s very easy to write one</a>!
                 </p>
-                <a href="/ecosystem" class="button button--lg button--primary">
+                <a href="/ecosystem" className="button button--lg button--primary">
                   Explore {plugins.corePlugins.length + plugins.communityPlugins.length} plugins
                 </a>
               </div>
