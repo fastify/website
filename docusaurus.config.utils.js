@@ -7,6 +7,7 @@ module.exports = {
   checkGeneratedData,
   getVersionLabels,
   getVersionsIncluded,
+  manageRedirects,
 }
 
 /**
@@ -69,4 +70,24 @@ function getVersionLabels(versionsJson) {
       banner: 'none',
     },
   }
+}
+
+function manageRedirects({ existingPath, major, versions, versionsShipped }) {
+  const versionName = versions.find((v) => v.startsWith(`v${major}`))
+  const minorName = versionName.split('.').splice(0, 2).join('.').replace('v', '')
+
+  const oldLinks = versionsShipped
+    .filter((v) => v.startsWith(major) && !v.startsWith(minorName))
+    .map((v) => `v${v.replace(/\.\d$/, '.x')}`)
+
+  const redirects = oldLinks.map((redirect) => {
+    const oldPath = `/docs/${redirect}`
+    return existingPath
+      .replace(`/docs/${versionName}`, oldPath) // Replace the version with the old path
+      .replace(/Guides\/(?!Contributing)/g, '') // Remove Guides/ from the path (it has been added in v4)
+      .replace(/Reference\//g, '') // Remove Refecerence/ from the path (it has been added in v4)
+  })
+
+  // Remove duplicates
+  return Array.from(new Set(redirects))
 }

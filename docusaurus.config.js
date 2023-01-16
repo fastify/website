@@ -195,14 +195,27 @@ const config = {
 
   plugins: [
     [
+      // This plugin does not work in dev mode
       '@docusaurus/plugin-client-redirects',
       {
         createRedirects(existingPath) {
+          // Legacy/Retro compatibility:
+
+          // Redirect for old /docs/master/ URLs
           if (existingPath.startsWith('/docs/latest')) {
-            // Legacy/Retro compatibility:
-            // to keep old links working, we need to apply redirects
             return existingPath.replace('/docs/latest', '/docs/master')
           }
+
+          // Redirect for old /docs/v3.<x>.<y>/ URLs to the latest v3 version
+          if (existingPath.startsWith('/docs/v3')) {
+            return u.manageRedirects({
+              existingPath,
+              major: '3',
+              versions,
+              versionsShipped: require('./versions-shipped.json'),
+            })
+          }
+
           return undefined
         },
       },

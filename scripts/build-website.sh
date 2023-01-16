@@ -12,7 +12,7 @@ npm --prefix ./scripts install
 
 # TODO download v1
 # TODO download v2
-# TODO download v3
+sh ./scripts/download-releases.sh --major 3
 sh ./scripts/download-releases.sh --minor 4
 
 ####### Process Markdown Phase
