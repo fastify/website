@@ -7,7 +7,7 @@ module.exports = {
     es6: true,
   },
   parserOptions: {
-    ecmaVersion: 8,
+    ecmaVersion: 2020,
     sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
@@ -32,6 +32,7 @@ module.exports = {
     'prettier',
   ],
   rules: {
+    camelcase: 'error',
     'react/prop-types': 'off',
     '@docusaurus/string-literal-i18n-messages': 'error',
     '@docusaurus/no-untranslated-text': 'warn',

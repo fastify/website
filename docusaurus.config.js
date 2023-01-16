@@ -1,10 +1,17 @@
 // @ts-check
-// Note: type annotations allow type checking and IDEs autocompletion
 
 const lightCodeTheme = require('prism-react-renderer/themes/github')
 const darkCodeTheme = require('prism-react-renderer/themes/dracula')
 
-const BASE_URL = process.env.BASE_URL || '/'
+const u = require('./docusaurus.config.utils')
+
+const versions = require('./versions.json')
+
+const BASE_URL = process.env.BASE_URL ?? '/'
+
+const isDev = process.env.NODE_ENV === 'development'
+
+u.checkGeneratedData()
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -12,37 +19,58 @@ const config = {
   tagline: 'Fast and low overhead web framework, for Node.js',
   url: 'https://fastify.io',
   baseUrl: BASE_URL,
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
 
   // GitHub pages deployment config.
-  organizationName: 'fastify', // Usually your GitHub org/user name.
-  projectName: 'website-next', // Usually your repo name.
+  organizationName: 'fastify',
+  projectName: 'website-next',
 
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
   },
 
+  // https://docusaurus.io/docs/using-plugins#using-presets
   presets: [
     [
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
+        debug: true, // force debug plugin usage
+
+        // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs#configuration
         docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
+          editUrl: (editPage) => {
+            // We want users to submit doc updates to the upstream/next version!
+            return `https://github.com/fastify/fastify/edit/main/docs/${editPage.docPath}`
+          },
+          editCurrentVersion: false,
+          sidebarPath: 'sidebar.js',
           showLastUpdateTime: true,
-          includeCurrentVersion: true,
-          editUrl: 'https://github.com/fastify/website-next/edit/main/docs/',
+          breadcrumbs: true,
+          includeCurrentVersion: isDev,
+          versions: u.getVersionLabels(versions),
+          onlyIncludeVersions: u.getVersionsIncluded({ versions, fastBuild: isDev }),
+          sidebarItemsGenerator: require('./sidebar.js'),
         },
-        blog: {
-          showReadingTime: true,
-          editUrl: 'https://github.com/fastify/website-next/edit/main/docs/',
-        },
+
+        // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog#configuration
+        blog: false,
+
+        // https://docusaurus.io/docs/api/themes/@docusaurus/theme-classic
         theme: {
-          customCss: [require.resolve('./src/css/custom.css'), require.resolve('./src/css/ecosystem.css')],
+          customCss: [
+            require.resolve('./src/css/custom.css'), //
+            require.resolve('./src/css/ecosystem.css'), //
+          ],
         },
+
+        // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-pages#configuration
+        pages: {},
+
+        // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-sitemap#configuration
         sitemap: {
           ignorePatterns: ['/scripts/**'],
         },
@@ -53,8 +81,15 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      // https://docusaurus.io/docs/api/themes/configuration
+      image: 'img/logos/fastify-black.png',
+      docs: {
+        sidebar: {
+          autoCollapseCategories: true,
+        },
+      },
       navbar: {
-        title: 'Fastify',
+        title: 'Home',
         logo: {
           alt: 'Fastify Cheetah Logo',
           src: 'img/logos/fastify-black.png',
@@ -62,13 +97,19 @@ const config = {
         },
         items: [
           // {
-          //   type: 'doc',
-          //   docId: 'index',
+          //   type: 'docSidebar',
+          //   sidebarId: 'docsSidebar',
           //   position: 'left',
-          //   label: 'Tutorial',
+          //   label: 'Docs',
           // },
+          {
+            type: 'doc',
+            docId: 'index',
+            position: 'left',
+            label: 'Docs',
+          },
           { to: '/ecosystem', label: 'Ecosystem', position: 'left' },
-          // { to: '/blog', label: 'Blog', position: 'left' },
+          { to: '/benchmarks', label: 'Benchmarks', position: 'left' },
           {
             type: 'docsVersionDropdown',
             position: 'right',
@@ -92,8 +133,8 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
-                to: '/docs/intro',
+                label: 'Getting Started',
+                to: '/docs/latest/Guides/Getting-Started',
               },
             ],
           },
@@ -151,6 +192,35 @@ const config = {
         indexName: 'fastify',
       },
     }),
+
+  plugins: [
+    [
+      // This plugin does not work in dev mode
+      '@docusaurus/plugin-client-redirects',
+      {
+        createRedirects(existingPath) {
+          // Legacy/Retro compatibility:
+
+          // Redirect for old /docs/master/ URLs
+          if (existingPath.startsWith('/docs/latest')) {
+            return existingPath.replace('/docs/latest', '/docs/master')
+          }
+
+          // Redirect for old /docs/v3.<x>.<y>/ URLs to the latest v3 version
+          if (existingPath.startsWith('/docs/v3')) {
+            return u.manageRedirects({
+              existingPath,
+              major: '3',
+              versions,
+              versionsShipped: require('./versions-shipped.json'),
+            })
+          }
+
+          return undefined
+        },
+      },
+    ],
+  ],
 }
 
 module.exports = config

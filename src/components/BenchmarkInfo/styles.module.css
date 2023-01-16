@@ -1,0 +1,41 @@
+.box {
+  background-color: var(--ifm-card-background-color);
+  border-radius: 6px;
+  color: #4a4a4a;
+  display: block;
+  padding: 1.25rem;
+  margin: 1.25rem;
+}
+
+[data-theme='dark'] .box {
+  background-color: var(--ifm-card-background-color);
+  border-radius: 6px;
+  color: #f9f6f6;
+  display: block;
+  padding: 1.25rem;
+  margin: 1.25rem;
+}
+
+.level {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.progress {
+  border: none;
+  border-radius: 9999px;
+  display: block;
+  height: 1rem;
+  overflow: hidden;
+  padding: 0;
+  width: 100%;
+}
+
+.progressFastify::-webkit-progress-value {
+  background: var(--ifm-color-success);
+}
+
+.progressOthers::-webkit-progress-value {
+  background: var(--ifm-color-info-darker);
+}

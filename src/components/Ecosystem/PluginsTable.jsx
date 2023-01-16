@@ -3,12 +3,12 @@ import ReactMarkdown from 'react-markdown'
 import Link from '@docusaurus/Link'
 
 const PluginsTable = (props) => {
-  const [name_filter, setNameFilter] = useState()
-  const [description_filter, setDescriptionFilter] = useState()
+  const [nameFilter, setNameFilter] = useState()
+  const [descriptionFilter, setDescriptionFilter] = useState()
 
   const filtered = props.plugins.filter((plugin) => {
-    const nameCondition = name_filter == undefined || plugin.name.includes(name_filter)
-    const descriptionCondition = description_filter == undefined || plugin.description.includes(description_filter)
+    const nameCondition = nameFilter == undefined || plugin.name.includes(nameFilter)
+    const descriptionCondition = descriptionFilter == undefined || plugin.description.includes(descriptionFilter)
 
     return nameCondition && descriptionCondition
   })
