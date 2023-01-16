@@ -1,6 +1,10 @@
-const Shuffle = (data) => {
+function Shuffle(data, { maxItems }) {
   const shuffled = data.sort(() => 0.5 - Math.random())
-  let shuffledData = shuffled.slice(0, 12)
-  return shuffledData
+  if (maxItems) {
+    return shuffled.slice(0, maxItems)
+  }
+
+  return shuffled
 }
+
 export default Shuffle

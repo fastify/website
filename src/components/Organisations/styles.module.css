@@ -1,3 +1,11 @@
+:root {
+  --organisation-logo-color: 0;
+}
+
+[data-theme='dark'] {
+  --organisation-logo-color: 1;
+}
+
 .organisationsList {
   margin: 0 !important;
   display: flex;
@@ -6,6 +14,11 @@
   list-style: none;
   align-items: center;
   justify-items: center;
+}
+
+[data-theme='dark'] .organisationsList {
+  background-color: var(--ifm-color-secondary-dark);
+  border-radius: var(--ifm-code-border-radius);
 }
 
 .organisationsList.align-start {
@@ -34,16 +47,4 @@
 
 .organisationsList li a:hover img {
   filter: none;
-}
-
-:root {
-  --organisation-logo-color: 0;
-}
-
-[data-theme='dark'] {
-  --organisation-logo-color: 1;
-}
-
-.organisationsLogo {
-  filter: invert(var(--organisation-logo-color));
 }

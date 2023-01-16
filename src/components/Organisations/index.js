@@ -1,12 +1,14 @@
 import React from 'react'
-import organizations from '../../utils/data/organisations.json'
-import Shuffle from '../Shuffle'
-import styles from './index.module.css'
+
+import shuffle from '../Shuffle'
+
+import organizationsData from '@site/static/generated/organisations.json'
+import styles from './styles.module.css'
 
 const Organisations = () => {
   return (
     <ul className={styles.organisationsList}>
-      {Shuffle(organizations).map((organization, index) => (
+      {shuffle(organizationsData, { maxItems: 12 }).map((organization, index) => (
         <li key={index}>
           <a href={organization.link} target="_blank" rel="noreferrer">
             <img
