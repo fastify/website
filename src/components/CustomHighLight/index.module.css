@@ -1,16 +1,16 @@
 :root {
-  --textHighlight-bg-color: #f3f3f3;
-  --textHighlight-color: #ff6347;
+  --text-highlight-bg-color: #f3f3f3;
+  --text-highlight-color: #ff6347;
 }
 
 [data-theme='dark'] {
-  --textHighlight-bg-color: #24303d;
-  --textHighlight-color: #47ff66;
+  --text-highlight-bg-color: #24303d;
+  --text-highlight-color: #47ff66;
 }
 
 .textHighlight {
-  color: var(--textHighlight-color);
-  background-color: var(--textHighlight-bg-color);
+  color: var(--text-highlight-color);
+  background-color: var(--text-highlight-bg-color);
   padding: 1px 8px;
   border-radius: 4px;
 }
