@@ -15,7 +15,7 @@ import TypeScriptSupport from '@site/src/components/MDXComponents/TypeScriptSupp
 import TypeScriptSupportWithAsyncAwait from '@site/src/components/MDXComponents/TypeScriptSupport/TypeScriptSupportWithAsyncAwait.mdx'
 import Team from '../components/Team'
 import Organisations from '../components/Organisations'
-import plugins from './plugins.json'
+import plugins from '@site/static/generated/plugins.json'
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext()
@@ -33,6 +33,7 @@ export default function Home() {
 
   return (
     <Layout title={`Hello from ${siteConfig.title}`} description="Description will go into a meta tag in <head />">
+      <HomepageHeader />
       <main>
         <section className="section">
           <div className="container content">
@@ -66,7 +67,7 @@ export default function Home() {
             <Organisations />
           </div>
         </section>
-        <section className="section alternate">
+        <section className="section">
           <div className="container content">
             <div className="columns is-centered">
               <div className="column is-12">
@@ -114,7 +115,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="section alternate">
+        <section className="section">
           <div className="container content">
             <div className="columns is-centered">
               <div className="column is-12">
@@ -136,7 +137,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="section alternate">
+        <section className="section">
           <div className="container content">
             <div className="columns is-centered">
               <div className="column is-12">
@@ -150,7 +151,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="section alternate">
+        <section className="section">
           <div className="container content">
             <div className="columns is-centered">
               <div className="column is-12">
@@ -168,7 +169,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="section alternate">
+        <section className="section">
           <div className="container content">
             <div className="columns is-centered">
               <div className="column is-12">
@@ -208,7 +209,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="section alternate">
+        <section className="section">
           <div className="container content">
             <div className={styles.responsiveContainer}>
               <div>
@@ -250,7 +251,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="section alternate">
+        <section className="section">
           <div className="container content">
             <div className={styles.responsiveContainer}>
               <div>

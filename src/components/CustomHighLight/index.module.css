@@ -1,6 +1,16 @@
+:root {
+  --textHighlight-bg-color: #f3f3f3;
+  --textHighlight-color: #ff6347;
+}
+
+[data-theme='dark'] {
+  --textHighlight-bg-color: #24303d;
+  --textHighlight-color: #47ff66;
+}
+
 .textHighlight {
-  color: #ff6347;
-  background-color: #f3f3f3;
+  color: var(--textHighlight-color);
+  background-color: var(--textHighlight-bg-color);
   padding: 1px 8px;
   border-radius: 4px;
 }

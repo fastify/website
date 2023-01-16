@@ -35,3 +35,15 @@
 .organisationsList li a:hover img {
   filter: none;
 }
+
+:root {
+  --organisation-logo-color: 0;
+}
+
+[data-theme='dark'] {
+  --organisation-logo-color: 1;
+}
+
+.organisationsLogo {
+  filter: invert(var(--organisation-logo-color));
+}

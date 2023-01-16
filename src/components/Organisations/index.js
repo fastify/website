@@ -9,7 +9,11 @@ const Organisations = () => {
       {Shuffle(organizations).map((organization, index) => (
         <li key={index}>
           <a href={organization.link} target="_blank" rel="noreferrer">
-            <img src={`/img/organisations/${organization.image}`} alt={`${organization.name} is using Fastify`} />
+            <img
+              className={styles.organisationsLogo}
+              src={`/img/organisations/${organization.image}`}
+              alt={`${organization.name} is using Fastify`}
+            />
           </a>
         </li>
       ))}

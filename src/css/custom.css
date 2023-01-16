@@ -89,12 +89,6 @@
   margin: 0;
 }
 
-.section.alternate {
-  background: #fdfdfd;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
-}
-
 #openjs-logo {
   padding: 2em 0 1em;
   width: 60%;
