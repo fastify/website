@@ -24,6 +24,9 @@
     "lint:style": "stylelint \"**/*.css\"",
     "lint:style:fix": "npm run lint:style -- --fix"
   },
+  "overrides": {
+    "@lyrasearch/plugin-match-highlight": "0.0.4"
+  },
   "dependencies": {
     "@docusaurus/core": "2.2.0",
     "@docusaurus/plugin-client-redirects": "^2.2.0",
