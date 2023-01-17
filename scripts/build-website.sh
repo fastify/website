@@ -10,7 +10,7 @@ npm --prefix ./scripts install
 
 ####### Download Phase
 
-# TODO download v1
+sh ./scripts/download-releases.sh --major 1
 # TODO download v2
 sh ./scripts/download-releases.sh --major 3
 sh ./scripts/download-releases.sh --minor 4

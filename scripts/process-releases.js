@@ -103,6 +103,7 @@ async function processReleases(opts) {
 
   await fixHtmlTags(versionedFolder)
   await fixBrokenLinks(versionedFolder)
+  await fixCodeBlocks(versionedFolder)
 
   log.info('Done')
 }
@@ -167,6 +168,19 @@ ${Object.entries(metadataJson)
 ---
 `,
   )
+}
+
+async function fixCodeBlocks(dir) {
+  const silent = false
+
+  // Fixes (Expected corresponding JSX closing tag for <br>) <br> --to--> <br />
+  replace({
+    regex: /(?<!^\W)(```js)/gm,
+    replacement: `\n$1`,
+    paths: [dir],
+    recursive: true,
+    silent,
+  })
 }
 
 async function fixHtmlTags(dir) {
