@@ -9,7 +9,7 @@ function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext()
 
   return (
-    <header className={css.hero}>
+    <header className={clsx('hero hero--primary', css.hero)}>
       <img alt={siteConfig.title} src={`img/logos/fastify-white.png`} />
 
       <h2>{siteConfig.tagline}</h2>
