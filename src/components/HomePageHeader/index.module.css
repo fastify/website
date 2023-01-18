@@ -1,0 +1,25 @@
+:root {
+    --fty-hero-text: #ededed;
+    --fty-hero-color-filter: 0;
+  }
+  
+  [data-theme='dark'] {
+    --fty-hero-text: #ededed;
+    --fty-hero-color-filter: 1;
+  }
+  
+  .hero {
+    background: url('https://www.fastify.io/images/bg-pattern-dark.3f8cda863b3bbf52.png');
+    filter: invert(var(--fty-hero-color-filter));
+    padding: 3rem 2rem;
+  }
+  
+  .hero img {
+    max-width: 320px;
+  }
+  
+  .hero h2 {
+    color: var(--fty-hero-text);
+    font-weight: bold;
+  }
+  

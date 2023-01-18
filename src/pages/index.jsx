@@ -1,7 +1,7 @@
 import React from 'react'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Layout from '@theme/Layout'
-import HomepageHeader from '@site/src/components/HomePageHeader/index'
+import HomepageHeader from '@site/src/components/HomePageHeader/index.jsx'
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext()
