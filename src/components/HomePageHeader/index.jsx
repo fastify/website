@@ -4,6 +4,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import GitHubButton from 'react-github-btn'
 
 import css from './index.module.css'
+import clsx from 'clsx'
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext()
