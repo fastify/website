@@ -9,7 +9,7 @@
 }
 
 .hero {
-  background: url('https://www.fastify.io/images/bg-pattern-dark.3f8cda863b3bbf52.png');
+  background: url('/static/img/bg-pattern-dark.png');
   filter: invert(var(--fty-hero-color-filter));
   padding: 3rem 2rem;
 }

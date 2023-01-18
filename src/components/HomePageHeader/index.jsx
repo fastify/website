@@ -3,14 +3,13 @@ import React from 'react'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import GitHubButton from 'react-github-btn'
 
-import css from './index.module.css'
-import clsx from 'clsx'
+import css from './styles.module.css'
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext()
 
   return (
-    <header className={clsx('hero hero--primary', css.hero)}>
+    <header className={css.hero}>
       <img alt={siteConfig.title} src={`img/logos/fastify-white.png`} />
 
       <h2>{siteConfig.tagline}</h2>
