@@ -33,7 +33,7 @@ export default function Home() {
             <p>Fastify is proudly powering a large ecosystem of organisations and products out there.</p>
             <p>
               Discover <a href="/organisations">more organisations using Fastify</a>. Do you want your organisation to{' '}
-              <a href="/organisations#how-to-be-featured">be featured here</a>?
+              <a href="/organisations#how-to-be-featured-here">be featured here</a>?
             </p>
             <Organisations />
           </div>
