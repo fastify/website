@@ -54,3 +54,7 @@
   padding: 0 var(--ifm-pre-padding);
   border-left: 3px solid #ff000080;
 }
+
+.section {
+  margin-top: 3rem;
+}
