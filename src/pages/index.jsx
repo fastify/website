@@ -11,6 +11,7 @@ export default function Home() {
   return (
     <Layout title={siteConfig.tagline} description={siteConfig.tagline}>
       <HomepageHeader />
+
       <main>
         <section className="section">
           <div className="container">
