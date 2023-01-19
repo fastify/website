@@ -35,7 +35,7 @@ export default function Home() {
               Discover <a href="/organisations">more organisations using Fastify</a>. Do you want your organisation to{' '}
               <a href="/organisations#how-to-be-featured-here">be featured here</a>?
             </p>
-            <Organisations />
+            <Organisations maxItems={12} />
           </div>
         </section>
       </main>
