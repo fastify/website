@@ -3,6 +3,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Layout from '@theme/Layout'
 
 import HomepageHeader from '@site/src/components/HomePageHeader/index.jsx'
+import Organisations from '../components/Organisations'
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext()
@@ -24,6 +25,17 @@ export default function Home() {
               the least overhead and a powerful plugin architecture. It is inspired by Hapi and Express and as far as we
               know, it is one of the fastest web frameworks in town.
             </p>
+          </div>
+        </section>
+        <section>
+          <div className="container">
+            <h1>Who is using Fastify?</h1>
+            <p>Fastify is proudly powering a large ecosystem of organisations and products out there.</p>
+            <p>
+              Discover <a href="/organisations">more organisations using Fastify</a>. Do you want your organisation to{' '}
+              <a href="/organisations#how-to-be-featured">be featured here</a>?
+            </p>
+            <Organisations />
           </div>
         </section>
       </main>
