@@ -10,6 +10,7 @@ const versions = require('./versions.json')
 const BASE_URL = process.env.BASE_URL ?? '/'
 
 const isDev = process.env.NODE_ENV === 'development'
+const latestMajorVersion = versions.find((v) => v.startsWith('v'))?.split('.')[0] || 'v4'
 
 u.checkGeneratedData()
 
@@ -43,6 +44,11 @@ const config = {
         // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs#configuration
         docs: {
           editUrl: (editPage) => {
+            // Users can not submit doc updates to the legacy versions!
+            if (editPage.version !== 'latest' && !editPage.version.startsWith(latestMajorVersion)) {
+              return undefined
+            }
+
             // We want users to submit doc updates to the upstream/next version!
             return `https://github.com/fastify/fastify/edit/main/docs/${editPage.docPath}`
           },
