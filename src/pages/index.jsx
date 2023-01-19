@@ -13,7 +13,7 @@ export default function Home() {
       <HomepageHeader />
       <main>
         <section className="section">
-          <div className="container content">
+          <div className="container">
             <h1>Why</h1>
             <p>
               An efficient server implies a lower cost of the infrastructure, a better responsiveness under load and
@@ -27,7 +27,7 @@ export default function Home() {
             </p>
           </div>
         </section>
-        <section>
+        <section className="section">
           <div className="container">
             <h1>Who is using Fastify?</h1>
             <p>Fastify is proudly powering a large ecosystem of organisations and products out there.</p>
