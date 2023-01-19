@@ -3,6 +3,7 @@
 const assert = require('assert')
 const path = require('path')
 const { join } = path
+const fsOld = require('fs')
 const fs = require('fs').promises
 
 const glob = require('glob')
@@ -41,9 +42,11 @@ async function processReleases(opts) {
   for (const docTree of getDocFolders(releasesFolder)) {
     log.info(`Processing ${docTree.releseTag}`)
 
+    const isVersion1 = docTree.semver.major === 1
+
     const versionName = `v${docTree.semver.major}.${docTree.semver.minor}.x`
     const docSource = join(docTree.path, '/')
-    const docDestination = join(versionedFolder, `version-${versionName}`)
+    const docDestination = join(versionedFolder, `version-${versionName}`, isVersion1 ? 'Documentation' : '')
 
     //
     // ### Preparation
@@ -103,7 +106,9 @@ async function processReleases(opts) {
 
   await fixHtmlTags(versionedFolder)
   await fixBrokenLinks(versionedFolder)
-  await fixCodeBlocks(versionedFolder)
+
+  const v1Docs = orderedVersions.find((v) => v.startsWith('v1.'))
+  await fixCodeBlocks(join(versionedFolder, `version-${v1Docs}`))
 
   log.info('Done')
 }
@@ -159,6 +164,10 @@ async function generateCategoriesFiles(docsDir) {
 }
 
 async function addMetadataToFile(file, metadataJson) {
+  if (!fsOld.existsSync(file)) {
+    return
+  }
+
   await prependFile(
     file,
     `---
@@ -171,11 +180,20 @@ ${Object.entries(metadataJson)
 }
 
 async function fixCodeBlocks(dir) {
-  const silent = false
+  const silent = true
 
-  // Fixes (Expected corresponding JSX closing tag for <br>) <br> --to--> <br />
+  // Add a new line before and after code blocks
   replace({
-    regex: /(?<!^\W)(```js)/gm,
+    regex: /(?<!^\W)(```)/gm,
+    replacement: `\n$1`,
+    paths: [dir],
+    recursive: true,
+    silent,
+  })
+
+  // Add a new line before titles #
+  replace({
+    regex: /(?<=\n)(#+)/g,
     replacement: `\n$1`,
     paths: [dir],
     recursive: true,
