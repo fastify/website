@@ -42,11 +42,11 @@ async function processReleases(opts) {
   for (const docTree of getDocFolders(releasesFolder)) {
     log.info(`Processing ${docTree.releseTag}`)
 
-    const isVersion1 = docTree.semver.major === 1
+    const requiresRootFolder = docTree.semver.major <= 2
 
     const versionName = `v${docTree.semver.major}.${docTree.semver.minor}.x`
     const docSource = join(docTree.path, '/')
-    const docDestination = join(versionedFolder, `version-${versionName}`, isVersion1 ? 'Documentation' : '')
+    const docDestination = join(versionedFolder, `version-${versionName}`, requiresRootFolder ? 'Documentation' : '')
 
     //
     // ### Preparation
@@ -106,9 +106,7 @@ async function processReleases(opts) {
 
   await fixHtmlTags(versionedFolder)
   await fixBrokenLinks(versionedFolder)
-
-  const v1Docs = orderedVersions.find((v) => v.startsWith('v1.'))
-  await fixCodeBlocks(join(versionedFolder, `version-${v1Docs}`))
+  await fixCodeBlocks(versionedFolder)
 
   log.info('Done')
 }
