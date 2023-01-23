@@ -1,4 +1,5 @@
-# .github/workflows/preview.yml
+# action for deploying pull request previews
+
 name: Deploy PR previews
 
 on:
@@ -27,3 +28,6 @@ jobs:
         uses: rossjrw/pr-preview-action@v1
         with:
           source-dir: ./build/ # The folder the action should deploy
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+          action: auto
