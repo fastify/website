@@ -16,13 +16,20 @@ jobs:
   deploy-preview:
     runs-on: macos-latest
     steps:
-      - name: Checkout
+      - name: Git Checkout
         uses: actions/checkout@v3
-
-      - name: Install and Build
-        run: |
-          npm install
-          npm run build
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+      - name: Install Packages
+        run: npm install
+      - name: Build App
+        run: npm run build:website
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Copy Static Files
+        run: cp -r static/ build/website-next/
 
       - name: Deploy preview
         uses: rossjrw/pr-preview-action@v1
