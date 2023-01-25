@@ -141,6 +141,7 @@ const config = {
               {
                 label: 'Getting Started',
                 to: '/docs/latest/Guides/Getting-Started',
+                icon: '/img/icon/learn.svg',
               },
             ],
           },
@@ -150,14 +151,17 @@ const config = {
               {
                 label: 'Stack Overflow',
                 href: 'https://stackoverflow.com/questions/tagged/fastify',
+                icon: '/img/icon/stack-overflow.svg',
               },
               {
                 label: 'Discord',
                 href: 'https://discord.gg/fastify',
+                icon: '/img/icon/discord.svg',
               },
               {
                 label: 'Twitter',
                 href: 'https://twitter.com/fastifyjs',
+                icon: '/img/icon/twitter.svg',
               },
             ],
           },
@@ -171,11 +175,12 @@ const config = {
               {
                 label: 'GitHub',
                 href: 'https://github.com/fastify/website-next',
+                icon: '/img/icon/github.svg',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Fastify, Copyright © 2016-${new Date().getFullYear()} <a href="https://openjsf.org">OpenJS Foundation<a> and The <a href="https://github.com/fastify/fastify#team">Fastify team</a>, Licensed under <a href="https://github.com/fastify/fastify/blob/main/LICENSE">MIT</a>`,
       },
       prism: {
         theme: lightCodeTheme,
