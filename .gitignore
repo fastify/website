@@ -32,3 +32,6 @@ versioned_sidebars/*
 !versioned_sidebars/.keep
 
 static/generated/*.json
+
+# IDE files
+.vscode
