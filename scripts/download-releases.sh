@@ -23,7 +23,10 @@ downloadRelease() {
   echo "Downloaded $repo > $1"
 
   mkdir -p "$baseDir/releases/$1/"
-  tar -xzf $outputFile -C "$baseDir/releases/$1/" --include "*/docs/*" --strip-components=1
+  mkdir -p "$baseDir/downloads/$1/"
+  tar -xzf $outputFile -C "$baseDir/downloads/$1/" --strip-components=1
+  cp -r "$baseDir/downloads/$1/docs" "$baseDir/releases/$1/docs"
+  rm -rf "$baseDir/downloads/$1/"
 }
 
 gh release list --repo $repo --limit 999 --exclude-drafts \
