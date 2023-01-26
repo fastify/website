@@ -22,9 +22,7 @@ Basic rules:
 Supported subsystems:
 > build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test
 
-* Commit messages **must** start with a capital letter
-
-* Commit messages **must not** end with a period `.`
+Try to start the commit message with a capital letter. And try to avoid ending it with a period `.`.
 
 ## 📜 Pull Request Policy
 
