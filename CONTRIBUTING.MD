@@ -40,9 +40,6 @@ Each contribution is accepted only if there is no objection to it by a collabora
 
 In the case that an objection is raised in a pull request by another collaborator, all collaborators involved should try to arrive at a consensus by addressing the concerns through discussion, compromise, or withdrawal of the proposed change(s).
 
-### When merging
-
-* `squash` pull requests made up of multiple commits
 
 ## Vocabulary
 
