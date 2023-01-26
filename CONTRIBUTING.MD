@@ -49,7 +49,7 @@ In the case that an objection is raised in a pull request by another collaborato
 
 ## Becoming a collaborator
 
-<!-- Write some text about this -->
+We follow the [Fastify organization Governance model](https://github.com/fastify/fastify/blob/main/GOVERNANCE.md#collaborator-nominations) so it is necessary to contribute to this repository in order to become a member.
 
 ## 🐛 Debugging failing checks
 
