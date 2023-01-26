@@ -9,7 +9,7 @@
   e.g. Fixes #1234, Addresses #1234, Related to #1234, etc.
 -->
 
-### Check List
+## Check List
 
 <!--
 ATTENTION
