@@ -25,9 +25,9 @@
     "lint:style:fix": "npm run lint:style -- --fix"
   },
   "dependencies": {
-    "@docusaurus/core": "2.2.0",
+    "@docusaurus/core": "^2.3.0",
     "@docusaurus/plugin-client-redirects": "^2.3.0",
-    "@docusaurus/preset-classic": "2.2.0",
+    "@docusaurus/preset-classic": "^2.3.0",
     "@lyrasearch/plugin-docusaurus": "^0.0.2",
     "@mdx-js/react": "^1.6.22",
     "clsx": "^1.2.1",
@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@docusaurus/eslint-plugin": "^2.3.0",
-    "@docusaurus/module-type-aliases": "2.2.0",
+    "@docusaurus/module-type-aliases": "^2.3.0",
     "@fastify/pre-commit": "^2.0.2",
     "babel-eslint": "^10.1.0",
     "eslint": "^8.33.0",
