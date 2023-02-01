@@ -219,6 +219,17 @@ const config = {
               major: '3',
               versions,
               versionsShipped: require('./versions-shipped.json'),
+              ignore: ['/docs/v3.29.x/Reference/', '/docs/v3.29.x/Guides/'],
+            })
+          }
+
+          // Redirect for old /docs/v2.<x>.<y>/ URLs to the latest v2 version
+          if (existingPath.startsWith('/docs/v2')) {
+            return u.manageRedirects({
+              existingPath,
+              major: '2',
+              versions,
+              versionsShipped: require('./versions-shipped.json'),
             })
           }
 
