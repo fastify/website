@@ -191,7 +191,7 @@ const config = {
             line: 'This will error',
           },
         ],
-      }
+      },
     }),
 
   plugins: [
