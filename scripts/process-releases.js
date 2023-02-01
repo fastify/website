@@ -68,8 +68,6 @@ async function processReleases(opts) {
       [`displayed_sidebar`]: 'docsSidebar',
     })
 
-    // todo convert links to relative
-
     docsVersions.push({ tag: docTree.releseTag, versionName })
   }
 
@@ -106,7 +104,13 @@ async function processReleases(opts) {
 
   await fixHtmlTags(versionedFolder)
   await fixBrokenLinks(versionedFolder)
-  await fixCodeBlocks(versionedFolder)
+
+  // We can't run this fix on version >=3 because it would make the code blocks ugly
+  const v1Docs = orderedVersions.find((v) => v.startsWith('v1.'))
+  await fixCodeBlocks(join(versionedFolder, `version-${v1Docs}`))
+
+  const v2Docs = orderedVersions.find((v) => v.startsWith('v2.'))
+  await fixCodeBlocks(join(versionedFolder, `version-${v2Docs}`))
 
   log.info('Done')
 }

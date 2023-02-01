@@ -72,7 +72,12 @@ function getVersionLabels(versionsJson) {
   }
 }
 
-function manageRedirects({ existingPath, major, versions, versionsShipped }) {
+function manageRedirects({ existingPath, major, versions, versionsShipped, ignore = [] }) {
+  if (ignore.includes(existingPath)) {
+    //  Do not create redirects for this path
+    return undefined
+  }
+
   const versionName = versions.find((v) => v.startsWith(`v${major}`))
   const minorName = versionName.split('.').splice(0, 2).join('.').replace('v', '')
 
