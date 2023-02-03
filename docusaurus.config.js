@@ -116,6 +116,7 @@ const config = {
           },
           { to: '/ecosystem', label: 'Ecosystem', position: 'left' },
           { to: '/benchmarks', label: 'Benchmarks', position: 'left' },
+          { to: '/organisations', label: 'Adopters', position: 'left' },
           {
             type: 'docsVersionDropdown',
             position: 'right',
