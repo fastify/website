@@ -7,7 +7,7 @@ on:
       - main
   # pull-request means to deploy preview
   pull_request_target:
-  # workflow means to manuel deploy production
+  # workflow means to manual deploy production
   workflow_dispatch:
   workflow_call:
 
