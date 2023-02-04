@@ -1,6 +1,7 @@
 import React from 'react'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Layout from '@theme/Layout'
+import Link from '@docusaurus/Link'
 
 import HomepageHeader from '@site/src/components/HomePageHeader/index.jsx'
 import Organisations from '../components/Organisations'
@@ -33,8 +34,8 @@ export default function Home() {
             <h1>Who is using Fastify?</h1>
             <p>Fastify is proudly powering a large ecosystem of organisations and products out there.</p>
             <p>
-              Discover <a href="/organisations">more organisations using Fastify</a>. Do you want your organisation to{' '}
-              <a href="/organisations#how-to-be-featured-here">be featured here</a>?
+              Discover <Link to="/organisations">more organisations using Fastify</Link>. Do you want your organisation
+              to <Link to="/organisations#how-to-be-featured-here">be featured here</Link>?
             </p>
             <Organisations maxItems={12} />
           </div>

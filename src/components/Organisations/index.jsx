@@ -1,19 +1,26 @@
 import React from 'react'
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
 import organizationsData from '@site/static/generated/organisations.json'
 import styles from './styles.module.css'
 
-const Organisations = ({ maxItems }) => {
+export default function Organisations({ maxItems }) {
   return (
     <ul className={styles.organisationsList}>
       {shuffle(organizationsData, { maxItems: maxItems }).map((organization, index) => (
         <li key={index}>
-          <a href={organization.link} target="_blank" rel="noreferrer">
-            <img src={`/img/organisations/${organization.image}`} alt={`${organization.name} is using Fastify`} />
-          </a>
+          <OrganizationItem organization={organization} />
         </li>
       ))}
     </ul>
+  )
+}
+
+function OrganizationItem({ organization }) {
+  return (
+    <a href={organization.link} target="_blank" rel="noreferrer">
+      <img src={useBaseUrl(`/img/organisations/${organization.image}`)} alt={`${organization.name} is using Fastify`} />
+    </a>
   )
 }
 
@@ -25,5 +32,3 @@ function shuffle(data, { maxItems }) {
 
   return shuffled
 }
-
-export default Organisations
