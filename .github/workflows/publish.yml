@@ -14,6 +14,10 @@ on:
   # daily schedule
   workflow_call:
 
+# TODO: remove once it's production
+env:
+  BASE_URL: /website-next/
+
 jobs:
   build-and-upload:
     runs-on: ubuntu-latest
