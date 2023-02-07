@@ -4,7 +4,9 @@ import Layout from '@theme/Layout'
 import Link from '@docusaurus/Link'
 
 import HomepageHeader from '@site/src/components/HomePageHeader/index.jsx'
-import Organisations from '../components/Organisations'
+import Organisations from '@site/src/components/Organisations'
+
+import plugins from '@site/static/generated/plugins.json'
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext()
@@ -40,9 +42,9 @@ export default function Home() {
             <Organisations maxItems={12} />
           </div>
         </section>
-        <section className="section">
-          <div className="container content">
-            <h1 className="title">Core features</h1>
+        <section className="section alternate">
+          <div className="container">
+            <h1>Core features</h1>
             <p>These are the main features and principles on which fastify has been built:</p>
             <ul>
               <li>
@@ -71,6 +73,49 @@ export default function Home() {
                 growing TypeScript community.
               </li>
             </ul>
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="container">
+            <h1>Quick start</h1>
+            <p>TODO</p>
+          </div>
+        </section>
+
+        <section className="section alternate">
+          <div className="container">
+            <div className="row">
+              <div className="col col--6">
+                <h1>A fast web framework</h1>
+                <p>
+                  Leveraging our experience with Node.js performance, Fastify has been built from the ground up to be{' '}
+                  <strong>as fast as possible</strong>. Have a look at our{' '}
+                  <Link to="/benchmarks">benchmarks section</Link> to compare fastify performance to other common web
+                  frameworks.
+                </p>
+                <p>
+                  <Link to="/benchmarks" className="button button--lg button--primary">
+                    Check out our benchmarks
+                  </Link>
+                </p>
+              </div>
+              <div className="col col--6">
+                <h1>Ecosystem</h1>
+                <p>
+                  Fastify has an ever-growing ecosystem of plugins. Probably there is already a plugin for your
+                  favourite database or template language. Have a look at the{' '}
+                  <Link to="/ecosystem">Ecosystem page</Link> to navigate through the currently available plugins.
+                  Can&#39;t you find the plugin you are looking for? No problem,{' '}
+                  <Link to="/docs/latest/Reference/Plugins">it&#39;s very easy to write one</Link>!
+                </p>
+                <p>
+                  <Link to="/ecosystem" className="button button--lg button--primary">
+                    Explore {plugins.corePlugins.length + plugins.communityPlugins.length} plugins
+                  </Link>
+                </p>
+              </div>
+            </div>
           </div>
         </section>
       </main>
