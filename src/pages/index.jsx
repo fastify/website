@@ -1,5 +1,6 @@
 import React from 'react'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
+import useBaseUrl from '@docusaurus/useBaseUrl'
 import Layout from '@theme/Layout'
 import Link from '@docusaurus/Link'
 
@@ -7,6 +8,7 @@ import HomepageHeader from '@site/src/components/HomePageHeader/index.jsx'
 import Organisations from '@site/src/components/Organisations'
 
 import plugins from '@site/static/generated/plugins.json'
+import styles from '@site/src/css/index.module.css'
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext()
@@ -118,6 +120,65 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <section className="section">
+          <div className="container">
+            <h1>The Team</h1>
+            <p>TODO</p>
+          </div>
+        </section>
+
+        <section className="section alternate">
+          <div className="container">
+            <div className="row">
+              <div className="col col--6">
+                <h1>Acknowledgments</h1>
+                <p>
+                  This project is kindly <strong>sponsored by</strong>:
+                </p>
+                <ul>
+                  <li>
+                    <Link to="https://nearform.com/">NearForm</Link>
+                  </li>
+                  <li>
+                    <Link to="https://platformatic.dev/">Platformatic</Link>
+                  </li>
+                </ul>
+                <p>Past Sponsors:</p>
+                <ul>
+                  <li>
+                    <Link to="http://www.letzdoitapp.com/">LetzDoIt</Link>
+                  </li>
+                  <li>
+                    <Link to="https://opensource.microsoft.com/">Microsoft</Link>
+                  </li>
+                </ul>
+                <p>Also thanks to:</p>
+                <ul>
+                  <li>
+                    <Link to="https://github.com/fastify/fastify/graphs/contributors">
+                      The <strong>amazing</strong> Fastify community
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+              <div className="col col--6">
+                <h1>Hosted by</h1>
+                <p>
+                  We are an <strong>At Large project</strong> at the{' '}
+                  <Link to="https://openjsf.org/">OpenJS Foundation</Link>
+                </p>
+                <p>
+                  <Link to="https://openjsf.org/">
+                    <img src={useBaseUrl(`/img/logos/openjsf.svg`)} alt="OpenJS Logo" className={styles.openJsLogo} />
+                  </Link>
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <br />
       </main>
     </Layout>
   )
