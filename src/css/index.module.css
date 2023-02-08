@@ -1,0 +1,11 @@
+.openJsLogo {
+  padding: 2em 0 1em;
+  width: 60%;
+  max-width: 380px;
+}
+
+[data-theme='dark'] .openJsLogo {
+  background-color: var(--ifm-color-secondary-dark);
+  border-radius: var(--ifm-code-border-radius);
+  padding: 2em 1em 1em;
+}
