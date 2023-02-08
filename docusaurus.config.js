@@ -175,6 +175,10 @@ const config = {
             ],
           },
         ],
+        logo: {
+          alt: 'Fastify Logo',
+          src: 'img/logos/fastify-white.png',
+        },
         copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
       },
       prism: {
