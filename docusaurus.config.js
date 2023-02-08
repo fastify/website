@@ -179,7 +179,8 @@ const config = {
           alt: 'Fastify Logo',
           src: 'img/logos/fastify-white.png',
         },
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Fastify, Copyright © 2016-2023 OpenJS Foundation and The Fastify team, Licensed under MIT`,
+        
       },
       prism: {
         theme: lightCodeTheme,
