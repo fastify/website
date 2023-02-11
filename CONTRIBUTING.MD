@@ -5,15 +5,14 @@ Thanks for your contribution 🥳 to the Fastily website redesign project!
 [Code of Conduct](https://github.com/fastify/.github/blob/main/CODE_OF_CONDUCT.md)
 
 * [Vocabulary](#vocabulary)
-* [📝 Commit message guidelines](#-commit-message-guidelines)
-* [📜 Pull Request Policy](#-pull-request-policy)
+* [Commit message guidelines](#commit-message-guidelines)
+* [Pull Request Policy](#pull-request-policy)
 * [Before merging](#before-merging)
-* [When merging](#when-merging)
 * [Becoming a collaborator](#becoming-a-collaborator)
-* [🐛 Debugging failing checks](#-debugging-failing-checks)
+* [Debugging failing checks](#debugging-failing-checks)
 * [Developer's Certificate of Origin 1.1](#developers-certificate-of-origin-11)
 
-## 📝 Commit message guidelines
+## Commit message guidelines
 
 This project follows the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification.
 
@@ -24,7 +23,7 @@ Supported subsystems:
 
 Try to start the commit message with a capital letter. And try to avoid ending it with a period `.`.
 
-## 📜 Pull Request Policy
+## Pull Request Policy
 
 ### Before merging
 
@@ -38,7 +37,6 @@ Each contribution is accepted only if there is no objection to it by a collabora
 
 In the case that an objection is raised in a pull request by another collaborator, all collaborators involved should try to arrive at a consensus by addressing the concerns through discussion, compromise, or withdrawal of the proposed change(s).
 
-
 ## Vocabulary
 
 * A **Contributor** is any individual who creates an issue/PR, comments on an issue/PR
@@ -49,7 +47,7 @@ In the case that an objection is raised in a pull request by another collaborato
 
 We follow the [Fastify organization Governance model](https://github.com/fastify/fastify/blob/main/GOVERNANCE.md#collaborator-nominations) so it is necessary to contribute to this repository in order to become a member.
 
-## 🐛 Debugging failing checks
+## Debugging failing checks
 
 * For failing formatting or linting, try running:
 
