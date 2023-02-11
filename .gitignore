@@ -34,4 +34,4 @@ versioned_sidebars/*
 static/generated/*.json
 
 # IDE files
-.vscode
+.vscode/settings.json
