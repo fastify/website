@@ -177,7 +177,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Fastify, Copyright © 2016-${new Date().getFullYear()} <a href="https://openjsf.org">OpenJS Foundation</a> and The Fastify team, Licensed under <a href="https://github.com/fastify/fastify/blob/main/LICENSE">MIT</a>`,
       },
       prism: {
         theme: lightCodeTheme,
