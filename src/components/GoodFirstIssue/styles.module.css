@@ -1,0 +1,24 @@
+:root {
+  --fty-head-bg: #ededed;
+}
+
+[data-theme='dark'] {
+  --fty-head-bg: #646464;
+}
+
+.panelHeading {
+  background-color: var(--fty-head-bg);
+  border-radius: 6px 6px 0 0;
+  font-size: 1.25em;
+  font-weight: 700;
+  line-height: 1.25;
+  padding: 0.75em 1em;
+}
+
+.projectItem {
+  cursor: pointer;
+}
+
+.projectItem:hover {
+  background-color: var(--fty-head-bg);
+}
