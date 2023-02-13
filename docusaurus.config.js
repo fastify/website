@@ -116,6 +116,7 @@ const config = {
           },
           { to: '/ecosystem', label: 'Ecosystem', position: 'left' },
           { to: '/benchmarks', label: 'Benchmarks', position: 'left' },
+          { to: '/organisations', label: 'Adopters', position: 'left' },
           {
             type: 'docsVersionDropdown',
             position: 'right',
@@ -217,6 +218,17 @@ const config = {
             return u.manageRedirects({
               existingPath,
               major: '3',
+              versions,
+              versionsShipped: require('./versions-shipped.json'),
+              ignore: ['/docs/v3.29.x/Reference/', '/docs/v3.29.x/Guides/'],
+            })
+          }
+
+          // Redirect for old /docs/v2.<x>.<y>/ URLs to the latest v2 version
+          if (existingPath.startsWith('/docs/v2')) {
+            return u.manageRedirects({
+              existingPath,
+              major: '2',
               versions,
               versionsShipped: require('./versions-shipped.json'),
             })

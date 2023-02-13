@@ -10,10 +10,10 @@ npm --prefix ./scripts install
 
 ####### Download Phase
 
-sh ./scripts/download-releases.sh --major 1
-# TODO download v2
-sh ./scripts/download-releases.sh --major 3
-sh ./scripts/download-releases.sh --minor 4
+./scripts/download-releases.sh --major 1
+./scripts/download-releases.sh --major 2
+./scripts/download-releases.sh --major 3
+./scripts/download-releases.sh --minor 4
 
 ####### Process Markdown Phase
 

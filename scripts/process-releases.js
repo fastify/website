@@ -42,11 +42,11 @@ async function processReleases(opts) {
   for (const docTree of getDocFolders(releasesFolder)) {
     log.info(`Processing ${docTree.releseTag}`)
 
-    const isVersion1 = docTree.semver.major === 1
+    const requiresRootFolder = docTree.semver.major <= 2
 
     const versionName = `v${docTree.semver.major}.${docTree.semver.minor}.x`
     const docSource = join(docTree.path, '/')
-    const docDestination = join(versionedFolder, `version-${versionName}`, isVersion1 ? 'Documentation' : '')
+    const docDestination = join(versionedFolder, `version-${versionName}`, requiresRootFolder ? 'Documentation' : '')
 
     //
     // ### Preparation
@@ -67,8 +67,6 @@ async function processReleases(opts) {
       title: 'Introduction',
       [`displayed_sidebar`]: 'docsSidebar',
     })
-
-    // todo convert links to relative
 
     docsVersions.push({ tag: docTree.releseTag, versionName })
   }
@@ -107,8 +105,12 @@ async function processReleases(opts) {
   await fixHtmlTags(versionedFolder)
   await fixBrokenLinks(versionedFolder)
 
+  // We can't run this fix on version >=3 because it would make the code blocks ugly
   const v1Docs = orderedVersions.find((v) => v.startsWith('v1.'))
   await fixCodeBlocks(join(versionedFolder, `version-${v1Docs}`))
+
+  const v2Docs = orderedVersions.find((v) => v.startsWith('v2.'))
+  await fixCodeBlocks(join(versionedFolder, `version-${v2Docs}`))
 
   log.info('Done')
 }
