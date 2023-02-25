@@ -12,16 +12,6 @@ Thanks for your contribution 🥳 to the Fastily website redesign project!
 * [Debugging failing checks](#debugging-failing-checks)
 * [Developer's Certificate of Origin 1.1](#developers-certificate-of-origin-11)
 
-## Commit message guidelines
-
-This project follows the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification.
-
-Basic rules:
-
-Supported subsystems:
-> build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test
-
-Try to start the commit message with a capital letter. And try to avoid ending it with a period `.`.
 
 ## Pull Request Policy
 
