@@ -27,15 +27,7 @@ Try to start the commit message with a capital letter. And try to avoid ending i
 
 ### Before merging
 
-* Pull Requests must be open for at least 12 hours.
-  * Pull requests might be immediately merged if they contain critical bug fixes, short erratas (e.g. typos from previous PRs) or any critical change that is considered a "showstopper" for the operation of the website.
-    * These kind of PRs should only be done by existing collaborators that have write-access and/or signed-off by administrators/maintainers.
-* There must be no objections after a 24 hour period
-* Fast track is allowed for collaborators.
-
-Each contribution is accepted only if there is no objection to it by a collaborator. During the review, collaborators may request that a specific contributor who is an expert in a particular area give an "LGTM" (looks good to me) before the PR can be merged.
-
-In the case that an objection is raised in a pull request by another collaborator, all collaborators involved should try to arrive at a consensus by addressing the concerns through discussion, compromise, or withdrawal of the proposed change(s).
+This repository follows the same rules as a fastify plugin repository. A detailed process is explained at [fastify/CONTRIBUTING.md#rules](https://github.com/fastify/fastify/blob/main/CONTRIBUTING.md#rules)
 
 ## Vocabulary
 
