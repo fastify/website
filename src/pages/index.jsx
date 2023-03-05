@@ -6,6 +6,7 @@ import Link from '@docusaurus/Link'
 
 import HomepageHeader from '@site/src/components/HomePageHeader/index.jsx'
 import Organisations from '@site/src/components/Organisations'
+import Team from '@site/src/components/Team'
 
 import plugins from '@site/static/generated/plugins.json'
 import styles from '@site/src/css/index.module.css'
@@ -33,6 +34,7 @@ export default function Home() {
             </p>
           </div>
         </section>
+
         <section className="section">
           <div className="container">
             <h1>Who is using Fastify?</h1>
@@ -44,6 +46,7 @@ export default function Home() {
             <Organisations maxItems={12} />
           </div>
         </section>
+
         <section className="section alternate">
           <div className="container">
             <h1>Core features</h1>
@@ -123,8 +126,11 @@ export default function Home() {
 
         <section className="section">
           <div className="container">
-            <h1>The Team</h1>
-            <p>TODO</p>
+            <h1>Meet The Team</h1>
+            <p>
+              <i>In alphabetical order</i>
+            </p>
+            <Team />
           </div>
         </section>
 
