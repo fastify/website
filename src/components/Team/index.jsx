@@ -78,7 +78,7 @@ function TeamMember({ member, index }) {
                   target="_blank"
                   rel="noreferrer"
                   className={styles.linkGithub}
-                  title={`Check out ${member.name}&#39;s Github profile`}>
+                  title={`Check out ${member.name}'s Github profile`}>
                   {svgicons.github}
                 </a>
               )}
@@ -88,7 +88,7 @@ function TeamMember({ member, index }) {
                   target="_blank"
                   rel="noreferrer"
                   className={styles.linkNpm}
-                  title={`Check out ${member.name}&#39;s NPM profile`}>
+                  title={`Check out ${member.name}'s NPM profile`}>
                   {svgicons.npm}
                 </a>
               )}
@@ -98,7 +98,7 @@ function TeamMember({ member, index }) {
                   target="_blank"
                   className={styles.linkTwitter}
                   rel="noreferrer"
-                  title={`Check out ${member.name}&#39;s Twitter profile`}>
+                  title={`Check out ${member.name}'s Twitter profile`}>
                   {svgicons.twitter}
                 </a>
               )}
