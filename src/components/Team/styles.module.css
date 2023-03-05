@@ -63,6 +63,7 @@
 .teamMember .linkGithub:hover {
   color: #333;
 }
+
 [data-theme='dark'] .teamMember .linkGithub:hover {
   color: #fff;
 }
