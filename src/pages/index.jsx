@@ -85,35 +85,30 @@ export default function Home() {
         <section className="section">
           <div className="container">
             <QuickStart
-              esm={`
-// Require the framework and instantiate it
+              esm={`// Import the framework and instantiate it
 import Fastify from 'fastify'
 const fastify = Fastify({
   logger: true
 })
 
 // Declare a route
-fastify.get('/', async (request, reply) => {
+fastify.get('/', async function handler (request, reply) {
   return { hello: 'world' }
 })
 
 // Run the server!
-const start = async () => {
-  try {
-    await fastify.listen({ port: 3000 })
-  } catch (err) {
-    fastify.log.error(err)
-    process.exit(1)
-  }
+try {
+  await fastify.listen({ port: 3000 })
+} catch (err) {
+  fastify.log.error(err)
+  process.exit(1)
 }
-start()
             `}
-              cjs={`
-// Require the framework and instantiate it
+              cjs={`// Require the framework and instantiate it
 const fastify = require('fastify')({ logger: true })
 
 // Declare a route
-fastify.get('/', (request, reply) => {
+fastify.get('/', function handler (request, reply) {
   reply.send({ hello: 'world' })
 })
 
@@ -123,8 +118,7 @@ fastify.listen({ port: 3000 }, (err) => {
     fastify.log.error(err)
     process.exit(1)
   }
-})
-              `}
+})`}
             />
           </div>
         </section>

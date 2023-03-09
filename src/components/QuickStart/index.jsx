@@ -25,7 +25,7 @@ export default function QuickStart({ esm, cjs }) {
       <p>Finally, launch the server with:</p>
       <CodeBlock language="bash">node server</CodeBlock>
 
-      <p>and you can test it with:</p>
+      <p>and test it with:</p>
       <CodeBlock language="bash">curl http://localhost:3000</CodeBlock>
     </>
   )
