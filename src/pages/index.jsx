@@ -7,10 +7,10 @@ import Link from '@docusaurus/Link'
 import HomepageHeader from '@site/src/components/HomePageHeader/index.jsx'
 import Organisations from '@site/src/components/Organisations'
 import Team from '@site/src/components/Team'
+import QuickStart from '@site/src/components/QuickStart'
 
 import plugins from '@site/static/generated/plugins.json'
 import styles from '@site/src/css/index.module.css'
-import QuickStart from '../components/QuickStart'
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext()
