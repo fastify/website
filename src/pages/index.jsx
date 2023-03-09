@@ -10,6 +10,7 @@ import Team from '@site/src/components/Team'
 
 import plugins from '@site/static/generated/plugins.json'
 import styles from '@site/src/css/index.module.css'
+import QuickStart from '../components/QuickStart'
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext()
@@ -83,8 +84,48 @@ export default function Home() {
 
         <section className="section">
           <div className="container">
-            <h1>Quick start</h1>
-            <p>TODO</p>
+            <QuickStart
+              esm={`
+// Require the framework and instantiate it
+import Fastify from 'fastify'
+const fastify = Fastify({
+  logger: true
+})
+
+// Declare a route
+fastify.get('/', async (request, reply) => {
+  return { hello: 'world' }
+})
+
+// Run the server!
+const start = async () => {
+  try {
+    await fastify.listen({ port: 3000 })
+  } catch (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+}
+start()
+            `}
+              cjs={`
+// Require the framework and instantiate it
+const fastify = require('fastify')({ logger: true })
+
+// Declare a route
+fastify.get('/', (request, reply) => {
+  reply.send({ hello: 'world' })
+})
+
+// Run the server!
+fastify.listen({ port: 3000 }, (err) => {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+})
+              `}
+            />
           </div>
         </section>
 
