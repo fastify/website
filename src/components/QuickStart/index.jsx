@@ -21,6 +21,12 @@ export default function QuickStart({ esm, cjs }) {
           <CodeBlock language="js">{cjs}</CodeBlock>
         </TabItem>
       </Tabs>
+
+      <p>Finally, launch the server with:</p>
+      <CodeBlock language="bash">node server</CodeBlock>
+
+      <p>and you can test it with:</p>
+      <CodeBlock language="bash">curl http://localhost:3000</CodeBlock>
     </>
   )
 }
