@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Link from '@docusaurus/Link'
 import css from './styles.module.css'
+import Translate from '@docusaurus/Translate'
 
 export default GoodFirstIssue
 
@@ -41,19 +42,20 @@ function GoodFirstIssue({ url }) {
 
     fetchData() //
       .catch(setError)
-  }, [])
+  }, [url])
 
   if (loading)
     return (
       <div className="alert alert--secondary" role="alert">
-        Loading...
+        <Translate> Loading...</Translate>
       </div>
     )
 
   if (error)
     return (
       <div className="alert alert--danger" role="alert">
-        Error: {error.message}
+        <Translate> Error: </Translate>
+        {error.message}
       </div>
     )
 
@@ -75,7 +77,9 @@ function GoodFirstIssue({ url }) {
       <div className="row">
         <div className="col col--4 margin--none">
           <nav className="col-demo item shadow--lw">
-            <p className={css.panelHeading}>Projects</p>
+            <p className={css.panelHeading}>
+              <Translate>Projects</Translate>
+            </p>
             {Object.values(projects)
               .sort(byCount)
               .map((project) => ProjectFilter({ ...project, toggle: toggleProject.bind(this, project.name) }))}
@@ -101,7 +105,9 @@ function ProjectFilter({ name, count, selected, toggle }) {
       <input type="checkbox" checked={Boolean(selected)} onChange={onChange} />
       <div className="avatar__intro">
         <div className="avatar__name">{name}</div>
-        <small className="avatar__subtitle">{count} issues</small>
+        <small className="avatar__subtitle">
+          {count} <Translate>issues</Translate>
+        </small>
       </div>
     </div>
   )
@@ -118,7 +124,8 @@ function Issue(props) {
                 <Link to={props.url}>{props.title}</Link>
               </div>
               <small className="avatar__subtitle">
-                Project <Link to={props.project.url}>{props.project.name}</Link>
+                <Translate>Project </Translate>
+                <Link to={props.project.url}>{props.project.name}</Link>
               </small>
             </div>
           </div>
@@ -141,7 +148,9 @@ function Issues({ issues }) {
   if (issues.length === 0) {
     return (
       <div>
-        <strong>No issue available 😱</strong>
+        <strong>
+          <Translate>No issue available 😱</Translate>
+        </strong>
       </div>
     )
   }

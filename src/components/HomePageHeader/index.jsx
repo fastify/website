@@ -2,6 +2,7 @@ import React from 'react'
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import GitHubButton from 'react-github-btn'
+import Translate from '@docusaurus/Translate'
 
 import css from './styles.module.css'
 
@@ -22,7 +23,7 @@ function HomepageHeader() {
             aria-label="Star fastify on GitHub"
             data-size="large"
             data-show-count="true">
-            Star
+            <Translate> Star</Translate>
           </GitHubButton>
           &nbsp; &nbsp;
           <GitHubButton
@@ -30,7 +31,7 @@ function HomepageHeader() {
             data-icon="octicon-repo-forked"
             aria-label="Fork fastify on GitHub"
             data-size="large">
-            Fork
+            <Translate>Fork</Translate>
           </GitHubButton>
         </div>
       </div>

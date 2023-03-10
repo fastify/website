@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import Link from '@docusaurus/Link'
+import Translate from '@docusaurus/Translate'
 
 const PluginsTable = (props) => {
   const [nameFilter, setNameFilter] = useState()
@@ -24,12 +25,16 @@ const PluginsTable = (props) => {
   return (
     <div className="grid-container">
       <div className="grid-item-header">
-        <b>Name</b>
+        <b>
+          <Translate> Name</Translate>
+        </b>
         <br />
         <input type="text" onKeyUp={(event) => setNameFilter(event.target.value)} />
       </div>
       <div className="grid-item-header">
-        <b>Description</b>
+        <b>
+          <Translate>Description</Translate>
+        </b>
         <br />
         <input type="text" onKeyUp={(event) => setDescriptionFilter(event.target.value)} size="40" />
       </div>
