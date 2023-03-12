@@ -7,6 +7,7 @@ import Link from '@docusaurus/Link'
 import HomepageHeader from '@site/src/components/HomePageHeader/index.jsx'
 import Organisations from '@site/src/components/Organisations'
 import Team from '@site/src/components/Team'
+import QuickStart from '@site/src/components/QuickStart'
 
 import plugins from '@site/static/generated/plugins.json'
 import styles from '@site/src/css/index.module.css'
@@ -83,8 +84,42 @@ export default function Home() {
 
         <section className="section">
           <div className="container">
-            <h1>Quick start</h1>
-            <p>TODO</p>
+            <QuickStart
+              esm={`// Import the framework and instantiate it
+import Fastify from 'fastify'
+const fastify = Fastify({
+  logger: true
+})
+
+// Declare a route
+fastify.get('/', async function handler (request, reply) {
+  return { hello: 'world' }
+})
+
+// Run the server!
+try {
+  await fastify.listen({ port: 3000 })
+} catch (err) {
+  fastify.log.error(err)
+  process.exit(1)
+}
+            `}
+              cjs={`// Require the framework and instantiate it
+const fastify = require('fastify')({ logger: true })
+
+// Declare a route
+fastify.get('/', function handler (request, reply) {
+  reply.send({ hello: 'world' })
+})
+
+// Run the server!
+fastify.listen({ port: 3000 }, (err) => {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+})`}
+            />
           </div>
         </section>
 
