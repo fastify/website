@@ -26,7 +26,7 @@ jobs:
       - name: Copy Static Files
         run: cp -r static/ build/website-next/
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4.1.6
+        uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
           branch: gh-pages # The branch the action should deploy to
           folder: build # The folder the action should deploy
