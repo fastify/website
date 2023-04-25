@@ -41,7 +41,7 @@ jobs:
 
       # extract pages setting
       - name: Setup Pages
-        uses: actions/configure-pages@v1
+        uses: actions/configure-pages@v3
       # setup node environment
       - name: Use Node.js
         uses: actions/setup-node@v3
