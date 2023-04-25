@@ -15,6 +15,8 @@
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgb(0 0 0 / 10%);
+
+  --ifm-color-secondary-light: #f5f5f5;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -27,6 +29,8 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgb(0 0 0 / 30%);
+
+  --ifm-color-secondary-light: #262626;
 }
 
 .header-github-link:hover {
@@ -57,4 +61,10 @@
 
 .section {
   margin-top: 3rem;
+}
+
+.alternate {
+  background-color: var(--ifm-color-secondary-light);
+  border-radius: var(--ifm-code-border-radius);
+  padding: 2em 1em 1em;
 }
