@@ -19,10 +19,25 @@ on:
   workflow_call:
 
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Select environment
+        id: env-selector
+        run: |
+          echo "website_url=${{ github.event_name == 'pull_request_target' && github.event.pull_request.head.ref || '/website-next/' }}" >> $GITHUB_OUTPUT
+          echo "current_env=${{ github.event_name == 'pull_request_target' && 'staging' || 'production' }}" >> $GITHUB_OUTPUT
+    outputs:
+      website_url: ${{ steps.env-selector.outputs.website_url }}
+      current_env: ${{ steps.env-selector.outputs.current_env }}
+
   build-and-upload:
+    needs: setup
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    env:
+      BASE_URL: ${{ needs.setup.outputs.website_url }}
     steps:
       # we set the correct repository and reference sha for PR preview
       - name: Checkout PR
@@ -85,12 +100,16 @@ jobs:
           path: './build'
 
   deploy:
-    needs: build-and-upload
+    needs:
+      - setup
+      - build-and-upload
+    env:
+      BASE_URL: ${{ needs.setup.outputs.website_url }}
     permissions:
       pages: write
       id-token: write
     environment:
-      name: ${{ github.event_name == 'pull_request_target' && 'staging' || 'production' }}
+      name: ${{ needs.setup.outputs.current_env }}
       url: ${{ steps.deployment.outputs.page_url }}
     outputs:
       deployment_url: ${{ steps.deployment.outputs.page_url }}
@@ -98,9 +117,7 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
-        # enable preview when PR
-        env:
-          BASE_URL: /website-next/
+        uses: actions/deploy-pages@v2
         with:
+          # enable preview when PR
           preview: ${{ github.event_name == 'pull_request_target' }}
