@@ -1,6 +1,8 @@
 name: Publish
 
-concurrency: publishing
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
 
 on:
   # push on main branch means to deploy production
@@ -51,13 +53,31 @@ jobs:
 
       # install dependencies
       - name: Install Packages
-        run: npm install
+        run: npm ci
+
+      - name: Get latest Fastify tag
+        id: latest-fastify
+        uses: oprypin/find-latest-tag@v1
+        with:
+          repository: fastify/fastify
+          releases-only: true
+      - run: echo "Fastify is at version ${{ steps.latest-fastify.outputs.tag }}"
+
+      - name: Cache Fastify documentation
+        id: release-cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            scripts/releases
+            scripts/releases.tag
+          key: ${{ steps.latest-fastify.outputs.tag }}-release-cache
 
       # build website
       - name: Build website
         run: npm run build:website
         env:
           GH_TOKEN: ${{ github.token }}
+          SKIP_DOWNLOADS: ${{ steps.release-cache.outputs.cache-hit }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
