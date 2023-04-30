@@ -105,12 +105,12 @@ jobs:
           path: './build'
 
   deploy-to-production:
+    if: ${{ needs.setup.outputs.current_env == 'production' }}}
     needs:
       - setup
       - build-and-upload
-    if: ${{ needs.setup.outputs.current_env == 'production' }}}
     concurrency:
-      group: ${{ github.ref }}
+      group: ${{ github.ref }}-production
       cancel-in-progress: true
     env:
       BASE_URL: ${{ needs.setup.outputs.website_url }}
@@ -132,12 +132,12 @@ jobs:
         # preview: ${{ github.event_name == 'pull_request_target' }}
 
   deploy-to-staging:
+    if: ${{ needs.setup.outputs.current_env == 'staging' }}}
     needs:
       - setup
       - build-and-upload
-    if: ${{ needs.setup.outputs.current_env == 'staging' }}}
     concurrency:
-      group: ${{ github.ref }}
+      group: ${{ github.ref }}-staging
       cancel-in-progress: true
     env:
       BASE_URL: ${{ needs.setup.outputs.website_url }}
