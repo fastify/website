@@ -4,10 +4,16 @@ on:
   push:
     branches:
       - main
-      - master
       - next
       - 'v*'
-  pull_request:
+  # pull-request means to deploy preview
+  pull_request_target:
+  # workflow_dispatch means to manual deploy production
+  workflow_dispatch:
+  # workflow_call means to deploy production from external workflow
+  # it would be useful to trigger from fastify main repo instead of
+  # daily schedule
+  workflow_call:
 
 jobs:
   setup:
