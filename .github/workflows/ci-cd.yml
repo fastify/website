@@ -104,10 +104,11 @@ jobs:
         with:
           path: './build'
 
-  deploy:
+  deploy-to-production:
     needs:
       - setup
       - build-and-upload
+    if: ${{ needs.setup.outputs.current_env == 'production' }}}
     concurrency:
       group: ${{ github.ref }}
       cancel-in-progress: true
@@ -126,6 +127,43 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
+        # with:
+        # enable preview when PR
+        # preview: ${{ github.event_name == 'pull_request_target' }}
+
+  deploy-to-staging:
+    needs:
+      - setup
+      - build-and-upload
+    if: ${{ needs.setup.outputs.current_env == 'staging' }}}
+    concurrency:
+      group: ${{ github.ref }}
+      cancel-in-progress: true
+    env:
+      BASE_URL: ${{ needs.setup.outputs.website_url }}
+    permissions:
+      pull-requests: write
+      contents: write
+    environment:
+      name: ${{ needs.setup.outputs.current_env }}
+      url: ${{ steps.deployment.outputs.NETLIFY_URL }}
+    outputs:
+      deployment_url: ${{ steps.deployment.outputs.NETLIFY_URL }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare build artifact
+        uses: actions/download-artifact@v3
         with:
-          # enable preview when PR
-          preview: ${{ github.event_name == 'pull_request_target' }}
+          name: github-pages
+          path: website
+      - name: Display structure of downloaded files
+        run: ls -R
+      - name: Deploy to Netlify
+        uses: netlify/actions/cli@master
+        id: deployment
+        with:
+          # https://cli.netlify.com/commands/deploy/
+          args: deploy --dir=website --message="Deploy from GitHub Actions"
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
