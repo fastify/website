@@ -1,5 +1,7 @@
 name: Publish
 
+concurrency: publishing
+
 on:
   # push on main branch means to deploy production
   push:
@@ -13,10 +15,6 @@ on:
   # it would be useful to trigger from fastify main repo instead of
   # daily schedule
   workflow_call:
-
-# TODO: remove once it's production
-env:
-  BASE_URL: /website-next/
 
 jobs:
   build-and-upload:
@@ -41,7 +39,8 @@ jobs:
 
       # extract pages setting
       - name: Setup Pages
-        uses: actions/configure-pages@v1
+        uses: actions/configure-pages@v3
+
       # setup node environment
       - name: Use Node.js
         uses: actions/setup-node@v3
@@ -49,34 +48,39 @@ jobs:
           node-version: 18
           cache: npm
           node-version-file: '.nvmrc'
+
       # install dependencies
       - name: Install Packages
         run: npm install
+
       # build website
       - name: Build website
         run: npm run build:website
         env:
           GH_TOKEN: ${{ github.token }}
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           path: './build'
 
   deploy:
-    runs-on: ubuntu-latest
     needs: build-and-upload
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     permissions:
       pages: write
       id-token: write
+    environment:
+      name: ${{ github.event_name == 'pull_request_target' && 'staging' || 'production' }}
+      url: ${{ steps.deployment.outputs.page_url }}
     outputs:
       deployment_url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
         # enable preview when PR
+        env:
+          BASE_URL: /website-next/
         with:
           preview: ${{ github.event_name == 'pull_request_target' }}
