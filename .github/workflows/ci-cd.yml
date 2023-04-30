@@ -1,22 +1,13 @@
-name: Publish
-
-concurrency:
-  group: ${{ github.ref }}
-  cancel-in-progress: true
+name: CI-CD
 
 on:
-  # push on main branch means to deploy production
   push:
     branches:
       - main
-  # pull-request means to deploy preview
-  pull_request_target:
-  # workflow_dispatch means to manual deploy production
-  workflow_dispatch:
-  # workflow_call means to deploy production from external workflow
-  # it would be useful to trigger from fastify main repo instead of
-  # daily schedule
-  workflow_call:
+      - master
+      - next
+      - 'v*'
+  pull_request:
 
 jobs:
   setup:
@@ -25,11 +16,18 @@ jobs:
       - name: Select environment
         id: env-selector
         run: |
-          echo "website_url=${{ github.event_name == 'pull_request_target' && github.event.pull_request.head.ref || '/website-next/' }}" >> $GITHUB_OUTPUT
+          echo "website_url=/website-next/" >> $GITHUB_OUTPUT
           echo "current_env=${{ github.event_name == 'pull_request_target' && 'staging' || 'production' }}" >> $GITHUB_OUTPUT
+      - name: Get latest Fastify tag
+        id: latest-fastify
+        uses: oprypin/find-latest-tag@v1
+        with:
+          repository: fastify/fastify
+          releases-only: true
     outputs:
       website_url: ${{ steps.env-selector.outputs.website_url }}
       current_env: ${{ steps.env-selector.outputs.current_env }}
+      latest_fastify: ${{ steps.latest-fastify.outputs.tag }}
 
   build-and-upload:
     needs: setup
@@ -54,11 +52,6 @@ jobs:
         with:
           ref: main
 
-      # extract pages setting
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-
-      # setup node environment
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
@@ -66,9 +59,14 @@ jobs:
           cache: npm
           node-version-file: '.nvmrc'
 
-      # install dependencies
       - name: Install Packages
         run: npm ci
+
+      - name: Run Linting
+        run: npm run lint
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
 
       - name: Get latest Fastify tag
         id: latest-fastify
@@ -95,6 +93,7 @@ jobs:
           SKIP_DOWNLOADS: ${{ steps.release-cache.outputs.cache-hit }}
 
       - name: Upload artifact
+
         uses: actions/upload-pages-artifact@v1
         with:
           path: './build'
@@ -103,6 +102,9 @@ jobs:
     needs:
       - setup
       - build-and-upload
+    concurrency:
+      group: ${{ github.ref }}
+      cancel-in-progress: true
     env:
       BASE_URL: ${{ needs.setup.outputs.website_url }}
     permissions:
