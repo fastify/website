@@ -22,7 +22,7 @@ jobs:
       - name: Select environment
         id: env-selector
         run: |
-          echo "website_url=/website-next/" >> $GITHUB_OUTPUT
+          echo "website_url=/website-next/pr_${{ github.event_name == 'pull_request_target' && github.event.pull_request.head.ref || '' }}" >> $GITHUB_OUTPUT
           echo "current_env=${{ github.event_name == 'pull_request_target' && 'staging' || 'production' }}" >> $GITHUB_OUTPUT
       - name: Get latest Fastify tag
         id: latest-fastify
