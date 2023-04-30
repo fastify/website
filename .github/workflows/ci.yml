@@ -2,24 +2,53 @@ name: CI
 
 on:
   push:
+    branches:
+      - main
+      - master
+      - next
+      - 'v*'
   pull_request:
 
 jobs:
-  build_and_deploy:
+  lint_and_build:
     name: Linting
     runs-on: macos-latest
     steps:
       - name: Git Checkout
         uses: actions/checkout@v3
-      - name: Setup Node
+
+      - name: Use Node.js
         uses: actions/setup-node@v3
         with:
+          node-version: 18
+          cache: npm
           node-version-file: '.nvmrc'
+
       - name: Install Packages
-        run: npm install
+        run: npm ci
+
       - name: Run Linting
         run: npm run lint
+
+      - name: Get latest Fastify tag
+        id: latest-fastify
+        uses: oprypin/find-latest-tag@v1
+        with:
+          repository: fastify/fastify
+          releases-only: true
+      - run: echo "Fastify is at version ${{ steps.latest-fastify.outputs.tag }}"
+
+      - name: Cache Fastify documentation
+        id: release-cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            scripts/releases
+            scripts/releases.tag
+          key: ${{ steps.latest-fastify.outputs.tag }}-release-cache
+
       - name: Check the build
         run: npm run build:website
         env:
           GH_TOKEN: ${{ github.token }}
+          SKIP_DOWNLOADS: ${{ steps.release-cache.outputs.cache-hit }}
