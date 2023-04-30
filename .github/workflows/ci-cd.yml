@@ -105,7 +105,7 @@ jobs:
           path: './build'
 
   deploy-to-production:
-    if: ${{ needs.setup.outputs.current_env == 'production' }}}
+    if: ${{ needs.setup.outputs.current_env == 'production' }}
     needs:
       - setup
       - build-and-upload
@@ -132,7 +132,7 @@ jobs:
         # preview: ${{ github.event_name == 'pull_request_target' }}
 
   deploy-to-staging:
-    if: ${{ needs.setup.outputs.current_env == 'staging' }}}
+    if: ${{ needs.setup.outputs.current_env == 'staging' }}
     needs:
       - setup
       - build-and-upload
