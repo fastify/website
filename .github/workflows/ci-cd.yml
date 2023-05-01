@@ -25,8 +25,14 @@ jobs:
       - name: Select environment
         id: env-selector
         run: |
-          echo "website_url=/website-next/" >> $GITHUB_OUTPUT
-          echo "current_env=${{ github.event_name == 'pull_request_target' && 'staging' || 'production' }}" >> $GITHUB_OUTPUT
+          $current_env = ${{ github.event_name == 'pull_request_target' && 'staging' || 'production' }}
+          echo "Checking out $current_env environment"
+
+          $website_url = ${{ github.event_name == 'pull_request_target' && '' || '/website-next/' }}
+          echo "Base URL is $website_url."
+
+          echo "website_url=$website_url" >> $GITHUB_OUTPUT
+          echo "current_env=$current_env" >> $GITHUB_OUTPUT
       - name: Get latest Fastify tag
         id: latest-fastify
         uses: oprypin/find-latest-tag@v1
