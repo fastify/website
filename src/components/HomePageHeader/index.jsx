@@ -13,7 +13,7 @@ function HomepageHeader() {
       <div className="container">
         <img alt={siteConfig.title} src={`img/logos/fastify-white.png`} />
 
-        <h2>{siteConfig.tagline}</h2>
+        <h2>{siteConfig.tagline} DEMO DEPLOY</h2>
 
         <div>
           <GitHubButton
