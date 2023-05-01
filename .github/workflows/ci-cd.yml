@@ -6,6 +6,9 @@ on:
       - main
       - next
       - 'v*'
+    paths-ignore:
+      - '.github/**'
+      - '.vscode/**'
   # pull-request means to deploy preview
   pull_request_target:
   # workflow_dispatch means to manual deploy production
@@ -152,7 +155,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Prepare build artifact
-        uses: actions/download-artifact@v3
+        uses: alehechka/download-tartifact@v2
         with:
           name: github-pages
           path: website
@@ -163,7 +166,7 @@ jobs:
         id: deployment
         with:
           # https://cli.netlify.com/commands/deploy/
-          args: deploy --dir=website --message="Deploy from GitHub Actions"
+          args: deploy --json --dir="./website" --message="Deploy from branch ${{ github.ref }}"
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
