@@ -35,7 +35,7 @@ module.exports = {
     camelcase: 'error',
     'react/prop-types': 'off',
     '@docusaurus/string-literal-i18n-messages': 'error',
-    '@docusaurus/no-untranslated-text': 'warn',
+    '@docusaurus/no-untranslated-text': 'off',
     'check-file/filename-naming-convention': [
       'error',
       {

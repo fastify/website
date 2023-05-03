@@ -1,0 +1,172 @@
+name: CI-CD
+
+on:
+  push:
+    branches:
+      - main
+      - next
+      - 'v*'
+    paths-ignore:
+      - '.github/**'
+      - '.vscode/**'
+  # pull-request means to deploy preview
+  pull_request_target:
+  # workflow_dispatch means to manual deploy production
+  workflow_dispatch:
+  # workflow_call means to deploy production from external workflow
+  # it would be useful to trigger from fastify main repo instead of
+  # daily schedule
+  workflow_call:
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Select environment
+        id: env-selector
+        run: |
+          echo "current_env=${{ github.event_name == 'pull_request_target' && 'staging' || 'production' }}" >> $GITHUB_OUTPUT
+          echo "website_url=${{ github.event_name == 'pull_request_target' && '/' || '/website-next/' }}" >> $GITHUB_OUTPUT
+      - name: Get latest Fastify tag
+        id: latest-fastify
+        uses: oprypin/find-latest-tag@v1
+        with:
+          repository: fastify/fastify
+          releases-only: true
+    outputs:
+      website_url: ${{ steps.env-selector.outputs.website_url }}
+      current_env: ${{ steps.env-selector.outputs.current_env }}
+      latest_fastify: ${{ steps.latest-fastify.outputs.tag }}
+
+  build-and-upload:
+    needs: setup
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      BASE_URL: ${{ needs.setup.outputs.website_url }}
+    steps:
+      # we set the correct repository and reference sha for PR preview
+      - name: Checkout PR
+        if: ${{ github.event_name == 'pull_request_target' }}
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+
+      # we set the correct reference sha for production
+      - name: Checkout
+        if: ${{ github.event_name != 'pull_request_target' }}
+        uses: actions/checkout@v3
+        with:
+          ref: main
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: npm
+          node-version-file: '.nvmrc'
+
+      - name: Install Packages
+        run: npm ci
+
+      - name: Run Linting
+        run: npm run lint
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Get latest Fastify tag
+        id: latest-fastify
+        uses: oprypin/find-latest-tag@v1
+        with:
+          repository: fastify/fastify
+          releases-only: true
+      - run: echo "Fastify is at version ${{ steps.latest-fastify.outputs.tag }}"
+
+      - name: Cache Fastify documentation
+        id: release-cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            scripts/releases
+            scripts/releases.tag
+          key: ${{ steps.latest-fastify.outputs.tag }}-release-cache
+
+      # build website
+      - name: Build website
+        run: npm run build:website
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SKIP_DOWNLOADS: ${{ steps.release-cache.outputs.cache-hit }}
+
+      - name: Upload artifact
+
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: './build'
+
+  deploy-to-production:
+    if: ${{ needs.setup.outputs.current_env == 'production' }}
+    needs:
+      - setup
+      - build-and-upload
+    concurrency:
+      group: ${{ github.ref }}-production
+      cancel-in-progress: true
+    env:
+      BASE_URL: ${{ needs.setup.outputs.website_url }}
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: ${{ needs.setup.outputs.current_env }}
+      url: ${{ steps.deployment.outputs.page_url }}
+    outputs:
+      deployment_url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+        # with:
+        # enable preview when PR
+        # preview: ${{ github.event_name == 'pull_request_target' }}
+
+  deploy-to-staging:
+    if: ${{ needs.setup.outputs.current_env == 'staging' }}
+    needs:
+      - setup
+      - build-and-upload
+    concurrency:
+      group: ${{ github.ref }}-staging
+      cancel-in-progress: true
+    env:
+      BASE_URL: ''
+    permissions:
+      pull-requests: write
+      contents: write
+    environment:
+      name: ${{ needs.setup.outputs.current_env }}
+      url: ${{ steps.deployment.outputs.NETLIFY_URL }}
+    outputs:
+      deployment_url: ${{ steps.deployment.outputs.NETLIFY_URL }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare build artifact
+        uses: alehechka/download-tartifact@v2
+        with:
+          name: github-pages
+          path: website
+      - name: Display structure of downloaded files
+        run: ls -R
+      - name: Deploy to Netlify
+        uses: netlify/actions/cli@master
+        id: deployment
+        with:
+          # https://cli.netlify.com/commands/deploy/
+          args: deploy --json --dir="./website" --message="Deploy from branch ${{ github.ref }}"
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
