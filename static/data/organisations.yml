@@ -10,6 +10,10 @@
   image: 'amerisave.svg'
   link: 'https://www.amerisave.com'
 
+- name: 'AppAdaptive GmbH'
+  image: 'appadaptive.svg'
+  link: 'https://appadaptive.de'
+
 - name: 'Beliven'
   image: 'beliven.svg'
   link: 'https://beliven.com/'
@@ -178,6 +182,10 @@
   image: 'nucleode.svg'
   link: 'https://www.nucleode.com'
 
+- name: 'oneclick'
+  image: 'oneclick.svg'
+  link: 'https://oneclick-cloud.com/'
+
 - name: 'Papion'
   image: 'papion.svg'
   link: 'https://papion.it'
@@ -218,6 +226,10 @@
   image: 'skeelo.svg'
   link: 'https://skeelo.app'
 
+- name: 'Stillio'
+  image: 'stillio.svg'
+  link: 'https://www.stillio.com'
+
 - name: 'Swiss Dev Jobs'
   image: 'swissdev-javascript-jobs-200-200.svg'
   link: 'https://swissdevjobs.ch/'
@@ -225,6 +237,10 @@
 - name: 'The Outnet'
   image: 'theoutnet.svg'
   link: 'https://theoutnet.com/'
+
+- name: 'Turmitech'
+  image: 'turmitech.svg'
+  link: 'https://turmitech.com/'
 
 - name: 'Unhandled'
   image: 'unhandled.svg'
@@ -245,7 +261,3 @@
 - name: 'Vectra'
   image: 'vectra.svg'
   link: 'https://vectra.ai'
-
-- name: 'Yeovil District Hospital NHS Foundation Trust'
-  image: 'ydhnhsft.svg'
-  link: 'https://yeovilhospital.co.uk'
