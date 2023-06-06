@@ -194,14 +194,10 @@ const config = {
           },
         ],
       },
-      algolia: {
-        appId: 'DMPMC33PLU',
-        apiKey: '12d46b3bfeee6511031cfe00778f3e45',
-        indexName: 'fastify',
-      },
     }),
 
   plugins: [
+    '@orama/plugin-docusaurus',
     [
       // This plugin does not work in dev mode
       '@docusaurus/plugin-client-redirects',
