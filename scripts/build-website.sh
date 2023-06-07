@@ -14,7 +14,7 @@ if [[ $SKIP_DOWNLOADS != "true" ]]; then
   ./scripts/download-releases.sh --major 1
   ./scripts/download-releases.sh --major 2
   ./scripts/download-releases.sh --major 3
-  ./scripts/download-releases.sh --minor 4
+  ./scripts/download-releases.sh --major 4
 else
   echo "Skipping download phase"
 fi
