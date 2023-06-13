@@ -116,7 +116,7 @@ jobs:
       group: ${{ github.ref }}-production
       cancel-in-progress: true
     env:
-      BASE_URL: ${{ needs.setup.outputs.website_url }}
+      BASE_URL: ''
     permissions:
       pages: write
       id-token: write
