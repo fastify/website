@@ -26,6 +26,10 @@
   image: 'car2go.svg'
   link: 'https://www.car2go.com'
 
+- name: 'CarbonGraph'
+  image: 'CarbonGraph-text-logo-_1_-_2_.svg'
+  link: 'https://carbongraph.io'
+
 - name: 'Care.com'
   image: 'care.svg'
   link: 'https://www.care.com/'
@@ -41,6 +45,10 @@
 - name: 'Codecks'
   image: 'codecks.svg'
   link: 'https://www.codecks.io/'
+
+- name: 'Codequest'
+  image: 'codequest.svg'
+  link: 'https://codequest.com/'
 
 - name: 'Commons Host'
   image: 'commonshost.svg'
@@ -261,3 +269,7 @@
 - name: 'Vectra'
   image: 'vectra.svg'
   link: 'https://vectra.ai'
+
+- name: 'Kutumb'
+  image: 'kutumb.svg'
+  link: 'https://kutumb.app'
