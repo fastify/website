@@ -184,6 +184,10 @@ ${Object.entries(metadataJson)
 async function fixCodeBlocks(dir) {
   const silent = true
 
+  if (!fsOld.existsSync(dir)) {
+    return
+  }
+
   // Add a new line before and after code blocks
   replace({
     regex: /(?<!^\W)(```)/gm,
@@ -206,6 +210,10 @@ async function fixCodeBlocks(dir) {
 async function fixHtmlTags(dir) {
   const silent = true
 
+  if (!fsOld.existsSync(dir)) {
+    return
+  }
+
   // Fixes (Expected corresponding JSX closing tag for <br>) <br> --to--> <br />
   replace({
     regex: /<br>/g,
@@ -226,16 +234,15 @@ async function fixHtmlTags(dir) {
 }
 
 async function fixBrokenLinks(dir) {
+  // If you have warning of broken links, make sure the offending version is listed here
+  const versions = ['v1.14.x', 'v3.29.x', 'v4.0.x', 'v4.1.x', 'v4.18.x', 'latest']
   const silent = true
 
   // typo in the docs
   replace({
     regex: /Referece/g,
     replacement: 'Reference',
-    paths: [
-      join(dir, 'version-v4.0.x/Guides/'), //
-      join(dir, 'version-v4.1.x/Guides/'),
-    ],
+    paths: versions.map((version) => join(dir, `version-${version}/Guides`)).filter(fsOld.existsSync),
     recursive: true,
     silent,
   })
@@ -244,23 +251,38 @@ async function fixBrokenLinks(dir) {
   replace({
     regex: /Reference\/index/g,
     replacement: 'Reference/Index',
-    paths: [
-      join(dir, 'version-v4.0.x/'), //
-      join(dir, 'version-v4.1.x/'),
-    ],
+    paths: versions.map((version) => join(dir, `version-${version}/`)).filter(fsOld.existsSync),
     recursive: true,
     silent,
   })
 
-  // dobule parenthesis in the docs
+  // double parenthesis in the docs
   // ((../Guides/Getting-Started.md#your-first-plugin))
   replace({
     regex: /\((\(\.\.\/Guides\/Getting-Started\.md.*\))\)/g,
     replacement: '$1',
-    paths: [
-      join(dir, 'version-v4.0.x/Reference/'), //
-      join(dir, 'version-v4.1.x/Reference/'),
-    ],
+    paths: versions.map((version) => join(dir, `version-${version}/Reference`)).filter(fsOld.existsSync),
+    recursive: true,
+    silent,
+  })
+
+  // unneeded extensions in link or missing trailing dot
+  // [Validation and Serialization](./Validation-and-Serialization.md)
+  // [Logging](Logging.md)
+  replace({
+    regex: /\]\((?:.\/)?((?:\w|-)+)\.md(#(\w+))?\)/gi,
+    replacement: '](./$1$2)',
+    paths: versions.map((version) => join(dir, `version-${version}/Reference`)).filter(fsOld.existsSync),
+    recursive: true,
+    silent,
+  })
+
+  // quotes in link
+  // [Reply]('./Reply.md' "Reply")
+  replace({
+    regex: /\]\('(\.\/Reply\.md)'\s/g,
+    replacement: ']($1 ',
+    paths: versions.map((version) => join(dir, `version-${version}/Documentation`)).filter(fsOld.existsSync),
     recursive: true,
     silent,
   })

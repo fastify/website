@@ -26,7 +26,7 @@ jobs:
         id: env-selector
         run: |
           echo "current_env=${{ github.event_name == 'pull_request_target' && 'staging' || 'production' }}" >> $GITHUB_OUTPUT
-          echo "website_url=${{ github.event_name == 'pull_request_target' && '/' || '/website-next/' }}" >> $GITHUB_OUTPUT
+          echo "website_url=${{ github.event_name == 'pull_request_target' && '/' || '/' }}" >> $GITHUB_OUTPUT
       - name: Get latest Fastify tag
         id: latest-fastify
         uses: oprypin/find-latest-tag@v1
@@ -116,7 +116,7 @@ jobs:
       group: ${{ github.ref }}-production
       cancel-in-progress: true
     env:
-      BASE_URL: ${{ needs.setup.outputs.website_url }}
+      BASE_URL: ''
     permissions:
       pages: write
       id-token: write
