@@ -10,6 +10,10 @@
   image: 'amerisave.svg'
   link: 'https://www.amerisave.com'
 
+- name: 'AppAdaptive GmbH'
+  image: 'appadaptive.svg'
+  link: 'https://appadaptive.de'
+
 - name: 'Beliven'
   image: 'beliven.svg'
   link: 'https://beliven.com/'
@@ -21,6 +25,10 @@
 - name: 'car2go'
   image: 'car2go.svg'
   link: 'https://www.car2go.com'
+
+- name: 'CarbonGraph'
+  image: 'CarbonGraph-text-logo-_1_-_2_.svg'
+  link: 'https://carbongraph.io'
 
 - name: 'Care.com'
   image: 'care.svg'
@@ -37,6 +45,10 @@
 - name: 'Codecks'
   image: 'codecks.svg'
   link: 'https://www.codecks.io/'
+
+- name: 'Codequest'
+  image: 'codequest.svg'
+  link: 'https://codequest.com/'
 
 - name: 'Commons Host'
   image: 'commonshost.svg'
@@ -178,6 +190,10 @@
   image: 'nucleode.svg'
   link: 'https://www.nucleode.com'
 
+- name: 'oneclick'
+  image: 'oneclick.svg'
+  link: 'https://oneclick-cloud.com/'
+
 - name: 'Papion'
   image: 'papion.svg'
   link: 'https://papion.it'
@@ -218,6 +234,10 @@
   image: 'skeelo.svg'
   link: 'https://skeelo.app'
 
+- name: 'Stillio'
+  image: 'stillio.svg'
+  link: 'https://www.stillio.com'
+
 - name: 'Swiss Dev Jobs'
   image: 'swissdev-javascript-jobs-200-200.svg'
   link: 'https://swissdevjobs.ch/'
@@ -225,6 +245,10 @@
 - name: 'The Outnet'
   image: 'theoutnet.svg'
   link: 'https://theoutnet.com/'
+
+- name: 'Turmitech'
+  image: 'turmitech.svg'
+  link: 'https://turmitech.com/'
 
 - name: 'Unhandled'
   image: 'unhandled.svg'
@@ -246,6 +270,6 @@
   image: 'vectra.svg'
   link: 'https://vectra.ai'
 
-- name: 'Yeovil District Hospital NHS Foundation Trust'
-  image: 'ydhnhsft.svg'
-  link: 'https://yeovilhospital.co.uk'
+- name: 'Kutumb'
+  image: 'kutumb.svg'
+  link: 'https://kutumb.app'

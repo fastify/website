@@ -38,6 +38,12 @@
         github: https://github.com/AyoubElk
         npm: https://www.npmjs.com/~ayoubelk
         twitter: https://twitter.com/ayoubelkh
+    - name: Carlos Fuentes
+      sortname: Fuentes Carlos
+      picture: 'https://avatars.githubusercontent.com/u/10200776?v=4'
+      links:
+        github: https://github.com/metcoder95
+        npm: https://www.npmjs.com/~metcoder95
     - name: Evan Shortiss
       sortname: Shortiss Evan
       picture: 'https://avatars3.githubusercontent.com/u/1303687?v=4&s=400'
