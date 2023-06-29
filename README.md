@@ -48,7 +48,7 @@ The website is deployed to GitHub pages using the `gh-pages` branch when a merge
 
 ## Good to know
 
-- Read [here](https://github.com/fastify/website-next/issues/32) for the specs
+- Read [here](https://github.com/fastify/website/issues/32) for the specs
 - If the markdown file from the main repo has a `# Title`, the title will be used as the sidebar label
 - The `/docs/latest/` URL is implemented by a named version of the most recent version
 - The `/docs/master/` URL is implemented by redirecting to the `/docs/latest/` URL
