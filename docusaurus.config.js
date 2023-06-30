@@ -26,7 +26,7 @@ const config = {
 
   // GitHub pages deployment config.
   organizationName: 'fastify',
-  projectName: 'website-next',
+  projectName: 'website',
 
   i18n: {
     defaultLocale: 'en',
@@ -127,7 +127,7 @@ const config = {
           //   position: 'right',
           // },
           {
-            href: 'https://github.com/fastify/website-next',
+            href: 'https://github.com/fastify/website',
             position: 'right',
             className: 'header-github-link',
             'aria-label': 'GitHub repository',
@@ -172,7 +172,7 @@ const config = {
               // },
               {
                 label: 'GitHub',
-                href: 'https://github.com/fastify/website-next',
+                href: 'https://github.com/fastify/website',
               },
             ],
           },
