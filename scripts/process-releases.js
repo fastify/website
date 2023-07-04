@@ -235,57 +235,74 @@ async function fixHtmlTags(dir) {
 
 async function fixBrokenLinks(dir) {
   // If you have warning of broken links, make sure the offending version is listed here
-  const versions = ['v1.14.x', 'v3.29.x', 'v4.0.x', 'v4.1.x', 'v4.18.x', 'latest']
+  const versions = [
+    'v1.14.x',
+    'v3.29.x',
+    'v4.0.x',
+    'v4.1.x',
+    'v4.2.x',
+    'v4.3.x',
+    'v4.4.x',
+    'v4.5.x',
+    'v4.6.x',
+    'v4.7.x',
+    'v4.8.x',
+    'v4.9.x',
+    'v4.10.x',
+    'v4.11.x',
+    'v4.12.x',
+    'v4.13.x',
+    'v4.14.x',
+    'v4.15.x',
+    'v4.16.x',
+    'v4.17.x',
+    'v4.18.x',
+    'v4.19.x',
+    'latest',
+  ]
+
+  // Rather than applying fixes to specific files, let's apply to all folders to proactively catch typos
+  const paths = versions.map((version) => join(dir, `version-${version}/`)).filter(fsOld.existsSync)
+
+  const fixes = [
+    // typo in the docs
+    { regex: /Referece/g, replacement: 'Reference' },
+    // typo filename in the docs
+    { regex: /Reference\/index/g, replacement: 'Reference/Index' },
+    // double parenthesis in the docs
+    // ((../Guides/Getting-Started.md#your-first-plugin))
+    { regex: /\((\(\.\.\/Guides\/Getting-Started\.md.*\))\)?/g, replacement: '$1' },
+    // unneeded extensions in link or missing trailing dot
+    // [Validation and Serialization](./Validation-and-Serialization.md)
+    // [Logging](Logging.md)
+    {
+      regex: /\]\((?:.\/)?((?:\w|-)+)\.md(#(\w+))?\)/gi,
+      replacement: '](./$1$2)',
+    },
+    // quotes in link
+    // [Reply]('./Reply.md' "Reply")
+    {
+      regex: /\]\('(\.\/Reply\.md)'\s/g,
+      replacement: ']($1 ',
+    },
+    // This headers make SSR compilation fail somehow. Moreover, it seems like a leftover
+    // <h1 style="text-align: center;">Fastify</h1>
+    {
+      regex: /<h1 style="text-align: center;">Fastify<\/h1>/g,
+      replacement: '',
+    },
+  ]
+
   const silent = true
 
-  // typo in the docs
-  replace({
-    regex: /Referece/g,
-    replacement: 'Reference',
-    paths: versions.map((version) => join(dir, `version-${version}/Guides`)).filter(fsOld.existsSync),
-    recursive: true,
-    silent,
-  })
-
-  // typo filename in the docs
-  replace({
-    regex: /Reference\/index/g,
-    replacement: 'Reference/Index',
-    paths: versions.map((version) => join(dir, `version-${version}/`)).filter(fsOld.existsSync),
-    recursive: true,
-    silent,
-  })
-
-  // double parenthesis in the docs
-  // ((../Guides/Getting-Started.md#your-first-plugin))
-  replace({
-    regex: /\((\(\.\.\/Guides\/Getting-Started\.md.*\))\)/g,
-    replacement: '$1',
-    paths: versions.map((version) => join(dir, `version-${version}/Reference`)).filter(fsOld.existsSync),
-    recursive: true,
-    silent,
-  })
-
-  // unneeded extensions in link or missing trailing dot
-  // [Validation and Serialization](./Validation-and-Serialization.md)
-  // [Logging](Logging.md)
-  replace({
-    regex: /\]\((?:.\/)?((?:\w|-)+)\.md(#(\w+))?\)/gi,
-    replacement: '](./$1$2)',
-    paths: versions.map((version) => join(dir, `version-${version}/Reference`)).filter(fsOld.existsSync),
-    recursive: true,
-    silent,
-  })
-
-  // quotes in link
-  // [Reply]('./Reply.md' "Reply")
-  replace({
-    regex: /\]\('(\.\/Reply\.md)'\s/g,
-    replacement: ']($1 ',
-    paths: versions.map((version) => join(dir, `version-${version}/Documentation`)).filter(fsOld.existsSync),
-    recursive: true,
-    silent,
-  })
+  for (const fix of fixes) {
+    replace({
+      paths,
+      recursive: true,
+      silent,
+      ...fix,
+    })
+  }
 }
 
 function writeJsonFile(to, json) {
