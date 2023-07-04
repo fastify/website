@@ -234,36 +234,6 @@ async function fixHtmlTags(dir) {
 }
 
 async function fixBrokenLinks(dir) {
-  // If you have warning of broken links, make sure the offending version is listed here
-  const versions = [
-    'v1.14.x',
-    'v3.29.x',
-    'v4.0.x',
-    'v4.1.x',
-    'v4.2.x',
-    'v4.3.x',
-    'v4.4.x',
-    'v4.5.x',
-    'v4.6.x',
-    'v4.7.x',
-    'v4.8.x',
-    'v4.9.x',
-    'v4.10.x',
-    'v4.11.x',
-    'v4.12.x',
-    'v4.13.x',
-    'v4.14.x',
-    'v4.15.x',
-    'v4.16.x',
-    'v4.17.x',
-    'v4.18.x',
-    'v4.19.x',
-    'latest',
-  ]
-
-  // Rather than applying fixes to specific files, let's apply to all folders to proactively catch typos
-  const paths = versions.map((version) => join(dir, `version-${version}/`)).filter(fsOld.existsSync)
-
   const fixes = [
     // typo in the docs
     { regex: /Referece/g, replacement: 'Reference' },
@@ -297,7 +267,7 @@ async function fixBrokenLinks(dir) {
 
   for (const fix of fixes) {
     replace({
-      paths,
+      paths: [dir],
       recursive: true,
       silent,
       ...fix,
