@@ -17,7 +17,7 @@ Thanks for your contribution 🥳 to the Fastily website redesign project!
 
 ### Before merging
 
-This repository follows the same rules as a fastify plugin repository. A detailed process is explained at [fastify/CONTRIBUTING.md#rules](https://github.com/fastify/fastify/blob/main/CONTRIBUTING.md#rules)
+This repository follows the same rules as a Fastify plugin repository. A detailed process is explained at [fastify/CONTRIBUTING.md#rules](https://github.com/fastify/fastify/blob/main/CONTRIBUTING.md#rules)
 
 ## Vocabulary
 

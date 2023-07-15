@@ -19,7 +19,7 @@ function HomepageHeader() {
           <GitHubButton
             href="https://github.com/fastify/fastify"
             data-icon="octicon-star"
-            aria-label="Star fastify on GitHub"
+            aria-label="Star Fastify on GitHub"
             data-size="large"
             data-show-count="true">
             Star
@@ -28,7 +28,7 @@ function HomepageHeader() {
           <GitHubButton
             href="https://github.com/fastify/fastify/fork"
             data-icon="octicon-repo-forked"
-            aria-label="Fork fastify on GitHub"
+            aria-label="Fork Fastify on GitHub"
             data-size="large">
             Fork
           </GitHubButton>
