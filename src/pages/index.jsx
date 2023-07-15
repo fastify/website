@@ -51,7 +51,7 @@ export default function Home() {
         <section className="section alternate">
           <div className="container">
             <h1>Core features</h1>
-            <p>These are the main features and principles on which fastify has been built:</p>
+            <p>These are the main features and principles on which Fastify has been built:</p>
             <ul>
               <li>
                 <strong>Highly performant:</strong> as far as we know, Fastify is one of the fastest web frameworks in
@@ -96,7 +96,7 @@ export default function Home() {
                 <p>
                   Leveraging our experience with Node.js performance, Fastify has been built from the ground up to be{' '}
                   <strong>as fast as possible</strong>. Have a look at our{' '}
-                  <Link to="/benchmarks">benchmarks section</Link> to compare fastify performance to other common web
+                  <Link to="/benchmarks">benchmarks section</Link> to compare Fastify performance to other common web
                   frameworks.
                 </p>
                 <p>
