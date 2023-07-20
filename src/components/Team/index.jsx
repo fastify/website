@@ -67,7 +67,7 @@ function TeamMember({ member, index }) {
       <div className={styles.teamMember}>
         <figure className={styles.teamImg}>
           <img
-            src={`https://avatars.githubusercontent.com/u/${member.githubId}?v=4&s=96`}
+            src={`https://avatars.githubusercontent.com/u/${member.githubId}?v=4&s=192`}
             alt={`${member.name}'s profile picture`}
             width="96"
             height="96"
