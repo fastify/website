@@ -1,15 +1,17 @@
+# Use https://caius.github.io/github_id/ to determine the githubId
+
 - name: Lead Maintainers
   people:
     - name: Matteo Collina
       sortname: Collina Matteo
-      picture: 'https://avatars1.githubusercontent.com/u/52195?v=4&s=460'
+      githubId: '52195'
       links:
         github: https://github.com/mcollina
         npm: https://www.npmjs.com/~matteo.collina
         twitter: https://twitter.com/matteocollina
     - name: Tomas Della Vedova
       sortname: Della Vedova Tomas
-      picture: 'https://avatars0.githubusercontent.com/u/4865608?v=4&s=460'
+      githubId: '4865608'
       links:
         github: https://github.com/delvedor
         npm: https://www.npmjs.com/~delvedor
@@ -19,101 +21,101 @@
   people:
     - name: David Clements
       sortname: Clements David
-      picture: 'https://avatars1.githubusercontent.com/u/1190716?s=460&v=4'
+      githubId: '1190716'
       links:
         github: https://github.com/davidmarkclements
         npm: https://www.npmjs.com/~davidmarkclements
         twitter: https://twitter.com/davidmarkclem
     - name: Dustin Deus
       sortname: Deus Dustin
-      picture: 'https://avatars3.githubusercontent.com/u/1764424?v=4&s=460'
+      githubId: '1764424'
       links:
         github: https://github.com/StarpTech
         npm: https://www.npmjs.com/~starptech
         twitter: https://twitter.com/dustindeus
     - name: Ayoub El Khattabi
       sortname: Ayoub El Khattabi
-      picture: 'https://avatars.githubusercontent.com/u/11050534?s=460&v=4'
+      githubId: '11050534'
       links:
         github: https://github.com/AyoubElk
         npm: https://www.npmjs.com/~ayoubelk
         twitter: https://twitter.com/ayoubelkh
     - name: Carlos Fuentes
       sortname: Fuentes Carlos
-      picture: 'https://avatars.githubusercontent.com/u/10200776?v=4'
+      githubId: '10200776'
       links:
         github: https://github.com/metcoder95
         npm: https://www.npmjs.com/~metcoder95
     - name: Evan Shortiss
       sortname: Shortiss Evan
-      picture: 'https://avatars3.githubusercontent.com/u/1303687?v=4&s=400'
+      githubId: '1303687'
       links:
         github: https://github.com/evanshortiss
         npm: https://www.npmjs.com/~evanshortiss
         twitter: https://twitter.com/evanshortiss
     - name: James Sumners
       sortname: Sumners James
-      picture: 'https://avatars0.githubusercontent.com/u/321201?v=4&s=460'
+      githubId: '321201'
       links:
         github: https://github.com/jsumners
         npm: https://www.npmjs.com/~jsumners
         twitter: https://twitter.com/jsumners79
     - name: Luciano Mammino
       sortname: Mammino Luciano
-      picture: 'https://avatars3.githubusercontent.com/u/205629?v=4&s=460'
+      githubId: '205629'
       links:
         github: https://github.com/lmammino
         npm: https://www.npmjs.com/~lmammino
         twitter: https://twitter.com/loige
     - name: Rafael Gonzaga
       sortname: Gonzaga Rafael
-      picture: 'https://avatars3.githubusercontent.com/u/26234614?v=4&s=400'
+      githubId: '26234614'
       links:
         github: https://github.com/RafaelGSS
         npm: https://www.npmjs.com/~rafaelgss
         twitter: https://twitter.com/_rafaelgss
     - name: Tommaso Allevi
       sortname: Allevi Tommaso
-      picture: 'https://avatars0.githubusercontent.com/u/1054125?v=4&s=460'
+      githubId: '1054125'
       links:
         github: https://github.com/allevo
         npm: https://www.npmjs.com/~allevo
         twitter: https://twitter.com/allevitommaso
     - name: Maksim Sinik
       sortname: Sinik Maksim
-      picture: 'https://avatars3.githubusercontent.com/u/1620916?s=460&v=4'
+      githubId: '1620916'
       links:
         github: https://github.com/fox1t
         npm: https://www.npmjs.com/~fox1t
         twitter: https://twitter.com/maksimsinik
     - name: Frazer Smith
       sortname: Smith Frazer
-      picture: 'https://avatars3.githubusercontent.com/u/43814140?s=460&v=4'
+      githubId: '43814140'
       links:
         github: https://github.com/Fdawgs
         npm: https://www.npmjs.com/~fdawgs
     - name: Manuel Spigolon
       sortname: Spigolon Manuel
-      picture: 'https://avatars3.githubusercontent.com/u/11404065?s=460&v=4'
+      githubId: '11404065'
       links:
         github: https://github.com/eomm
         npm: https://www.npmjs.com/~eomm
         twitter: https://twitter.com/manueomm
     - name: Igor Savin
       sortname: Savin Igor
-      picture: 'https://avatars3.githubusercontent.com/u/1847934?s=460&v=4'
+      githubId: '1847934'
       links:
         github: https://github.com/kibertoad
         npm: https://www.npmjs.com/~kibertoad
         twitter: https://twitter.com/kibertoad
     - name: Vincent Le Goff
       sortname: Le Goff Vincent
-      picture: 'https://avatars1.githubusercontent.com/u/6959636?s=460&v=4'
+      githubId: '6959636'
       links:
         github: https://github.com/zekth
     - name: Salman Mitha
       sortname: Mitha Salman
-      picture: 'https://avatars0.githubusercontent.com/u/2510597?s=460&v=4'
+      githubId: '2510597'
       links:
         github: https://github.com/salmanm
         npm: https://www.npmjs.com/~salmanm
@@ -122,35 +124,35 @@
   people:
     - name: Ethan Arrowood
       sortname: Arrowood Ethan
-      picture: 'https://avatars3.githubusercontent.com/u/16144158?s=460&v=4'
+      githubId: '16144158'
       links:
         github: https://github.com/Ethan-Arrowood
         npm: https://www.npmjs.com/~ethan_arrowood
         twitter: https://twitter.com/arrowoodtech
     - name: Çağatay Çalı
       sortname: Çalı Çağatay
-      picture: 'https://avatars1.githubusercontent.com/u/9213230?v=4&s=460'
+      githubId: '9213230'
       links:
         github: https://github.com/cagataycali
         npm: https://www.npmjs.com/~cagataycali
         twitter: https://twitter.com/cagataycali
     - name: Cemre Mengu
       sortname: Cemre Mengu
-      picture: 'https://avatars3.githubusercontent.com/u/1297759?v=4&s=460'
+      githubId: '1297759'
       links:
         github: https://github.com/cemremengu
         npm: https://www.npmjs.com/~cemremengu
         twitter: https://twitter.com/cemremengu
     - name: Nathan Woltman
       sortname: Woltman Nathan
-      picture: 'https://avatars0.githubusercontent.com/u/5128013?v=4&s=460'
+      githubId: '5128013'
       links:
         github: https://github.com/nwoltman
         npm: https://www.npmjs.com/~nwoltman
         twitter: https://twitter.com/NathanWoltman
     - name: Trivikram Kamat
       sortname: Trivikram Kamat
-      picture: 'https://avatars1.githubusercontent.com/u/16024985?s=400&v=4'
+      githubId: '16024985'
       links:
         github: https://github.com/trivikr
         npm: https://www.npmjs.com/~trivikr
