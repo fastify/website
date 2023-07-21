@@ -1,3 +1,5 @@
+# Use https://caius.github.io/github_id/ to determine the githubId
+
 - name: Lead Maintainers
   people:
     - name: Matteo Collina
