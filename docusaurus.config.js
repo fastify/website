@@ -88,7 +88,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // https://docusaurus.io/docs/api/themes/configuration
-      image: 'img/logos/fastify-black.png',
+      image: 'img/logos/fastify-black.svg',
       docs: {
         sidebar: {
           autoCollapseCategories: true,
@@ -98,8 +98,8 @@ const config = {
         title: 'Home',
         logo: {
           alt: 'Fastify Cheetah Logo',
-          src: 'img/logos/fastify-black.png',
-          srcDark: 'img/logos/fastify-white.png',
+          src: 'img/logos/fastify-black.svg',
+          srcDark: 'img/logos/fastify-white.svg',
         },
         items: [
           // {

@@ -11,7 +11,7 @@ function HomepageHeader() {
   return (
     <header className={css.hero}>
       <div className="container">
-        <img alt={siteConfig.title} src={`img/logos/fastify-white.png`} />
+        <img alt={siteConfig.title} src={`img/logos/fastify-white.svg`} />
 
         <h2>{siteConfig.tagline}</h2>
 
