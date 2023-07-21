@@ -48,7 +48,6 @@ async function extractEcosystemFromFile(file) {
 
 function extractPlugins(pluginContent) {
   const lines = pluginContent.split('\n').filter(Boolean) // remove empty lines
-  console.log(lines)
   // if a line doesn't start with "-" merge it back with the previous item
   const mergedLines = lines.reduce((acc, curr) => {
     if (curr[0] === '-') {
@@ -71,7 +70,6 @@ function extractPlugins(pluginContent) {
     const name = match[1]
     const url = match[2]
     const description = match[3] ? match[3].trim().replace(/ {2,}/g, ' ') : 'XXXX'
-    console.log(description)
     return {
       name,
       url,
