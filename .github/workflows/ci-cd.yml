@@ -113,7 +113,7 @@ jobs:
       - setup
       - build-and-upload
     concurrency:
-      group: ${{ github.ref }}-production
+      group: ${{ github.ref_name }}-production
       cancel-in-progress: true
     env:
       BASE_URL: ''
@@ -140,7 +140,7 @@ jobs:
       - setup
       - build-and-upload
     concurrency:
-      group: ${{ github.ref }}-staging
+      group: ${{ github.ref_name }}-staging
       cancel-in-progress: true
     env:
       BASE_URL: ''

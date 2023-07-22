@@ -66,7 +66,13 @@ function TeamMember({ member, index }) {
     <div className="col col--4" key={index}>
       <div className={styles.teamMember}>
         <figure className={styles.teamImg}>
-          <img src={member.picture} alt={`${member.name}'s profile picture`} />
+          <img
+            src={`https://avatars.githubusercontent.com/u/${member.githubId}?v=4&s=192`}
+            alt={`${member.name}'s profile picture`}
+            width="96"
+            height="96"
+            loading="lazy"
+          />
         </figure>
         <div className={styles.center}>
           <div>

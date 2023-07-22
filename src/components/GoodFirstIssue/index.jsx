@@ -41,7 +41,7 @@ function GoodFirstIssue({ url }) {
 
     fetchData() //
       .catch(setError)
-  }, [])
+  }, [url])
 
   if (loading)
     return (
