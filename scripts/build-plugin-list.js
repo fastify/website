@@ -70,7 +70,7 @@ function extractPlugins(pluginContent) {
 
     const name = match[1]
     const url = match[2]
-    const description = match[3] ? match[3].trim().replace(/ {2,}/g, ' ') : 'XXXX'
+    const description = match[3] ? match[3].trim().replace(/ {2,}/g, ' ') : ''
 
     return {
       name,
