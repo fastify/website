@@ -182,6 +182,10 @@
   image: 'nearform.svg'
   link: 'https://nearform.com'
 
+- name: 'NerdWallet'
+  image: 'nerdwallet.svg'
+  link: 'https://nerdwallet.com'
+
 - name: 'Net-A-Porter'
   image: 'net-a-porter.svg'
   link: 'https://net-a-porter.com'
