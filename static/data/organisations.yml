@@ -62,6 +62,10 @@
   image: 'corsairm360.svg'
   link: 'https://corsairm360.com'
 
+- name: 'Dig-A-Hash'
+  image: 'dig-a-hash.png'
+  link: 'https://www.dig-a-hash.com/'
+
 - name: 'evilfactorylabs'
   image: 'evilfactorylabs.svg'
   link: 'https://evilfactorylabs.org/'
