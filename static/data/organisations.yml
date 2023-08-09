@@ -281,3 +281,7 @@
 - name: 'Kutumb'
   image: 'kutumb.svg'
   link: 'https://kutumb.app'
+
+- name: 'Zero One Group'
+  image: 'zero-one-group.svg'
+  link: 'https://zero-one-group.com'
