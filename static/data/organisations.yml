@@ -285,3 +285,7 @@
 - name: 'Zero One Group'
   image: 'zero-one-group.svg'
   link: 'https://zero-one-group.com'
+
+- name: 'Investorean'
+  image: 'investorean.svg'
+  link: 'https://investorean.com'
