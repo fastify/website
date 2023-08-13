@@ -127,7 +127,7 @@ const config = {
           //   position: 'right',
           // },
           {
-            href: 'https://github.com/fastify/website',
+            href: 'https://github.com/fastify/fastify',
             position: 'right',
             className: 'header-github-link',
             'aria-label': 'GitHub repository',
