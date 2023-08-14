@@ -206,6 +206,10 @@
   image: 'papion.svg'
   link: 'https://papion.it'
 
+- name: 'PicPerf'
+  image: 'picperf.svg'
+  link: 'https://picperf.dev'
+
 - name: 'Platformatic'
   image: 'platformatic.svg'
   link: 'https://platformatic.dev'
