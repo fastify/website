@@ -119,6 +119,18 @@
       links:
         github: https://github.com/salmanm
         npm: https://www.npmjs.com/~salmanm
+    - name: Aras Abbasi
+      sortname: Abbasi Aras
+      githubId: '5059100'
+      links:
+        github: https://github.com/uzlopak
+        npm: https://www.npmjs.com/~uzlopak
+    - name: Gürgün Dayıoğlu
+      sortname: Dayıoğlu Gürgün
+      githubId: '74139498'
+      links:
+        github: https://github.com/gurgunday
+        npm: https://www.npmjs.com/~gurgunday
 
 - name: Past Collaborators
   people:
