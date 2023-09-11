@@ -51,7 +51,7 @@ function extractPlugins(pluginContent) {
 
   // if a line doesn't start with "-" merge it back with the previous item
   const mergedLines = lines.reduce((acc, curr) => {
-    if (curr[0] === '-') {
+    if (curr[0] === '-' && curr[2] === '[') {
       acc.push(curr)
     } else {
       acc[acc.length - 1] += ' ' + curr
