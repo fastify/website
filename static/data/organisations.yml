@@ -162,6 +162,10 @@
   image: 'marsx.svg'
   link: 'https://www.marsx.dev'
 
+- name: 'MeshCollider'
+  image: 'meshcollider.svg'
+  link: 'https://www.meshcollider.com'
+
 - name: 'MIA Platform'
   image: 'mia-platform.svg'
   link: 'https://www.mia-platform.eu'
