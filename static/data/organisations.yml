@@ -246,6 +246,10 @@
   image: 'skeelo.svg'
   link: 'https://skeelo.app'
 
+- name: 'Spendesk'
+  image: 'spendesk.svg'
+  link: 'https://www.spendesk.com'
+
 - name: 'Stillio'
   image: 'stillio.svg'
   link: 'https://www.stillio.com'
