@@ -146,6 +146,10 @@
   image: 'jobpair.svg'
   link: 'https://job-pair.com'
 
+- name: 'Joggr'
+  image: 'joggr.svg'
+  link: 'https://joggr.io'
+
 - name: 'localistars'
   image: 'localistars.svg'
   link: 'https://localistars.com'
