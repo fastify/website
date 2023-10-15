@@ -118,6 +118,7 @@ const config = {
           { to: '/benchmarks', label: 'Benchmarks', position: 'left' },
           { to: '/organisations', label: 'Adopters', position: 'left' },
           { to: '/contribute', label: 'Contribute', position: 'left' },
+          { to: '/resources', label: 'Resources', position: 'left' },
           {
             type: 'docsVersionDropdown',
             position: 'right',
