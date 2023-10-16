@@ -10,10 +10,10 @@ function HomepageHeader() {
 
   return (
     <header className={css.hero}>
-      <div className="container">
+      <div className={css['flex-col']}>
         <img alt={siteConfig.title} src={`img/logos/fastify-white.svg`} />
 
-        <h2>{siteConfig.tagline}</h2>
+        <h2 className="text-center">{siteConfig.tagline}</h2>
 
         <div>
           <GitHubButton

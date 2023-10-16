@@ -9,9 +9,22 @@
 }
 
 .hero {
-  background: url('/static/img/bg-pattern-dark.png');
+  /* background: url('/static/img/bg-pattern-dark.png'); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  height: 50vh;
   filter: invert(var(--fty-hero-color-filter));
   padding: 3rem 2rem;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
 }
 
 .hero img {

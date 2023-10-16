@@ -20,8 +20,17 @@ export default function Home() {
       <HomepageHeader />
 
       <main>
+        <section className="section flex">
+          <Link to="/docs/latest/Guides/Getting-Started" className="button button--lg button--primary">
+            Getting Started
+          </Link>
+          <Link to="/resources" className="button button--lg button--secondary">
+            Learn More
+          </Link>
+        </section>
+
         <section className="section">
-          <div className="container">
+          <div className="container text-center">
             <h1>Why</h1>
             <p>
               An efficient server implies a lower cost of the infrastructure, a better responsiveness under load and
@@ -37,7 +46,7 @@ export default function Home() {
         </section>
 
         <section className="section">
-          <div className="container">
+          <div className="container text-center">
             <h1>Who is using Fastify?</h1>
             <p>Fastify is proudly powering a large ecosystem of organisations and products out there.</p>
             <p>
@@ -50,8 +59,8 @@ export default function Home() {
 
         <section className="section alternate">
           <div className="container">
-            <h1>Core features</h1>
-            <p>These are the main features and principles on which Fastify has been built:</p>
+            <h1 className="text-center">Core features</h1>
+            <p className="text-center">These are the main features and principles on which Fastify has been built:</p>
             <ul>
               <li>
                 <strong>Highly performant:</strong> as far as we know, Fastify is one of the fastest web frameworks in
@@ -126,8 +135,8 @@ export default function Home() {
 
         <section className="section">
           <div className="container">
-            <h1>Meet The Team</h1>
-            <p>
+            <h1 className="text-center">Meet The Team</h1>
+            <p className="text-center">
               <i>In alphabetical order</i>
             </p>
             <Team />

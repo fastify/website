@@ -165,7 +165,7 @@ start()`
 
   return (
     <>
-      <h1>Quick start</h1>
+      <h1 className="text-center">Quick start</h1>
       <p>Get Fastify with NPM:</p>
 
       <CodeBlock language="bash">npm install fastify</CodeBlock>

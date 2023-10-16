@@ -68,3 +68,14 @@
   border-radius: var(--ifm-code-border-radius);
   padding: 2em 1em 1em;
 }
+
+.text-center {
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+}
