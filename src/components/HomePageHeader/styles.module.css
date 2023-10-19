@@ -9,7 +9,7 @@
 }
 
 .hero {
-  background: url('/static/img/bg-pattern-dark.png');
+  background: url('/static/img/bg-image-dark.png');
   background-size: cover;
   display: flex;
   align-items: center;
