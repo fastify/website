@@ -9,14 +9,13 @@
 }
 
 .hero {
-  /* background: url('/static/img/bg-pattern-dark.png'); */
+  background: url('/static/img/bg-pattern-dark.png');
+  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: black;
-  height: 50vh;
   filter: invert(var(--fty-hero-color-filter));
-  padding: 3rem 2rem;
+  padding: 2rem;
 }
 
 .flex-col {
@@ -24,7 +23,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 0.5rem;
 }
 
 .hero img {

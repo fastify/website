@@ -69,13 +69,14 @@
   padding: 2em 1em 1em;
 }
 
-.text-center {
-  text-align: center;
-}
-
 .flex {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 4rem;
+  gap: 2.5rem;
+}
+
+.button {
+  width: 10.5rem;
+  padding: 0.5rem 1rem;
 }
