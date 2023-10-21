@@ -175,6 +175,11 @@ const config = {
                 label: 'GitHub',
                 href: 'https://github.com/fastify/website',
               },
+              {
+                html: `
+                <img src="https://librecounter.org/counter.svg" referrerPolicy="unsafe-url" width="0" />
+                `,
+              },
             ],
           },
         ],
