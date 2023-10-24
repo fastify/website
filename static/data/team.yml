@@ -16,6 +16,20 @@
         github: https://github.com/delvedor
         npm: https://www.npmjs.com/~delvedor
         twitter: https://twitter.com/delvedor
+    - name: Manuel Spigolon
+      sortname: Spigolon Manuel
+      githubId: '11404065'
+      links:
+        github: https://github.com/eomm
+        npm: https://www.npmjs.com/~eomm
+        twitter: https://twitter.com/manueomm
+    - name: James Sumners
+      sortname: Sumners James
+      githubId: '321201'
+      links:
+        github: https://github.com/jsumners
+        npm: https://www.npmjs.com/~jsumners
+        twitter: https://twitter.com/jsumners79
 
 - name: Collaborators
   people:
@@ -53,13 +67,6 @@
         github: https://github.com/evanshortiss
         npm: https://www.npmjs.com/~evanshortiss
         twitter: https://twitter.com/evanshortiss
-    - name: James Sumners
-      sortname: Sumners James
-      githubId: '321201'
-      links:
-        github: https://github.com/jsumners
-        npm: https://www.npmjs.com/~jsumners
-        twitter: https://twitter.com/jsumners79
     - name: Luciano Mammino
       sortname: Mammino Luciano
       githubId: '205629'
@@ -94,13 +101,6 @@
       links:
         github: https://github.com/Fdawgs
         npm: https://www.npmjs.com/~fdawgs
-    - name: Manuel Spigolon
-      sortname: Spigolon Manuel
-      githubId: '11404065'
-      links:
-        github: https://github.com/eomm
-        npm: https://www.npmjs.com/~eomm
-        twitter: https://twitter.com/manueomm
     - name: Igor Savin
       sortname: Savin Igor
       githubId: '1847934'
