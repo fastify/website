@@ -77,6 +77,13 @@
 }
 
 .button {
-  width: 10.5rem;
+  min-width: 10.75rem;
   padding: 0.5rem 1rem;
+}
+
+@media screen and (max-width: 480px) {
+  .flex {
+    justify-content: space-evenly;
+    gap: 0;
+  }
 }
