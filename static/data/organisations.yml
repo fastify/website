@@ -202,6 +202,10 @@
   image: 'net-a-porter.svg'
   link: 'https://net-a-porter.com'
 
+- name: 'NTT Com SkyWay'
+  image: nttcom-skyway.svg
+  link: 'https://skyway.ntt.com'
+
 - name: 'Nucleode'
   image: 'nucleode.svg'
   link: 'https://www.nucleode.com'
