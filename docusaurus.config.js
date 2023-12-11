@@ -23,6 +23,8 @@ const config = {
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
+  // GitHub Pages redirects with a trailing slash, so this configures links to match
+  trailingSlash: true,
 
   // GitHub pages deployment config.
   organizationName: 'fastify',
