@@ -242,13 +242,6 @@ async function fixBrokenLinks(dir) {
     // double parenthesis in the docs
     // ((../Guides/Getting-Started.md#your-first-plugin))
     { regex: /\((\(\.\.\/Guides\/Getting-Started\.md.*\))\)?/g, replacement: '$1' },
-    // unneeded extensions in link or missing trailing dot
-    // [Validation and Serialization](./Validation-and-Serialization.md)
-    // [Logging](Logging.md)
-    {
-      regex: /\]\((?:.\/)?((?:\w|-)+)\.md(#(\w+))?\)/gi,
-      replacement: '](./$1$2)',
-    },
     // quotes in link
     // [Reply]('./Reply.md' "Reply")
     {
