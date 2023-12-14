@@ -313,3 +313,8 @@
 - name: 'Investorean'
   image: 'investorean.svg'
   link: 'https://investorean.com'
+
+- name: 'Writesonic'
+  image: 'writesonic.svg'
+  link: 'https://writesonic.com'
+
