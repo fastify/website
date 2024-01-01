@@ -122,6 +122,10 @@
   image: 'habit.svg'
   link: 'https://habit.global/'
 
+- name: 'HEYHEY'
+  image: 'heyhey.svg'
+  link: 'https://heyhey.to/'
+
 - name: 'HospitalRun'
   image: 'hospitalrun.svg'
   link: 'https://hospitalrun.io/'
