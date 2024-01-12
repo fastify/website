@@ -278,6 +278,10 @@
   image: 'theoutnet.svg'
   link: 'https://theoutnet.com/'
 
+- name: 'Trizy by nstech'
+  image: 'trizyapp.svg'
+  link: 'https://www.trizy.com.br'
+
 - name: 'Turmitech'
   image: 'turmitech.svg'
   link: 'https://turmitech.com/'
