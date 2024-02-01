@@ -59,7 +59,7 @@ function extractPlugins(pluginContent) {
     return acc
   }, [])
 
-  const re = /\[`([-a-zA-Z\d./@]+)`\]\(([^)]+)\)(\s*(.+))?/
+  const re = /\[`([-a-z\d./@]+)`\]\(([^)]+)\)(\s*(.+))?/i
   const plugins = mergedLines.map((line) => {
     const match = re.exec(line)
     if (!match) {
