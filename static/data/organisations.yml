@@ -214,6 +214,10 @@
   image: 'nucleode.svg'
   link: 'https://www.nucleode.com'
 
+- name: 'nullplatform'
+  image: 'nullplatform.svg'
+  link: 'https://www.nullplatform.com'
+
 - name: 'oneclick'
   image: 'oneclick.svg'
   link: 'https://oneclick-cloud.com/'
