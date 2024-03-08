@@ -68,3 +68,22 @@
   border-radius: var(--ifm-code-border-radius);
   padding: 2em 1em 1em;
 }
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.button {
+  min-width: 10.75rem;
+  padding: 0.5rem 1rem;
+}
+
+@media screen and (max-width: 480px) {
+  .flex {
+    justify-content: space-evenly;
+    gap: 0;
+  }
+}
