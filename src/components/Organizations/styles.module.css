@@ -1,4 +1,4 @@
-.organisationsList {
+.organizationsList {
   margin: 0;
   padding: 0;
   display: flex;
@@ -8,39 +8,39 @@
   place-items: center center;
 }
 
-[data-theme='dark'] .organisationsList {
+[data-theme='dark'] .organizationsList {
   background-color: var(--ifm-color-secondary-dark);
   border-radius: var(--ifm-code-border-radius);
 }
 
-.organisationsList li {
+.organizationsList li {
   align-items: center;
   display: flex;
   justify-content: center;
   margin: 0.6rem;
 }
 
-.organisationsList li a {
+.organizationsList li a {
   text-decoration: none;
 }
 
-.organisationsList li a img {
+.organizationsList li a img {
   filter: grayscale(100%);
   transition: all 0.5s;
 }
 
-.organisationsList .using img {
+.organizationsList .using img {
   max-width: 140px;
 }
 
-.organisationsList .sponsoring_tier_3 img {
+.organizationsList .sponsoring_tier_3 img {
   max-width: 140px;
 }
 
-.organisationsList .sponsoring_tier_4 img {
+.organizationsList .sponsoring_tier_4 img {
   max-width: 160px;
 }
 
-.organisationsList li a:hover img {
+.organizationsList li a:hover img {
   filter: none;
 }

@@ -5,7 +5,7 @@ import Layout from '@theme/Layout'
 import Link from '@docusaurus/Link'
 
 import HomepageHeader from '@site/src/components/HomePageHeader/index.jsx'
-import Organisations from '@site/src/components/Organisations'
+import Organizations from '@site/src/components/Organizations'
 import Team from '@site/src/components/Team'
 import QuickStart from '@site/src/components/QuickStart'
 import Heading from '@theme/Heading'
@@ -43,7 +43,7 @@ export default function Home() {
             <p>
               Fastify is proudly powering a large ecosystem of organizations and products out there with almost{' '}
               <Link to={'https://npm-stat.com/charts.html?package=fastify'}>10 million downloads per month</Link>.{' '}
-              <Link to="/organisations">Checkout our affiliate companies.</Link>
+              <Link to="/organizations">Checkout our affiliate companies.</Link>
             </p>
           </div>
 
@@ -55,7 +55,7 @@ export default function Home() {
                 <Link to="https://github.com/sponsors/fastify">GitHub</Link> or{' '}
                 <Link to="https://opencollective.com/fastify">Open Collective</Link>.
               </p>
-              <Organisations displayType={'sponsor'} />
+              <Organizations displayType={'sponsor'} />
             </div>
           </div>
         </section>
@@ -120,11 +120,10 @@ export default function Home() {
               <div className="col col--6">
                 <Heading as={'h1'}>Ecosystem</Heading>
                 <p>
-                  Fastify has an ever-growing ecosystem of plugins. There is probably already a plugin for your
-                  favourite database or template language. Have a look at the{' '}
-                  <Link to="/ecosystem">Ecosystem page</Link> to navigate through the currently available plugins.
-                  Can&#39;t you find the plugin you are looking for? No problem,{' '}
-                  <Link to="/docs/latest/Reference/Plugins">it&#39;s very easy to write one</Link>!
+                  Fastify has an ever-growing ecosystem of plugins. There is probably already a plugin for your favorite
+                  database or template language. Have a look at the <Link to="/ecosystem">Ecosystem page</Link> to
+                  navigate through the currently available plugins. Can&#39;t you find the plugin you are looking for?
+                  No problem, <Link to="/docs/latest/Reference/Plugins">it&#39;s very easy to write one</Link>!
                 </p>
                 <p>
                   <Link to="/ecosystem" className="button button--lg button--primary">

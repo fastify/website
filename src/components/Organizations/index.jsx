@@ -2,14 +2,14 @@ import React from 'react'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import Link from '@docusaurus/Link'
 
-import organizationsData from '@site/static/generated/organisations.json'
+import organizationsData from '@site/static/generated/organizations.json'
 import styles from './styles.module.css'
 
-export default function Organisations({ maxItems, displayType }) {
+export default function Organizations({ maxItems, displayType }) {
   const orgs = filterOrganizationsByType(displayType)
 
   return (
-    <ul className={styles.organisationsList}>
+    <ul className={styles.organizationsList}>
       {shuffle(orgs, { maxItems }).map((organization, index) => (
         <li key={index}>
           <OrganizationItem organization={organization} />
@@ -34,7 +34,7 @@ function filterOrganizationsByType(type) {
 function OrganizationItem({ organization }) {
   return (
     <Link href={organization.link} target="_blank" rel="noreferrer" className={getOrganizationStyle(organization)}>
-      <img src={useBaseUrl(`/img/organisations/${organization.image}`)} alt={`${organization.name} is using Fastify`} />
+      <img src={useBaseUrl(`/img/organizations/${organization.image}`)} alt={`${organization.name} is using Fastify`} />
     </Link>
   )
 }
