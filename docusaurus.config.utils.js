@@ -17,7 +17,7 @@ function checkGeneratedData() {
   const generatedFiles = [
     'static/generated/acknowledgements.json',
     'static/generated/benchmarks.json',
-    'static/generated/organisations.json',
+    'static/generated/organizations.json',
     'static/generated/plugins.json',
     'static/generated/team.json',
   ]
@@ -90,7 +90,7 @@ function manageRedirects({ existingPath, major, versions, versionsShipped, ignor
     return existingPath
       .replace(`/docs/${versionName}`, oldPath) // Replace the version with the old path
       .replace(/Guides\/(?!Contributing)/g, '') // Remove Guides/ from the path (it has been added in v4)
-      .replace(/Reference\//g, '') // Remove Refecerence/ from the path (it has been added in v4)
+      .replace(/Reference\//g, '') // Remove Reference/ from the path (it has been added in v4)
   })
 
   // Remove duplicates
