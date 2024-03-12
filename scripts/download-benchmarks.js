@@ -44,14 +44,14 @@ async function execute({ downloadUrl, outputFile }) {
 async function downloadBenchmarks(githubUrl) {
   const data = await getDataAsJSON(githubUrl)
   if (isValidBenchmark(data)) {
-    const date = await getBenchmarkDate();
-    return buildBenchmarksJSON(data, date);
+    const date = await getBenchmarkDate()
+    return buildBenchmarksJSON(data, date)
   }
 
   log.warn('Fetched file contains `N/A` data. Searching for previous revision')
 
   const commits = await getCommits()
-  let i = 0;
+  let i = 0
   for (let commit in commits) {
     const commitSha = commits[commit]
     log.debug(`Checking commit %s`, commitSha)
@@ -61,18 +61,18 @@ async function downloadBenchmarks(githubUrl) {
 
     const data = await getBlob(benchmarlUrl)
     if (isValidBenchmark(data)) {
-      const date = await getBenchmarkDate(i);
-      return buildBenchmarksJSON(data, date);
+      const date = await getBenchmarkDate(i)
+      return buildBenchmarksJSON(data, date)
     }
-    i++;
+    i++
   }
 
   throw new Error('Unable to find a valid benchmark result')
 }
 
-async function getBenchmarkDate(benchmarkCommitNumber=0) {
-  const commits = await getDataAsJSON(`${GITHUB_BASE_URL}/commits?path=benchmark-results.json&per_page=10`);
-  return commits[benchmarkCommitNumber] ? commits[benchmarkCommitNumber].commit.committer.date : 'Unknown';
+async function getBenchmarkDate(benchmarkCommitNumber = 0) {
+  const commits = await getDataAsJSON(`${GITHUB_BASE_URL}/commits?path=benchmark-results.json&per_page=10`)
+  return commits[benchmarkCommitNumber] ? commits[benchmarkCommitNumber].commit.committer.date : 'Unknown'
 }
 
 const getCommits = async () => {
