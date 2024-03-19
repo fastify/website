@@ -21,7 +21,7 @@ This command starts a local development server and opens up a browser window.
 Most changes are reflected live without having to restart the server.
 
 Note that only the documentations listed in the `versions.json` file will be available.  
-So, if you have a long version list, your local enviroment will be slowed down.
+So, if you have a long version list, your local environment will be slowed down.
 
 ### Build
 

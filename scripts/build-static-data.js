@@ -31,8 +31,8 @@ execute([
 
   // ##### Organizations
   {
-    staticDataFile: path.join(__dirname, '../static/data/organisations.yml'),
-    outputFile: path.join(__dirname, '../static/generated/organisations.json'),
+    staticDataFile: path.join(__dirname, '../static/data/organizations.yml'),
+    outputFile: path.join(__dirname, '../static/generated/organizations.json'),
     sideEffect: (data) => {
       // Sort alphabetically by `name` lowercase
       data.sort((a, b) => {
