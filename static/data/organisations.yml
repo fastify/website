@@ -258,6 +258,10 @@
   image: 'satiurn.svg'
   link: 'https://www.satiurn.com/'
 
+- name: 'Seedium'
+  image: 'seedium.svg'
+  link: 'https://seedium.io'
+
 - name: 'Seznam.cz'
   image: 'seznam.cz.svg'
   link: 'https://www.seznam.cz/'
