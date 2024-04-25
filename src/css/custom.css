@@ -16,6 +16,9 @@
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgb(0 0 0 / 10%);
 
+  --ifm-color-sponsor-bg: #f3f58b;
+  --ifm-color-sponsor-border: #818331;
+
   --ifm-color-secondary-light: #f5f5f5;
 }
 
@@ -29,6 +32,9 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgb(0 0 0 / 30%);
+
+  --ifm-color-sponsor-bg: #BCC601;
+  --ifm-color-sponsor-border: #f9fb8e;
 
   --ifm-color-secondary-light: #262626;
 }
@@ -66,5 +72,13 @@
 .alternate {
   background-color: var(--ifm-color-secondary-light);
   border-radius: var(--ifm-code-border-radius);
+  padding: 2em 1em 1em;
+}
+
+.alternate-sponsors {
+  background-color: var(--ifm-color-sponsor-bg);
+  border-radius: var(--ifm-code-border-radius);
+  border: 2px solid var(--ifm-color-sponsor-border);
+  color: rgb(28, 30, 33);
   padding: 2em 1em 1em;
 }

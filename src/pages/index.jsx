@@ -40,11 +40,33 @@ export default function Home() {
           <div className="container">
             <h1>Who is using Fastify?</h1>
             <p>Fastify is proudly powering a large ecosystem of organisations and products out there.</p>
-            <p>
-              Discover <Link to="/organisations">more organisations using Fastify</Link>. Do you want your organisation
-              to <Link to="/organisations#how-to-be-featured-here">be featured here</Link>?
-            </p>
-            <Organisations maxItems={12} />
+          </div>
+
+          <div className="container">
+            <div className="row">
+              <div className="col col--6">
+                <div className='alternate-sponsors'>
+                  <h3>Sponsoring</h3>
+                  <p>
+                    Would you like to sponsor Fastify financially?
+                    Support us on <Link to="https://github.com/sponsors/fastify">GitHub</Link>{' '}
+                    or <Link to="https://opencollective.com/fastify">Open Collective</Link>.
+                  </p>
+                  <Organisations maxItems={6} />
+                </div>
+              </div>
+
+              <div className="col col--6">
+                <div className='alternate'>
+                  <h3>Using</h3>
+                  <p>
+                    Do you want your organisation
+                    to <Link to="/organisations#how-to-be-featured-here">be featured here</Link>?
+                  </p>
+                  <Organisations maxItems={6} /> ... <Link to="/organisations">and many more!</Link>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
