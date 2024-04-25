@@ -329,3 +329,8 @@
 - name: 'Investorean'
   image: 'investorean.svg'
   link: 'https://investorean.com'
+
+- name: 'Mercedes-Benz Group'
+  image: 'mercedes-benz_2022.svg'
+  link: 'https://github.com/mercedes-benz'
+  sponsor: true
