@@ -33,7 +33,7 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgb(0 0 0 / 30%);
 
-  --ifm-color-sponsor-bg: #BCC601;
+  --ifm-color-sponsor-bg: #bcc601;
   --ifm-color-sponsor-border: #f9fb8e;
 
   --ifm-color-secondary-light: #262626;
@@ -79,6 +79,6 @@
   background-color: var(--ifm-color-sponsor-bg);
   border-radius: var(--ifm-code-border-radius);
   border: 2px solid var(--ifm-color-sponsor-border);
-  color: rgb(28, 30, 33);
+  color: rgb(28 30 33);
   padding: 2em 1em 1em;
 }

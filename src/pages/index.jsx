@@ -45,23 +45,23 @@ export default function Home() {
           <div className="container">
             <div className="row">
               <div className="col col--6">
-                <div className='alternate-sponsors'>
+                <div className="alternate-sponsors">
                   <h3>Sponsoring</h3>
                   <p>
-                    Would you like to sponsor Fastify financially?
-                    Support us on <Link to="https://github.com/sponsors/fastify">GitHub</Link>{' '}
-                    or <Link to="https://opencollective.com/fastify">Open Collective</Link>.
+                    Would you like to sponsor Fastify financially? Support us on{' '}
+                    <Link to="https://github.com/sponsors/fastify">GitHub</Link> or{' '}
+                    <Link to="https://opencollective.com/fastify">Open Collective</Link>.
                   </p>
-                  <Organisations maxItems={6} />
+                  <Organisations onlySponsors={true} />
                 </div>
               </div>
 
               <div className="col col--6">
-                <div className='alternate'>
+                <div className="alternate">
                   <h3>Using</h3>
                   <p>
-                    Do you want your organisation
-                    to <Link to="/organisations#how-to-be-featured-here">be featured here</Link>?
+                    Do you want your organisation to{' '}
+                    <Link to="/organisations#how-to-be-featured-here">be featured here</Link>?
                   </p>
                   <Organisations maxItems={6} /> ... <Link to="/organisations">and many more!</Link>
                 </div>

@@ -4,10 +4,14 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 import organizationsData from '@site/static/generated/organisations.json'
 import styles from './styles.module.css'
 
-export default function Organisations({ maxItems }) {
+export default function Organisations({ maxItems, onlySponsors }) {
+  const orgs = onlySponsors //
+    ? organizationsData.filter((org) => org.sponsor)
+    : organizationsData
+
   return (
     <ul className={styles.organisationsList}>
-      {shuffle(organizationsData, { maxItems: maxItems }).map((organization, index) => (
+      {shuffle(orgs, { maxItems }).map((organization, index) => (
         <li key={index}>
           <OrganizationItem organization={organization} />
         </li>
@@ -19,7 +23,11 @@ export default function Organisations({ maxItems }) {
 function OrganizationItem({ organization }) {
   return (
     <a href={organization.link} target="_blank" rel="noreferrer">
-      <img src={useBaseUrl(`/img/organisations/${organization.image}`)} alt={`${organization.name} is using Fastify`} />
+      <img
+        src={useBaseUrl(`/img/organisations/${organization.image}`)}
+        alt={`${organization.name} is using Fastify`}
+        className={organization.sponsor ? styles.sponsoring : styles.using}
+      />
     </a>
   )
 }
