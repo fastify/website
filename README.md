@@ -8,7 +8,6 @@ This website is built using [Docusaurus 2](https://docusaurus.io/), a modern sta
 
 ```bash
 npm install
-npm --prefix ./scripts install
 ```
 
 ### Run
