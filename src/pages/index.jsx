@@ -46,7 +46,7 @@ export default function Home() {
             <div className="row">
               <div className="col col--6">
                 <div className="alternate-sponsors">
-                  <h3>Sponsoring</h3>
+                  <h3>Sponsors</h3>
                   <p>
                     Would you like to sponsor Fastify financially? Support us on{' '}
                     <Link to="https://github.com/sponsors/fastify">GitHub</Link> or{' '}
