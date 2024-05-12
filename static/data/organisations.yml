@@ -334,3 +334,4 @@
   image: 'mercedes-benz_2022.png'
   link: 'https://github.com/mercedes-benz'
   sponsor: true
+  tier: 'tier_3'

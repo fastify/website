@@ -63,7 +63,7 @@ export default function Home() {
                     Do you want your organisation to{' '}
                     <Link to="/organisations#how-to-be-featured-here">be featured here</Link>?
                   </p>
-                  <Organisations maxItems={6} /> ... <Link to="/organisations">and many more!</Link>
+                  <Organisations maxItems={8} /> ... <Link to="/organisations">and many more!</Link>
                 </div>
               </div>
             </div>

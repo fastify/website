@@ -26,17 +26,20 @@
 }
 
 .organisationsList li a img {
-  max-width: 160px;
   filter: grayscale(100%);
   transition: all 0.5s;
 }
 
-.organisationsList li a img .using {
-  max-height: 60px;
+.organisationsList .using img {
+  max-width: 100px;
 }
 
-.organisationsList li a img .sponsoring {
-  max-height: auto;
+.organisationsList .sponsoring_tier_3 img {
+  max-width: 140px;
+}
+
+.organisationsList .sponsoring_tier_4 img {
+  max-width: 160px;
 }
 
 .organisationsList li a:hover img {
