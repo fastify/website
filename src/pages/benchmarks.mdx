@@ -16,13 +16,19 @@ export function BenchmarkSection() {
   ))
 }
 
+export function BenchMarkDate() {
+  return benchmarksData.date === 'Unknown'
+    ? 'Unknown'
+    : new Date(benchmarksData.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+}
+
 <HeroBanner title="Benchmarks" />
 
 Leveraging our experience with Node.js performance, Fastify has been built from the ground up to be **as fast as possible**.
 
 All the code used for our benchmarks is [available on GitHub](https://github.com/fastify/benchmarks/).
 
-Here's a brief summary on how Fastify overhead performed against the some other well known Node.js web frameworks:
+Here's a brief summary on how Fastify overhead performed against the some other well known Node.js web frameworks (last updated on <BenchMarkDate />):
 
 <BenchmarkSection />
 
