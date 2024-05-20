@@ -1,4 +1,4 @@
-.organisationsList {
+.organizationsList {
   margin: 0;
   padding: 0;
   display: flex;
@@ -9,29 +9,29 @@
   justify-items: center;
 }
 
-[data-theme='dark'] .organisationsList {
+[data-theme='dark'] .organizationsList {
   background-color: var(--ifm-color-secondary-dark);
   border-radius: var(--ifm-code-border-radius);
 }
 
-.organisationsList li {
+.organizationsList li {
   align-items: center;
   display: flex;
   justify-content: center;
   margin: 0.6rem;
 }
 
-.organisationsList li a {
+.organizationsList li a {
   text-decoration: none;
 }
 
-.organisationsList li a img {
+.organizationsList li a img {
   max-height: 60px;
   max-width: 160px;
   filter: grayscale(100%);
   transition: all 0.5s;
 }
 
-.organisationsList li a:hover img {
+.organizationsList li a:hover img {
   filter: none;
 }
