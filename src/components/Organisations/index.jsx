@@ -1,5 +1,6 @@
 import React from 'react'
 import useBaseUrl from '@docusaurus/useBaseUrl'
+import Link from '@docusaurus/Link'
 
 import organizationsData from '@site/static/generated/organisations.json'
 import styles from './styles.module.css'
@@ -18,9 +19,9 @@ export default function Organisations({ maxItems }) {
 
 function OrganizationItem({ organization }) {
   return (
-    <a href={organization.link} target="_blank" rel="noreferrer">
+    <Link href={organization.link} target="_blank" rel="noreferrer">
       <img src={useBaseUrl(`/img/organisations/${organization.image}`)} alt={`${organization.name} is using Fastify`} />
-    </a>
+    </Link>
   )
 }
 
