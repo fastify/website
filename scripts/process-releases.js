@@ -112,7 +112,7 @@ async function processReleases(opts) {
   const v2Docs = orderedVersions.find((v) => v.startsWith('v2.'))
   await fixCodeBlocks(join(versionedFolder, `version-${v2Docs}`))
 
-  await fixDocusaurus3Errors(join(webSiteRoot,'versioned_docs'))
+  await fixDocusaurus3Errors(join(webSiteRoot, 'versioned_docs'))
   log.info('Updated docs to match Docusaurus v3 guidelines')
   log.info('Done')
 }
@@ -275,59 +275,59 @@ function writeJsonFile(to, json) {
 }
 
 async function editLine(file, lineNumber, oldContent, newContent) {
-  const data = await fs.readFile(file, 'utf8');
-  const lines = data.split(/\r?\n/); // Split by line endings (including CRLF)
+  const data = await fs.readFile(file, 'utf8')
+  const lines = data.split(/\r?\n/) // Split by line endings (including CRLF)
 
   if (lineNumber < 1 || lineNumber > lines.length) {
-    throw new Error(`Invalid line number: ${lineNumber}`);
+    throw new Error(`Invalid line number: ${lineNumber}`)
   }
 
   let currentLineContent = lines[lineNumber - 1]
 
-  const newLineContent = currentLineContent.replace(oldContent,newContent)
-  if(currentLineContent === newLineContent) throw new Error(`Could not find string "${oldContent}" in ${file} at line number ${lineNumber}`)
+  const newLineContent = currentLineContent.replace(oldContent, newContent)
+  if (currentLineContent === newLineContent)
+    throw new Error(`Could not find string "${oldContent}" in ${file} at line number ${lineNumber}`)
 
-  lines[lineNumber - 1] = newLineContent; // Modify the target line
-  const newData = lines.join('\n');
+  lines[lineNumber - 1] = newLineContent // Modify the target line
+  const newData = lines.join('\n')
 
-  await fs.writeFile(file, newData, 'utf8');
+  await fs.writeFile(file, newData, 'utf8')
 }
 
-
-async function fixDocusaurus3Errors(dir){
+async function fixDocusaurus3Errors(dir) {
   // process version-v4.27.x/Reference/TypeScript.md
 
   // adding spacing between <[ characters
   replace({
     regex: /<\[/g,
-    replacement: "< [",
-    paths: [join(dir,'version-v4.27.x/Reference/TypeScript.md')],
+    replacement: '< [',
+    paths: [join(dir, 'version-v4.27.x/Reference/TypeScript.md')],
     recursive: false,
     silent: false,
   })
 
   // adding required spacing between characters
   await editLine(
-    join(dir,'version-v4.27.x/Reference/TypeScript.md'),
+    join(dir, 'version-v4.27.x/Reference/TypeScript.md'),
     '1482',
     'fastify.preSerializationHookHandler<PreSerializationPayload,',
-    "fastify.preSerializationHookHandler< PreSerializationPayload,"
+    'fastify.preSerializationHookHandler< PreSerializationPayload,',
   )
 
   // adding space for correct formatting
   await editLine(
-    join(dir,'version-v4.27.x/Reference/TypeScript.md'),
+    join(dir, 'version-v4.27.x/Reference/TypeScript.md'),
     '1492',
     'fastify.onSendHookHandler<OnSendPayload,',
-    'fastify.onSendHookHandler< OnSendPayload'
+    'fastify.onSendHookHandler< OnSendPayload',
   )
 
   // fix `Could not parse expression with acorn` error
   await editLine(
-    join(dir,'version-v4.27.x/Reference/TypeScript.md'),
+    join(dir, 'version-v4.27.x/Reference/TypeScript.md'),
     '1531',
     '{ path: string; prefix: string })',
-    '\\{ path: string; prefix: string })'
+    '\\{ path: string; prefix: string })',
   )
 
   // process version-v3.29.x/Reference/TypeScript.md
@@ -335,50 +335,50 @@ async function fixDocusaurus3Errors(dir){
   // adding spacing between <[ characters
   replace({
     regex: /<\[/g,
-    replacement: "< [",
-    paths: [join(dir,'version-v3.29.x/Reference/TypeScript.md')],
+    replacement: '< [',
+    paths: [join(dir, 'version-v3.29.x/Reference/TypeScript.md')],
     recursive: false,
     silent: false,
   })
 
   // adding space for correct formatting
-   await editLine(
-    join(dir,'version-v3.29.x/Reference/TypeScript.md'),
+  await editLine(
+    join(dir, 'version-v3.29.x/Reference/TypeScript.md'),
     '1412',
     'fastify.preSerializationHookHandler<PreSerializationPayload',
-    'fastify.preSerializationHookHandler< PreSerializationPayload'
+    'fastify.preSerializationHookHandler< PreSerializationPayload',
   )
 
   // adding space for correct formatting
-   await editLine(
-    join(dir,'version-v3.29.x/Reference/TypeScript.md'),
+  await editLine(
+    join(dir, 'version-v3.29.x/Reference/TypeScript.md'),
     '1422',
     'fastify.onSendHookHandler<OnSendPayload,',
-    'fastify.onSendHookHandler< OnSendPayload ,'
+    'fastify.onSendHookHandler< OnSendPayload ,',
   )
 
-   // adding space for correct formatting
-   await editLine(
-    join(dir,'version-v3.29.x/Reference/TypeScript.md'),
+  // adding space for correct formatting
+  await editLine(
+    join(dir, 'version-v3.29.x/Reference/TypeScript.md'),
     '1461',
     '{ path: string; prefix: string })',
-    '\\{ path: string; prefix: string })'
+    '\\{ path: string; prefix: string })',
   )
 
   // process version-v2.15.x/Documentation/Server.md
   await editLine(
-    join(dir,'version-v2.15.x/Documentation/Server.md'),
+    join(dir, 'version-v2.15.x/Documentation/Server.md'),
     '33',
     '</a> option is set.',
-    '</a> \noption is set.'
+    '</a> \noption is set.',
   )
 
- // process version-v2.15.x/Documentation/Server.md
+  // process version-v2.15.x/Documentation/Server.md
   await editLine(
-    join(dir,'version-v1.14.x/Documentation/Server.md'),
+    join(dir, 'version-v1.14.x/Documentation/Server.md'),
     '33',
     '</a> option is set.',
-    '</a> \noption is set.'
+    '</a> \noption is set.',
   )
 
   // process latest docs
@@ -386,33 +386,33 @@ async function fixDocusaurus3Errors(dir){
   // adding spacing between <[ characters
   replace({
     regex: /<\[/g,
-    replacement: "< [",
-    paths: [join(dir,'version-latest/Reference/TypeScript.md')],
+    replacement: '< [',
+    paths: [join(dir, 'version-latest/Reference/TypeScript.md')],
     recursive: false,
     silent: false,
   })
 
   // adding required spacing between characters
   await editLine(
-    join(dir,'version-latest/Reference/TypeScript.md'),
+    join(dir, 'version-latest/Reference/TypeScript.md'),
     '1482',
     'fastify.preSerializationHookHandler<PreSerializationPayload,',
-    "fastify.preSerializationHookHandler< PreSerializationPayload,"
+    'fastify.preSerializationHookHandler< PreSerializationPayload,',
   )
 
   // adding space for correct formatting
   await editLine(
-    join(dir,'version-latest/Reference/TypeScript.md'),
+    join(dir, 'version-latest/Reference/TypeScript.md'),
     '1492',
     'fastify.onSendHookHandler<OnSendPayload,',
-    'fastify.onSendHookHandler< OnSendPayload'
+    'fastify.onSendHookHandler< OnSendPayload',
   )
 
   // fix `Could not parse expression with acorn` error
   await editLine(
-    join(dir,'version-latest/Reference/TypeScript.md'),
+    join(dir, 'version-latest/Reference/TypeScript.md'),
     '1531',
     '{ path: string; prefix: string })',
-    '\\{ path: string; prefix: string })'
+    '\\{ path: string; prefix: string })',
   )
 }
