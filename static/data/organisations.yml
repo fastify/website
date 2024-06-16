@@ -74,6 +74,10 @@
   image: 'elo7.svg'
   link: 'https://www.elo7.com.br'
 
+- name: 'errsole'
+  image: 'errsole.svg'
+  link: 'https://www.errsole.com'
+
 - name: 'Discord Bots Catalog'
   image: 'discordbotscatalog.svg'
   link: 'https://top-bots.xyz'
