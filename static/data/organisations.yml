@@ -270,6 +270,10 @@
   image: 'skeelo.svg'
   link: 'https://skeelo.app'
 
+- name: 'SKUSavvy'
+  image: 'skusavvy-com.svg'
+  link: 'https://www.skusavvy.com'
+
 - name: 'Spendesk'
   image: 'spendesk.svg'
   link: 'https://www.spendesk.com'
