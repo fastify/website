@@ -341,5 +341,5 @@
   tier: 'tier_3'
 
  - name: 'Orwi'
-  image: 'orwi.svg'
-  link: 'https://orwi.app'
+   image: 'orwi.svg'
+   link: 'https://orwi.app'
