@@ -166,6 +166,14 @@ start()`
   return (
     <>
       <h1>Quick start</h1>
+
+      <a
+        href="https://gitpod.io/#https://github.com/gitpod-samples/template-fastify"
+        target="_blank"
+        rel="noreferrer nofollow">
+        <img alt="Open in Gitpod" width="200" height="56" src="https://gitpod.io/button/open-in-gitpod.svg" />
+      </a>
+
       <p>Get Fastify with NPM:</p>
 
       <CodeBlock language="bash">npm install fastify</CodeBlock>
