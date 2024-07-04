@@ -343,3 +343,7 @@
 - name: 'Orwi'
   image: 'orwi.svg'
   link: 'https://orwi.app'
+
+- name: 'Jellyfish Technologies'
+  image: '2ima7KOTrNlLfmUhYEHhfrD6fmC.svg'
+  link: 'https://www.jellyfishtechnologies.com/'
