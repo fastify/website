@@ -79,3 +79,7 @@
   color: rgb(28 30 33);
   padding: 2em 1em 1em;
 }
+
+.h-full {
+  height: 100%;
+}
