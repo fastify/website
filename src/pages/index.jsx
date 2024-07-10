@@ -45,7 +45,7 @@ export default function Home() {
           <div className="container">
             <div className="row">
               <div className="col col--6">
-                <div className="alternate-sponsors">
+                <div className="alternate-sponsors h-full">
                   <h3>Sponsors</h3>
                   <p>
                     Would you like to sponsor Fastify financially? Support us on{' '}
@@ -57,7 +57,7 @@ export default function Home() {
               </div>
 
               <div className="col col--6">
-                <div className="alternate">
+                <div className="alternate h-full">
                   <h3>Using</h3>
                   <p>
                     Do you want your organisation to{' '}
