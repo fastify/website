@@ -134,6 +134,10 @@
   image: 'hotstar.svg'
   link: 'https://tech.hotstar.com/'
 
+- name: 'iGenius'
+  image: 'igenius.svg'
+  link: 'https://www.igenius.ai/'
+
 - name: 'ImmobiliareLabs'
   image: 'immobiliarelabs.svg'
   link: 'https://labs.immobiliare.it'
