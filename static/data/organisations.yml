@@ -14,6 +14,10 @@
   image: 'appadaptive.svg'
   link: 'https://appadaptive.de'
 
+- name: 'aspectivo'
+  image: 'aspectivo.svg'
+  link: 'https://aspectivo.ai'
+
 - name: 'Beliven'
   image: 'beliven.svg'
   link: 'https://beliven.com/'
