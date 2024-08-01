@@ -22,6 +22,7 @@ fi
 ####### Process Markdown Phase
 
 node ./scripts/process-releases.js
+node ./scripts/process-docusaurus-v3-upgrade.js
 
 ####### Data Generation Phase
 
