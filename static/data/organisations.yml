@@ -31,7 +31,7 @@
   link: 'https://www.car2go.com'
 
 - name: 'CarbonGraph'
-  image: 'CarbonGraph-text-logo-_1_-_2_.svg'
+  image: 'carbongraph.svg'
   link: 'https://carbongraph.io'
 
 - name: 'Care.com'
@@ -39,7 +39,7 @@
   link: 'https://www.care.com/'
 
 - name: 'Chatlayer by Sinch'
-  image: 'chatlayer_by_sinch.svg'
+  image: 'chatlayer-by-sinch.svg'
   link: 'https://chatlayer.ai'
 
 - name: 'ClearGlass'
@@ -291,7 +291,7 @@
   link: 'https://www.stillio.com'
 
 - name: 'Swiss Dev Jobs'
-  image: 'swissdev-javascript-jobs-200-200.svg'
+  image: 'swissdev.svg'
   link: 'https://swissdevjobs.ch/'
 
 - name: 'The Outnet'
@@ -353,7 +353,7 @@
   link: 'https://orwi.app'
 
 - name: 'Jellyfish Technologies'
-  image: '2ima7KOTrNlLfmUhYEHhfrD6fmC.svg'
+  image: 'jellyfish.svg'
   link: 'https://www.jellyfishtechnologies.com/'
 
 - name: 'Handsontable'
