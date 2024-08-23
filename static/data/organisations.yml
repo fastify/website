@@ -357,7 +357,7 @@
   link: 'https://www.jellyfishtechnologies.com/'
 
 - name: 'Handsontable'
-  image: 'Handsontable_logo_color.svg'
+  image: 'handsontable.svg'
   link: 'https://handsontable.com/docs/react-data-grid/?utm_source=Fastify_homepage&utm_medium=sponsorship&utm_campaign=library_sponsorship_2024'
   sponsor: true
   tier: 'tier_3'
