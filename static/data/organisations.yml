@@ -17,7 +17,7 @@
   tier: 'tier_3'
 
 - name: 'Mercedes-Benz Group'
-  image: 'mercedes-benz_2022.png'
+  image: 'mercedes-benz.svg'
   link: 'https://github.com/mercedes-benz'
   sponsor: true
   tier: 'tier_3'
