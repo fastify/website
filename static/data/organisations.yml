@@ -78,6 +78,10 @@
   image: 'elo7.svg'
   link: 'https://www.elo7.com.br'
 
+- name: 'Exopen'
+  image: 'exopen.svg'
+  link: 'https://www.exopen.se/'
+
 - name: 'Discord Bots Catalog'
   image: 'discordbotscatalog.svg'
   link: 'https://top-bots.xyz'
