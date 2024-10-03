@@ -90,6 +90,10 @@
   image: 'findadiscord.svg'
   link: 'https://findadiscord.com'
 
+- name: 'FintechCrafts'
+  image: 'fintechcrafts.svg'
+  link: 'https://www.fintechcrafts.com'  
+
 - name: 'Flash Benefícios'
   image: 'flashapp.svg'
   link: 'https://www.flashapp.com.br'
