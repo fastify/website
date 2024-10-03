@@ -92,7 +92,7 @@
 
 - name: 'FintechCrafts'
   image: 'fintechcrafts.svg'
-  link: 'https://www.fintechcrafts.com'  
+  link: 'https://www.fintechcrafts.com'
 
 - name: 'Flash Benefícios'
   image: 'flashapp.svg'
