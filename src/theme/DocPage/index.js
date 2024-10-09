@@ -10,8 +10,6 @@ import {
 import DocPageLayout from '@theme/DocPage/Layout'
 import NotFound from '@theme/NotFound'
 import SearchMetadata from '@theme/SearchMetadata'
-import Link from '@docusaurus/Link'
-import Translate from '@docusaurus/Translate'
 import { useLocation } from '@docusaurus/router'
 
 function DocPageMetadata(props) {
@@ -57,13 +55,6 @@ export default function DocPage(props) {
               {isMigrationGuide && (isNaN(versionNumber) || versionNumber === 5) && (
                 <div className="alert alert--warning margin-top--md margin-bottom--md" role="alert">
                   <p>Version 3 and before of Fastify are no longer maintained.</p>
-                  {/* <p>
-                    <LatestVersionSuggestionLabel
-                      versionLabel={latestVersionSuggestion.label}
-                      to={latestVersionSuggestedDoc.path}
-                      onClick={() => savePreferredVersionName(latestVersionSuggestion.name)}
-                    />
-                  </p> */}
                   For information about support options for end-of-life versions, see the{' '}
                   <a href="/docs/latest/Reference/LTS">Long Term Support</a> page.
                 </div>
@@ -74,29 +65,6 @@ export default function DocPage(props) {
         </DocsVersionProvider>
       </HtmlClassNameProvider>
     </>
-  )
-}
-function LatestVersionSuggestionLabel({ versionLabel, to, onClick }) {
-  return (
-    <Translate
-      id="theme.docs.versions.latestVersionSuggestionLabel"
-      description="The label used to tell the user to check the latest version"
-      values={{
-        versionLabel,
-        latestVersionLink: (
-          <b>
-            <Link to={to} onClick={onClick}>
-              <Translate
-                id="theme.docs.versions.latestVersionLinkLabel"
-                description="The label used for the latest version suggestion link label">
-                latest version
-              </Translate>
-            </Link>
-          </b>
-        ),
-      }}>
-      {'For up-to-date documentation, see the {latestVersionLink} ({versionLabel}).'}
-    </Translate>
   )
 }
 
