@@ -326,6 +326,12 @@
   image: 'webiny.svg'
   link: 'https://www.webiny.com'
 
+- name: 'val town'
+  image: 'val-town.svg'
+  link: 'https://www.val.town/'
+  sponsor: true
+  tier: 'tier_3'
+
 - name: 'Vectra'
   image: 'vectra.svg'
   link: 'https://vectra.ai'
