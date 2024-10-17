@@ -20,17 +20,23 @@ function UnreleasedVersionLabel({ siteTitle, versionMetadata }) {
   )
 }
 function UnmaintainedVersionLabel({ siteTitle, versionMetadata }) {
-  return (
-    <Translate
-      id="theme.docs.versions.unmaintainedVersionLabel"
-      description="The label used to tell the user that he's browsing an unmaintained doc version"
-      values={{
-        siteTitle,
-        versionLabel: <b>{versionMetadata.label}</b>,
-      }}>
-      {'This is documentation for {siteTitle} {versionLabel}, which is no longer actively maintained.'}
-    </Translate>
-  )
+  const versionNumber = parseInt(versionMetadata.label.replace(/^v/, '').split('.')[0], 10)
+
+  // Return the label only if the version number is 3 or lower.
+  if (versionNumber <= 3) {
+    return (
+      <Translate
+        id="theme.docs.versions.unmaintainedVersionLabel"
+        description="The label used to tell the user that he's browsing an unmaintained doc version"
+        values={{
+          siteTitle,
+          versionLabel: <b>{versionMetadata.label}</b>,
+        }}>
+        {'This is documentation for {siteTitle} {versionLabel}, which is no longer actively maintained.'}
+      </Translate>
+    )
+  }
+  return null
 }
 const BannerLabelComponents = {
   unreleased: UnreleasedVersionLabel,
