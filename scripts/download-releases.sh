@@ -4,7 +4,7 @@
 # Downalod all major releases:
 # - ./scripts/download-releases.sh --major
 # Downalod all greatest minor releases:
-# - ./scripts/download-releases.sh --minor 
+# - ./scripts/download-releases.sh --minor
 # Filter by major version:
 # - ./scripts/download-releases.sh --minor 4
 
