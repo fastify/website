@@ -121,6 +121,7 @@ const config = {
           { to: '/organisations', label: 'Adopters', position: 'left' },
           { to: '/contribute', label: 'Contribute', position: 'left' },
           { to: '/resources', label: 'Resources', position: 'left' },
+          { to: '/docs/latest/Reference/LTS', label: 'Support', position: 'left' },
           {
             type: 'docsVersionDropdown',
             position: 'right',
