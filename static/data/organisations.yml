@@ -162,6 +162,10 @@
   image: 'joggr.svg'
   link: 'https://joggr.io'
 
+- name: 'Keture'
+  image: 'keture.svg'
+  link: 'https://keture.com'
+
 - name: 'localistars'
   image: 'localistars.svg'
   link: 'https://localistars.com'
