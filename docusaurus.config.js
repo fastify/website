@@ -200,7 +200,7 @@ const config = {
     }),
 
   plugins: [
-    // '@orama/plugin-docusaurus-v3',
+    '@orama/plugin-docusaurus-v3',
     [
       // This plugin does not work in dev mode
       '@docusaurus/plugin-client-redirects',
