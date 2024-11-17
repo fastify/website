@@ -5,10 +5,14 @@ import Link from '@docusaurus/Link'
 import organizationsData from '@site/static/generated/organisations.json'
 import styles from './styles.module.css'
 
-export default function Organisations({ maxItems }) {
+export default function Organisations({ maxItems, onlySponsors }) {
+  const orgs = onlySponsors //
+    ? organizationsData.filter((org) => org.sponsor)
+    : organizationsData
+
   return (
     <ul className={styles.organisationsList}>
-      {shuffle(organizationsData, { maxItems: maxItems }).map((organization, index) => (
+      {shuffle(orgs, { maxItems }).map((organization, index) => (
         <li key={index}>
           <OrganizationItem organization={organization} />
         </li>
@@ -19,10 +23,18 @@ export default function Organisations({ maxItems }) {
 
 function OrganizationItem({ organization }) {
   return (
-    <Link href={organization.link} target="_blank" rel="noreferrer">
+    <Link href={organization.link} target="_blank" rel="noreferrer" className={getOrganizationStyle(organization)}>
       <img src={useBaseUrl(`/img/organisations/${organization.image}`)} alt={`${organization.name} is using Fastify`} />
     </Link>
   )
+}
+
+function getOrganizationStyle(organization) {
+  if (organization.sponsor) {
+    return styles[`sponsoring_${organization.tier}`]
+  }
+
+  return styles.using
 }
 
 function shuffle(data, { maxItems }) {

@@ -14,6 +14,10 @@
   image: 'appadaptive.svg'
   link: 'https://appadaptive.de'
 
+- name: 'aspectivo'
+  image: 'aspectivo.svg'
+  link: 'https://aspectivo.ai'
+
 - name: 'Beliven'
   image: 'beliven.svg'
   link: 'https://beliven.com/'
@@ -133,6 +137,10 @@
 - name: 'hotstar'
   image: 'hotstar.svg'
   link: 'https://tech.hotstar.com/'
+
+- name: 'iGenius'
+  image: 'igenius.svg'
+  link: 'https://www.igenius.ai/'
 
 - name: 'ImmobiliareLabs'
   image: 'immobiliarelabs.svg'
@@ -270,6 +278,10 @@
   image: 'skeelo.svg'
   link: 'https://skeelo.app'
 
+- name: 'SKUSavvy'
+  image: 'skusavvy-com.svg'
+  link: 'https://www.skusavvy.com'
+
 - name: 'Spendesk'
   image: 'spendesk.svg'
   link: 'https://www.spendesk.com'
@@ -314,6 +326,12 @@
   image: 'webiny.svg'
   link: 'https://www.webiny.com'
 
+- name: 'val town'
+  image: 'val-town.svg'
+  link: 'https://www.val.town/'
+  sponsor: true
+  tier: 'tier_3'
+
 - name: 'Vectra'
   image: 'vectra.svg'
   link: 'https://vectra.ai'
@@ -329,3 +347,23 @@
 - name: 'Investorean'
   image: 'investorean.svg'
   link: 'https://investorean.com'
+
+- name: 'Mercedes-Benz Group'
+  image: 'mercedes-benz_2022.png'
+  link: 'https://github.com/mercedes-benz'
+  sponsor: true
+  tier: 'tier_3'
+
+- name: 'Orwi'
+  image: 'orwi.svg'
+  link: 'https://orwi.app'
+
+- name: 'Jellyfish Technologies'
+  image: '2ima7KOTrNlLfmUhYEHhfrD6fmC.svg'
+  link: 'https://www.jellyfishtechnologies.com/'
+
+- name: 'Handsontable'
+  image: 'handsontable.svg'
+  link: 'https://handsontable.com/docs/react-data-grid/?utm_source=Fastify_homepage&utm_medium=sponsorship&utm_campaign=library_sponsorship_2024'
+  sponsor: true
+  tier: 'tier_3'

@@ -131,6 +131,18 @@
       links:
         github: https://github.com/gurgunday
         npm: https://www.npmjs.com/~gurgunday
+    - name: Dan Castilo
+      sortname: Dan Castillo
+      githubId: '15673208'
+      links:
+        github: https://github.com/dancastillo
+        npm: https://www.npmjs.com/~dancastillo
+    - name: Jean Michelet
+      sortname: Jean Michelet
+      githubId: '110341611'
+      links:
+        github: https://github.com/jean-michelet
+        npm: https://www.npmjs.com/~jean-michelet
 
 - name: Past Collaborators
   people:

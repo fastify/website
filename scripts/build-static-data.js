@@ -38,6 +38,18 @@ execute([
       data.sort((a, b) => {
         return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
       })
+
+      // Validate the data
+      data.every((org) => {
+        if (!org.sponsor) {
+          return true
+        }
+
+        if (!org.tier || !['tier_2', 'tier_3'].includes(org.tier)) {
+          throw new Error(`Invalid tier for ${org.name}`)
+        }
+        return true
+      })
     },
   },
 
