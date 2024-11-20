@@ -1,0 +1,9 @@
+# Gitpod Configuration File
+# SEE https://www.gitpod.io/docs/references/gitpod-yml
+
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - init: npm install && npm --prefix ./scripts install
+    command: npm start
