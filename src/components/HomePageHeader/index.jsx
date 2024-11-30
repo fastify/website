@@ -1,4 +1,5 @@
 import React from 'react'
+import Heading from '@theme/Heading'
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import GitHubButton from 'react-github-btn'
@@ -13,7 +14,7 @@ function HomepageHeader() {
       <div className="container">
         <img alt={siteConfig.title} src={`img/logos/fastify-white.svg`} />
 
-        <h2>{siteConfig.tagline}</h2>
+        <Heading as={'h2'}>{siteConfig.tagline}</Heading>
 
         <div>
           <GitHubButton

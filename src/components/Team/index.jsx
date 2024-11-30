@@ -1,4 +1,6 @@
 import React from 'react'
+import Link from '@docusaurus/Link'
+import Heading from '@theme/Heading'
 
 import teamData from '@site/static/generated/team.json'
 import styles from './styles.module.css'
@@ -54,7 +56,7 @@ function buildGroup(section, index) {
   return (
     <div key={index}>
       <div className="content">
-        <h2>{section.name}</h2>
+        <Heading as={'h2'}>{section.name}</Heading>
       </div>
       <div className="row">{section.people.map((member, index) => TeamMember({ member, index }))}</div>
     </div>
@@ -79,34 +81,34 @@ function TeamMember({ member, index }) {
             <p>{member.name}</p>
             <p>
               {member.links.github && (
-                <a
+                <Link
                   href={member.links.github}
                   target="_blank"
                   rel="noreferrer"
                   className={styles.linkGithub}
                   title={`Check out ${member.name}'s Github profile`}>
                   {svgicons.github}
-                </a>
+                </Link>
               )}
               {member.links.npm && (
-                <a
+                <Link
                   href={member.links.npm}
                   target="_blank"
                   rel="noreferrer"
                   className={styles.linkNpm}
                   title={`Check out ${member.name}'s NPM profile`}>
                   {svgicons.npm}
-                </a>
+                </Link>
               )}
               {member.links.twitter && (
-                <a
+                <Link
                   href={member.links.twitter}
                   target="_blank"
                   className={styles.linkTwitter}
                   rel="noreferrer"
                   title={`Check out ${member.name}'s Twitter profile`}>
                   {svgicons.twitter}
-                </a>
+                </Link>
               )}
             </p>
           </div>

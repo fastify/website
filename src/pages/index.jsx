@@ -8,6 +8,7 @@ import HomepageHeader from '@site/src/components/HomePageHeader/index.jsx'
 import Organisations from '@site/src/components/Organisations'
 import Team from '@site/src/components/Team'
 import QuickStart from '@site/src/components/QuickStart'
+import Heading from '@theme/Heading'
 
 import plugins from '@site/static/generated/plugins.json'
 import styles from '@site/src/css/index.module.css'
@@ -22,7 +23,7 @@ export default function Home() {
       <main>
         <section className="section">
           <div className="container">
-            <h1>Why</h1>
+            <Heading as={'h1'}>Why</Heading>
             <p>
               An efficient server implies a lower cost of the infrastructure, a better responsiveness under load and
               happy users. How can you efficiently handle the resources of your server, knowing that you are serving the
@@ -38,7 +39,7 @@ export default function Home() {
 
         <section className="section">
           <div className="container">
-            <h1>Who is using Fastify?</h1>
+            <Heading as={'h1'}>Who is using Fastify?</Heading>
             <p>Fastify is proudly powering a large ecosystem of organisations and products out there.</p>
           </div>
 
@@ -72,7 +73,7 @@ export default function Home() {
 
         <section className="section alternate">
           <div className="container">
-            <h1>Core features</h1>
+            <Heading as={'h1'}>Core features</Heading>
             <p>These are the main features and principles on which Fastify has been built:</p>
             <ul>
               <li>
@@ -114,7 +115,7 @@ export default function Home() {
           <div className="container">
             <div className="row">
               <div className="col col--6">
-                <h1>A fast web framework</h1>
+                <Heading as={'h1'}>A fast web framework</Heading>
                 <p>
                   Leveraging our experience with Node.js performance, Fastify has been built from the ground up to be{' '}
                   <strong>as fast as possible</strong>. Have a look at our{' '}
@@ -128,7 +129,7 @@ export default function Home() {
                 </p>
               </div>
               <div className="col col--6">
-                <h1>Ecosystem</h1>
+                <Heading as={'h1'}>Ecosystem</Heading>
                 <p>
                   Fastify has an ever-growing ecosystem of plugins. Probably there is already a plugin for your
                   favourite database or template language. Have a look at the{' '}
@@ -148,7 +149,7 @@ export default function Home() {
 
         <section className="section">
           <div className="container">
-            <h1>Meet The Team</h1>
+            <Heading as={'h1'}>Meet The Team</Heading>
             <p>
               <i>In alphabetical order</i>
             </p>
@@ -160,7 +161,7 @@ export default function Home() {
           <div className="container">
             <div className="row">
               <div className="col col--6">
-                <h1>Acknowledgments</h1>
+                <Heading as={'h1'}>Acknowledgments</Heading>
                 <p>
                   This project is kindly <strong>sponsored by</strong>:
                 </p>
@@ -191,7 +192,7 @@ export default function Home() {
                 </ul>
               </div>
               <div className="col col--6">
-                <h1>Hosted by</h1>
+                <Heading as={'Heading'}>Hosted by</Heading>
                 <p>
                   We are an <strong>At Large project</strong> at the{' '}
                   <Link to="https://openjsf.org/">OpenJS Foundation</Link>

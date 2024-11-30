@@ -72,6 +72,14 @@ function getVersionLabels(versionsJson) {
   }
 }
 
+/**
+ * Generate redirects for old versions of the documentation.
+ * @param {string} existingPath - The path to redirect.
+ * @param {string} major - The major version.
+ * @param {Array<string>} versions - The list of versions.
+ * @param {Array<string>} versionsShipped - The list of versions shipped.
+ * @param {Array<string>} ignore - The list of paths to ignore.
+ */
 function manageRedirects({ existingPath, major, versions, versionsShipped, ignore = [] }) {
   if (ignore.includes(existingPath)) {
     //  Do not create redirects for this path

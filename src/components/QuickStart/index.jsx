@@ -3,6 +3,7 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import CodeBlock from '@theme/CodeBlock'
 import Link from '@docusaurus/Link'
+import Heading from '@theme/Heading'
 
 export default function QuickStart() {
   const esm = `// Import the framework and instantiate it
@@ -165,7 +166,7 @@ start()`
 
   return (
     <>
-      <h1>Quick start</h1>
+      <Heading as={'h1'}>Quick start</Heading>
       <p>Get Fastify with NPM:</p>
 
       <CodeBlock language="bash">npm install fastify</CodeBlock>
@@ -187,7 +188,7 @@ start()`
       <p>and test it with:</p>
       <CodeBlock language="bash">curl http://localhost:3000</CodeBlock>
 
-      <h2>Using CLI</h2>
+      <Heading as={'h2'}>Using CLI</Heading>
       <p>
         Get the{' '}
         <Link to="https://github.com/fastify/fastify-cli">
@@ -202,7 +203,7 @@ start()`
         fastify generate myproject
       </CodeBlock>
 
-      <h2>Request/Response validation and hooks</h2>
+      <Heading as={'h2'}>Request/Response validation and hooks</Heading>
       <p>
         Fastify can do much more than this. For example, you can easily provide input and output validation using JSON
         Schema and perform specific operations before the handler is executed:
@@ -216,7 +217,7 @@ start()`
         </TabItem>
       </Tabs>
 
-      <h2>TypeScript Support</h2>
+      <Heading as={'h2'}>TypeScript Support</Heading>
       <p>
         Fastify is shipped with a typings file, but you may need to install <code>@types/node</code>, depending on the
         Node.js version you are using.
