@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './styles.module.css'
-
+import Heading from '@theme/Heading'
 import Link from '@docusaurus/Link'
 
 function BenchmarkInfo({ name, test: testFile, repository, req, progressValue }) {
@@ -9,7 +9,7 @@ function BenchmarkInfo({ name, test: testFile, repository, req, progressValue })
       <div className={styles.level}>
         <div>
           <Link to={testFile}>
-            <h2>{name}</h2>
+            <Heading as={'h2'}>{name}</Heading>
           </Link>
         </div>
         <div>
