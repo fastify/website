@@ -113,7 +113,7 @@ async function processReleases(opts) {
   const v2Docs = orderedVersions.find((v) => v.startsWith('v2.'))
   await fixCodeBlocks(join(versionedFolder, `version-${v2Docs}`))
 
-  await processDocusaurusV3Upgrade(versionedFolder)
+  processDocusaurusV3Upgrade(versionedFolder)
   log.info('Updated docs to match Docusaurus v3 guidelines')
 
   log.info('Done')

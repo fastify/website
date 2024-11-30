@@ -10,7 +10,7 @@ const versions = require('./versions.json')
 const BASE_URL = process.env.BASE_URL ?? '/'
 
 const isDev = process.env.NODE_ENV === 'development'
-const latestMajorVersion = versions.find((v) => v.startsWith('v'))?.split('.')[0] || 'v4'
+const latestMajorVersion = versions.find((v) => v.startsWith('v'))?.split('.')[0] || 'v5'
 
 u.checkGeneratedData()
 
