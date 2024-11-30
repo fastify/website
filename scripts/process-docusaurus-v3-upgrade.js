@@ -3,7 +3,7 @@
 const { join } = require('node:path')
 const replace = require('replace')
 
-function processDocusaurusV3Upgrade (dir) {
+function processDocusaurusV3Upgrade(dir) {
   // global updates
   // adding spacing between <[ characters
 
@@ -22,26 +22,26 @@ function processDocusaurusV3Upgrade (dir) {
     {
       inFile: 'TypeScript.md',
       from: 'fastify.preSerializationHookHandler<PreSerializationPayload',
-      to: 'fastify.preSerializationHookHandler< PreSerializationPayload'
+      to: 'fastify.preSerializationHookHandler< PreSerializationPayload',
     },
 
     {
       inFile: 'TypeScript.md',
       from: 'fastify.onSendHookHandler<OnSendPayload',
-      to: 'fastify.onSendHookHandler< OnSendPayload'
+      to: 'fastify.onSendHookHandler< OnSendPayload',
     },
 
     {
       inFile: 'TypeScript.md',
       from: '& { path: string; prefix',
-      to: '& \\{ path: string; prefix'
+      to: '& \\{ path: string; prefix',
     },
 
     {
       inFile: 'Server.md',
       from: '</a> option is set.',
-      to: '</a> \noption is set.'
-    }
+      to: '</a> \noption is set.',
+    },
   ]
 
   for (const edit of edits) {
