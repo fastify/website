@@ -33,13 +33,6 @@
 
 - name: Collaborators
   people:
-    - name: David Clements
-      sortname: Clements David
-      githubId: '1190716'
-      links:
-        github: https://github.com/davidmarkclements
-        npm: https://www.npmjs.com/~davidmarkclements
-        twitter: https://twitter.com/davidmarkclem
     - name: Dustin Deus
       sortname: Deus Dustin
       githubId: '1764424'
@@ -47,13 +40,6 @@
         github: https://github.com/StarpTech
         npm: https://www.npmjs.com/~starptech
         twitter: https://twitter.com/dustindeus
-    - name: Ayoub El Khattabi
-      sortname: Ayoub El Khattabi
-      githubId: '11050534'
-      links:
-        github: https://github.com/AyoubElk
-        npm: https://www.npmjs.com/~ayoubelk
-        twitter: https://twitter.com/ayoubelkh
     - name: Carlos Fuentes
       sortname: Fuentes Carlos
       githubId: '10200776'
@@ -146,6 +132,20 @@
 
 - name: Past Collaborators
   people:
+    - name: Ayoub El Khattabi
+      sortname: Ayoub El Khattabi
+      githubId: '11050534'
+      links:
+        github: https://github.com/AyoubElk
+        npm: https://www.npmjs.com/~ayoubelk
+        twitter: https://twitter.com/ayoubelkh
+    - name: David Clements
+      sortname: Clements David
+      githubId: '1190716'
+      links:
+        github: https://github.com/davidmarkclements
+        npm: https://www.npmjs.com/~davidmarkclements
+        twitter: https://twitter.com/davidmarkclem
     - name: Ethan Arrowood
       sortname: Arrowood Ethan
       githubId: '16144158'
