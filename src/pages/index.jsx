@@ -49,13 +49,13 @@ export default function Home() {
 
           <div className="container">
             <div className="alternate-sponsors h-full">
-              <h3>Sponsors</h3>
+              <Heading as={'h3'}>Sponsors</Heading>
               <p>
                 Would you like to sponsor Fastify financially? Support us on{' '}
                 <Link to="https://github.com/sponsors/fastify">GitHub</Link> or{' '}
                 <Link to="https://opencollective.com/fastify">Open Collective</Link>.
               </p>
-              <Organisations onlySponsors={true} />
+              <Organisations onlySponsors={"true"} />
             </div>
           </div>
         </section>
