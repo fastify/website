@@ -5,9 +5,15 @@ import Organisations from '@site/src/components/Organisations'
 
 Fastify is proudly powering a large ecosystem of organisations and products out there.
 
-Below is a list of some of the organisations adopting Fastify.
+Below is a list of our financial supporters and our collaborators' organisations adopting Fastify.
 
-<Organisations />
+## Financial supporters
+
+<Organisations onlySponsors="true" />
+
+## Collaborators' organisations
+
+<Organisations onlySponsors="false" />
 
 _The logos displayed in this page are property of the respective organisations and they are not distributed under the same license as Fastify (MIT)._
 
@@ -15,10 +21,15 @@ _The logos displayed in this page are property of the respective organisations a
 
 Is your organisation using Fastify? That's great!
 
-If you would like your organisation to have its logo featured in this list, here's how you do it! You can submit your organisation, your logo and other few relevant details by following these steps:
+If you would like your organisation to have its logo featured in this list:
 
-1. Fork the [Fastify website repository](https://github.com/fastify/website) on GitHub
-2. Add the logo in the `static/img/organisations` folder
+1. Start contributing to the Fastify project following the [contributing guide](https://github.com/fastify/fastify/blob/main/CONTRIBUTING.md) and read the [on boarding process](https://github.com/fastify/.github/blob/main/GOVERNANCE.md#collaborator-nominations).
+
+Or become a [Tier 3 or 4 financial supporter](https://github.com/sponsors/fastify)!
+
+2. Fork the [Fastify website repository](https://github.com/fastify/website) on GitHub
+
+3. Add the logo in the `static/img/organisations` folder.
 
 Please make sure that your logo complies to the following specs:
 
@@ -33,6 +44,8 @@ Your entry must provide:
 - `name`: the name of your organisation
 - `image`: the filename of the logo you added in the previous step
 - `link`: a link to a website that represents your organisation
+- `sponsor`: a boolean value that indicates if your organisation is a financial supporter
+- `tier`: the tier of your financial support (it can be `tier_3` or `tier_4`)
 
 4. Submit the PR!
 

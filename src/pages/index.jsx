@@ -40,9 +40,9 @@ export default function Home() {
         <section className="section">
           <div className="container">
             <Heading as={'h1'}>Who is using Fastify?</Heading>
-            <p>Fastify is proudly powering a large ecosystem of organisations and products out there
-              with almost <Link to={"https://npm-stat.com/charts.html?package=fastify"}>10 million downloads per month</Link>.
-              {' '}
+            <p>
+              Fastify is proudly powering a large ecosystem of organisations and products out there with almost{' '}
+              <Link to={'https://npm-stat.com/charts.html?package=fastify'}>10 million downloads per month</Link>.{' '}
               <Link to="/organisations">Checkout our affiliate companies.</Link>
             </p>
           </div>
