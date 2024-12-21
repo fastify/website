@@ -6,9 +6,12 @@ import organizationsData from '@site/static/generated/organisations.json'
 import styles from './styles.module.css'
 
 export default function Organisations({ maxItems, onlySponsors }) {
-  const orgs = onlySponsors //
-    ? organizationsData.filter((org) => org.sponsor)
-    : organizationsData
+  const orgs =
+    onlySponsors === 'true' //
+      ? organizationsData.filter((org) => org.sponsor)
+      : onlySponsors === 'false' //
+        ? organizationsData.filter((org) => !org.sponsor)
+        : organizationsData
 
   return (
     <ul className={styles.organisationsList}>
