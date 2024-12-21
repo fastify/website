@@ -55,7 +55,7 @@ export default function Home() {
                 <Link to="https://github.com/sponsors/fastify">GitHub</Link> or{' '}
                 <Link to="https://opencollective.com/fastify">Open Collective</Link>.
               </p>
-              <Organisations onlySponsors={"true"} />
+              <Organisations onlySponsors={'true'} />
             </div>
           </div>
         </section>
