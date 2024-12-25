@@ -16,6 +16,12 @@
         github: https://github.com/delvedor
         npm: https://www.npmjs.com/~delvedor
         twitter: https://twitter.com/delvedor
+    - name: KaKa Ng
+      sortname: Ng KaKa
+      githubId: '23028015'
+      links:
+        github: https://github.com/climba03003
+        npm: https://www.npmjs.com/~climba03003
     - name: Manuel Spigolon
       sortname: Spigolon Manuel
       githubId: '11404065'
