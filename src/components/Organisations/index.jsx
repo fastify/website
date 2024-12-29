@@ -5,10 +5,8 @@ import Link from '@docusaurus/Link'
 import organizationsData from '@site/static/generated/organisations.json'
 import styles from './styles.module.css'
 
-export default function Organisations({ maxItems, onlySponsors }) {
-  const orgs = onlySponsors //
-    ? organizationsData.filter((org) => org.sponsor)
-    : organizationsData
+export default function Organisations({ maxItems, displayType }) {
+  const orgs = filterOrganizationsByType(displayType)
 
   return (
     <ul className={styles.organisationsList}>
@@ -19,6 +17,18 @@ export default function Organisations({ maxItems, onlySponsors }) {
       ))}
     </ul>
   )
+}
+
+function filterOrganizationsByType(type) {
+  switch (type) {
+    case 'sponsor':
+      return organizationsData.filter((org) => org.sponsor)
+    case 'collaborator':
+      return organizationsData.filter((org) => !org.sponsor)
+
+    default:
+      return organizationsData
+  }
 }
 
 function OrganizationItem({ organization }) {

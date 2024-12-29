@@ -40,33 +40,22 @@ export default function Home() {
         <section className="section">
           <div className="container">
             <Heading as={'h1'}>Who is using Fastify?</Heading>
-            <p>Fastify is proudly powering a large ecosystem of organisations and products out there.</p>
+            <p>
+              Fastify is proudly powering a large ecosystem of organisations and products out there with almost{' '}
+              <Link to={'https://npm-stat.com/charts.html?package=fastify'}>10 million downloads per month</Link>.{' '}
+              <Link to="/organisations">Checkout our affiliate companies.</Link>
+            </p>
           </div>
 
           <div className="container">
-            <div className="row">
-              <div className="col col--6">
-                <div className="alternate-sponsors h-full">
-                  <h3>Sponsors</h3>
-                  <p>
-                    Would you like to sponsor Fastify financially? Support us on{' '}
-                    <Link to="https://github.com/sponsors/fastify">GitHub</Link> or{' '}
-                    <Link to="https://opencollective.com/fastify">Open Collective</Link>.
-                  </p>
-                  <Organisations onlySponsors={true} />
-                </div>
-              </div>
-
-              <div className="col col--6">
-                <div className="alternate h-full">
-                  <h3>Using</h3>
-                  <p>
-                    Do you want your organisation to{' '}
-                    <Link to="/organisations#how-to-be-featured-here">be featured here</Link>?
-                  </p>
-                  <Organisations maxItems={8} /> ... <Link to="/organisations">and many more!</Link>
-                </div>
-              </div>
+            <div className="alternate-sponsors h-full">
+              <Heading as={'h3'}>Sponsors</Heading>
+              <p>
+                Would you like to sponsor Fastify financially? Support us on{' '}
+                <Link to="https://github.com/sponsors/fastify">GitHub</Link> or{' '}
+                <Link to="https://opencollective.com/fastify">Open Collective</Link>.
+              </p>
+              <Organisations displayType={'sponsor'} />
             </div>
           </div>
         </section>
