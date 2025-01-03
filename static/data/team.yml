@@ -59,13 +59,6 @@
         github: https://github.com/lmammino
         npm: https://www.npmjs.com/~lmammino
         twitter: https://twitter.com/loige
-    - name: Rafael Gonzaga
-      sortname: Gonzaga Rafael
-      githubId: '26234614'
-      links:
-        github: https://github.com/RafaelGSS
-        npm: https://www.npmjs.com/~rafaelgss
-        twitter: https://twitter.com/_rafaelgss
     - name: Maksim Sinik
       sortname: Sinik Maksim
       githubId: '1620916'
@@ -132,6 +125,13 @@
         github: https://github.com/StarpTech
         npm: https://www.npmjs.com/~starptech
         twitter: https://twitter.com/dustindeus
+    - name: Rafael Gonzaga
+      sortname: Gonzaga Rafael
+      githubId: '26234614'
+      links:
+        github: https://github.com/RafaelGSS
+        npm: https://www.npmjs.com/~rafaelgss
+        twitter: https://twitter.com/_rafaelgss
     - name: David Clements
       sortname: Clements David
       githubId: '1190716'
