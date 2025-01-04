@@ -91,6 +91,9 @@ const config = {
     ({
       // https://docusaurus.io/docs/api/themes/configuration
       image: 'img/logos/fastify-black.svg',
+      colorMode: {
+        respectPrefersColorScheme: true,
+      },
       docs: {
         sidebar: {
           autoCollapseCategories: true,
