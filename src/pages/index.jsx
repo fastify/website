@@ -25,7 +25,7 @@ export default function Home() {
           <div className="container">
             <Heading as={'h1'}>Why</Heading>
             <p>
-              An efficient server implies a lower cost of the infrastructure, a better responsiveness under load and
+              An efficient server implies a lower cost of the infrastructure, better responsiveness under load, and
               happy users. How can you efficiently handle the resources of your server, knowing that you are serving the
               highest number of requests possible, without sacrificing security validations and handy development?
             </p>
@@ -41,7 +41,7 @@ export default function Home() {
           <div className="container">
             <Heading as={'h1'}>Who is using Fastify?</Heading>
             <p>
-              Fastify is proudly powering a large ecosystem of organisations and products out there with almost{' '}
+              Fastify is proudly powering a large ecosystem of organizations and products out there with almost{' '}
               <Link to={'https://npm-stat.com/charts.html?package=fastify'}>10 million downloads per month</Link>.{' '}
               <Link to="/organisations">Checkout our affiliate companies.</Link>
             </p>
@@ -70,19 +70,19 @@ export default function Home() {
                 town, depending on the code complexity we can serve up to 30 thousand requests per second.
               </li>
               <li>
-                <strong>Extensible:</strong> Fastify is fully extensible via its hooks, plugins and decorators.
+                <strong>Extensible:</strong> Fastify is fully extensible via its hooks, plugins, and decorators.
               </li>
               <li>
-                <strong>Schema based:</strong> even if it is not mandatory we recommend to use{' '}
+                <strong>Schema-based:</strong> even if it is not mandatory we recommend using{' '}
                 <Link to="http://json-schema.org/">JSON Schema</Link> to validate your routes and serialize your
-                outputs, internally Fastify compiles the schema in a highly performant function.
+                outputs. Internally Fastify compiles the schema in a highly performant function.
               </li>
               <li>
                 <strong>Logging:</strong> logs are extremely important but are costly; we chose the best logger to
                 almost remove this cost, <Link to="https://github.com/pinojs/pino">Pino</Link>!
               </li>
               <li>
-                <strong>Developer friendly:</strong> the framework is built to be very expressive and to help developers
+                <strong>Developer friendly:</strong> the framework is built to be very expressive and help developers
                 in their daily use, without sacrificing performance and security.
               </li>
               <li>
@@ -120,7 +120,7 @@ export default function Home() {
               <div className="col col--6">
                 <Heading as={'h1'}>Ecosystem</Heading>
                 <p>
-                  Fastify has an ever-growing ecosystem of plugins. Probably there is already a plugin for your
+                  Fastify has an ever-growing ecosystem of plugins. There is probably already a plugin for your
                   favourite database or template language. Have a look at the{' '}
                   <Link to="/ecosystem">Ecosystem page</Link> to navigate through the currently available plugins.
                   Can&#39;t you find the plugin you are looking for? No problem,{' '}
