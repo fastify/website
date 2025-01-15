@@ -82,8 +82,8 @@ export default function Home() {
                 almost remove this cost, <Link to="https://github.com/pinojs/pino">Pino</Link>!
               </li>
               <li>
-                <strong>Developer friendly:</strong> the framework is built to be very expressive and help developers
-                in their daily use, without sacrificing performance and security.
+                <strong>Developer friendly:</strong> the framework is built to be very expressive and help developers in
+                their daily use, without sacrificing performance and security.
               </li>
               <li>
                 <strong>TypeScript ready:</strong> we work hard to maintain a{' '}
