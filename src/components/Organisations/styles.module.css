@@ -5,8 +5,7 @@
   flex-wrap: wrap;
   justify-content: space-around;
   list-style: none;
-  align-items: center;
-  justify-items: center;
+  place-items: center center;
 }
 
 [data-theme='dark'] .organisationsList {
