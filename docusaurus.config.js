@@ -121,7 +121,7 @@ const config = {
           },
           { to: '/ecosystem', label: 'Ecosystem', position: 'left' },
           { to: '/benchmarks', label: 'Benchmarks', position: 'left' },
-          { to: '/organisations', label: 'Adopters', position: 'left' },
+          { to: '/organizations', label: 'Adopters', position: 'left' },
           { to: '/contribute', label: 'Contribute', position: 'left' },
           { to: '/resources', label: 'Resources', position: 'left' },
           {
@@ -208,6 +208,12 @@ const config = {
       // This plugin does not work in dev mode
       '@docusaurus/plugin-client-redirects',
       {
+        redirects: [
+          {
+            from: '/organisations',
+            to: '/organizations',
+          },
+        ],
         createRedirects(existingPath) {
           // Legacy/Retro compatibility:
 
