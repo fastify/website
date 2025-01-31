@@ -18,7 +18,7 @@ const log = require('pino')({
   },
 })
 
-const URL_BENCHMARK = 'https://raw.githubusercontent.com/fastify/benchmarks/master/benchmark-results.json'
+const URL_BENCHMARK = 'https://raw.githubusercontent.com/fastify/benchmarks/main/benchmark-results.json'
 const GITHUB_BASE_URL = 'https://api.github.com/repos/fastify/benchmarks'
 
 const OUTPUT_FILE = path.join(__dirname, '../static/generated/benchmarks.json')
