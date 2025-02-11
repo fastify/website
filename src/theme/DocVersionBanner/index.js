@@ -5,7 +5,8 @@ import Link from '@docusaurus/Link'
 import Translate from '@docusaurus/Translate'
 import { useActivePlugin, useDocVersionSuggestions } from '@docusaurus/plugin-content-docs/client'
 import { ThemeClassNames } from '@docusaurus/theme-common'
-import { useDocsPreferredVersion, useDocsVersion } from '@docusaurus/theme-common/internal'
+import { useDocsPreferredVersion, useDocsVersion } from '@docusaurus/plugin-content-docs/client'
+
 function UnreleasedVersionLabel({ siteTitle, versionMetadata }) {
   return (
     <Translate
@@ -84,7 +85,6 @@ function DocVersionBannerEnabled({ className, versionMetadata }) {
   // Try to link to same doc in latest version (not always possible), falling
   // back to main doc of latest version
   const latestVersionSuggestedDoc = latestDocSuggestion ?? getVersionMainDoc(latestVersionSuggestion)
-
   return (
     <div
       className={clsx(className, ThemeClassNames.docs.docVersionBanner, 'alert alert--warning margin-bottom--md')}
@@ -116,6 +116,8 @@ export default function DocVersionBanner({ className }) {
   }
   return null
 }
+
+// Returns version.
 const parseVersion = (versionString) => {
   // Remove 'v' prefix if present
   const cleanVersion = versionString.startsWith('v') ? versionString.slice(1) : versionString
