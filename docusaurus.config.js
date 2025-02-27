@@ -124,7 +124,6 @@ const config = {
           { to: '/organizations', label: 'Adopters', position: 'left' },
           { to: '/contribute', label: 'Contribute', position: 'left' },
           { to: '/resources', label: 'Resources', position: 'left' },
-          { href: 'https://github.com/fastify/demo', label: 'Demo', position: 'left' },
           {
             type: 'docsVersionDropdown',
             position: 'right',
