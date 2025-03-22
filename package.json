@@ -42,7 +42,7 @@
     "@docusaurus/module-type-aliases": "^3.7.0",
     "@fastify/pre-commit": "^2.2.0",
     "babel-eslint": "^10.1.0",
-    "eslint": "^8.57.1",
+    "eslint": "^9.23.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-check-file": "^2.8.0",
     "eslint-plugin-import": "^2.31.0",
