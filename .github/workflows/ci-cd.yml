@@ -18,9 +18,14 @@ on:
   # daily schedule
   workflow_call:
 
+permissions:
+  contents: read
+
 jobs:
   setup:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Select environment
         id: env-selector
@@ -59,13 +64,15 @@ jobs:
         if: ${{ github.event_name != 'pull_request_target' }}
         uses: actions/checkout@v4
         with:
+          persist-credentials: false
           ref: main
 
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
           cache: npm
+          check-latest: true
+          node-version: 18
           node-version-file: '.nvmrc'
 
       - name: Install Packages
