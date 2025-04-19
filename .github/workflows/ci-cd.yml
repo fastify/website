@@ -101,10 +101,6 @@ jobs:
             scripts/releases.tag
           key: ${{ steps.latest-fastify.outputs.tag }}-release-cache
 
-      # optimize images
-      - name: Optimize images
-        run: npm run optimize-images
-
       # build website
       - name: Build website
         run: npm run build:website

@@ -22,8 +22,7 @@
     "lint:js": "eslint --cache \"**/*.{js,jsx,ts,tsx,md,mdx,mjs}\"",
     "lint:js:fix": "eslint \"**/*.{js,jsx,ts,tsx,md,mdx,mjs}\" --fix",
     "lint:style": "stylelint \"**/*.css\"",
-    "lint:style:fix": "npm run lint:style -- --fix",
-    "optimize-images": "svgo -rf ./static/img"
+    "lint:style:fix": "npm run lint:style -- --fix"
   },
   "dependencies": {
     "@docusaurus/core": "^3.3.2",
@@ -53,8 +52,7 @@
     "eslint-plugin-regexp": "^2.7.0",
     "prettier": "^3.4.2",
     "stylelint": "^16.13.2",
-    "stylelint-config-standard": "^37.0.0",
-    "svgo": "^3.3.2"
+    "stylelint-config-standard": "^37.0.0"
   },
   "browserslist": {
     "production": [
