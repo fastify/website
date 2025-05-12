@@ -70,9 +70,10 @@ async function processReleases(opts) {
       [`displayed_sidebar`]: 'docsSidebar',
     })
     await addMetadataToFile(join(docDestination, 'Guides', 'Getting-Started.md'), { ['sidebar_position']: 0 })
-    await addMetadataToFile(join(docDestination, 'Guides', 'Database.md'), { ['sidebar_position']: 1 })
-    await addMetadataToFile(join(docDestination, 'Guides', 'Recommendations.md'), { ['sidebar_position']: 2 })
+    await addMetadataToFile(join(docDestination, 'Guides', 'Recommendations.md'), { ['sidebar_position']: 1 })
+    await addMetadataToFile(join(docDestination, 'Guides', 'Database.md'), { ['sidebar_position']: 2 })
     await addMetadataToFile(join(docDestination, 'Guides', 'Testing.md'), { ['sidebar_position']: 3 })
+    await addMetadataToFile(join(docDestination, 'Guides', 'Write-Plugin.md'), { ['sidebar_position']: 4 })
 
     docsVersions.push({ tag: docTree.releseTag, versionName })
   }
