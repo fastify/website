@@ -76,7 +76,7 @@ jobs:
           node-version-file: '.nvmrc'
 
       - name: Install Packages
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Run Linting
         run: npm run lint
