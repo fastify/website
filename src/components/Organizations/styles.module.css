@@ -25,7 +25,6 @@
 }
 
 .organizationsList li a img {
-  filter: grayscale(100%);
   transition: all 0.5s;
 }
 
@@ -42,5 +41,5 @@
 }
 
 .organizationsList li a:hover img {
-  filter: none;
+  transform: scale(1.1);
 }
