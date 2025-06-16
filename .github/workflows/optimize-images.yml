@@ -50,7 +50,7 @@ jobs:
           npx svgo -rf ./static/img
 
       - name: Verify Changed files
-        uses: tj-actions/verify-changed-files@v20
+        uses: tj-actions/verify-changed-files@a1c6acee9df209257a246f2cc6ae8cb6581c1edf # v20.0.4
         id: verify-changed-files
         with:
           files: |
@@ -58,7 +58,7 @@ jobs:
 
       - name: Compress images
         id: calibre
-        uses: calibreapp/image-actions@main
+        uses: calibreapp/image-actions@737ceeaeed61e17b8d358358a303f1b8d177b779 # 1.1.0
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           jpegQuality: '100'
@@ -73,7 +73,7 @@ jobs:
           github.event_name != 'pull_request' && (steps.calibre.outputs.markdown != '' || steps.verify-changed-files.outputs.files_changed == 'true')
 
 
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
         with:
           title: 'chore: auto-compress images'
           branch-suffix: timestamp
