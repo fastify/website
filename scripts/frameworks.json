@@ -8,7 +8,7 @@
   {
     "name": "Hono",
     "tag": "hono",
-    "test": "https://github.com/fastify/benchmarks/blob/main/benchmarks/hono.cjs",
+    "test": "https://github.com/fastify/benchmarks/blob/main/benchmarks/hono.mjs",
     "repository": "https://github.com/honojs/hono"
   },
   {
