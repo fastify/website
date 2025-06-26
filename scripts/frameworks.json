@@ -6,6 +6,18 @@
     "repository": "https://github.com/fastify/fastify"
   },
   {
+    "name": "Hono",
+    "tag": "hono",
+    "test": "https://github.com/fastify/benchmarks/blob/main/benchmarks/hono.cjs",
+    "repository": "https://github.com/honojs/hono"
+  },
+  {
+    "name": "H3",
+    "tag": "h3",
+    "test": "https://github.com/fastify/benchmarks/blob/main/benchmarks/h3.cjs",
+    "repository": "https://github.com/unjs/h3"
+  },
+  {
     "name": "Koa",
     "tag": "koa",
     "test": "https://github.com/fastify/benchmarks/blob/main/benchmarks/koa.cjs",
