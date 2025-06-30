@@ -34,7 +34,7 @@ jobs:
           echo "website_url=${{ github.event_name == 'pull_request_target' && '/' || '/' }}" >> $GITHUB_OUTPUT
       - name: Get latest Fastify tag
         id: latest-fastify
-        uses: oprypin/find-latest-tag@v1
+        uses: oprypin/find-latest-tag@dd2729fe78b0bb55523ae2b2a310c6773a652bd1 # v1.1.2
         with:
           repository: fastify/fastify
           releases-only: true
@@ -72,7 +72,7 @@ jobs:
         with:
           cache: npm
           check-latest: true
-          node-version: 18
+          node-version: 22
           node-version-file: '.nvmrc'
 
       - name: Install Packages
@@ -86,7 +86,7 @@ jobs:
 
       - name: Get latest Fastify tag
         id: latest-fastify
-        uses: oprypin/find-latest-tag@v1
+        uses: oprypin/find-latest-tag@dd2729fe78b0bb55523ae2b2a310c6773a652bd1 # v1.1.2
         with:
           repository: fastify/fastify
           releases-only: true
@@ -180,7 +180,7 @@ jobs:
       - name: Display structure of downloaded files
         run: ls -R
       - name: Deploy to Netlify
-        uses: netlify/actions/cli@master
+        uses: netlify/actions/cli@3185065f4ab2f6df6f2ef41ee013626e1c02a426 # master
         id: deployment
         with:
           # https://cli.netlify.com/commands/deploy/

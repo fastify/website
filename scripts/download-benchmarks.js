@@ -95,13 +95,17 @@ function buildBenchmarksJSON(data) {
 
   const json = {
     reference: maxSpeed,
-    frameworks: arrayDefaultFrameworks.map((framework) => {
-      const item = data.find(({ name }) => name == framework.tag)
-      return {
-        ...framework,
-        requests: item.requests,
-      }
-    }),
+    frameworks: arrayDefaultFrameworks
+      .map((framework) => {
+        const item = data.find(({ name }) => name == framework.tag)
+        return {
+          ...framework,
+          requests: item.requests,
+        }
+      })
+      .sort((a, b) => {
+        return b.requests - a.requests
+      }),
   }
 
   return json
