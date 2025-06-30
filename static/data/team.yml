@@ -96,18 +96,32 @@
       links:
         github: https://github.com/gurgunday
         npm: https://www.npmjs.com/~gurgunday
-    - name: Dan Castilo
-      sortname: Dan Castillo
+    - name: Dan Castillo
+      sortname: Castillo Dan
       githubId: '15673208'
       links:
         github: https://github.com/dancastillo
         npm: https://www.npmjs.com/~dancastillo
     - name: Jean Michelet
-      sortname: Jean Michelet
+      sortname: Michelet Jean
       githubId: '110341611'
       links:
         github: https://github.com/jean-michelet
         npm: https://www.npmjs.com/~jean-michelet
+    - name: Harry Brundage
+      sortname: Brundage Harry
+      githubId: '158950'
+      links:
+        github: https://github.com/airhorns
+        npm: https://www.npmjs.com/~airhorns
+        twitter: https://twitter.com/harrybrundage
+    - name: Luis Orbaiceta
+      sortname: Orbaiceta Luis
+      githubId: '44276180'
+      links:
+        github: https://github.com/luisorbaiceta
+        npm: https://www.npmjs.com/~luisorbaiceta
+        twitter: https://twitter.com/luisorbai
 
 - name: Past Collaborators
   people:
