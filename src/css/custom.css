@@ -83,3 +83,12 @@
 .h-full {
   height: 100%;
 }
+.navbar__title.text--truncate {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .navbar__title.text--truncate {
+    display: block;
+  }
+}
