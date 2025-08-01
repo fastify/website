@@ -40,5 +40,23 @@
     "tag": "hapi",
     "test": "https://github.com/fastify/benchmarks/blob/main/benchmarks/hapi.cjs",
     "repository": "https://github.com/hapijs/hapi"
+  },
+  {
+    "name": "Polka",
+    "tag": "polka",
+    "test": "https://github.com/fastify/benchmarks/blob/main/benchmarks/polka.cjs",
+    "repository": "https://github.com/lukeed/polka"
+  },
+  {
+    "name": "Micro",
+    "tag": "micro",
+    "test": "https://github.com/fastify/benchmarks/blob/main/benchmarks/micro.cjs",
+    "repository": "https://github.com/vercel/micro"
+  },
+  {
+    "name": "Tinyhttp",
+    "tag": "tinyhttp",
+    "test": "https://github.com/fastify/benchmarks/blob/main/benchmarks/tinyhttp.cjs",
+    "repository": "https://github.com/tinyhttp/tinyhttp"
   }
 ]
