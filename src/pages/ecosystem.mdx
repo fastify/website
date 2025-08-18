@@ -15,10 +15,16 @@ export function PluginCount(props) {
 - We guarantee that every community plugin respects Fastify best practices (tests, etc) at the time they have been added to the list. We offer no guarantee on their maintenance
 - Can't find the plugin you're looking for? No problem, <Link to='/docs/latest/Guides/Write-Plugin'>you can learn how to do it!</Link>
 
+<div className="ecosystem-page">
+
 ## Core Plugins
 
 <PluginsTable plugins={plugins.corePlugins} />
 
 ## Community Plugins
+
+</div>
+
+> ℹ️ Note: Fastify community plugins are part of the broader community efforts, and we are thankful for these contributions. However, they are not maintained by the Fastify team. Use them at your own discretion. If you find malicious code, please [open an issue](https://github.com/fastify/fastify/issues/new/choose) or submit a PR to remove the plugin from the list.
 
 <PluginsTable plugins={plugins.communityPlugins} />
