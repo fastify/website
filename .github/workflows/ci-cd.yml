@@ -54,7 +54,7 @@ jobs:
       # we set the correct repository and reference sha for PR preview
       - name: Checkout PR
         if: ${{ github.event_name == 'pull_request_target' }}
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
@@ -62,7 +62,7 @@ jobs:
       # we set the correct reference sha for production
       - name: Checkout
         if: ${{ github.event_name != 'pull_request_target' }}
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           persist-credentials: false
           ref: main
