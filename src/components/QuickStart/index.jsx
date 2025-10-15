@@ -203,13 +203,9 @@ start()`
         fastify generate myproject
       </CodeBlock>
 
-      <p>
-        Or to create a TypeScript project:
-      </p>
+      <p>Or to create a TypeScript project:</p>
 
-      <CodeBlock language="bash">
-        fastify generate myproject --lang=ts
-      </CodeBlock>
+      <CodeBlock language="bash">fastify generate myproject --lang=ts</CodeBlock>
 
       <Heading as={'h2'}>Request/Response validation and hooks</Heading>
       <p>
