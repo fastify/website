@@ -9,7 +9,21 @@ function GoodFirstIssue({ url }) {
   const [error, setError] = useState(null)
   const [issues, setIssues] = useState([])
   const [projects, setProjects] = useState({})
+  const [checkAllProjects, setCheckAllProjects] = useState(true)
   const [filteredIssues, setFilteredIssues] = useState([])
+
+  useEffect(() => {
+    setFilteredIssues(checkAllProjects ? issues : [])
+
+    setProjects((prev) => {
+      const filteredProjects = {}
+      for (const name in prev) {
+        filteredProjects[name] = { ...prev[name], selected: checkAllProjects }
+      }
+
+      return filteredProjects
+    })
+  }, [checkAllProjects, issues])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -76,6 +90,19 @@ function GoodFirstIssue({ url }) {
         <div className="col col--4 margin--none">
           <nav className="col-demo item shadow--lw">
             <p className={css.panelHeading}>Projects</p>
+            <div className={`avatar margin-bottom--sm ${css.projectItem}`}>
+              <input
+                type="checkbox"
+                checked={checkAllProjects}
+                onChange={() => setCheckAllProjects(!checkAllProjects)}
+              />
+              <div className="avatar__intro">
+                <div className="avatar__name">All the projects</div>
+                <small className="avatar__subtitle">{issues.length} issues</small>
+              </div>
+            </div>
+            <hr />
+
             {Object.values(projects)
               .sort(byCount)
               .map((project) => ProjectFilter({ ...project, toggle: toggleProject.bind(this, project.name) }))}

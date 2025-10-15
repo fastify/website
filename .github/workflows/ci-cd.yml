@@ -18,9 +18,14 @@ on:
   # daily schedule
   workflow_call:
 
+permissions:
+  contents: read
+
 jobs:
   setup:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Select environment
         id: env-selector
@@ -29,7 +34,7 @@ jobs:
           echo "website_url=${{ github.event_name == 'pull_request_target' && '/' || '/' }}" >> $GITHUB_OUTPUT
       - name: Get latest Fastify tag
         id: latest-fastify
-        uses: oprypin/find-latest-tag@v1
+        uses: oprypin/find-latest-tag@dd2729fe78b0bb55523ae2b2a310c6773a652bd1 # v1.1.2
         with:
           repository: fastify/fastify
           releases-only: true
@@ -59,27 +64,29 @@ jobs:
         if: ${{ github.event_name != 'pull_request_target' }}
         uses: actions/checkout@v4
         with:
+          persist-credentials: false
           ref: main
 
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
           cache: npm
+          check-latest: true
+          node-version: 22
           node-version-file: '.nvmrc'
 
       - name: Install Packages
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Run Linting
         run: npm run lint
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
 
       - name: Get latest Fastify tag
         id: latest-fastify
-        uses: oprypin/find-latest-tag@v1
+        uses: oprypin/find-latest-tag@dd2729fe78b0bb55523ae2b2a310c6773a652bd1 # v1.1.2
         with:
           repository: fastify/fastify
           releases-only: true
@@ -154,15 +161,26 @@ jobs:
       deployment_url: ${{ steps.deployment.outputs.NETLIFY_URL }}
     runs-on: ubuntu-latest
     steps:
-      - name: Prepare build artifact
-        uses: alehechka/download-tartifact@v2
+      - name: Download artifact
+        uses: actions/download-artifact@v4
         with:
           name: github-pages
           path: website
+
+      - name: Extract artifact
+        run: tar -xvf artifact.tar
+        working-directory: website
+        shell: 'bash'
+
+      - name: Clean up before deploy
+        run: rm artifact.tar
+        working-directory: website
+        shell: 'bash'
+
       - name: Display structure of downloaded files
         run: ls -R
       - name: Deploy to Netlify
-        uses: netlify/actions/cli@master
+        uses: netlify/actions/cli@3185065f4ab2f6df6f2ef41ee013626e1c02a426 # master
         id: deployment
         with:
           # https://cli.netlify.com/commands/deploy/

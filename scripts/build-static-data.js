@@ -31,12 +31,24 @@ execute([
 
   // ##### Organizations
   {
-    staticDataFile: path.join(__dirname, '../static/data/organisations.yml'),
-    outputFile: path.join(__dirname, '../static/generated/organisations.json'),
+    staticDataFile: path.join(__dirname, '../static/data/organizations.yml'),
+    outputFile: path.join(__dirname, '../static/generated/organizations.json'),
     sideEffect: (data) => {
       // Sort alphabetically by `name` lowercase
       data.sort((a, b) => {
         return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+      })
+
+      // Validate the data
+      data.every((org) => {
+        if (!org.sponsor) {
+          return true
+        }
+
+        if (!org.tier || !['tier_2', 'tier_3'].includes(org.tier)) {
+          throw new Error(`Invalid tier for ${org.name}`)
+        }
+        return true
       })
     },
   },

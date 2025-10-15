@@ -2,31 +2,43 @@
   {
     "name": "Fastify",
     "tag": "fastify",
-    "test": "https://github.com/fastify/benchmarks/blob/master/benchmarks/fastify.cjs",
+    "test": "https://github.com/fastify/benchmarks/blob/main/benchmarks/fastify.cjs",
     "repository": "https://github.com/fastify/fastify"
+  },
+  {
+    "name": "Hono",
+    "tag": "hono",
+    "test": "https://github.com/fastify/benchmarks/blob/main/benchmarks/hono.mjs",
+    "repository": "https://github.com/honojs/hono"
+  },
+  {
+    "name": "H3",
+    "tag": "h3",
+    "test": "https://github.com/fastify/benchmarks/blob/main/benchmarks/h3.cjs",
+    "repository": "https://github.com/unjs/h3"
   },
   {
     "name": "Koa",
     "tag": "koa",
-    "test": "https://github.com/fastify/benchmarks/blob/master/benchmarks/koa.cjs",
+    "test": "https://github.com/fastify/benchmarks/blob/main/benchmarks/koa.cjs",
     "repository": "https://github.com/koajs/koa"
   },
   {
     "name": "Express",
     "tag": "express",
-    "test": "https://github.com/fastify/benchmarks/blob/master/benchmarks/express.cjs",
+    "test": "https://github.com/fastify/benchmarks/blob/main/benchmarks/express.cjs",
     "repository": "https://github.com/expressjs/express"
   },
   {
     "name": "Restify",
     "tag": "restify",
-    "test": "https://github.com/fastify/benchmarks/blob/master/benchmarks/restify.cjs",
+    "test": "https://github.com/fastify/benchmarks/blob/main/benchmarks/restify.cjs",
     "repository": "https://github.com/restify/node-restify"
   },
   {
     "name": "Hapi",
     "tag": "hapi",
-    "test": "https://github.com/fastify/benchmarks/blob/master/benchmarks/hapi.cjs",
+    "test": "https://github.com/fastify/benchmarks/blob/main/benchmarks/hapi.cjs",
     "repository": "https://github.com/hapijs/hapi"
   }
 ]

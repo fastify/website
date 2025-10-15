@@ -17,7 +17,7 @@ function checkGeneratedData() {
   const generatedFiles = [
     'static/generated/acknowledgements.json',
     'static/generated/benchmarks.json',
-    'static/generated/organisations.json',
+    'static/generated/organizations.json',
     'static/generated/plugins.json',
     'static/generated/team.json',
   ]
@@ -72,6 +72,14 @@ function getVersionLabels(versionsJson) {
   }
 }
 
+/**
+ * Generate redirects for old versions of the documentation.
+ * @param {string} existingPath - The path to redirect.
+ * @param {string} major - The major version.
+ * @param {Array<string>} versions - The list of versions.
+ * @param {Array<string>} versionsShipped - The list of versions shipped.
+ * @param {Array<string>} ignore - The list of paths to ignore.
+ */
 function manageRedirects({ existingPath, major, versions, versionsShipped, ignore = [] }) {
   if (ignore.includes(existingPath)) {
     //  Do not create redirects for this path
@@ -90,7 +98,7 @@ function manageRedirects({ existingPath, major, versions, versionsShipped, ignor
     return existingPath
       .replace(`/docs/${versionName}`, oldPath) // Replace the version with the old path
       .replace(/Guides\/(?!Contributing)/g, '') // Remove Guides/ from the path (it has been added in v4)
-      .replace(/Reference\//g, '') // Remove Refecerence/ from the path (it has been added in v4)
+      .replace(/Reference\//g, '') // Remove Reference/ from the path (it has been added in v4)
   })
 
   // Remove duplicates

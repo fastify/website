@@ -4,7 +4,7 @@
 # Downalod all major releases:
 # - ./scripts/download-releases.sh --major
 # Downalod all greatest minor releases:
-# - ./scripts/download-releases.sh --minor 
+# - ./scripts/download-releases.sh --minor
 # Filter by major version:
 # - ./scripts/download-releases.sh --minor 4
 
@@ -19,8 +19,14 @@ releaseFile="$baseDir/releases.tag"
 
 downloadRelease() {
   outputFile="$baseDir/downloads/$1.tar.gz"
-  gh release download "v$1" --repo $repo --archive=tar.gz -O $outputFile --skip-existing
-  echo "Downloaded $repo > $1"
+
+  # if the file already exists, skip
+  if [ -f $outputFile ]; then
+    echo "Skipped $repo > $1"
+  else
+    gh release download "v$1" --repo $repo --archive=tar.gz -O $outputFile --skip-existing
+    echo "Downloaded $repo > $1"
+  fi
 
   mkdir -p "$baseDir/releases/$1/"
   mkdir -p "$baseDir/downloads/$1/"

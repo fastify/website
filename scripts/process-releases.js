@@ -13,6 +13,7 @@ const replace = require('replace')
 const prependFile = require('prepend-file')
 
 const sidebarsTemplate = require('../sidebars-template.json')
+const processDocusaurusV3Upgrade = require('./process-docusaurus-v3-upgrade')
 const log = require('pino')({
   level: process.env.LOG_LEVEL || 'debug',
   transport: {
@@ -65,8 +66,14 @@ async function processReleases(opts) {
     // ### Customization
     await addMetadataToFile(join(docDestination, 'index.md'), {
       title: 'Introduction',
+      ['sidebar_position']: 0,
       [`displayed_sidebar`]: 'docsSidebar',
     })
+    await addMetadataToFile(join(docDestination, 'Guides', 'Getting-Started.md'), { ['sidebar_position']: 0 })
+    await addMetadataToFile(join(docDestination, 'Guides', 'Recommendations.md'), { ['sidebar_position']: 1 })
+    await addMetadataToFile(join(docDestination, 'Guides', 'Database.md'), { ['sidebar_position']: 2 })
+    await addMetadataToFile(join(docDestination, 'Guides', 'Testing.md'), { ['sidebar_position']: 3 })
+    await addMetadataToFile(join(docDestination, 'Guides', 'Write-Plugin.md'), { ['sidebar_position']: 4 })
 
     docsVersions.push({ tag: docTree.releseTag, versionName })
   }
@@ -111,6 +118,9 @@ async function processReleases(opts) {
 
   const v2Docs = orderedVersions.find((v) => v.startsWith('v2.'))
   await fixCodeBlocks(join(versionedFolder, `version-${v2Docs}`))
+
+  processDocusaurusV3Upgrade(versionedFolder)
+  log.info('Updated docs to match Docusaurus v3 guidelines')
 
   log.info('Done')
 }

@@ -24,3 +24,7 @@
 .grid-item-1 {
   background-color: var(--ifm-table-stripe-background);
 }
+
+.ecosystem-page h2 {
+  margin-top: 2rem;
+}

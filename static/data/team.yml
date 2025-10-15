@@ -16,6 +16,12 @@
         github: https://github.com/delvedor
         npm: https://www.npmjs.com/~delvedor
         twitter: https://twitter.com/delvedor
+    - name: KaKa Ng
+      sortname: Ng KaKa
+      githubId: '23028015'
+      links:
+        github: https://github.com/climba03003
+        npm: https://www.npmjs.com/~climba03003
     - name: Manuel Spigolon
       sortname: Spigolon Manuel
       githubId: '11404065'
@@ -33,27 +39,6 @@
 
 - name: Collaborators
   people:
-    - name: David Clements
-      sortname: Clements David
-      githubId: '1190716'
-      links:
-        github: https://github.com/davidmarkclements
-        npm: https://www.npmjs.com/~davidmarkclements
-        twitter: https://twitter.com/davidmarkclem
-    - name: Dustin Deus
-      sortname: Deus Dustin
-      githubId: '1764424'
-      links:
-        github: https://github.com/StarpTech
-        npm: https://www.npmjs.com/~starptech
-        twitter: https://twitter.com/dustindeus
-    - name: Ayoub El Khattabi
-      sortname: Ayoub El Khattabi
-      githubId: '11050534'
-      links:
-        github: https://github.com/AyoubElk
-        npm: https://www.npmjs.com/~ayoubelk
-        twitter: https://twitter.com/ayoubelkh
     - name: Carlos Fuentes
       sortname: Fuentes Carlos
       githubId: '10200776'
@@ -74,20 +59,6 @@
         github: https://github.com/lmammino
         npm: https://www.npmjs.com/~lmammino
         twitter: https://twitter.com/loige
-    - name: Rafael Gonzaga
-      sortname: Gonzaga Rafael
-      githubId: '26234614'
-      links:
-        github: https://github.com/RafaelGSS
-        npm: https://www.npmjs.com/~rafaelgss
-        twitter: https://twitter.com/_rafaelgss
-    - name: Tommaso Allevi
-      sortname: Allevi Tommaso
-      githubId: '1054125'
-      links:
-        github: https://github.com/allevo
-        npm: https://www.npmjs.com/~allevo
-        twitter: https://twitter.com/allevitommaso
     - name: Maksim Sinik
       sortname: Sinik Maksim
       githubId: '1620916'
@@ -113,12 +84,6 @@
       githubId: '6959636'
       links:
         github: https://github.com/zekth
-    - name: Salman Mitha
-      sortname: Mitha Salman
-      githubId: '2510597'
-      links:
-        github: https://github.com/salmanm
-        npm: https://www.npmjs.com/~salmanm
     - name: Aras Abbasi
       sortname: Abbasi Aras
       githubId: '5059100'
@@ -131,9 +96,76 @@
       links:
         github: https://github.com/gurgunday
         npm: https://www.npmjs.com/~gurgunday
+    - name: Dan Castillo
+      sortname: Castillo Dan
+      githubId: '15673208'
+      links:
+        github: https://github.com/dancastillo
+        npm: https://www.npmjs.com/~dancastillo
+    - name: Jean Michelet
+      sortname: Michelet Jean
+      githubId: '110341611'
+      links:
+        github: https://github.com/jean-michelet
+        npm: https://www.npmjs.com/~jean-michelet
+    - name: Harry Brundage
+      sortname: Brundage Harry
+      githubId: '158950'
+      links:
+        github: https://github.com/airhorns
+        npm: https://www.npmjs.com/~airhorns
+        twitter: https://twitter.com/harrybrundage
+    - name: Luis Orbaiceta
+      sortname: Orbaiceta Luis
+      githubId: '44276180'
+      links:
+        github: https://github.com/luisorbaiceta
+        npm: https://www.npmjs.com/~luisorbaiceta
+        twitter: https://twitter.com/luisorbai
 
 - name: Past Collaborators
   people:
+    - name: Ayoub El Khattabi
+      sortname: Ayoub El Khattabi
+      githubId: '11050534'
+      links:
+        github: https://github.com/AyoubElk
+        npm: https://www.npmjs.com/~ayoubelk
+        twitter: https://twitter.com/ayoubelkh
+    - name: Dustin Deus
+      sortname: Deus Dustin
+      githubId: '1764424'
+      links:
+        github: https://github.com/StarpTech
+        npm: https://www.npmjs.com/~starptech
+        twitter: https://twitter.com/dustindeus
+    - name: Rafael Gonzaga
+      sortname: Gonzaga Rafael
+      githubId: '26234614'
+      links:
+        github: https://github.com/RafaelGSS
+        npm: https://www.npmjs.com/~rafaelgss
+        twitter: https://twitter.com/_rafaelgss
+    - name: David Clements
+      sortname: Clements David
+      githubId: '1190716'
+      links:
+        github: https://github.com/davidmarkclements
+        npm: https://www.npmjs.com/~davidmarkclements
+        twitter: https://twitter.com/davidmarkclem
+    - name: Salman Mitha
+      sortname: Mitha Salman
+      githubId: '2510597'
+      links:
+        github: https://github.com/salmanm
+        npm: https://www.npmjs.com/~salmanm
+    - name: Tommaso Allevi
+      sortname: Allevi Tommaso
+      githubId: '1054125'
+      links:
+        github: https://github.com/allevo
+        npm: https://www.npmjs.com/~allevo
+        twitter: https://twitter.com/allevitommaso
     - name: Ethan Arrowood
       sortname: Arrowood Ethan
       githubId: '16144158'

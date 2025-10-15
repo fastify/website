@@ -1,0 +1,81 @@
+name: Optimize Images
+
+# **What it does**: Automatically compress and optimize images.
+# **Why we have it**: Reduces bandwidth needs of app and repo.
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.jpg'
+      - '**.jpeg'
+      - '**.png'
+      - '**.webp'
+      - '**.svg'
+  pull_request:
+    paths:
+      - '**.jpg'
+      - '**.jpeg'
+      - '**.png'
+      - '**.webp'
+      - '**.svg'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Optimize Images
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    # Only run on main repo and PRs that match the main repo
+    if: >
+      github.repository == 'fastify/website' && (github.event_name != 'pull_request' ||
+       github.event.pull_request.head.repo.full_name == github.repository)
+
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          ref: main
+
+      - name: Optimize svg images
+        run: |
+          npx svgo -rf ./static/img
+
+      - name: Verify Changed files
+        uses: tj-actions/verify-changed-files@a1c6acee9df209257a246f2cc6ae8cb6581c1edf # v20.0.4
+        id: verify-changed-files
+        with:
+          files: |
+            **/*.svg
+
+      - name: Compress images
+        id: calibre
+        uses: calibreapp/image-actions@737ceeaeed61e17b8d358358a303f1b8d177b779 # 1.1.0
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          jpegQuality: '100'
+          pngQuality: '100'
+          webpQuality: '100'
+          # For non-Pull Requests, run in compressOnly mode and PR after
+          compressOnly: ${{ github.event_name != 'pull_request' }}
+
+      - name: Create pull request
+        # If it is not a Pull Request then commit any changes as a new PR
+        if: >
+          github.event_name != 'pull_request' && (steps.calibre.outputs.markdown != '' || steps.verify-changed-files.outputs.files_changed == 'true')
+
+
+        uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
+        with:
+          title: 'chore: auto-compress images'
+          branch-suffix: timestamp
+          commit-message: 'chore: auto-compress images'
+          body: ${{ steps.calibre.outputs.markdown }}

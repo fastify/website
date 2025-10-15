@@ -1,7 +1,7 @@
 // @ts-check
-
-const lightCodeTheme = require('prism-react-renderer/themes/github')
-const darkCodeTheme = require('prism-react-renderer/themes/dracula')
+const { themes } = require('prism-react-renderer')
+const lightCodeTheme = themes.github
+const darkCodeTheme = themes.dracula
 
 const u = require('./docusaurus.config.utils')
 
@@ -10,7 +10,7 @@ const versions = require('./versions.json')
 const BASE_URL = process.env.BASE_URL ?? '/'
 
 const isDev = process.env.NODE_ENV === 'development'
-const latestMajorVersion = versions.find((v) => v.startsWith('v'))?.split('.')[0] || 'v4'
+const latestMajorVersion = versions.find((v) => v.startsWith('v'))?.split('.')[0] || 'v5'
 
 u.checkGeneratedData()
 
@@ -91,6 +91,9 @@ const config = {
     ({
       // https://docusaurus.io/docs/api/themes/configuration
       image: 'img/logos/fastify-black.svg',
+      colorMode: {
+        respectPrefersColorScheme: true,
+      },
       docs: {
         sidebar: {
           autoCollapseCategories: true,
@@ -118,9 +121,10 @@ const config = {
           },
           { to: '/ecosystem', label: 'Ecosystem', position: 'left' },
           { to: '/benchmarks', label: 'Benchmarks', position: 'left' },
-          { to: '/organisations', label: 'Adopters', position: 'left' },
+          { to: '/organizations', label: 'Adopters', position: 'left' },
           { to: '/contribute', label: 'Contribute', position: 'left' },
           { to: '/resources', label: 'Resources', position: 'left' },
+          { to: '/docs/latest/Reference/LTS', label: 'Support', position: 'left' },
           {
             type: 'docsVersionDropdown',
             position: 'right',
@@ -200,11 +204,17 @@ const config = {
     }),
 
   plugins: [
-    '@orama/plugin-docusaurus',
+    '@orama/plugin-docusaurus-v3',
     [
       // This plugin does not work in dev mode
       '@docusaurus/plugin-client-redirects',
       {
+        redirects: [
+          {
+            from: '/organisations',
+            to: '/organizations',
+          },
+        ],
         createRedirects(existingPath) {
           // Legacy/Retro compatibility:
 

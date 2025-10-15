@@ -1,6 +1,6 @@
 # Contributing guide
 
-Thanks for your contribution 🥳 to the Fastily website redesign project!
+Thanks for your contribution 🥳 to the Fastify website redesign project!
 
 [Code of Conduct](https://github.com/fastify/.github/blob/main/CODE_OF_CONDUCT.md)
 
