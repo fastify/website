@@ -203,6 +203,10 @@ start()`
         fastify generate myproject
       </CodeBlock>
 
+      <p>Or to create a TypeScript project:</p>
+
+      <CodeBlock language="bash">fastify generate myproject --lang=ts</CodeBlock>
+
       <Heading as={'h2'}>Request/Response validation and hooks</Heading>
       <p>
         Fastify can do much more than this. For example, you can easily provide input and output validation using JSON

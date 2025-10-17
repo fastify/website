@@ -54,7 +54,7 @@ jobs:
       # we set the correct repository and reference sha for PR preview
       - name: Checkout PR
         if: ${{ github.event_name == 'pull_request_target' }}
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
@@ -62,13 +62,13 @@ jobs:
       # we set the correct reference sha for production
       - name: Checkout
         if: ${{ github.event_name != 'pull_request_target' }}
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           persist-credentials: false
           ref: main
 
       - name: Use Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           cache: npm
           check-latest: true
@@ -110,7 +110,7 @@ jobs:
 
       - name: Upload artifact
 
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: './build'
 
@@ -162,7 +162,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: github-pages
           path: website
