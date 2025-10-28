@@ -41,7 +41,7 @@ export default function Home() {
           <div className="container">
             <Heading as={'h1'}>Who is using Fastify?</Heading>
             <p>
-              Fastify is proudly powering a large ecosystem of organizations and products out there with almost{' '}
+              Fastify is proudly powering a large ecosystem of organizations and products out there with over{' '}
               <Link to={'https://npm-stat.com/charts.html?package=fastify'}>10 million downloads per month</Link>.{' '}
               <Link to="/organizations">Checkout our affiliate companies.</Link>
             </p>
