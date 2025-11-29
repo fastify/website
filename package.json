@@ -41,7 +41,7 @@
     "@docusaurus/eslint-plugin": "^3.9.2",
     "@docusaurus/module-type-aliases": "^3.9.2",
     "babel-eslint": "^10.1.0",
-    "eslint": "^8.57.1",
+    "eslint": "^9.39.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-check-file": "^2.8.0",
     "eslint-plugin-import": "^2.32.0",
