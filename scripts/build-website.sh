@@ -29,6 +29,7 @@ node ./scripts/process-releases.js
 node ./scripts/build-plugin-list.js
 node ./scripts/download-benchmarks.js
 node ./scripts/build-static-data.js
+node ./scripts/generate-llms-txt.js
 
 ####### Build Phase
 
