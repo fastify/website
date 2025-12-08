@@ -9,13 +9,13 @@ import useOrama from '@orama/plugin-docusaurus-v3/dist/theme/SearchBar/useOrama.
 import { getColorMode, getPreferredVersion } from '@orama/plugin-docusaurus-v3/dist/theme/SearchBar/utils.js'
 
 const OramaSearchButton = lazy(() =>
-  import('@orama/react-components').then((module) => ({
+  import('@orama/react-components/dist/index.mjs').then((module) => ({
     default: module.OramaSearchButton,
   })),
 )
 
 const OramaSearchBox = lazy(() =>
-  import('@orama/react-components').then((module) => ({
+  import('@orama/react-components/dist/index.mjs').then((module) => ({
     default: module.OramaSearchBox,
   })),
 )
