@@ -8,16 +8,14 @@ import { usePluginData } from '@docusaurus/useGlobalData'
 import useOrama from '@orama/plugin-docusaurus-v3/dist/theme/SearchBar/useOrama.js'
 import { getColorMode, getPreferredVersion } from '@orama/plugin-docusaurus-v3/dist/theme/SearchBar/utils.js'
 
-const oramaComponentsPath = '../../node_modules/@orama/react-components/dist/index.js'
-
 const OramaSearchButton = lazy(() =>
-  import(oramaComponentsPath).then((module) => ({
+  import('@orama/react-components/dist/index.js').then((module) => ({
     default: module.OramaSearchButton,
   })),
 )
 
 const OramaSearchBox = lazy(() =>
-  import(oramaComponentsPath).then((module) => ({
+  import('@orama/react-components/dist/index.js').then((module) => ({
     default: module.OramaSearchBox,
   })),
 )
