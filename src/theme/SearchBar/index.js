@@ -11,13 +11,13 @@ import { getColorMode, getPreferredVersion } from '@orama/plugin-docusaurus-v3/d
 const OramaSearchButton = lazy(() =>
   import('@orama/react-components').then((module) => ({
     default: module.OramaSearchButton,
-  }))
+  })),
 )
 
 const OramaSearchBox = lazy(() =>
   import('@orama/react-components').then((module) => ({
     default: module.OramaSearchBox,
-  }))
+  })),
 )
 
 // Add `where` when collectionManager is provided. Handles different query APIs.
