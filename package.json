@@ -22,7 +22,8 @@
     "lint:js": "eslint --cache \"**/*.{js,jsx,ts,tsx,md,mdx,mjs}\"",
     "lint:js:fix": "eslint \"**/*.{js,jsx,ts,tsx,md,mdx,mjs}\" --fix",
     "lint:style": "stylelint \"**/*.css\"",
-    "lint:style:fix": "npm run lint:style -- --fix"
+    "lint:style:fix": "npm run lint:style -- --fix",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@docusaurus/core": "^3.9.2",
@@ -50,6 +51,7 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-regexp": "^2.10.0",
+    "patch-package": "^8.0.1",
     "prettier": "^3.6.2",
     "stylelint": "^16.25.0",
     "stylelint-config-standard": "^37.0.0"

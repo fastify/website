@@ -1,0 +1,23 @@
+diff --git a/node_modules/@orama/plugin-docusaurus-v3/dist/theme/SearchBar/index.js b/node_modules/@orama/plugin-docusaurus-v3/dist/theme/SearchBar/index.js
+index 41f8c1d..c043d1a 100644
+--- a/node_modules/@orama/plugin-docusaurus-v3/dist/theme/SearchBar/index.js
++++ b/node_modules/@orama/plugin-docusaurus-v3/dist/theme/SearchBar/index.js
+@@
+-export function OramaSearchWithDocs({ pluginId }) {
+-    var _a;
++export function OramaSearchWithDocs({ pluginId }) {
++    var _a, _b, _c;
+     const colorMode = getColorMode();
+     const { searchBoxConfig, searchBtnConfig } = useOrama();
+     const collectionManager = (_a = searchBoxConfig.basic) === null || _a === void 0 ? void 0 : _a.collectionManager;
+     const versions = useVersions(pluginId);
+     const activeVersion = useActiveVersion(pluginId);
+     const preferredVersion = getPreferredVersion(searchBoxConfig.basic.clientInstance);
+-    const currentVersion = activeVersion || preferredVersion || versions[0];
++    const currentVersionName = typeof activeVersion === 'string'
++        ? activeVersion
++        : ((_b = (_a = activeVersion) === null || _a === void 0 ? void 0 : _a.name) !== null && _b !== void 0 ? _b : preferredVersion) || ((_c = versions[0]) === null || _c === void 0 ? void 0 : _c.name) || 'current';
++    const currentVersion = currentVersionName;
+     const searchParams = {
+         ...(currentVersion && {
+             ...formatSearchParams(currentVersion, collectionManager)
