@@ -1,8 +1,8 @@
 'use strict'
 
-const { promises: fs } = require('fs')
-const path = require('path')
-const glob = require('glob')
+const fs = require('node:fs/promises')
+const path = require('node:path')
+const glob = require('node:glob')
 
 const log = require('pino')({
   level: process.env.LOG_LEVEL || 'debug',
