@@ -220,7 +220,7 @@ const config = {
             to: '/organizations',
           },
         ],
-        // @ts-ignore
+        // @ts-expect-error
 
         createRedirects(existingPath) {
           // Legacy/Retro compatibility:
@@ -232,7 +232,7 @@ const config = {
 
           // Redirect for old /docs/v3.<x>.<y>/ URLs to the latest v3 version
           if (existingPath.startsWith('/docs/v3')) {
-            // @ts-ignore
+            // @ts-expect-error
             return u.manageRedirects({
               existingPath,
               major: '3',
@@ -244,7 +244,7 @@ const config = {
 
           // Redirect for old /docs/v2.<x>.<y>/ URLs to the latest v2 version
           if (existingPath.startsWith('/docs/v2')) {
-            // @ts-ignore
+            // @ts-expect-error
             return u.manageRedirects({
               existingPath,
               major: '2',
