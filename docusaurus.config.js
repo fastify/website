@@ -21,7 +21,6 @@ const config = {
   url: 'https://fastify.io',
   baseUrl: BASE_URL,
   onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   // GitHub Pages redirects with a trailing slash, so this configures links to match
   trailingSlash: true,
@@ -33,6 +32,12 @@ const config = {
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
+  },
+
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
   },
 
   // https://docusaurus.io/docs/using-plugins#using-presets
@@ -215,6 +220,7 @@ const config = {
             to: '/organizations',
           },
         ],
+        // @ts-expect-error provided types doesn't match the real possible configuration
         createRedirects(existingPath) {
           // Legacy/Retro compatibility:
 
@@ -225,6 +231,7 @@ const config = {
 
           // Redirect for old /docs/v3.<x>.<y>/ URLs to the latest v3 version
           if (existingPath.startsWith('/docs/v3')) {
+            // @ts-expect-error provided types doesn't match the real possible configuration
             return u.manageRedirects({
               existingPath,
               major: '3',
@@ -236,6 +243,7 @@ const config = {
 
           // Redirect for old /docs/v2.<x>.<y>/ URLs to the latest v2 version
           if (existingPath.startsWith('/docs/v2')) {
+            // @ts-expect-error provided types doesn't match the real possible configuration
             return u.manageRedirects({
               existingPath,
               major: '2',
