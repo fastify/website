@@ -103,7 +103,7 @@ function DocVersionBannerEnabled({ className, versionMetadata }) {
       {versionNumber < 4 && (
         <div className="margin-top--md">
           For information about support options for end-of-life versions, see the{' '}
-          <a href="/docs/latest/Reference/LTS">Long Term Support</a> page.
+          <Link to="/docs/latest/Reference/LTS">Long Term Support</Link> page.
         </div>
       )}
     </div>

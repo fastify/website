@@ -12,6 +12,8 @@ import DocItemContent from '@theme/DocItem/Content'
 import DocBreadcrumbs from '@theme/DocBreadcrumbs'
 import ContentVisibility from '@theme/ContentVisibility'
 import styles from './styles.module.css'
+import Link from '@docusaurus/Link'
+
 /**
  * Decide if the toc should be rendered, on mobile or desktop viewports
  */
@@ -53,7 +55,7 @@ export default function DocItemLayout({ children }) {
               <div className="alert alert--warning margin-top--md margin-bottom--md" role="alert">
                 <p>Version 3 and before of Fastify are no longer maintained.</p>
                 For information about support options for end-of-life versions, see the{' '}
-                <a href="/docs/latest/Reference/LTS">Long Term Support</a> page.
+                <Link to="/docs/latest/Reference/LTS">Long Term Support</Link> page.
               </div>
             )}
 
