@@ -50,6 +50,7 @@ const config = {
 
         // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs#configuration
         docs: {
+          lastVersion: 'latest', // the last version is always "latest"
           editUrl: (editPage) => {
             // Users can not submit doc updates to the legacy versions!
             if (editPage.version !== 'latest' && !editPage.version.startsWith(latestMajorVersion)) {
