@@ -32,5 +32,6 @@ versioned_sidebars/*
 !versioned_sidebars/.keep
 
 static/generated/*.json
+static/generated/*.txt
 versions-shipped.json
 versions.json
