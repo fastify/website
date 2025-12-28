@@ -8,9 +8,6 @@
 
 npm --prefix ./scripts install
 
-# apply dependency patches (.npmrc disables postinstall)
-npm exec patch-package
-
 ####### Download Phase
 
 if [[ $SKIP_DOWNLOADS != "true" ]]; then
