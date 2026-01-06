@@ -6,14 +6,14 @@ import teamData from '@site/static/generated/team.json'
 import styles from './styles.module.css'
 
 const svgicons = {
-  twitter: (
+  x: (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       width="22"
       height="23"
       preserveAspectRatio="xMinYMin"
-      className="icon__icon twitter">
+      className="icon__icon x">
       <path
         fill="currentColor"
         d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"></path>
@@ -100,14 +100,14 @@ function TeamMember({ member, index }) {
                   {svgicons.npm}
                 </Link>
               )}
-              {member.links.twitter && (
+              {member.links.x && (
                 <Link
-                  href={member.links.twitter}
+                  href={member.links.x}
                   target="_blank"
-                  className={styles.linkTwitter}
+                  className={styles.linkX}
                   rel="noreferrer"
                   title={`Check out ${member.name}'s Twitter profile`}>
-                  {svgicons.twitter}
+                  {svgicons.x}
                 </Link>
               )}
             </p>
