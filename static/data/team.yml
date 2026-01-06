@@ -8,14 +8,14 @@
       links:
         github: https://github.com/mcollina
         npm: https://www.npmjs.com/~matteo.collina
-        twitter: https://twitter.com/matteocollina
+        x: https://x.com/matteocollina
     - name: Tomas Della Vedova
       sortname: Della Vedova Tomas
       githubId: '4865608'
       links:
         github: https://github.com/delvedor
         npm: https://www.npmjs.com/~delvedor
-        twitter: https://twitter.com/delvedor
+        x: https://x.com/delvedor
     - name: KaKa Ng
       sortname: Ng KaKa
       githubId: '23028015'
@@ -28,14 +28,14 @@
       links:
         github: https://github.com/eomm
         npm: https://www.npmjs.com/~eomm
-        twitter: https://twitter.com/manueomm
+        x: https://x.com/manueomm
     - name: James Sumners
       sortname: Sumners James
       githubId: '321201'
       links:
         github: https://github.com/jsumners
         npm: https://www.npmjs.com/~jsumners
-        twitter: https://twitter.com/jsumners79
+        x: https://x.com/jsumners79
 
 - name: Collaborators
   people:
@@ -51,21 +51,21 @@
       links:
         github: https://github.com/evanshortiss
         npm: https://www.npmjs.com/~evanshortiss
-        twitter: https://twitter.com/evanshortiss
+        x: https://x.com/evanshortiss
     - name: Luciano Mammino
       sortname: Mammino Luciano
       githubId: '205629'
       links:
         github: https://github.com/lmammino
         npm: https://www.npmjs.com/~lmammino
-        twitter: https://twitter.com/loige
+        x: https://x.com/loige
     - name: Maksim Sinik
       sortname: Sinik Maksim
       githubId: '1620916'
       links:
         github: https://github.com/fox1t
         npm: https://www.npmjs.com/~fox1t
-        twitter: https://twitter.com/maksimsinik
+        x: https://x.com/maksimsinik
     - name: Frazer Smith
       sortname: Smith Frazer
       githubId: '43814140'
@@ -78,7 +78,7 @@
       links:
         github: https://github.com/kibertoad
         npm: https://www.npmjs.com/~kibertoad
-        twitter: https://twitter.com/kibertoad
+        x: https://x.com/kibertoad
     - name: Vincent Le Goff
       sortname: Le Goff Vincent
       githubId: '6959636'
@@ -114,14 +114,14 @@
       links:
         github: https://github.com/airhorns
         npm: https://www.npmjs.com/~airhorns
-        twitter: https://twitter.com/harrybrundage
+        x: https://x.com/harrybrundage
     - name: Luis Orbaiceta
       sortname: Orbaiceta Luis
       githubId: '44276180'
       links:
         github: https://github.com/luisorbaiceta
         npm: https://www.npmjs.com/~luisorbaiceta
-        twitter: https://twitter.com/luisorbai
+        x: https://x.com/luisorbai
 
 - name: Past Collaborators
   people:
@@ -131,28 +131,28 @@
       links:
         github: https://github.com/AyoubElk
         npm: https://www.npmjs.com/~ayoubelk
-        twitter: https://twitter.com/ayoubelkh
+        x: https://x.com/ayoubelkh
     - name: Dustin Deus
       sortname: Deus Dustin
       githubId: '1764424'
       links:
         github: https://github.com/StarpTech
         npm: https://www.npmjs.com/~starptech
-        twitter: https://twitter.com/dustindeus
+        x: https://x.com/dustindeus
     - name: Rafael Gonzaga
       sortname: Gonzaga Rafael
       githubId: '26234614'
       links:
         github: https://github.com/RafaelGSS
         npm: https://www.npmjs.com/~rafaelgss
-        twitter: https://twitter.com/_rafaelgss
+        x: https://x.com/_rafaelgss
     - name: David Clements
       sortname: Clements David
       githubId: '1190716'
       links:
         github: https://github.com/davidmarkclements
         npm: https://www.npmjs.com/~davidmarkclements
-        twitter: https://twitter.com/davidmarkclem
+        x: https://x.com/davidmarkclem
     - name: Salman Mitha
       sortname: Mitha Salman
       githubId: '2510597'
@@ -165,39 +165,39 @@
       links:
         github: https://github.com/allevo
         npm: https://www.npmjs.com/~allevo
-        twitter: https://twitter.com/allevitommaso
+        x: https://x.com/allevitommaso
     - name: Ethan Arrowood
       sortname: Arrowood Ethan
       githubId: '16144158'
       links:
         github: https://github.com/Ethan-Arrowood
         npm: https://www.npmjs.com/~ethan_arrowood
-        twitter: https://twitter.com/arrowoodtech
+        x: https://x.com/arrowoodtech
     - name: Çağatay Çalı
       sortname: Çalı Çağatay
       githubId: '9213230'
       links:
         github: https://github.com/cagataycali
         npm: https://www.npmjs.com/~cagataycali
-        twitter: https://twitter.com/cagataycali
+        x: https://x.com/cagataycali
     - name: Cemre Mengu
       sortname: Cemre Mengu
       githubId: '1297759'
       links:
         github: https://github.com/cemremengu
         npm: https://www.npmjs.com/~cemremengu
-        twitter: https://twitter.com/cemremengu
+        x: https://x.com/cemremengu
     - name: Nathan Woltman
       sortname: Woltman Nathan
       githubId: '5128013'
       links:
         github: https://github.com/nwoltman
         npm: https://www.npmjs.com/~nwoltman
-        twitter: https://twitter.com/NathanWoltman
+        x: https://x.com/NathanWoltman
     - name: Trivikram Kamat
       sortname: Trivikram Kamat
       githubId: '16024985'
       links:
         github: https://github.com/trivikr
         npm: https://www.npmjs.com/~trivikr
-        twitter: https://twitter.com/trivikram
+        x: https://x.com/trivikram

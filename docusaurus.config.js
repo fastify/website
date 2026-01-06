@@ -171,8 +171,8 @@ const config = {
                 href: 'https://discord.gg/fastify',
               },
               {
-                label: 'Twitter',
-                href: 'https://twitter.com/fastifyjs',
+                label: 'X',
+                href: 'https://x.com/fastifyjs',
               },
             ],
           },
