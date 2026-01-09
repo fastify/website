@@ -1,0 +1,4 @@
+/scripts/releases/
+versioned_docs/**/*
+versioned_sidebars/*-sidebars.js
+build/*
