@@ -208,7 +208,7 @@ const config = {
         ],
       },
 
-       metadata: [
+      metadata: [
         // Open Graph / Facebook
         { property: 'og:type', content: 'website' },
         { property: 'og:url', content: 'https://fastify.dev/' },
@@ -233,7 +233,7 @@ const config = {
         { property: 'telegram:description', content: 'Fastify is a fast and low overhead web framework for Node.js.' },
         { property: 'telegram:image', content: 'https://fastify.dev/images/gustice.jpg' },
       ],
-    }),  
+    }),
 
   plugins: [
     '@orama/plugin-docusaurus-v3',
