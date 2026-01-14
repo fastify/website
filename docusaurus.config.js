@@ -257,6 +257,20 @@ const config = {
         },
       },
     ],
+    [
+      '@signalwire/docusaurus-plugin-llms-txt',
+      {
+        generate: {
+          enableMarkdownFiles: true,
+          enableLlmsFullTxt: true,
+        },
+        include: {
+          includeBlog: false,
+          includePages: true,
+          includeDocs: true,
+        },
+      },
+    ],
   ],
 }
 
