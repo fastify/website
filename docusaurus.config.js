@@ -263,6 +263,7 @@ const config = {
         content: {
           includePages: true,
           enableLlmsFullTxt: true,
+          excludeRoutes: ['/__docusaurus/**'],
         },
       },
     ],
