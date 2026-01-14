@@ -32,10 +32,10 @@
     "@orama/plugin-docusaurus-v3": "^3.1.18",
     "clsx": "^2.1.1",
     "prism-react-renderer": "^2.4.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
     "react-github-btn": "^1.4.0",
-    "react-markdown": "^9.1.0"
+    "react-markdown": "^10.1.0"
   },
   "devDependencies": {
     "@docusaurus/eslint-plugin": "^3.9.2",
@@ -47,10 +47,10 @@
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-mdx": "^3.6.2",
     "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-regexp": "^2.10.0",
-    "prettier": "^3.6.2",
-    "stylelint": "^16.25.0",
+    "prettier": "^3.7.4",
+    "stylelint": "^16.26.1",
     "stylelint-config-standard": "^39.0.1"
   },
   "browserslist": {
