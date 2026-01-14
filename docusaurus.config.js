@@ -207,7 +207,33 @@ const config = {
           },
         ],
       },
-    }),
+
+       metadata: [
+        // Open Graph / Facebook
+        { property: 'og:type', content: 'website' },
+        { property: 'og:url', content: 'https://fastify.dev/' },
+        { property: 'og:title', content: 'Fastify - Fast and Low Overhead Web Framework' },
+        { property: 'og:description', content: 'Fastify is a fast and low overhead web framework for Node.js.' },
+        { property: 'og:image', content: 'https://fastify.dev/images/gustice.jpg' },
+        { property: 'og:image:width', content: '1200' },
+        { property: 'og:image:height', content: '630' },
+        { property: 'og:image:alt', content: 'Fastify Logo' },
+        { property: 'og:site_name', content: 'Fastify' },
+        { property: 'og:locale', content: 'en_US' },
+
+        // Twitter
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:url', content: 'https://fastify.dev/' },
+        { name: 'twitter:title', content: 'Fastify - Fast and Low Overhead Web Framework' },
+        { name: 'twitter:description', content: 'Fastify is a fast and low overhead web framework for Node.js.' },
+        { name: 'twitter:image', content: 'https://fastify.dev/images/gustice.jpg' },
+
+        // Telegram (non-standard but harmless)
+        { property: 'telegram:title', content: 'Fastify - Fast and Low Overhead Web Framework' },
+        { property: 'telegram:description', content: 'Fastify is a fast and low overhead web framework for Node.js.' },
+        { property: 'telegram:image', content: 'https://fastify.dev/images/gustice.jpg' },
+      ],
+    }),  
 
   plugins: [
     '@orama/plugin-docusaurus-v3',
