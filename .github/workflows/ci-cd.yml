@@ -94,7 +94,7 @@ jobs:
 
       - name: Cache Fastify documentation
         id: release-cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             scripts/releases
@@ -162,7 +162,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: github-pages
           path: website
