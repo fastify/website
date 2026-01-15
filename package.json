@@ -40,6 +40,7 @@
   "devDependencies": {
     "@docusaurus/eslint-plugin": "^3.9.2",
     "@docusaurus/module-type-aliases": "^3.9.2",
+    "@signalwire/docusaurus-plugin-llms-txt": "^1.2.2",
     "babel-eslint": "^10.1.0",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^10.1.8",
