@@ -45,7 +45,7 @@ execute([
           return true
         }
 
-        if (!org.tier || !['tier_2', 'tier_3'].includes(org.tier)) {
+        if (!org.tier || !['tier_3', 'tier_4'].includes(org.tier)) {
           throw new Error(`Invalid tier for ${org.name}`)
         }
         return true
