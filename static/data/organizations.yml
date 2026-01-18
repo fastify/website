@@ -33,3 +33,9 @@
   link: 'https://lambdatest.com/'
   sponsor: true
   tier: 'tier_3'
+
+- name: 'SerpApi'
+  image: 'serpapi.png'
+  link: 'https://serpapi.com/?utm_source=fastify'
+  sponsor: true
+  tier: 'tier_4'
