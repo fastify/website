@@ -28,9 +28,9 @@
   sponsor: true
   tier: 'tier_3'
 
-- name: 'Lambdatest'
-  image: 'lambdatest.png'
-  link: 'https://lambdatest.com/'
+- name: 'TestMu AI'
+  image: 'testmuai.svg'
+  link: 'https://www.testmu.ai/'
   sponsor: true
   tier: 'tier_3'
 
