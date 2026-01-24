@@ -7,7 +7,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "fastify",
+    "website",
+    "scripts"
+  ],
   "author": "Manuel Spigolon <behemoth89@gmail.com> (https://github.com/Eomm)",
   "contributors": [
     "Massimiliano Fanciulli <fanciulli@gmail.com> (https://github.com/fanciulli)"
@@ -16,15 +20,15 @@
   "dependencies": {
     "directory-tree": "^3.4.0",
     "glob": "^8.0.3",
-    "pino": "^8.8.0",
-    "pino-pretty": "^9.1.1",
+    "pino": "^10.2.1",
+    "pino-pretty": "^13.1.2",
     "prepend-file": "^2.0.1",
     "replace": "^1.2.2",
-    "semver": "^7.3.8",
+    "semver": "^7.7.3",
     "undici": "^5.14.0",
     "yaml": "^2.2.1"
   },
   "devDependencies": {
-    "@types/node": "^18.11.18"
+    "@types/node": "^25.0.9"
   }
 }
