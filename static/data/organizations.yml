@@ -39,3 +39,9 @@
   link: 'https://serpapi.com/?utm_source=fastify'
   sponsor: true
   tier: 'tier_4'
+
+- name: 'kogiQA'
+  image: 'kogiQALogo.svg'
+  link: 'https://kogiqa.com/'
+  sponsor: true
+  tier: 'tier_3'
