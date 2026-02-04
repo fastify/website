@@ -16,7 +16,7 @@ jobs:
     environment:
       name: sandbox
     env:
-      BASE_URL: "/"
+      BASE_URL: '/'
     steps:
       # we set the correct repository and reference sha for PR preview
       - name: Checkout PR
@@ -31,7 +31,7 @@ jobs:
           cache: npm
           check-latest: true
           node-version: 22
-          node-version-file: ".nvmrc"
+          node-version-file: '.nvmrc'
 
       - name: Install Packages
         run: npm ci --ignore-scripts
@@ -69,7 +69,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: "./build"
+          path: './build'
 
   deploy-to-staging:
     needs:
@@ -78,7 +78,7 @@ jobs:
       group: ${{ github.ref_name }}-staging
       cancel-in-progress: true
     env:
-      BASE_URL: ""
+      BASE_URL: ''
     permissions:
       pull-requests: write
       contents: write
@@ -98,12 +98,12 @@ jobs:
       - name: Extract artifact
         run: tar -xvf artifact.tar
         working-directory: website
-        shell: "bash"
+        shell: 'bash'
 
       - name: Clean up before deploy
         run: rm artifact.tar
         working-directory: website
-        shell: "bash"
+        shell: 'bash'
 
       - name: Display structure of downloaded files
         run: ls -R
