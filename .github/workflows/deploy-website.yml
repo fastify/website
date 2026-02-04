@@ -78,7 +78,7 @@ jobs:
     needs:
       - build-and-upload
     concurrency:
-      group: main-production
+      group: ${{ github.ref_name }}-production
       cancel-in-progress: true
     env:
       BASE_URL: ''
