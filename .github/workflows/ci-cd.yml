@@ -22,7 +22,20 @@ permissions:
   contents: read
 
 jobs:
+  # Approval gate for fork PRs - requires maintainer approval before running CI
+  approval-gate:
+    runs-on: ubuntu-latest
+    # Only require approval for PRs from forks (external contributors)
+    if: github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.fork == true
+    environment: fork-pr-review # This pauses the workflow until a maintainer approves
+    steps:
+      - name: Approval checkpoint
+        run: echo "Fork PR approved by maintainer - proceeding with CI"
+
   setup:
+    needs: [approval-gate]
+    # Always run setup (even if approval-gate is skipped for internal PRs)
+    if: always() && (needs.approval-gate.result == 'success' || needs.approval-gate.result == 'skipped')
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -56,7 +69,7 @@ jobs:
         if: ${{ github.event_name == 'pull_request_target' }}
         uses: actions/checkout@v6
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
+          ref: ${{ github.event.pull_request.head.sha }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
 
       # we set the correct reference sha for production
