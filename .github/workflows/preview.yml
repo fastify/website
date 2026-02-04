@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    environment:
+      name: sandbox
     env:
       BASE_URL: "/"
     steps:
