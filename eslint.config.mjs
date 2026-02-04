@@ -1,25 +1,28 @@
-const { defineConfig, globalIgnores } = require('eslint/config')
+import { globalIgnores } from 'eslint/config'
 
-const globals = require('globals')
-const react = require('eslint-plugin-react')
-const reactHooks = require('eslint-plugin-react-hooks')
-const regexp = require('eslint-plugin-regexp')
-const docusaurus = require('@docusaurus/eslint-plugin')
-const checkFile = require('eslint-plugin-check-file')
+import docusaurus from '@docusaurus/eslint-plugin'
+import eslintConfigPrettier from 'eslint-config-prettier/flat'
+import checkFile from 'eslint-plugin-check-file'
+import react from 'eslint-plugin-react'
+import reactHooks from 'eslint-plugin-react-hooks'
+import regexp from 'eslint-plugin-regexp'
+import globals from 'globals'
 
-const { fixupPluginRules, fixupConfigRules } = require('@eslint/compat')
+import js from '@eslint/js'
 
-const js = require('@eslint/js')
-
-const { FlatCompat } = require('@eslint/eslintrc')
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
-})
-
-module.exports = defineConfig([
+export default [
+  js.configs.recommended,
+  react.configs.flat.recommended,
+  reactHooks.configs.flat.recommended,
+  regexp.configs['flat/recommended'],
+  eslintConfigPrettier,
+  {
+    plugins: {
+      'check-file': checkFile,
+      '@docusaurus': docusaurus,
+    },
+    rules: docusaurus.configs.recommended.rules,
+  },
   {
     languageOptions: {
       globals: {
@@ -44,26 +47,6 @@ module.exports = defineConfig([
         version: 'detect',
       },
     },
-
-    plugins: {
-      react,
-      'react-hooks': fixupPluginRules(reactHooks),
-      regexp,
-      '@docusaurus': docusaurus,
-      'check-file': checkFile,
-    },
-
-    extends: fixupConfigRules(
-      compat.extends(
-        'eslint:recommended',
-        'plugin:react/recommended',
-        'plugin:react-hooks/recommended',
-        'plugin:regexp/recommended',
-        'plugin:mdx/recommended',
-        'plugin:@docusaurus/all',
-        'prettier',
-      ),
-    ),
 
     rules: {
       camelcase: 'error',
@@ -98,4 +81,4 @@ module.exports = defineConfig([
     },
   },
   globalIgnores(['scripts/releases/', 'versioned_docs/**/*', 'versioned_sidebars/*-sidebars.js', 'build/*']),
-])
+]
