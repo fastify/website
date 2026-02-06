@@ -1,71 +1,29 @@
-name: CI-CD
+name: Preview
 
 on:
-  push:
-    branches:
-      - main
-      - next
-      - 'v*'
-    paths-ignore:
-      - '.github/**'
-      - '.vscode/**'
   # pull-request means to deploy preview
+  # we need to access the environment secrets
   pull_request_target:
-  # workflow_dispatch means to manual deploy production
-  workflow_dispatch:
-  # workflow_call means to deploy production from external workflow
-  # it would be useful to trigger from fastify main repo instead of
-  # daily schedule
-  workflow_call:
 
 permissions:
   contents: read
 
 jobs:
-  setup:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - name: Select environment
-        id: env-selector
-        run: |
-          echo "current_env=${{ github.event_name == 'pull_request_target' && 'staging' || 'production' }}" >> $GITHUB_OUTPUT
-          echo "website_url=${{ github.event_name == 'pull_request_target' && '/' || '/' }}" >> $GITHUB_OUTPUT
-      - name: Get latest Fastify tag
-        id: latest-fastify
-        uses: oprypin/find-latest-tag@dd2729fe78b0bb55523ae2b2a310c6773a652bd1 # v1.1.2
-        with:
-          repository: fastify/fastify
-          releases-only: true
-    outputs:
-      website_url: ${{ steps.env-selector.outputs.website_url }}
-      current_env: ${{ steps.env-selector.outputs.current_env }}
-      latest_fastify: ${{ steps.latest-fastify.outputs.tag }}
-
   build-and-upload:
-    needs: setup
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    environment:
+      name: sandbox
     env:
-      BASE_URL: ${{ needs.setup.outputs.website_url }}
+      BASE_URL: '/'
     steps:
       # we set the correct repository and reference sha for PR preview
       - name: Checkout PR
-        if: ${{ github.event_name == 'pull_request_target' }}
         uses: actions/checkout@v6
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
-
-      # we set the correct reference sha for production
-      - name: Checkout
-        if: ${{ github.event_name != 'pull_request_target' }}
-        uses: actions/checkout@v6
-        with:
-          persist-credentials: false
-          ref: main
 
       - name: Use Node.js
         uses: actions/setup-node@v6
@@ -101,7 +59,7 @@ jobs:
             scripts/releases.tag
           key: ${{ steps.latest-fastify.outputs.tag }}-release-cache
 
-      # build website
+      # Here we need the token to download the `gh` archive
       - name: Build website
         run: npm run build:website
         env:
@@ -109,42 +67,12 @@ jobs:
           SKIP_DOWNLOADS: ${{ steps.release-cache.outputs.cache-hit }}
 
       - name: Upload artifact
-
         uses: actions/upload-pages-artifact@v4
         with:
           path: './build'
 
-  deploy-to-production:
-    if: ${{ needs.setup.outputs.current_env == 'production' }}
-    needs:
-      - setup
-      - build-and-upload
-    concurrency:
-      group: ${{ github.ref_name }}-production
-      cancel-in-progress: true
-    env:
-      BASE_URL: ''
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: ${{ needs.setup.outputs.current_env }}
-      url: ${{ steps.deployment.outputs.page_url }}
-    outputs:
-      deployment_url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-        # with:
-        # enable preview when PR
-        # preview: ${{ github.event_name == 'pull_request_target' }}
-
   deploy-to-staging:
-    if: ${{ needs.setup.outputs.current_env == 'staging' }}
     needs:
-      - setup
       - build-and-upload
     concurrency:
       group: ${{ github.ref_name }}-staging
@@ -155,7 +83,7 @@ jobs:
       pull-requests: write
       contents: write
     environment:
-      name: ${{ needs.setup.outputs.current_env }}
+      name: staging
       url: ${{ steps.deployment.outputs.NETLIFY_URL }}
     outputs:
       deployment_url: ${{ steps.deployment.outputs.NETLIFY_URL }}

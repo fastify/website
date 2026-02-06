@@ -1,0 +1,97 @@
+name: Deploy Website
+
+on:
+  push:
+    branches:
+      - main
+      - next
+      - 'v*'
+    paths-ignore:
+      - '.github/**'
+      - '.vscode/**'
+  # workflow_dispatch means to manual deploy production
+  workflow_dispatch:
+  # workflow_call means to deploy production from external workflow
+  # it would be useful to trigger from fastify main repo instead of
+  # daily schedule
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-upload:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      BASE_URL: '/'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Use Node.js
+        uses: actions/setup-node@v6
+        with:
+          cache: npm
+          check-latest: true
+          node-version: 22
+          node-version-file: '.nvmrc'
+
+      - name: Install Packages
+        run: npm ci --ignore-scripts
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Get latest Fastify tag
+        id: latest-fastify
+        uses: oprypin/find-latest-tag@dd2729fe78b0bb55523ae2b2a310c6773a652bd1 # v1.1.2
+        with:
+          repository: fastify/fastify
+          releases-only: true
+      - run: echo "Fastify is at version ${{ steps.latest-fastify.outputs.tag }}"
+
+      - name: Cache Fastify documentation
+        id: release-cache
+        uses: actions/cache@v5
+        with:
+          path: |
+            scripts/releases
+            scripts/releases.tag
+          key: ${{ steps.latest-fastify.outputs.tag }}-release-cache
+
+      - name: Build website
+        run: npm run build:website
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SKIP_DOWNLOADS: ${{ steps.release-cache.outputs.cache-hit }}
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: './build'
+
+  deploy-to-production:
+    needs:
+      - build-and-upload
+    concurrency:
+      group: ${{ github.ref_name }}-production
+      cancel-in-progress: true
+    env:
+      BASE_URL: ''
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: production
+      url: ${{ steps.deployment.outputs.page_url }}
+    outputs:
+      deployment_url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
