@@ -174,6 +174,10 @@ const config = {
                 label: 'X',
                 href: 'https://x.com/fastifyjs',
               },
+              {
+                label: 'Mastodon',
+                href: 'https://fosstodon.org/@fastify',
+              },
             ],
           },
           {
