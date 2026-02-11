@@ -65,6 +65,7 @@ jobs:
 
       - name: Build website
         run: npm run build:website
+        timeout-minutes: 30
         env:
           GH_TOKEN: ${{ github.token }}
           SKIP_DOWNLOADS: ${{ steps.release-cache.outputs.cache-hit }}
