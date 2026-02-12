@@ -128,11 +128,18 @@ function isValidBenchmark(data) {
 }
 
 async function getDataAsJSON(url) {
+  const headers = {
+    'User-Agent': 'fastify-docusaurus-script',
+    Accept: 'application/vnd.github+json',
+  }
+
+  // Use GitHub token if available for higher rate limits
+  if (process.env.GH_TOKEN) {
+    headers.Authorization = `Bearer ${process.env.GH_TOKEN}`
+  }
+
   const { body } = await request(url, {
-    headers: {
-      'User-Agent': 'fastify-docusaurus-script',
-      Accept: 'application/vnd.github+json',
-    },
+    headers,
   })
   return body.json()
 }
