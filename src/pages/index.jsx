@@ -155,7 +155,7 @@ export default function Home() {
                 </p>
                 <ul>
                   <li>
-                    <Link to="https://nearform.com/">NearForm</Link>
+                    <Link to="https://nearform.com/">Nearform</Link>
                   </li>
                   <li>
                     <Link to="https://platformatic.dev/">Platformatic</Link>
