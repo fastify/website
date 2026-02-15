@@ -30,7 +30,7 @@
 
 - name: 'TestMu AI'
   image: 'testmuai.svg'
-  link: 'https://www.testmu.ai/'
+  link: 'https://www.testmuai.com/?utm_medium=sponsor&utm_source=fastify'
   sponsor: true
   tier: 'tier_3'
 
