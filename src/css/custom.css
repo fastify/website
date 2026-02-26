@@ -88,8 +88,27 @@
   display: none;
 }
 
-@media screen and (width >= 768px) {
+@media screen and (width >=768px) {
   .navbar__title.text--truncate {
     display: block;
+  }
+}
+
+@media screen and (width < 1250px) {
+  .navbar > .container,
+  .navbar > .container-fluid {
+    padding: 0;
+  }
+
+  .navbar__toggle {
+    display: inherit;
+  }
+
+  .navbar__item {
+    display: none;
+  }
+
+  .navbar__search-input {
+    width: 9rem;
   }
 }
