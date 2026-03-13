@@ -7,8 +7,9 @@ const PluginsTable = (props) => {
   const [descriptionFilter, setDescriptionFilter] = useState()
 
   const filtered = props.plugins.filter((plugin) => {
-    const nameCondition = nameFilter == undefined || plugin.name.includes(nameFilter)
-    const descriptionCondition = descriptionFilter == undefined || plugin.description.includes(descriptionFilter)
+    const nameCondition = nameFilter == undefined || plugin.name.toLowerCase().includes(nameFilter.toLowerCase())
+    const descriptionCondition =
+      descriptionFilter == undefined || plugin.description.toLowerCase().includes(descriptionFilter.toLowerCase())
 
     return nameCondition && descriptionCondition
   })
