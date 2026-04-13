@@ -45,3 +45,9 @@
   link: 'https://kogiqa.com/'
   sponsor: true
   tier: 'tier_3'
+
+- name: 'Best For Android'
+  image: 'bfa.png'
+  link: 'https://bestforandroid.com/dev/real-time-app-performance-monitoring/'
+  sponsor: true
+  tier: 'tier_3'
