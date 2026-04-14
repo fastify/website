@@ -40,7 +40,7 @@ jobs:
         run: npm run lint
 
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Get latest Fastify tag
         id: latest-fastify
