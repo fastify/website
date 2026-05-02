@@ -37,7 +37,6 @@ jobs:
         with:
           cache: npm
           check-latest: true
-          node-version: 22
           node-version-file: '.nvmrc'
 
       - name: Install Packages
