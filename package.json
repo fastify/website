@@ -31,6 +31,7 @@
     "@mdx-js/react": "^3.1.1",
     "@orama/plugin-docusaurus-v3": "^3.1.18",
     "clsx": "^2.1.1",
+    "docusaurus-plugin-copy-page-button": "^0.6.2",
     "prism-react-renderer": "^2.4.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",

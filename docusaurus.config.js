@@ -297,6 +297,7 @@ const config = {
         },
       },
     ],
+    'docusaurus-plugin-copy-page-button',
   ],
 }
 
