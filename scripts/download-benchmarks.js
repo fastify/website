@@ -97,34 +97,32 @@ const getBlob = async (blobUrl) => {
 }
 
 function buildBenchmarksJSON(data, date = 'Unknown') {
-  const maxSpeed = data
+  const numericRequests = data
+    .filter((item) => frameworkTags.includes(item.name))
     .filter(({ requests }) => !isNaN(requests))
     .map(({ requests }) => parseInt(requests))
-    .reduce((max, req) => (req > max ? req : max), 0)
 
-  const json = {
+  const maxSpeed = numericRequests.length ? numericRequests.reduce((max, req) => (req > max ? req : max), 0) : 0
+
+  return {
     date,
     reference: maxSpeed,
     frameworks: arrayDefaultFrameworks
       .map((framework) => {
-        const item = data.find(({ name }) => name == framework.tag)
+        const item = data.find(({ name }) => name === framework.tag)
         return {
           ...framework,
-          requests: item.requests,
+          requests: isNaN(item.requests) ? 0 : parseInt(item.requests),
         }
       })
-      .sort((a, b) => {
-        return b.requests - a.requests
-      }),
+      .sort((a, b) => b.requests - a.requests),
   }
-
-  return json
 }
 
 function isValidBenchmark(data) {
   return data
     .filter((item) => frameworkTags.includes(item.name)) //
-    .every((item) => !isNaN(item.requests))
+    .some((item) => !isNaN(item.requests))
 }
 
 async function getDataAsJSON(url) {
@@ -140,6 +138,7 @@ async function getDataAsJSON(url) {
 
   const { body } = await request(url, {
     headers,
+    signal: AbortSignal.timeout(10000),
   })
   return body.json()
 }
