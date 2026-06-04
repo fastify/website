@@ -115,6 +115,7 @@ function buildBenchmarksJSON(data, date = 'Unknown') {
           requests: isNaN(item.requests) ? 0 : parseInt(item.requests),
         }
       })
+      .filter(f => f.requests > 0)
       .sort((a, b) => b.requests - a.requests),
   }
 }
