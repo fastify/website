@@ -239,8 +239,21 @@ const config = {
       ],
     }),
 
+  themes: [
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      /** @type {import('@easyops-cn/docusaurus-search-local').PluginOptions} */
+      ({
+        hashed: true,
+        language: 'en',
+        indexBlog: false,
+        docsRouteBasePath: '/docs',
+        highlightSearchTermsOnTargetPage: true,
+      }),
+    ],
+  ],
+
   plugins: [
-    '@orama/plugin-docusaurus-v3',
     [
       // This plugin does not work in dev mode
       '@docusaurus/plugin-client-redirects',
