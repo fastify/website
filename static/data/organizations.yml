@@ -28,12 +28,6 @@
   sponsor: true
   tier: 'tier_3'
 
-- name: 'TestMu AI'
-  image: 'testmuai.svg'
-  link: 'https://www.testmuai.com/?utm_medium=sponsor&utm_source=fastify'
-  sponsor: true
-  tier: 'tier_3'
-
 - name: 'SerpApi'
   image: 'serpapi.png'
   link: 'https://serpapi.com/?utm_source=fastify'
@@ -43,11 +37,5 @@
 - name: 'kogiQA'
   image: 'kogiQALogo.svg'
   link: 'https://kogiqa.com/'
-  sponsor: true
-  tier: 'tier_3'
-
-- name: 'Best For Android'
-  image: 'bfa.png'
-  link: 'https://bestforandroid.com/dev/real-time-app-performance-monitoring/'
   sponsor: true
   tier: 'tier_3'
