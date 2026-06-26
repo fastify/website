@@ -9,6 +9,7 @@ import Organizations from '@site/src/components/Organizations'
 import Team from '@site/src/components/Team'
 import QuickStart from '@site/src/components/QuickStart'
 import Heading from '@theme/Heading'
+import CoreFeatures from '@site/src/components/CoreFeatures'
 
 import plugins from '@site/static/generated/plugins.json'
 import styles from '@site/src/css/index.module.css'
@@ -64,33 +65,7 @@ export default function Home() {
           <div className="container">
             <Heading as={'h1'}>Core features</Heading>
             <p>These are the main features and principles on which Fastify has been built:</p>
-            <ul>
-              <li>
-                <strong>Highly performant:</strong> as far as we know, Fastify is one of the fastest web frameworks in
-                town, depending on the code complexity we can serve up to 30 thousand requests per second.
-              </li>
-              <li>
-                <strong>Extensible:</strong> Fastify is fully extensible via its hooks, plugins, and decorators.
-              </li>
-              <li>
-                <strong>Schema-based:</strong> even if it is not mandatory we recommend using{' '}
-                <Link to="http://json-schema.org/">JSON Schema</Link> to validate your routes and serialize your
-                outputs. Internally Fastify compiles the schema in a highly performant function.
-              </li>
-              <li>
-                <strong>Logging:</strong> logs are extremely important but are costly; we chose the best logger to
-                almost remove this cost, <Link to="https://github.com/pinojs/pino">Pino</Link>!
-              </li>
-              <li>
-                <strong>Developer friendly:</strong> the framework is built to be very expressive and help developers in
-                their daily use, without sacrificing performance and security.
-              </li>
-              <li>
-                <strong>TypeScript ready:</strong> we work hard to maintain a{' '}
-                <Link to="https://www.typescriptlang.org/">TypeScript</Link> type declaration file so we can support the
-                growing TypeScript community.
-              </li>
-            </ul>
+            <CoreFeatures />
           </div>
         </section>
 
