@@ -1,12 +1,3 @@
-.subLabel {
-  font-family: var(--ifm-font-family-monospace);
-  font-size: 11px;
-  color: var(--ifm-color-primary);
-  letter-spacing: 0.08em;
-  margin-bottom: 0.5rem !important;
-  margin-top: 1.5rem !important;
-}
-
 .qsCodeblock {
   border: 0.5px solid #2d3040;
   border-radius: 12px;
