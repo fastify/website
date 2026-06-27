@@ -1,0 +1,99 @@
+.subLabel {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 11px;
+  color: var(--ifm-color-primary);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem !important;
+  margin-top: 1.5rem !important;
+}
+
+.qsCodeblock {
+  border: 0.5px solid #2d3040;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 8px 0;
+  background: #16181d;
+}
+
+.qsCodeblock > div,
+.qsCodeblock [class*='tabItem'],
+.qsCodeblock [role='tabpanel'],
+.qsCodeblock [class*='codeBlockContainer'],
+.qsCodeblock [class*='codeBlockContent'] pre {
+  margin: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.qsCodeblock [class*='tabList__'] {
+  background: #1c1f28 !important;
+  border-bottom: 0.5px solid #2d3040 !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 0 !important;
+}
+
+.qsCodeblock [class*='tabList__'] [aria-selected='true'] {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #25c2a0 !important;
+  background: none !important;
+  margin: 10px 0px 0px 0px !important;
+  border: none !important;
+  text-transform: uppercase;
+}
+
+.qsCodeblock [class*='tabList__'] [aria-selected='false'] {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  border-bottom: 2px solid transparent !important;
+  color: #6c7086 !important;
+  background: none !important;
+  margin: 10px 0px 0px 0px !important;
+  text-transform: uppercase;
+}
+
+.qsCodeblock [role='tabpanel'] {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.qsCodeblock [class*='codeBlockContainer'] {
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  background: #16181d !important;
+}
+
+.qsCodeblock [class*='codeBlockContent'] {
+  background: #16181d !important;
+}
+
+.qsCodeblock [class*='codeBlockContent'] pre {
+  background: #16181d !important;
+  margin: 0 !important;
+}
+
+.qsCodeblock [class*='codeBlockTitle'] {
+  background: #1c1f28 !important;
+  border-bottom: 0.5px solid #2d3040 !important;
+  border-radius: 0 !important;
+  color: #25c2a0 !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.07em !important;
+  text-transform: uppercase !important;
+  padding: 8px 16px !important;
+  margin: 0 !important;
+}
+
+.qsCodeblock [class*='copyButton'] {
+  color: #25c2a0 !important;
+}
+
+.qsCodeblock [class*='copyButton']:hover {
+  color: #25c2a0bb !important;
+  background: transparent !important;
+}
