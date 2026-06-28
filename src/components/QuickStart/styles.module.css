@@ -30,7 +30,7 @@
   font-weight: 500 !important;
   color: #25c2a0 !important;
   background: none !important;
-  margin: 10px 0px 0px 0px !important;
+  margin: 10px 0 0 !important;
   border: none !important;
   text-transform: uppercase;
 }
@@ -41,7 +41,7 @@
   border-bottom: 2px solid transparent !important;
   color: #6c7086 !important;
   background: none !important;
-  margin: 10px 0px 0px 0px !important;
+  margin: 10px 0 0 !important;
   text-transform: uppercase;
 }
 
