@@ -11,9 +11,9 @@
 .qsCodeblock [role='tabpanel'],
 .qsCodeblock [class*='codeBlockContainer'],
 .qsCodeblock [class*='codeBlockContent'] pre {
-  margin: 0 !important;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .qsCodeblock [class*='tabList__'] {
@@ -46,15 +46,15 @@
 }
 
 .qsCodeblock [role='tabpanel'] {
-  padding: 0 !important;
-  margin: 0 !important;
+  padding: 0;
+  margin: 0;
 }
 
 .qsCodeblock [class*='codeBlockContainer'] {
   border-radius: 0 !important;
   border: none !important;
   box-shadow: none !important;
-  margin: 0 !important;
+  margin: 0;
   background: #16181d !important;
 }
 
@@ -64,7 +64,7 @@
 
 .qsCodeblock [class*='codeBlockContent'] pre {
   background: #16181d !important;
-  margin: 0 !important;
+  margin: 0;
 }
 
 .qsCodeblock [class*='codeBlockTitle'] {
