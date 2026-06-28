@@ -5,13 +5,13 @@
   margin-top: 2rem;
 }
 
-@media (max-width: 996px) {
+@media (width <= 996px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 600px) {
+@media (width <= 600px) {
   .grid {
     grid-template-columns: 1fr;
   }
@@ -22,7 +22,7 @@
   overflow: hidden;
   border-radius: 12px;
   padding: 1.25rem 1.25rem 1rem;
-  border: 1px solid rgba(128, 128, 128, 0.15);
+  border: 1px solid rgb(128 128 128 / 15%);
   background: var(--ifm-card-background-color, var(--ifm-background-surface-color));
   transition:
     transform 0.2s ease,
@@ -32,8 +32,8 @@
 
 .card:hover {
   transform: translateY(-3px);
-  border-color: rgba(128, 128, 128, 0.35);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border-color: rgb(128 128 128 / 35%);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 10%);
 }
 
 .accent {
@@ -71,7 +71,7 @@
 }
 
 [data-theme='dark'] .desc {
-  color: rgba(255, 255, 255, 0.55);
+  color: rgb(255 255 255 / 55%);
 }
 
 .tag {
@@ -81,11 +81,11 @@
   font-size: 10px;
   padding: 3px 8px;
   border-radius: 4px;
-  background: rgba(128, 128, 128, 0.1);
+  background: rgb(128 128 128 / 10%);
   color: var(--ifm-color-secondary-darkest);
 }
 
 [data-theme='dark'] .tag {
-  background: rgba(255, 255, 255, 0.07);
-  color: rgba(255, 255, 255, 0.35);
+  background: rgb(255 255 255 / 7%);
+  color: rgb(255 255 255 / 35%);
 }
