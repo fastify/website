@@ -9,7 +9,13 @@
 }
 
 .grid-item-header {
+  display: flex;
+  flex-direction: column;
   padding-bottom: 5px;
+}
+
+.grid-item-header label {
+  font-weight: 700;
 }
 
 .grid-item {
