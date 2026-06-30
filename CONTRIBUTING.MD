@@ -25,7 +25,7 @@ This repository follows the same rules as a Fastify plugin repository. A detaile
 
 ## Becoming a collaborator
 
-We follow the [Fastify organization Governance model](https://github.com/fastify/fastify/blob/main/GOVERNANCE.md#collaborator-nominations) so it is necessary to contribute to this repository in order to become a member.
+We follow the [Fastify organization Governance model](https://github.com/fastify/.github/blob/main/GOVERNANCE.md#collaborator-nominations) so it is necessary to contribute to this repository in order to become a member.
 
 ## Debugging failing checks
 
