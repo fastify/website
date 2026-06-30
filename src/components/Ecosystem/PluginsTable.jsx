@@ -25,14 +25,12 @@ const PluginsTable = (props) => {
   return (
     <div className="grid-container">
       <div className="grid-item-header">
-        <b>Name</b>
-        <br />
-        <input type="text" onKeyUp={(event) => setNameFilter(event.target.value)} />
+        <label htmlFor="name">Name</label>
+        <input id="name" type="text" onKeyUp={(event) => setNameFilter(event.target.value)} />
       </div>
       <div className="grid-item-header">
-        <b>Description</b>
-        <br />
-        <input type="text" onKeyUp={(event) => setDescriptionFilter(event.target.value)} size="40" />
+        <label htmlFor="description">Description</label>
+        <input id="description" type="text" onKeyUp={(event) => setDescriptionFilter(event.target.value)} size="40" />
       </div>
       {filtered.map((plugin, index) => [
         <div key={`plugin-name-${index}`} className={`grid-item grid-item-${index % 2}`}>
