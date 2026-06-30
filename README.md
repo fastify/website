@@ -12,7 +12,7 @@ npm install
 
 ### Setup
 
-Before we start the development server we will need to fetch some of the docs from [Fastify Repo](https://github.com/fastify/fastify.git). This requires Github CLI to be installed which can be found [here](https://cli.github.com/).
+Before we start the development server we will need to fetch some of the docs from [Fastify Repo](https://github.com/fastify/fastify). This requires Github CLI to be installed which can be found [here](https://cli.github.com/).
 
 After installing [GitHub CLI](https://cli.github.com/) ensure you are logged in by running;
 
