@@ -1,0 +1,105 @@
+.qsCodeblock {
+  border: 0.5px solid var(--ifm-color-emphasis-300);
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 8px 0;
+  background: var(--ifm-background-surface-color);
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.qsCodeblock > div,
+.qsCodeblock [class*='tabItem'],
+.qsCodeblock [role='tabpanel'],
+.qsCodeblock [class*='codeBlockContainer'],
+.qsCodeblock [class*='codeBlockContent'] pre {
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.qsCodeblock [class*='tabList__'] {
+  background: var(--ifm-color-emphasis-100) !important;
+  border-bottom: 0.5px solid var(--ifm-color-emphasis-300) !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 0 !important;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.qsCodeblock [class*='tabList__'] [aria-selected='true'] {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: var(--ifm-color-primary) !important;
+  background: none !important;
+  margin: 10px 0 0 !important;
+  border: none !important;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.qsCodeblock [class*='tabList__'] [aria-selected='false'] {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  border-bottom: 2px solid transparent !important;
+  color: var(--ifm-color-emphasis-600) !important;
+  background: none !important;
+  margin: 10px 0 0 !important;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.qsCodeblock [role='tabpanel'] {
+  padding: 0;
+  margin: 0;
+}
+
+.qsCodeblock [class*='codeBlockContainer'] {
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 0;
+  background: var(--ifm-background-surface-color) !important;
+  transition: background-color 0.3s ease;
+}
+
+.qsCodeblock [class*='codeBlockContent'] {
+  background: var(--ifm-background-surface-color) !important;
+  transition: background-color 0.3s ease;
+}
+
+.qsCodeblock [class*='codeBlockContent'] pre {
+  background: var(--ifm-background-surface-color) !important;
+  margin: 0;
+  transition: background-color 0.3s ease;
+}
+
+.qsCodeblock [class*='codeBlockTitle'] {
+  background: var(--ifm-color-emphasis-100) !important;
+  border-bottom: 0.5px solid var(--ifm-color-emphasis-300) !important;
+  border-radius: 0 !important;
+  color: var(--ifm-color-primary) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.07em !important;
+  text-transform: uppercase !important;
+  padding: 8px 16px !important;
+  margin: 0 !important;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.qsCodeblock [class*='copyButton'] {
+  color: var(--ifm-color-primary) !important;
+}
+
+.qsCodeblock [class*='copyButton']:hover {
+  opacity: 0.75;
+  background: transparent !important;
+}

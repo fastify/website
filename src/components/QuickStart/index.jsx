@@ -1,9 +1,10 @@
 import React from 'react'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
-import CodeBlock from '@theme/CodeBlock'
 import Link from '@docusaurus/Link'
 import Heading from '@theme/Heading'
+import CodeBlock from '@theme/CodeBlock'
+import styles from './styles.module.css'
 
 export default function QuickStart() {
   const esm = `// Import the framework and instantiate it
@@ -169,24 +170,36 @@ start()`
       <Heading as={'h1'}>Quick start</Heading>
       <p>Get Fastify with NPM:</p>
 
-      <CodeBlock language="bash">npm install fastify</CodeBlock>
+      <div className={styles.qsCodeblock}>
+        <CodeBlock language="bash">npm install fastify</CodeBlock>
+      </div>
       <p>
         Then create <code>server.js</code> and add the following content:
       </p>
-      <Tabs>
-        <TabItem value="esm" label="ESM">
-          <CodeBlock language="js">{esm}</CodeBlock>
-        </TabItem>
-        <TabItem value="cjs" label="CJS">
-          <CodeBlock language="js">{cjs}</CodeBlock>
-        </TabItem>
-      </Tabs>
+      <div className={styles.qsCodeblock}>
+        <Tabs>
+          <TabItem value="esm" label="ESM">
+            <CodeBlock language="js" noTitle>
+              {esm}
+            </CodeBlock>
+          </TabItem>
+          <TabItem value="cjs" label="CJS">
+            <CodeBlock language="js" noTitle>
+              {cjs}
+            </CodeBlock>
+          </TabItem>
+        </Tabs>
+      </div>
 
       <p>Finally, launch the server with:</p>
-      <CodeBlock language="bash">node server</CodeBlock>
+      <div className={styles.qsCodeblock}>
+        <CodeBlock language="bash">node server</CodeBlock>
+      </div>
 
       <p>and test it with:</p>
-      <CodeBlock language="bash">curl http://localhost:3000</CodeBlock>
+      <div className={styles.qsCodeblock}>
+        <CodeBlock language="bash">curl http://localhost:3000</CodeBlock>
+      </div>
 
       <Heading as={'h2'}>Using CLI</Heading>
       <p>
@@ -197,29 +210,35 @@ start()`
         to create a new scaffolding project:
       </p>
 
-      <CodeBlock language="bash">
-        npm install --global fastify-cli
-        <br />
-        fastify generate myproject
-      </CodeBlock>
+      <div className={styles.qsCodeblock}>
+        <CodeBlock language="bash">{`npm install --global fastify-cli\n\nfastify generate myproject`}</CodeBlock>
+      </div>
 
       <p>Or to create a TypeScript project:</p>
 
-      <CodeBlock language="bash">fastify generate myproject --lang=ts</CodeBlock>
+      <div className={styles.qsCodeblock}>
+        <CodeBlock language="bash">fastify generate myproject --lang=ts</CodeBlock>
+      </div>
 
       <Heading as={'h2'}>Request/Response validation and hooks</Heading>
       <p>
         Fastify can do much more than this. For example, you can easily provide input and output validation using JSON
         Schema and perform specific operations before the handler is executed:
       </p>
-      <Tabs>
-        <TabItem value="esm" label="ESM">
-          <CodeBlock language="js">{exampleRequestResponseEsm}</CodeBlock>
-        </TabItem>
-        <TabItem value="cjs" label="CJS">
-          <CodeBlock language="js">{exampleRequestResponseCjs}</CodeBlock>
-        </TabItem>
-      </Tabs>
+      <div className={styles.qsCodeblock}>
+        <Tabs>
+          <TabItem value="esm" label="ESM">
+            <CodeBlock language="js" noTitle>
+              {exampleRequestResponseEsm}
+            </CodeBlock>
+          </TabItem>
+          <TabItem value="cjs" label="CJS">
+            <CodeBlock language="js" noTitle>
+              {exampleRequestResponseCjs}
+            </CodeBlock>
+          </TabItem>
+        </Tabs>
+      </div>
 
       <Heading as={'h2'}>TypeScript Support</Heading>
       <p>
@@ -239,11 +258,15 @@ start()`
         This ensures within the server handler we also get <code>http.ServerResponse</code> with correct typings on{' '}
         <code>reply.res</code>.
       </p>
-      <Tabs>
-        <TabItem value="esm" label="TypeScript">
-          <CodeBlock language="js">{typescript}</CodeBlock>
-        </TabItem>
-      </Tabs>
+      <div className={styles.qsCodeblock}>
+        <Tabs>
+          <TabItem value="esm" label="TypeScript">
+            <CodeBlock language="js" noTitle>
+              {typescript}
+            </CodeBlock>
+          </TabItem>
+        </Tabs>
+      </div>
       <p>
         Visit the <Link to="/docs/latest">Documentation</Link> to learn more about all the features that Fastify has to
         offer.
