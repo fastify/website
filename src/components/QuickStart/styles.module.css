@@ -63,7 +63,7 @@
 }
 
 .qsCodeblock [class*='codeBlockContent'] pre {
-  background: #16181d !important;
+  background: #16181d;
   margin: 0;
 }
 
