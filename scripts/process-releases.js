@@ -14,6 +14,7 @@ const prependFile = require('prepend-file')
 
 const sidebarsTemplate = require('../sidebars-template.json')
 const processDocusaurusV3Upgrade = require('./process-docusaurus-v3-upgrade')
+const MIN_DOCS_MAJOR = 3
 const log = require('pino')({
   level: process.env.LOG_LEVEL || 'debug',
   transport: {
@@ -41,6 +42,11 @@ async function processReleases(opts) {
   log.info('Cleaned up versioned_sidebars folder')
 
   for (const docTree of getDocFolders(releasesFolder)) {
+    if (docTree.semver.major < MIN_DOCS_MAJOR) {
+      log.info(`Skipping ${docTree.releseTag} because v1 and v2 docs are no longer published`)
+      continue
+    }
+
     log.info(`Processing ${docTree.releseTag}`)
 
     const requiresRootFolder = docTree.semver.major <= 2
