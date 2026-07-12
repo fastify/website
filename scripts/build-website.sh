@@ -11,8 +11,7 @@ npm --prefix ./scripts install
 ####### Download Phase
 
 if [[ $SKIP_DOWNLOADS != "true" ]]; then
-  ./scripts/download-releases.sh --major 1
-  ./scripts/download-releases.sh --major 2
+  # v1 and v2 docs contain stale source links and are no longer published.
   ./scripts/download-releases.sh --major 3
   ./scripts/download-releases.sh --major 4
   ./scripts/download-releases.sh --minor 5
