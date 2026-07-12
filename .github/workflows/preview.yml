@@ -20,7 +20,7 @@ jobs:
     steps:
       # we set the correct repository and reference sha for PR preview
       - name: Checkout PR
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
