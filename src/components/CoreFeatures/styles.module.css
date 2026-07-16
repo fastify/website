@@ -36,6 +36,10 @@
   box-shadow: 0 8px 24px rgb(0 0 0 / 10%);
 }
 
+[data-theme='dark'] .card {
+  background: var(--ifm-background-color);
+}
+
 .accent {
   position: absolute;
   top: 0;
