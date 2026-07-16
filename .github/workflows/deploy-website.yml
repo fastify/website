@@ -5,10 +5,10 @@ on:
     branches:
       - main
       - next
-      - 'v*'
+      - "v*"
     paths-ignore:
-      - '.github/**'
-      - '.vscode/**'
+      - ".github/**"
+      - ".vscode/**"
   # workflow_dispatch means to manual deploy production
   workflow_dispatch:
   # workflow_call means to deploy production from external workflow
@@ -25,19 +25,20 @@ jobs:
     permissions:
       contents: read
     env:
-      BASE_URL: '/'
+      BASE_URL: "/"
     steps:
       - name: Checkout
         uses: actions/checkout@v7
         with:
           persist-credentials: false
+          allow-unsafe-pr-checkout: true
 
       - name: Use Node.js
         uses: actions/setup-node@v6
         with:
           cache: npm
           check-latest: true
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
 
       - name: Install Packages
         run: npm ci --ignore-scripts
@@ -72,7 +73,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: './build'
+          path: "./build"
 
   deploy-to-production:
     needs:
@@ -81,7 +82,7 @@ jobs:
       group: ${{ github.ref_name }}-production
       cancel-in-progress: true
     env:
-      BASE_URL: ''
+      BASE_URL: ""
     permissions:
       pages: write
       id-token: write
