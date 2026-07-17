@@ -109,8 +109,8 @@ const config = {
         title: 'Home',
         logo: {
           alt: 'Fastify Cheetah Logo',
-          src: 'img/logos/fastify-black.svg',
-          srcDark: 'img/logos/fastify-white.svg',
+          src: 'img/logos/fastify-black-logo.svg',
+          srcDark: 'img/logos/fastify-white-logo.svg',
         },
         items: [
           // {

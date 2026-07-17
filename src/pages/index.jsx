@@ -24,22 +24,6 @@ export default function Home() {
       <main>
         <section className="section">
           <div className="container">
-            <Heading as={'h1'}>Why</Heading>
-            <p>
-              An efficient server implies a lower cost of the infrastructure, better responsiveness under load, and
-              happy users. How can you efficiently handle the resources of your server, knowing that you are serving the
-              highest number of requests possible, without sacrificing security validations and handy development?
-            </p>
-            <p>
-              Enter Fastify. Fastify is a web framework highly focused on providing the best developer experience with
-              the least overhead and a powerful plugin architecture. It is inspired by Hapi and Express and as far as we
-              know, it is one of the fastest web frameworks in town.
-            </p>
-          </div>
-        </section>
-
-        <section className="section">
-          <div className="container">
             <Heading as={'h1'}>Who is using Fastify?</Heading>
             <p>
               Fastify is proudly powering a large ecosystem of organizations and products out there with over{' '}
@@ -61,7 +45,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section alternate">
+        <section className="section alternate pattern-section">
           <div className="container">
             <Heading as={'h1'}>Core features</Heading>
             <p>These are the main features and principles on which Fastify has been built:</p>
@@ -69,13 +53,13 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section">
+        <section className="section" id="quickstart">
           <div className="container">
             <QuickStart />
           </div>
         </section>
 
-        <section className="section alternate">
+        <section className="section alternate pattern-section">
           <div className="container">
             <div className="row">
               <div className="col col--6">
@@ -120,7 +104,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section alternate">
+        <section className="section alternate pattern-section">
           <div className="container">
             <div className="row">
               <div className="col col--6">
