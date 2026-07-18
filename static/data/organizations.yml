@@ -39,3 +39,9 @@
   link: 'https://kogiqa.com/'
   sponsor: true
   tier: 'tier_3'
+
+- name: 'N-iX'
+  image: 'n-ix.jpg'
+  link: 'https://www.n-ix.com/'
+  sponsor: true
+  tier: 'tier_3'
