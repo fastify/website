@@ -32,6 +32,42 @@ function useLiveStat(url, selectValue) {
   return value
 }
 
+function useVersionCountUp(versionText, duration = 1200) {
+  const [display, setDisplay] = useState('')
+  const frameRef = useRef(null)
+
+  useEffect(() => {
+    if (!versionText) {
+      setDisplay('')
+      return
+    }
+
+    const parts = versionText.match(/\d+|\D+/g) || []
+    const targets = parts.map((part) => (/^\d+$/.test(part) ? parseInt(part, 10) : null))
+
+    const startTime = performance.now()
+
+    function tick(now) {
+      const progress = Math.min((now - startTime) / duration, 1)
+      const eased = 1 - (1 - progress) ** 3 // ease-out cubic
+
+      const current = parts.map((part, i) => (targets[i] !== null ? Math.round(targets[i] * eased) : part))
+
+      setDisplay(current.join(''))
+
+      if (progress < 1) {
+        frameRef.current = requestAnimationFrame(tick)
+      }
+    }
+
+    frameRef.current = requestAnimationFrame(tick)
+
+    return () => cancelAnimationFrame(frameRef.current)
+  }, [versionText, duration])
+
+  return display
+}
+
 function useCountUp(target, duration = 1200) {
   const [display, setDisplay] = useState(0)
   const frameRef = useRef(null)
@@ -66,9 +102,13 @@ function HomepageHeader() {
 
   const stars = useLiveStat('https://api.github.com/repos/fastify/fastify', (data) => data.stargazers_count)
   const downloads = useLiveStat('https://api.npmjs.org/downloads/point/last-month/fastify', (data) => data.downloads)
+  const latestPublishedVersion = useLiveStat('https://registry.npmjs.org/fastify/latest', (data) => data.version)
 
   const animatedStars = useCountUp(stars)
   const animatedDownloads = useCountUp(downloads)
+
+  const versionText = latestPublishedVersion ? `v${latestPublishedVersion}` : latestVersion
+  const animatedVersion = useVersionCountUp(versionText)
 
   return (
     <header className={css.hero}>
@@ -103,7 +143,7 @@ function HomepageHeader() {
             </div>
             <div className={css.stat}>
               <span className={css.statLabel}>Latest release</span>
-              <span className={css.statValue}>{latestVersion}</span>
+              <span className={css.statValue}>{animatedVersion}</span>
             </div>
             <div className={css.stat}>
               <span className={css.statLabel}>Monthly downloads</span>
