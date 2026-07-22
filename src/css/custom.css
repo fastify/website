@@ -166,3 +166,27 @@
   color: rgb(255 255 255 / 25%);
   margin: 0 0.65rem;
 }
+
+.pattern-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.pattern-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url('/static/img/bg-pattern-dark.png');
+  filter: invert(1) brightness(1.099);
+  transition: filter 0.4s ease;
+}
+
+[data-theme='dark'] .pattern-section::before {
+  filter: invert(0);
+}
+
+.pattern-section > .container {
+  position: relative;
+  z-index: 1;
+}
