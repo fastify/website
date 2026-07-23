@@ -26,7 +26,9 @@ try {
   process.exit(1)
 }`
 
-  const cjs = `// Require the framework and instantiate it
+  const cjs = `'use strict'
+
+// Require the framework and instantiate it
 const fastify = require('fastify')({ logger: true })
 
 // Declare a route
@@ -85,7 +87,9 @@ try {
   process.exit(1)
 }`
 
-  const exampleRequestResponseCjs = `const fastify = require('fastify')({ logger: true })
+  const exampleRequestResponseCjs = `'use strict'
+
+const fastify = require('fastify')({ logger: true })
 
 fastify.route({
   method: 'GET',
