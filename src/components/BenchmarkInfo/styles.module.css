@@ -1,41 +1,109 @@
 .box {
+  position: relative;
   background-color: var(--ifm-card-background-color);
-  border-radius: 6px;
+  border: 1px solid transparent;
+  border-radius: 10px;
   color: #4a4a4a;
   display: block;
-  padding: 1.25rem;
+  padding: 1.5rem;
   margin: 1.25rem;
+  overflow: hidden;
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 6%),
+    0 4px 10px rgb(0 0 0 / 5%);
+  transition:
+    transform 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.box:hover {
+  transform: translateY(-3px);
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 12px 24px -12px rgb(0 0 0 / 25%);
 }
 
 [data-theme='dark'] .box {
   background-color: var(--ifm-card-background-color);
-  border-radius: 6px;
   color: #f9f6f6;
-  display: block;
-  padding: 1.25rem;
-  margin: 1.25rem;
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 30%),
+    0 4px 10px rgb(0 0 0 / 25%);
+}
+
+[data-theme='dark'] .box:hover {
+  box-shadow: 0 12px 24px -12px rgb(0 0 0 / 60%);
+}
+
+.boxFastify {
+  border-color: color-mix(in srgb, var(--ifm-color-success) 95%, transparent);
+}
+
+.rank {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--ifm-color-emphasis-500, #999);
+  font-variant-numeric: tabular-nums;
+}
+
+.heading {
+  margin-bottom: 0;
 }
 
 .level {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-right: 2rem;
 }
 
-.progress {
-  border: none;
+.reqLine {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  margin: 0.5rem 0 0.75rem;
+}
+
+.reqNumber {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.reqUnit {
+  font-size: 0.875rem;
+  opacity: 0.65;
+}
+
+.progressTrack {
   border-radius: 9999px;
   display: block;
-  height: 1rem;
+  height: 0.625rem;
   overflow: hidden;
-  padding: 0;
   width: 100%;
+  background: rgb(0 0 0 / 10%);
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 15%);
 }
 
-.progressFastify::-webkit-progress-value {
-  background: var(--ifm-color-success);
+[data-theme='dark'] .progressTrack {
+  background: rgb(255 255 255 / 8%);
 }
 
-.progressOthers::-webkit-progress-value {
-  background: var(--ifm-color-info-darker);
+.progressFill {
+  height: 100%;
+  border-radius: 9999px;
+}
+
+.progressFillOthers {
+  background: var(--ifm-color-primary);
+}
+
+.progressFillFastify {
+  background: var(--ifm-color-primary);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--ifm-color-primary) 50%, transparent);
 }
