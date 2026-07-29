@@ -11,7 +11,7 @@ export default function Organizations({ maxItems, displayType }) {
   return (
     <ul className={styles.organizationsList}>
       {shuffle(orgs, { maxItems }).map((organization, index) => (
-        <li key={index}>
+        <li key={index} className={styles.organizationsListItem}>
           <OrganizationItem organization={organization} />
         </li>
       ))}
@@ -33,22 +33,23 @@ function filterOrganizationsByType(type) {
 
 function OrganizationItem({ organization }) {
   return (
-    <Link href={organization.link} target="_blank" rel="noreferrer" className={getOrganizationStyle(organization)}>
-      <img src={useBaseUrl(`/img/organizations/${organization.image}`)} alt={`${organization.name} is using Fastify`} />
+    <Link
+      href={organization.link}
+      target="_blank"
+      rel="noreferrer"
+      className={styles.organizationCard}
+      title={organization.name}>
+      <img
+        src={useBaseUrl(`/img/organizations/${organization.image}`)}
+        alt={`${organization.name} is using Fastify`}
+        loading="lazy"
+      />
     </Link>
   )
 }
 
-function getOrganizationStyle(organization) {
-  if (organization.sponsor) {
-    return styles[`sponsoring_${organization.tier}`]
-  }
-
-  return styles.using
-}
-
 function shuffle(data, { maxItems }) {
-  const shuffled = data.sort(() => 0.5 - Math.random())
+  const shuffled = [...data].sort(() => 0.5 - Math.random())
   if (maxItems) {
     return shuffled.slice(0, maxItems)
   }

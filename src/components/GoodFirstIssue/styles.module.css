@@ -1,24 +1,204 @@
-:root {
-  --fty-head-bg: #ededed;
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 1.5rem;
+  align-items: start;
 }
 
-[data-theme='dark'] {
-  --fty-head-bg: #646464;
+.sidebar {
+  position: sticky;
+  top: 5rem;
+  padding: 1.1rem;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-toc-border-color);
+  border-radius: 14px;
 }
 
-.panelHeading {
-  background-color: var(--fty-head-bg);
-  border-radius: 6px 6px 0 0;
-  font-size: 1.25em;
+.sidebarHeading {
+  margin: 0 0 0.75rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  line-height: 1.25;
-  padding: 0.75em 1em;
+}
+
+.sidebarDivider {
+  margin: 0.6rem 0;
+  border: none;
+  border-top: 1px solid var(--ifm-toc-border-color);
+}
+
+.projectList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  max-height: 60vh;
+  overflow-y: auto;
 }
 
 .projectItem {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 0.5rem;
   cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.15s ease;
 }
 
 .projectItem:hover {
-  background-color: var(--fty-head-bg);
+  background: var(--ifm-color-emphasis-100);
+}
+
+.projectItem input {
+  flex-shrink: 0;
+  accent-color: var(--ifm-color-primary);
+}
+
+.projectItemName {
+  overflow: hidden;
+  font-size: 0.9rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.projectItemCount {
+  flex-shrink: 0;
+  padding: 0.05rem 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-700);
+  background: var(--ifm-color-emphasis-100);
+  border-radius: 999px;
+}
+
+.issuesCount {
+  margin: 0 0 0.85rem;
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.issuesCount strong {
+  color: var(--ifm-font-color-base);
+}
+
+.issuesList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.issueCard {
+  padding: 1rem 1.1rem;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-toc-border-color);
+  border-radius: 12px;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.issueCard:hover {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 6px 18px rgb(0 0 0 / 8%);
+  transform: translateY(-1px);
+}
+
+.issueTitle {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.issueProject {
+  margin: 0 0 0.65rem;
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.issueLabels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.label {
+  padding: 0.18rem 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-700);
+  background: var(--ifm-color-emphasis-100);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 999px;
+}
+
+.label--bug {
+  color: #e0245e;
+  background: rgb(224 36 94 / 12%);
+  border-color: rgb(224 36 94 / 35%);
+}
+
+.label--helpWanted {
+  color: var(--ifm-color-primary);
+  background: color-mix(in srgb, var(--ifm-color-primary) 12%, transparent);
+  border-color: color-mix(in srgb, var(--ifm-color-primary) 40%, transparent);
+}
+
+.label--question {
+  color: #8957e5;
+  background: rgb(137 87 229 / 12%);
+  border-color: rgb(137 87 229 / 35%);
+}
+
+.label--goodFirstIssue {
+  color: #d4a72c;
+  background: rgb(212 167 44 / 14%);
+  border-color: rgb(212 167 44 / 40%);
+}
+
+.statusPanel {
+  padding: 1.1rem 1.25rem;
+  font-size: 0.95rem;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-toc-border-color);
+  border-radius: 12px;
+}
+
+.statusPanelError {
+  color: #e0245e;
+  border-color: rgb(224 36 94 / 35%);
+}
+
+.emptyState {
+  padding: 2.5rem 1rem;
+  text-align: center;
+  background: var(--ifm-background-surface-color);
+  border: 1px dashed var(--ifm-toc-border-color);
+  border-radius: 12px;
+}
+
+.emptyStateTitle {
+  margin: 0 0 0.25rem;
+  font-weight: 700;
+}
+
+.emptyStateSubtitle {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+@media screen and (width < 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+  }
+
+  .projectList {
+    max-height: none;
+  }
 }

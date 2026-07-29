@@ -1,45 +1,63 @@
 .organizationsList {
-  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
   padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  margin: 0;
   list-style: none;
-  place-items: center center;
 }
 
-[data-theme='dark'] .organizationsList {
-  background-color: var(--ifm-color-secondary-dark);
-  border-radius: var(--ifm-code-border-radius);
+.organizationsListItem {
+  margin: 0;
 }
 
-.organizationsList li {
-  align-items: center;
+.organizationCard {
   display: flex;
+  align-items: center;
   justify-content: center;
-  margin: 0.6rem;
-}
-
-.organizationsList li a {
+  height: 96px;
+  padding: 1.1rem;
+  background: #e4e4e4;
+  border: 1px solid rgb(0 0 0 / 8%);
+  border-radius: 14px;
   text-decoration: none;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 6%);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
 }
 
-.organizationsList li a img {
-  transition: all 0.5s;
+.organizationCard:hover {
+  text-decoration: none;
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 10px 24px rgb(0 0 0 / 14%);
+  transform: translateY(-3px);
 }
 
-.organizationsList .using img {
-  max-width: 140px;
+.organizationCard img {
+  max-width: 100%;
+  max-height: 48px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
 }
 
-.organizationsList .sponsoring_tier_3 img {
-  max-width: 140px;
+.organizationCard:hover img {
+  transform: scale(1.05);
 }
 
-.organizationsList .sponsoring_tier_4 img {
-  max-width: 160px;
-}
+@media screen and (width < 768px) {
+  .organizationsList {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.75rem;
+  }
 
-.organizationsList li a:hover img {
-  transform: scale(1.1);
+  .organizationCard {
+    height: 78px;
+    padding: 0.85rem;
+  }
+
+  .organizationCard img {
+    max-height: 38px;
+  }
 }
