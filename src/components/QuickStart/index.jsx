@@ -133,7 +133,7 @@ fastify.listen({ port: 3000 }, (err) => {
   const typescript = `import Fastify, { FastifyInstance, RouteShorthandOptions } from 'fastify'
 import { Server, IncomingMessage, ServerResponse } from 'http'
 
-const server: FastifyInstance = Fastify({})
+const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = Fastify({ logger: true })
 
 const opts: RouteShorthandOptions = {
   schema: {
@@ -160,6 +160,7 @@ const start = async () => {
 
     const address = server.server.address()
     const port = typeof address === 'string' ? address : address?.port
+    server.log.info(`Server listening on port ${port}`)
 
   } catch (err) {
     server.log.error(err)
