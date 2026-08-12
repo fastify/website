@@ -4,6 +4,7 @@
 		"includes": [
 			"**",
 			"!**/dist",
+			"!**/build",
 			"!**/.astro",
 			"!**/.cache",
 			"!src/content/docs",

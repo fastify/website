@@ -22,7 +22,7 @@ requests-per-second velocity gauge in the hero.
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------ |
 | `npm install`     | Install dependencies                                                                                                     |
 | `npm run dev`     | Start the dev server at `localhost:4321`                                                                                 |
-| `npm run build`   | Build to `dist/` and generate the Pagefind search index                                                                  |
+| `npm run build`   | Build to `build/` and generate the Pagefind search index                                                                  |
 | `npm run preview` | Preview the production build locally                                                                                     |
 | `npm run lint`    | Lint with [Biome](https://biomejs.dev)                                                                                   |
 | `npm run format`  | Format with Biome (`format` to verify)                                                                                   |
@@ -102,7 +102,7 @@ version only (searching from a `v5.10.x` page returns `v5.10.x` results, never
 A GitHub Actions workflow ([`.github/workflows/deploy-website.yml`](.github/workflows/deploy-website.yml))
 builds and publishes the site to **GitHub Pages** on every push to `main` (and
 on manual dispatch). It installs dependencies with npm, fetches the docs, runs
-`astro build` + Pagefind, and deploys the `dist/` output.
+`astro build` + Pagefind, and deploys the `build/` output.
 
 To enable it: in the repository settings, set **Settings → Pages → Build and
 deployment → Source** to **GitHub Actions**.

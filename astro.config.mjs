@@ -13,6 +13,7 @@ import { remarkReadingTime } from "./src/lib/remark-reading-time.mjs";
 export default defineConfig({
 	site: "https://fastify.dev",
 	base: baseConfig.base,
+	outDir: "./build",
 	markdown: {
 		processor: unified({
 			remarkPlugins: [remarkReadingTime],
