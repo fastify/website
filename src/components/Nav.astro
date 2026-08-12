@@ -1,0 +1,122 @@
+---
+import Icon from "~/components/Icon.astro";
+import Logo from "~/components/Logo.astro";
+import { NAV, SITE } from "~/data/site";
+import { withBase } from "~/lib/href";
+
+const path = Astro.url.pathname;
+const isActive = (href: string) => {
+	const target = withBase(href);
+	return href === "/" ? path === target : path.startsWith(target);
+};
+---
+<header class="sticky top-0 z-50">
+  <div class="absolute inset-0 bg-bg/80 backdrop-blur-xl border-b border-border"></div>
+  <nav class="relative mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 2xl:max-w-[100rem]" aria-label="Primary">
+    <Logo />
+
+    <div class="ml-2 hidden items-center gap-1 lg:flex">
+      {NAV.map((item) => (
+        <a
+          href={withBase(item.href)}
+          class:list={[
+            'rounded-md px-3 py-2 text-sm font-medium transition-colors',
+            isActive(item.href)
+              ? 'text-fg'
+              : 'text-muted hover:text-fg',
+          ]}
+          aria-current={isActive(item.href) ? 'page' : undefined}
+        >
+          {item.label}
+          {isActive(item.href) && (
+            <span class="mt-1 block h-px w-full bg-amber"></span>
+          )}
+        </a>
+      ))}
+    </div>
+
+    <div class="ml-auto flex items-center gap-1.5">
+      <button
+        type="button"
+        data-search-open
+        class="hidden items-center gap-2 rounded-md border border-border bg-surface px-3 py-2 text-sm text-muted transition-colors hover:border-border-strong hover:text-fg sm:flex"
+        aria-label="Search documentation"
+      >
+        <Icon name="search" size={16} />
+        <span>Search</span>
+        <kbd class="ml-2 rounded border border-border px-1.5 font-mono text-[0.65rem] text-muted">⌘K</kbd>
+      </button>
+
+      <button
+        type="button"
+        data-search-open
+        class="rounded-md border border-border bg-surface p-2 text-muted transition-colors hover:text-fg sm:hidden"
+        aria-label="Search documentation"
+      >
+        <Icon name="search" size={18} />
+      </button>
+
+      <a
+        href="https://discord.gg/fastify"
+        class="hidden rounded-md p-2 text-muted transition-colors hover:text-fg sm:block"
+        aria-label="Fastify Discord"
+        target="_blank" rel="noopener noreferrer"
+      >
+        <Icon name="discord" size={18} />
+      </a>
+
+      <a
+        href={SITE.repo}
+        class="hidden items-center gap-2 rounded-md border border-border bg-surface px-2.5 py-2 text-sm font-medium text-fg transition-colors hover:border-border-strong sm:flex"
+        aria-label="Star Fastify on GitHub"
+        target="_blank" rel="noopener noreferrer"
+      >
+        <Icon name="github" size={16} />
+        <span class="tabular-nums" data-github-stars>{SITE.stars}</span>
+      </a>
+
+      <button
+        type="button"
+        data-theme-toggle
+        class="rounded-md border border-border bg-surface p-2 text-muted transition-colors hover:text-fg"
+        aria-label="Toggle color theme"
+      >
+        <Icon name="sun" size={18} class="hidden dark:block" />
+        <Icon name="moon" size={18} class="block dark:hidden" />
+      </button>
+
+      <button
+        type="button"
+        data-menu-open
+        class="rounded-md border border-border bg-surface p-2 text-fg lg:hidden"
+        aria-label="Open menu"
+        aria-expanded="false"
+      >
+        <Icon name="menu" size={18} />
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div
+    data-mobile-menu
+    class="fixed inset-0 z-50 hidden bg-bg/95 backdrop-blur-xl lg:hidden"
+  >
+    <div class="flex h-16 items-center justify-between px-4 sm:px-6">
+      <Logo />
+      <button type="button" data-menu-close class="rounded-md border border-border p-2 text-fg" aria-label="Close menu">
+        <Icon name="close" size={18} />
+      </button>
+    </div>
+    <div class="flex flex-col gap-1 px-4 pt-4 sm:px-6">
+      {NAV.map((item) => (
+        <a href={withBase(item.href)} class="rounded-lg px-4 py-3 text-lg font-medium text-fg hover:bg-surface">
+          {item.label}
+        </a>
+      ))}
+      <a href={SITE.repo} class="mt-4 flex items-center gap-2 rounded-lg border border-border px-4 py-3 text-fg" target="_blank" rel="noopener noreferrer">
+        <Icon name="github" size={18} /> GitHub · <span data-github-stars>{SITE.stars}</span>
+      </a>
+    </div>
+  </div>
+</header>

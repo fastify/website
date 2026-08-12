@@ -1,0 +1,41 @@
+---
+import OpenJSF from "~/components/OpenJSF.astro";
+import ProfileCard from "~/components/ProfileCard.astro";
+import { COLLABORATORS, LEADS, PAST_COLLABORATORS } from "~/data/site";
+
+---
+
+  <section class="mx-auto max-w-7xl px-4 pb-20 sm:px-6 2xl:max-w-[100rem]">
+    <div class="card overflow-hidden">
+      <div
+        class="p-8 sm:p-12 lg:grid-cols-[1fr_1.4fr] lg:items-center"
+      >
+
+          <p class="eyebrow">// maintainers</p>
+          <h2 class="mt-4 font-display text-3xl font-semibold tracking-tight">
+            Built by the community
+          </h2>
+          <p class="mt-4 text-fg-soft">
+            Fastify is an <OpenJSF /> project maintained by a global team
+            of lead maintainers and collaborators.
+          </p>
+          <p class="mt-14 eyebrow">// lead maintainers</p>
+          <h2 class="mt-3 font-display text-2xl font-semibold">The team</h2>
+          <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+            {LEADS.map((p) => <ProfileCard person={p} variant="card" />)}
+          </div>
+
+          <p class="eyebrow mt-14">// active</p>
+          <h3 class="mt-3 font-display text-xl font-semibold">Collaborators</h3>
+          <div class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+            {COLLABORATORS.map((p) => <ProfileCard person={p} variant="chip" />)}
+          </div>
+
+          <p class="eyebrow mt-14">// alumni</p>
+          <h3 class="mt-3 font-display text-xl font-semibold">Past collaborators</h3>
+          <div class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+            {PAST_COLLABORATORS.map((p) => <ProfileCard person={p} variant="chip" />)}
+        </div>
+      </div>
+    </div>
+  </section>

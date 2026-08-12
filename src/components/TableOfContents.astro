@@ -1,0 +1,26 @@
+---
+import type { MarkdownHeading } from "astro";
+
+interface Props {
+	toc: MarkdownHeading[];
+}
+const { toc } = Astro.props;
+---
+
+<ul class="space-y-0.5 border-l border-border">
+  {
+    toc.map((h) => (
+      <li>
+        <a
+          href={`#${h.slug}`}
+          class:list={[
+            "-ml-px block border-l-2 border-transparent py-1.5 text-sm text-fg-soft transition-colors hover:border-border-strong hover:text-fg",
+            h.depth === 3 ? "pl-8" : "pl-4",
+          ]}
+        >
+          {h.text}
+        </a>
+      </li>
+    ))
+  }
+</ul>

@@ -1,0 +1,49 @@
+---
+import Icon from "~/components/Icon.astro";
+import versionsData from "~/data/versions.json";
+import { afterVersion, withBase } from "~/lib/href";
+
+interface Props {
+	version: string;
+	current: string;
+}
+const { version, current } = Astro.props;
+
+const latestEntry = versionsData.versions.find((v) => v.isLatest);
+if (!latestEntry) throw new Error("No latest version configured");
+
+const isLatest = version === latestEntry.name;
+const rest = afterVersion(current).replace(/\/?(index|Index)$/, "");
+const latestHref = withBase(
+	rest ? `/docs/${latestEntry.name}/${rest}/` : `/docs/${latestEntry.name}`,
+);
+---
+
+{
+  !isLatest && (
+    <aside
+      role="status"
+      aria-label="Documentation version notice"
+      class="mb-6 flex items-start gap-3 rounded-md border border-amber/40 bg-amber/10 px-4 py-3 text-sm text-fg-soft"
+    >
+      <Icon
+        name="alert"
+        size={18}
+        class="mt-0.5 shrink-0 text-amber-ink"
+        aria-hidden="true"
+      />
+      <p>
+        You&apos;re reading documentation for{" "}
+        <strong class="font-semibold text-fg">Fastify {version}</strong>. For
+        up-to-date documentation, see the{" "}
+        <a
+          href={latestHref}
+          class="font-semibold text-amber-ink underline decoration-amber/40 underline-offset-2 transition-colors hover:decoration-amber"
+        >
+          latest version
+        </a>{" "}
+        ({latestEntry.label}).
+      </p>
+    </aside>
+  )
+}

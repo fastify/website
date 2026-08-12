@@ -1,0 +1,23 @@
+---
+import { getCollection, render } from "astro:content";
+import DocsShell from "~/components/DocsShell.astro";
+import BaseLayout from "~/layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+	const docs = await getCollection("docs");
+	return docs.map((doc) => {
+		const slug = doc.id.replace(/\/(index|Index)$/, "");
+		return { params: { slug }, props: { doc } };
+	});
+}
+
+const { doc } = Astro.props;
+const { Content, headings, remarkPluginFrontmatter } = await render(doc);
+const version = doc.id.split("/")[0];
+const minutesRead = remarkPluginFrontmatter?.minutesRead ?? "1 min read";
+---
+<BaseLayout title={`${doc.data.title} — Fastify ${version}`} description={doc.data.description}>
+  <DocsShell current={doc.id} version={version} headings={headings} minutesRead={minutesRead}>
+    <Content />
+  </DocsShell>
+</BaseLayout>

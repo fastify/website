@@ -1,0 +1,105 @@
+/* ============================================================
+   Signature utilities
+   ============================================================ */
+
+/* Telemetry grid backdrop */
+.bg-telemetry {
+	background-image:
+		linear-gradient(var(--bg-grid) 1px, transparent 1px),
+		linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+	background-size: 56px 56px;
+	background-position: center;
+}
+
+/* Radial spotlight glow */
+.glow-amber {
+	background: radial-gradient(
+		60% 60% at 50% 0%,
+		var(--glow-amber) 0%,
+		transparent 70%
+	);
+}
+
+/* Eyebrow / data label */
+.eyebrow {
+	font-family: var(--font-mono);
+	font-size: 0.72rem;
+	letter-spacing: 0.22em;
+	text-transform: uppercase;
+	color: var(--amber-ink);
+}
+
+/* Gradient headline accent */
+.text-velocity {
+	background: linear-gradient(
+		100deg,
+		var(--amber) 0%,
+		var(--amber-soft) 55%,
+		var(--teal) 130%
+	);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+/* Card surface */
+.card {
+	background: color-mix(in srgb, var(--surface) 88%, transparent);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-md);
+	backdrop-filter: blur(6px);
+}
+
+/* Motion streak keyframes for the hero */
+@keyframes streak {
+	0% {
+		transform: translateX(-120%);
+		opacity: 0;
+	}
+	10% {
+		opacity: 1;
+	}
+	90% {
+		opacity: 1;
+	}
+	100% {
+		transform: translateX(320%);
+		opacity: 0;
+	}
+}
+
+@keyframes ticker {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(-50%);
+	}
+}
+
+@keyframes sweep {
+	0%,
+	100% {
+		opacity: 0.35;
+	}
+	50% {
+		opacity: 1;
+	}
+}
+
+.animate-ticker {
+	animation: ticker 40s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+	.animate-ticker,
+	[data-streak] {
+		animation: none;
+	}
+	* {
+		transition-duration: 0.01ms;
+	}
+}

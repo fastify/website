@@ -1,0 +1,56 @@
+---
+import type { Sponsor } from "~/data/site";
+import { withBase } from "~/lib/href";
+
+interface Props {
+	sponsor: Sponsor;
+	/**
+	 * `section` renders the logo at one size suitable for the tier showcase on
+	 * the organizations page; `marquee` shrinks it for the hero ticker.
+	 */
+	variant?: "section" | "marquee";
+	class?: string;
+}
+
+const { sponsor, variant = "section", class: className } = Astro.props;
+
+// Same footprint on the tier page so each sponsor reads as an equal
+// contribution; size differentiation is done by section treatment instead.
+const padding =
+	variant === "marquee" ? "px-5 py-3" : "px-6 py-5";
+const logoSize =
+	variant === "marquee" ? "h-7 max-w-[150px]" : "h-12 max-w-[210px]";
+---
+
+<a
+  href={sponsor.url}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label={sponsor.name}
+  class:list={[
+    "group inline-flex items-center justify-center rounded-lg ring-1 transition duration-300 ease-out-expo hover:-translate-y-0.5",
+    // Light: colored logo on a white plate (kept as-is).
+    "bg-white shadow-sm ring-black/5 hover:ring-black/10",
+    // Dark: swap the white bubble for a subtle surface chip so logos read as
+    // part of the portal's card system.
+    "dark:bg-surface dark:shadow-none dark:ring-border dark:hover:bg-surface-2 dark:hover:ring-border-strong",
+    padding,
+    className,
+  ]}
+>
+  <img
+    src={withBase(`/organizations/${sponsor.image}`)}
+    alt={sponsor.name}
+    loading="lazy"
+    decoding="async"
+    class:list={[
+      "w-auto object-contain transition duration-300 ease-out-expo group-hover:scale-[1.04]",
+      logoSize,
+      // Photon ships a white logo; invert it so it reads on the light plate.
+      sponsor.invert && "filter-[invert(1)]",
+      // Dark: normalise every logo to a soft monochrome silhouette so no white
+      // plate is needed behind it.
+      "dark:opacity-80 dark:filter-[brightness(0)_invert(1)] dark:group-hover:opacity-100",
+    ]}
+  />
+</a>

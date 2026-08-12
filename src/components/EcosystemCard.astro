@@ -1,0 +1,52 @@
+---
+import DOMPurify from "isomorphic-dompurify";
+import { marked } from "marked";
+import Icon from "~/components/Icon.astro";
+
+interface Props {
+	plugin: {
+		name: string;
+		url: string;
+		description: string;
+		official?: boolean;
+	};
+}
+
+const { plugin } = Astro.props;
+const descriptionHtml = DOMPurify.sanitize(
+	await marked.parseInline(plugin.description),
+);
+---
+
+<article
+  data-plugin
+  data-name={plugin.name.toLowerCase()}
+  data-desc={plugin.description.toLowerCase()}
+  class="card group relative flex flex-col p-5 transition-[border-color,transform] hover:-translate-y-0.5 hover:border-border-strong"
+>
+  <div class="flex items-center justify-between gap-3">
+    <a
+      href={plugin.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex min-w-0 flex-1 items-center gap-1.5 after:absolute after:inset-0"
+    >
+      <h3 class="font-mono text-sm font-medium text-fg">{plugin.name}</h3>
+      <Icon
+        name="external"
+        size={12}
+        class="text-muted opacity-0 transition-opacity group-hover:opacity-100"
+      />
+    </a>
+    <span
+      class:list={[
+        "shrink-0 rounded-full border border-border px-2 py-0.5 font-mono text-[0.6rem] uppercase tracking-wider",
+        plugin.official ? "text-teal" : "text-muted",
+      ]}
+    >{plugin.official ? "official" : "community"}</span>
+  </div>
+  <p
+    class="mt-1.5 text-sm leading-relaxed text-fg-soft [&_a]:relative [&_a]:z-10 [&_a]:text-amber-ink [&_a]:underline [&_a]:decoration-border-strong [&_a]:underline-offset-2"
+    set:html={descriptionHtml}
+  />
+</article>

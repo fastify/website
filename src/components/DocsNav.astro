@@ -1,0 +1,52 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { withBase } from "~/lib/href";
+
+interface Section {
+	name: string;
+	items: CollectionEntry<"docs">[];
+}
+
+interface Props {
+	sections: Section[];
+	current: string;
+	groupClass?: string;
+}
+const { sections, current, groupClass = "mb-6" } = Astro.props;
+
+const routeFor = (id: string) => {
+	const slug = id.replace(/\/(index|Index)$/, "");
+	return withBase(`/docs/${slug}/`);
+};
+---
+
+{
+  sections.map((section) => (
+    <div class={groupClass}>
+      <p class="mb-2 font-mono text-[0.65rem] uppercase tracking-[0.16em] text-muted">
+        {section.name}
+      </p>
+      <ul class="space-y-0.5 border-l border-border">
+        {section.items.map((item) => {
+          const active = item.id === current;
+          return (
+            <li>
+              <a
+                href={routeFor(item.id)}
+                class:list={[
+                  "-ml-px block border-l-2 py-1.5 pl-4 text-sm transition-colors",
+                  active
+                    ? "border-amber font-medium text-amber-ink"
+                    : "border-transparent text-fg-soft hover:border-border-strong hover:text-fg",
+                ]}
+                aria-current={active ? "page" : undefined}
+              >
+                {item.data.title}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  ))
+}

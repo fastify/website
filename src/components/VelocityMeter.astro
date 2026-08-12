@@ -1,0 +1,304 @@
+---
+// Signature element: a live "requests per second" telemetry gauge.
+import { BENCHMARK_STATS } from "~/data/site";
+
+const { self, max, peers, multiplier } = BENCHMARK_STATS;
+// 270° speedometer: starts bottom-left, sweeps clockwise through the top.
+const CX = 130;
+const CY = 132;
+const START = 135;
+const SWEEP = 270;
+const angleFor = (v: number) => START + (v / max) * SWEEP;
+const polar = (deg: number, r: number) => {
+	const rad = (deg * Math.PI) / 180;
+	return { x: CX + r * Math.cos(rad), y: CY + r * Math.sin(rad) };
+};
+const R = 100;
+const arcStart = polar(START, R);
+const arcEnd = polar(START + SWEEP, R);
+const trackPath = `M ${arcStart.x.toFixed(1)} ${arcStart.y.toFixed(1)} A ${R} ${R} 0 1 1 ${arcEnd.x.toFixed(1)} ${arcEnd.y.toFixed(1)}`;
+const tickValues = [0, Math.round(max / 2), max];
+---
+
+<div class="relative">
+  <!-- packet streaks -->
+  <div
+    class="pointer-events-none absolute inset-x-0 top-8 z-0 space-y-6 overflow-hidden opacity-70"
+    aria-hidden="true"
+  >
+    {
+      [0, 1, 2, 3, 4].map((i) => (
+        <div class="h-px w-full">
+          <div
+            data-streak
+            class="h-px w-24 rounded-full"
+            style={`background: linear-gradient(90deg, transparent, var(--amber), transparent); animation: streak ${2.6 + i * 0.4}s ${i * 0.5}s linear infinite;`}
+          />
+        </div>
+      ))
+    }
+  </div>
+
+  <div
+    class="relative rounded-2xl border border-border bg-surface/70 p-6 backdrop-blur-xl"
+  >
+    <div class="flex items-center justify-between">
+      <span
+        class="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-muted"
+        >throughput</span
+      >
+    </div>
+
+    <svg
+      viewBox="0 0 260 220"
+      class="peer-gauge mx-auto mt-2 w-full max-w-sm"
+      role="img"
+      aria-label={`Fastify throughput gauge peaking at ${max.toLocaleString()} requests per second`}
+    >
+      <!-- track -->
+      <path
+        d={trackPath}
+        fill="none"
+        stroke="var(--surface-3)"
+        stroke-width="13"
+        stroke-linecap="round"></path>
+      <!-- value arc -->
+      <path
+        data-gauge-arc
+        data-ratio={self.reqs / max}
+        d={trackPath}
+        fill="none"
+        stroke="url(#velo)"
+        stroke-width="13"
+        stroke-linecap="round"
+        pathLength="1000"
+        stroke-dasharray="1000"
+        stroke-dashoffset="1000"
+        style="transition: stroke-dashoffset 1.8s var(--ease-out-expo);"></path>
+      <!-- peer markers -->
+      {
+        peers
+          .sort((a, b) => a.reqs - b.reqs)
+          .map((p) => {
+            const a = angleFor(p.reqs);
+            const o = polar(a, R + 3);
+            const inr = polar(a, R - 10);
+            const tp = polar(a, R + 24);
+            return (
+              <g class="peer">
+                <line
+                  x1={inr.x}
+                  y1={inr.y}
+                  x2={o.x}
+                  y2={o.y}
+                  stroke="transparent"
+                  stroke-width="10"
+                />
+                <line
+                  class="peer-marker"
+                  x1={inr.x}
+                  y1={inr.y}
+                  x2={o.x}
+                  y2={o.y}
+                  stroke="var(--muted)"
+                  stroke-width="2"
+                  opacity="0.7"
+                />
+                <g class="peer-tooltip">
+                  <rect
+                    x={tp.x - 40}
+                    y={tp.y - 14}
+                    width="80"
+                    height="25"
+                    rx="6"
+                    fill="var(--surface)"
+                    stroke="var(--border)"
+                    stroke-width="1"
+                  />
+                  <text
+                    x={tp.x}
+                    y={tp.y - 5}
+                    font-size="10"
+                    font-family="var(--font-display)"
+                    font-weight="600"
+                    fill="var(--fg)"
+                    text-anchor="middle"
+                    dominant-baseline="middle"
+                  >
+                    {p.name}
+                  </text>
+                  <text
+                    x={tp.x}
+                    y={tp.y + 5}
+                    font-size="8"
+                    font-family="var(--font-mono)"
+                    fill="var(--muted)"
+                    text-anchor="middle"
+                    dominant-baseline="middle"
+                  >
+                    {p.reqs.toLocaleString()} req/s
+                  </text>
+                </g>
+              </g>
+            );
+          })
+      }
+      <!-- ticks -->
+      {
+        tickValues.map((t) => {
+          const a = angleFor(t);
+          const o = polar(a, R + 16);
+          return (
+            <text
+              class="tick-label"
+              x={o.x}
+              y={o.y}
+              fill="var(--muted)"
+              font-size="9"
+              font-family="var(--font-mono)"
+              text-anchor="middle"
+              dominant-baseline="middle"
+            >
+              {Math.round(t / 1000)}k
+            </text>
+          );
+        })
+      }
+      <!-- center value -->
+      <text
+        x={CX}
+        y={CY - 6}
+        fill="var(--fg)"
+        font-size="28"
+        font-family="var(--font-display)"
+        font-weight="600"
+        text-anchor="middle"
+        dominant-baseline="middle"
+        class="tabular-nums"
+        data-counter
+        data-target={self.reqs}>0</text
+      >
+      <text
+        x={CX}
+        y={CY + 16}
+        fill="var(--muted)"
+        font-size="9"
+        font-family="var(--font-mono)"
+        text-anchor="middle"
+        dominant-baseline="middle"
+        letter-spacing="1.5">REQUESTS / SECOND</text
+      >
+      <defs>
+        <linearGradient id="velo" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="0" stop-color="var(--teal)"></stop>
+          <stop offset="0.55" stop-color="var(--amber)"></stop>
+          <stop offset="1" stop-color="var(--amber-soft)"></stop>
+        </linearGradient>
+      </defs>
+    </svg>
+
+    <div class="mt-5 grid grid-cols-2 gap-2 border-t border-border pt-4">
+      <div>
+        <div class="font-display text-lg font-semibold text-fg">
+          {multiplier ?? "—"}<span class="text-sm text-muted">x</span>
+        </div>
+        <div
+          class="font-mono text-[0.6rem] uppercase tracking-wider text-muted"
+        >
+          vs express
+        </div>
+      </div>
+      <div>
+        <div class="font-display text-lg font-semibold text-fg">
+          TS<span class="text-sm text-muted"></span>
+        </div>
+        <div
+          class="font-mono text-[0.6rem] uppercase tracking-wider text-muted"
+        >
+          types included
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .peer-gauge {
+    overflow: visible;
+  }
+  .peer-tooltip {
+    opacity: 0;
+    transition: opacity 0.15s ease-out;
+    pointer-events: none;
+  }
+  .peer:hover .peer-tooltip {
+    opacity: 1;
+  }
+  .peer:hover .peer-marker {
+    stroke: var(--teal);
+    opacity: 1;
+  }
+  .tick-label {
+    transition: opacity 0.15s ease-out;
+  }
+  svg:has(.peer:hover) .tick-label {
+    opacity: 0;
+  }
+</style>
+
+<script>
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let done = false;
+
+  function animate() {
+    if (done) return;
+    done = true;
+    const arc = document.querySelector<SVGPathElement>("[data-gauge-arc]");
+    if (arc) {
+      const ratio = Number(arc.dataset.ratio) || 0;
+      // force a reflow so the transition runs even right after load
+      void arc.getBoundingClientRect();
+      arc.style.strokeDashoffset = String(Math.round(1000 - ratio * 1000));
+    }
+    document.querySelectorAll<HTMLElement>("[data-counter]").forEach((el) => {
+      const target = Number(el.dataset.target || "0");
+      if (reduce) {
+        el.textContent = target.toLocaleString();
+        return;
+      }
+      const dur = 1800;
+      const start = performance.now();
+      const step = (now: number) => {
+        const p = Math.min((now - start) / dur, 1);
+        const eased = 1 - (1 - p) ** 3;
+        el.textContent = Math.round(target * eased).toLocaleString();
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+  }
+
+  const meter = document.querySelector("[data-gauge-arc]");
+  if (meter) {
+    // Safari iOS does not fire IntersectionObserver reliably on SVG child
+    // path elements; observe the parent <svg> instead.
+    const target = meter.closest("svg") ?? meter;
+    const trigger = () => animate();
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          trigger();
+          io.disconnect();
+        }
+      },
+      { threshold: 0.25 },
+    );
+    io.observe(target);
+    const startIfInViewport = () => {
+      const r = meter.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) setTimeout(trigger, 350);
+    };
+    if (document.readyState === "complete") startIfInViewport();
+    else window.addEventListener("load", startIfInViewport);
+  }
+</script>

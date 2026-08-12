@@ -1,0 +1,181 @@
+---
+import Icon from "~/components/Icon.astro";
+import Logo from "~/components/Logo.astro";
+import OpenJSF from "~/components/OpenJSF.astro";
+import { withBase } from "~/lib/href";
+
+const columns = [
+	{
+		title: "Docs",
+		links: [
+			{
+				label: "Getting started",
+				href: "/docs/latest/Guides/Getting-Started/",
+			},
+			{ label: "Reference", href: "/docs/latest/Reference/" },
+			{ label: "Ecosystem", href: "/ecosystem/" },
+			{ label: "Benchmarks", href: "/benchmarks/" },
+		],
+	},
+	{
+		title: "Community",
+		links: [
+			{ label: "GitHub", href: "https://github.com/fastify/fastify" },
+			{ label: "Discord", href: "https://discord.gg/fastify" },
+			{
+				label: "Stack Overflow",
+				href: "https://stackoverflow.com/questions/tagged/fastify",
+			},
+			{ label: "X / Twitter", href: "https://x.com/fastifyjs" },
+			{ label: "Mastodon", href: "https://fosstodon.org/@fastify" },
+		],
+	},
+	{
+		title: "More",
+		links: [
+			{ label: "Support", href: "/docs/latest/Reference/LTS/" },
+			{ label: "Organizations", href: "/organizations/" },
+			{ label: "Community", href: "/community/" },
+			{ label: "Website repo", href: "https://github.com/fastify/website" },
+		],
+	},
+];
+---
+
+<footer class="relative mt-24 border-t border-border bg-surface/40">
+  <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 2xl:max-w-[100rem]">
+    <div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div>
+        <Logo />
+        <p class="mt-4 max-w-xs text-sm leading-relaxed text-muted">
+          A fast and low overhead web framework for Node.js. An
+          <OpenJSF />
+          At Large project.
+        </p>
+        <div class="mt-5 flex gap-2">
+          <a
+            href="https://github.com/fastify/fastify"
+            class="rounded-md border border-border p-2 text-muted hover:text-fg"
+            aria-label="GitHub"
+            target="_blank"
+            rel="noopener noreferrer"><Icon name="github" size={18} /></a
+          >
+          <a
+            href="https://discord.gg/fastify"
+            class="rounded-md border border-border p-2 text-muted hover:text-fg"
+            aria-label="Discord"
+            target="_blank"
+            rel="noopener noreferrer"><Icon name="discord" size={18} /></a
+          >
+        </div>
+      </div>
+
+      {
+        columns.map((col) => (
+          <div>
+            <h3 class="font-mono text-xs uppercase tracking-[0.18em] text-muted">
+              {col.title}
+            </h3>
+            <ul class="mt-4 space-y-2.5">
+              {col.links.map((link) => (
+                <li>
+                  <a
+                    href={withBase(link.href)}
+                    class="text-sm text-fg-soft transition-colors hover:text-amber-ink"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+
+    <div
+      class="mt-12 flex flex-col gap-6 border-t border-border pt-6 text-xs text-muted"
+    >
+      <p class="max-w-4xl leading-relaxed">
+        Copyright <OpenJSF /> and Fastify contributors. All rights
+        reserved. The <OpenJSF /> has registered trademarks and uses trademarks.
+        For a list of trademarks of the <OpenJSF /> please see our{" "}
+        <a
+          href="https://trademark-policy.openjsf.org"
+          class="text-fg-soft underline decoration-border-strong underline-offset-2 hover:text-amber-ink"
+          target="_blank"
+          rel="noopener noreferrer">Trademark Policy</a
+        >{" "}and{" "}
+        <a
+          href="https://trademark-list.openjsf.org"
+          class="text-fg-soft underline decoration-border-strong underline-offset-2 hover:text-amber-ink"
+          target="_blank"
+          rel="noopener noreferrer">Trademark List</a
+        >. Trademarks and logos not indicated on the{" "}
+        <a
+          href="https://trademark-list.openjsf.org"
+          class="text-fg-soft underline decoration-border-strong underline-offset-2 hover:text-amber-ink"
+          target="_blank"
+          rel="noopener noreferrer">list of <OpenJSF /> trademarks</a>{" "}
+        are trademarks™ or registered® trademarks of their respective holders. Use
+        of them does not imply any affiliation with or endorsement by them.
+      </p>
+
+      <nav
+        aria-label="Foundation legal links"
+        class="flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-border pt-6 text-fg-soft"
+      >
+        <span
+          class="font-mono text-[0.6875rem] uppercase tracking-[0.18em] text-muted"
+          >Legal</span
+        >
+        {
+          [
+            { label: "The OpenJS Foundation", href: "https://openjsf.org" },
+            {
+              label: "Terms of Use",
+              href: "https://terms-of-use.openjsf.org",
+            },
+            {
+              label: "Privacy Policy",
+              href: "https://privacy-policy.openjsf.org",
+            },
+            { label: "Bylaws", href: "https://bylaws.openjsf.org" },
+            {
+              label: "Code of Conduct",
+              href: "https://code-of-conduct.openjsf.org",
+            },
+            {
+              label: "Trademark Policy",
+              href: "https://trademark-policy.openjsf.org",
+            },
+            {
+              label: "Trademark List",
+              href: "https://trademark-list.openjsf.org",
+            },
+            {
+              label: "Cookie Policy",
+              href: "https://www.linuxfoundation.org/cookies",
+            },
+          ].map((link, index, arr) => (
+            <>
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-xs hover:text-amber-ink"
+              >
+                {link.label}
+              </a>
+              {index < arr.length - 1 && (
+                <span class="text-border-strong" aria-hidden="true">
+                  ·
+                </span>
+              )}
+            </>
+          ))
+        }
+      </nav>
+    </div>
+  </div>
+</footer>

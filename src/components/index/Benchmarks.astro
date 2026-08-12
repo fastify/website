@@ -1,0 +1,37 @@
+---
+import BenchBars from "~/components/BenchBars.astro";
+import ButtonLink from "~/components/ButtonLink.astro";
+import Icon from "~/components/Icon.astro";
+import { withBase } from "~/lib/href";
+---
+
+<section
+  class="relative overflow-hidden border-y border-border bg-surface/30"
+>
+  <div
+    class="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:items-center 2xl:max-w-[100rem]"
+  >
+    <div>
+      <p class="eyebrow">// benchmarks</p>
+      <h2
+        class="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl"
+      >
+        Fast, from the ground up
+      </h2>
+      <p class="mt-4 max-w-md text-lg leading-relaxed text-fg-soft">
+        Leveraging deep experience with Node.js performance, Fastify was built
+        to be as fast as possible. Compare it against other common frameworks.
+      </p>
+      <ButtonLink
+        href={withBase("/benchmarks/")}
+        variant="secondary"
+        class="mt-8"
+      >
+        See full benchmarks <Icon name="arrow" size={18} />
+      </ButtonLink>
+    </div>
+    <div class="card p-6 sm:p-8">
+      <BenchBars valueKey="reqs" unit="req/s" betterIs="higher" decimals={0} />
+    </div>
+  </div>
+</section>

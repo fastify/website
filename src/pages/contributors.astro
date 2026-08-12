@@ -1,0 +1,130 @@
+---
+import PageHeader from "~/components/PageHeader.astro";
+import ProfileCard from "~/components/ProfileCard.astro";
+import {
+	ACTIVE_MAINTAINERS,
+	COMMUNITY_CONTRIBUTORS,
+	CONTRIBUTORS_DATA,
+} from "~/data/contributors";
+import BaseLayout from "~/layouts/BaseLayout.astro";
+
+const rosters = [
+	{
+		id: "community-contributors",
+		eyebrow: "// community",
+		title: "Community contributors",
+		description:
+			"The most active contributors outside the current maintainer team.",
+		contributors: COMMUNITY_CONTRIBUTORS,
+	},
+	{
+		id: "active-maintainers",
+		eyebrow: "// maintainers",
+		title: "Active maintainers",
+		description:
+			"Lead maintainers and collaborators active during the same window.",
+		contributors: ACTIVE_MAINTAINERS,
+	},
+];
+const dateFormatter = new Intl.DateTimeFormat("en", {
+	day: "numeric",
+	month: "short",
+	year: "numeric",
+	timeZone: "UTC",
+});
+const from = dateFormatter.format(new Date(CONTRIBUTORS_DATA.period.from));
+const to = dateFormatter.format(new Date(CONTRIBUTORS_DATA.period.to));
+const generatedAt = dateFormatter.format(
+	new Date(CONTRIBUTORS_DATA.generatedAt),
+);
+---
+
+<BaseLayout
+  title="Active contributors — Fastify"
+  description="Meet the people contributing the most activity across Fastify's public GitHub repositories over the last 30 days."
+>
+  <PageHeader eyebrow="// contributors" title="The people moving Fastify forward">
+    A rolling view of the human contributors writing code, opening pull requests and issues,
+    and reviewing work across the Fastify organization.
+  </PageHeader>
+
+  <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-18 2xl:max-w-[100rem]">
+    <div class="flex flex-col gap-6 border-b border-border pb-8 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <p class="eyebrow">{"// last 30 days"}</p>
+        <h2 class="mt-3 max-w-2xl font-display text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+          Recent momentum, credited to the people behind it
+        </h2>
+      </div>
+      <dl class="grid shrink-0 grid-cols-2 gap-x-8 gap-y-2 font-mono text-xs">
+        <div>
+          <dt class="uppercase tracking-[0.16em] text-muted">Window</dt>
+          <dd class="mt-1 text-fg-soft">
+            <time datetime={CONTRIBUTORS_DATA.period.from}>{from}</time>
+            <span aria-hidden="true"> — </span>
+            <span class="sr-only">through</span>
+            <time datetime={CONTRIBUTORS_DATA.period.to}>{to}</time>
+          </dd>
+        </div>
+        <div>
+          <dt class="uppercase tracking-[0.16em] text-muted">Refreshed</dt>
+          <dd class="mt-1 text-fg-soft">
+            <time datetime={CONTRIBUTORS_DATA.generatedAt}>{generatedAt}</time>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="mt-10 space-y-12">
+      {
+        rosters.map((roster, rosterIndex) => (
+          <section aria-labelledby={roster.id}>
+            <div class="mb-5 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p class="eyebrow">{roster.eyebrow}</p>
+                <h3 id={roster.id} class="mt-2 font-display text-2xl font-semibold tracking-tight">
+                  {roster.title}
+                </h3>
+                <p class="mt-2 text-sm text-muted">{roster.description}</p>
+              </div>
+              <p class="shrink-0 font-mono text-xs uppercase tracking-[0.16em] text-muted">
+                {String(roster.contributors.length).padStart(2, "0")} active profiles
+              </p>
+            </div>
+            <div class="overflow-hidden border border-border bg-border">
+              {roster.contributors.length > 0 ? (
+                <ol
+                  class="grid list-none grid-cols-1 gap-px bg-border sm:grid-cols-2"
+                >
+                  {roster.contributors.map((contributor, index) => (
+                    <li value={contributor.rank} class="min-w-0 bg-bg">
+                      <ProfileCard
+                        person={contributor}
+                        variant="roster"
+                        priority={rosterIndex === 0 && index < 4}
+                      />
+                    </li>
+                  ))}
+                </ol>
+              ) : (
+                <p class="bg-surface px-6 py-8 text-center text-sm text-fg-soft">
+                  Contributor data not yet available. Run <code>pnpm run fetch-contributors</code> with a GitHub token to generate rankings.
+                </p>
+              )}
+            </div>
+          </section>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="border-t border-border px-4 py-12 sm:px-6">
+    <p class="mx-auto max-w-3xl text-center text-sm leading-relaxed text-muted">
+      Rankings include activity in public <span class="font-mono text-fg-soft">fastify/*</span>{' '}
+      repositories: authored commits, opened pull requests and issues, merged work, and submitted
+      reviews. Both rosters preserve their position in the organization-wide activity ranking; the
+      maintainer roster includes current lead maintainers and collaborators. Automated accounts are
+      excluded.
+    </p>
+  </section>
+</BaseLayout>

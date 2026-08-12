@@ -1,0 +1,28 @@
+---
+import ButtonLink from "~/components/ButtonLink.astro";
+import Icon from "~/components/Icon.astro";
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import { withBase } from "~/lib/href";
+---
+<BaseLayout title="Page not found — Fastify">
+  <section class="relative overflow-hidden bg-telemetry">
+    <div class="pointer-events-none absolute inset-x-0 top-0 h-96 glow-amber opacity-60"></div>
+    <div class="relative mx-auto flex max-w-3xl flex-col items-center px-4 py-32 text-center sm:px-6">
+      <p class="font-mono text-sm uppercase tracking-[0.3em] text-amber-ink">error 404</p>
+      <h1 class="mt-6 font-display text-6xl font-semibold tracking-tight sm:text-7xl">
+        Route <span class="text-velocity">not found</span>
+      </h1>
+      <p class="mt-5 max-w-md text-lg text-fg-soft">
+        This handler isn't registered. Head back home, or jump straight into the docs.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <ButtonLink href={withBase('/')}>
+          Back home <Icon name="arrow" size={18} />
+        </ButtonLink>
+        <ButtonLink href={withBase('/docs/')} variant="secondary">
+          Read the docs
+        </ButtonLink>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

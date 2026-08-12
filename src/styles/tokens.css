@@ -1,0 +1,81 @@
+/* ============================================================
+   Fastify — "Telemetry" design system
+   Dark-first, speed-instrumentation aesthetic.
+   Palette: cheetah (tawny gold + cream belly + black spots).
+   ============================================================ */
+
+@theme {
+	--font-display:
+		"Space Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
+	--font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+	--font-mono:
+		"JetBrains Mono Variable", ui-monospace, SFMono-Regular, monospace;
+
+	--radius-xs: 4px;
+	--radius-sm: 8px;
+	--radius-md: 12px;
+	--radius-lg: 18px;
+
+	--ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Semantic tokens — dark is the default identity */
+:root {
+	--bg: #0a0b0d;
+	--bg-grid: rgba(255, 255, 255, 0.04);
+	--surface: #101419;
+	--surface-2: #161c23;
+	--surface-3: #1d242c;
+	--border: #232b33;
+	--border-strong: #313b45;
+	--fg: #e9ecef;
+	--fg-soft: #c2cad2;
+	--muted: #8b95a1;
+	--amber: #c99a4a;
+	--amber-soft: #e8c078;
+	--amber-ink: #c99a4a;
+	--teal: #e8d9b0;
+	--red: #ff5d5d;
+	--glow-amber: rgba(201, 154, 74, 0.5);
+	--glow-teal: rgba(232, 217, 176, 0.4);
+	color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+	--bg: #f6f4ef;
+	--bg-grid: rgba(20, 24, 28, 0.05);
+	--surface: #ffffff;
+	--surface-2: #f1ede4;
+	--surface-3: #e8e3d8;
+	--border: #e3ddd0;
+	--border-strong: #d3cbba;
+	--fg: #14181c;
+	--fg-soft: #333c45;
+	--muted: #5c6670;
+	--amber: #c99a4a;
+	--amber-soft: #e8c078;
+	--amber-ink: #8c6b2e;
+	--teal: #b8a06e;
+	--red: #d93a3a;
+	--glow-amber: rgba(201, 154, 74, 0.35);
+	--glow-teal: rgba(184, 160, 110, 0.3);
+	color-scheme: light;
+}
+
+/* Expose semantic tokens as Tailwind color utilities */
+@theme inline {
+	--color-bg: var(--bg);
+	--color-surface: var(--surface);
+	--color-surface-2: var(--surface-2);
+	--color-surface-3: var(--surface-3);
+	--color-border: var(--border);
+	--color-border-strong: var(--border-strong);
+	--color-fg: var(--fg);
+	--color-fg-soft: var(--fg-soft);
+	--color-muted: var(--muted);
+	--color-amber: var(--amber);
+	--color-amber-soft: var(--amber-soft);
+	--color-amber-ink: var(--amber-ink);
+	--color-teal: var(--teal);
+	--color-red: var(--red);
+}

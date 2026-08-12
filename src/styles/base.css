@@ -1,0 +1,44 @@
+@layer base {
+	* {
+		border-color: var(--border);
+	}
+
+	html {
+		scroll-behavior: smooth;
+		-webkit-text-size-adjust: 100%;
+	}
+
+	body {
+		background-color: var(--bg);
+		color: var(--fg);
+		font-family: var(--font-sans);
+		font-feature-settings: "cv05", "cv08", "ss01";
+		-webkit-font-smoothing: antialiased;
+		text-rendering: optimizeLegibility;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4 {
+		font-family: var(--font-display);
+		font-weight: 600;
+		letter-spacing: -0.02em;
+	}
+
+	::selection {
+		background: var(--amber);
+		color: #0a0b0d;
+	}
+
+	:focus-visible {
+		outline: 2px solid var(--amber);
+		outline-offset: 3px;
+		border-radius: 3px;
+	}
+
+	a {
+		color: inherit;
+		text-decoration: none;
+	}
+}

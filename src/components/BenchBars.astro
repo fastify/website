@@ -1,0 +1,63 @@
+---
+import { BENCHMARKS, formatMetric } from "~/data/site";
+
+type Metric = "reqs" | "latency" | "throughput";
+
+type Props = {
+	valueKey: Metric;
+	unit: string;
+	betterIs: "higher" | "lower";
+	decimals?: number;
+};
+
+const { valueKey, unit, betterIs, decimals = 0 } = Astro.props;
+
+const rows = [...BENCHMARKS].sort((a, b) => b[valueKey] - a[valueKey]);
+const max = Math.max(...rows.map((b) => b[valueKey]));
+---
+
+<div class="space-y-3.5" data-bench>
+  {rows.map((b) => (
+    <div class="grid grid-cols-[5.5rem_1fr_auto] items-center gap-3">
+      <div class="flex flex-col leading-tight">
+        <span class:list={['font-mono text-sm', b.self ? 'font-semibold text-amber-ink' : 'text-fg-soft']}>{b.name}</span>
+        {b.version && (
+          <span class="font-mono text-[0.65rem] text-muted">{b.version}</span>
+        )}
+      </div>
+      <div class="h-7 overflow-hidden rounded-md bg-surface-2">
+        <div
+          data-bar
+          data-width={((b[valueKey] / max) * 100).toFixed(1)}
+          class:list={[
+            'h-full w-0 rounded-md',
+            b.self ? 'bg-gradient-to-r from-teal to-amber' : 'bg-border-strong',
+          ]}
+          style="transition: width 1.4s var(--ease-out-expo);"
+        ></div>
+      </div>
+      <span class="w-16 text-right font-mono text-xs tabular-nums text-muted">{formatMetric(b[valueKey], decimals)}</span>
+    </div>
+  ))}
+  <p class="pt-1 font-mono text-[0.65rem] text-muted">{unit} · {betterIs} is better · illustrative comparison</p>
+</div>
+
+<script>
+  document.querySelectorAll('[data-bench]').forEach((root) => {
+    const bars = root.querySelectorAll<HTMLElement>('[data-bar]');
+    let ran = false;
+    const run = () => {
+      if (ran) return;
+      ran = true;
+      bars.forEach((bar) => { bar.style.width = `${bar.dataset.width}%`; });
+    };
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) { run(); io.disconnect(); }
+    }, { threshold: 0.2 });
+    io.observe(root);
+    window.addEventListener('load', () => {
+      const r = root.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) setTimeout(run, 300);
+    });
+  });
+</script>

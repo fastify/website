@@ -1,0 +1,63 @@
+{
+	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+	"files": {
+		"includes": [
+			"**",
+			"!**/dist",
+			"!**/.astro",
+			"!**/.cache",
+			"!src/content/docs",
+			"!public/docs",
+			"!src/data/benchmarks.json",
+			"!src/data/plugins.json",
+			"!src/data/plugins-by-downloads.json",
+			"!src/data/versions.json",
+			"!src/data/contributors.json",
+			"!**/package-lock.json",
+			"!**/pnpm-lock.yaml",
+			"!**/*.svg",
+			"!skills-lock.json",
+			"!**/.tokensave"
+		]
+	},
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
+	},
+	"css": {
+		"parser": {
+			"tailwindDirectives": true
+		},
+		"formatter": {
+			"enabled": true
+		}
+	},
+	"formatter": {
+		"formatWithErrors": true
+	},
+	"html": {
+		"experimentalFullSupportEnabled": true
+	},
+	"overrides": [
+		{
+			"includes": ["**/*.astro"],
+			"linter": {
+				"rules": {
+					"a11y": {
+						"useAnchorContent": "off"
+					},
+					"correctness": {
+						"noUnusedImports": "off",
+						"noUnusedVariables": "off"
+					},
+					"suspicious": {
+						"noExplicitAny": "off"
+					}
+				}
+			}
+		}
+	]
+}

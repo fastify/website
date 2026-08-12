@@ -1,0 +1,83 @@
+---
+// Thin wrapper that renders icons from Lucide (https://lucide.dev). Existing
+// call sites keep using `<Icon name="…" />`; the wrapper maps those names to the
+// corresponding Lucide component. Brand marks (GitHub, Discord) are kept as
+// inline SVGs because Lucide intentionally does not ship brand icons.
+import {
+	AlertTriangle,
+	ArrowRight,
+	Braces,
+	Check,
+	Clock,
+	Copy,
+	ExternalLink,
+	FileText,
+	Heart,
+	Menu,
+	Moon,
+	Package,
+	Plug,
+	ScrollText,
+	Search,
+	Star,
+	Sun,
+	Type,
+	X,
+	Zap,
+} from "@lucide/astro";
+
+interface Props {
+	name: string;
+	class?: string;
+	size?: number;
+}
+const { name, class: className = "", size = 24 } = Astro.props;
+
+const lucide: Record<string, any> = {
+	alert: AlertTriangle,
+	bolt: Zap,
+	plug: Plug,
+	schema: Braces,
+	log: ScrollText,
+	heart: Heart,
+	ts: Type,
+	arrow: ArrowRight,
+	search: Search,
+	sun: Sun,
+	moon: Moon,
+	copy: Copy,
+	check: Check,
+	external: ExternalLink,
+	menu: Menu,
+	close: X,
+	star: Star,
+	npm: Package,
+	clock: Clock,
+	markdown: FileText,
+};
+
+const brand: Record<string, string> = {
+	github:
+		'<path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 0 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8 0-.6.3-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7 0-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9v2.7c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/>',
+	discord:
+		'<path d="M19.5 5.3A17 17 0 0 0 15.4 4l-.2.4a13 13 0 0 1 3.6 1.8 12 12 0 0 0-10.5 0A13 13 0 0 1 11.9 4l-.3-.4A17 17 0 0 0 7.5 5.3C4.9 9.1 4.2 12.8 4.5 16.5a17 17 0 0 0 5.1 2.6l.6-1a11 11 0 0 1-1.8-.9l.4-.3a12 12 0 0 0 10.3 0l.4.3a11 11 0 0 1-1.8.9l.6 1a17 17 0 0 0 5.1-2.6c.4-4.3-.7-8-3.5-11.2ZM9.7 14.3c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.7.8 1.6 1.8c0 1-.7 1.8-1.6 1.8Zm4.6 0c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.7.8 1.6 1.8c0 1-.7 1.8-1.6 1.8Z"/>',
+};
+
+const LucideIcon = lucide[name];
+---
+{
+  LucideIcon ? (
+    <LucideIcon size={size} stroke-width={1.75} class={className} />
+  ) : brand[name] ? (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      class={className}
+      aria-hidden="true"
+      set:html={brand[name]}
+    />
+  ) : null
+}

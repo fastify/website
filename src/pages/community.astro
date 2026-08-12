@@ -1,0 +1,494 @@
+---
+import ButtonLink from "~/components/ButtonLink.astro";
+import Icon from "~/components/Icon.astro";
+import PageHeader from "~/components/PageHeader.astro";
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import { withBase } from "~/lib/href";
+
+type Talk = { title: string; speaker: string; event?: string; url: string };
+
+const book = {
+	title: "Accelerating Server-Side Development with Fastify",
+	blurb:
+		"A comprehensive guide to API development for building a scalable backend for your web apps.",
+	url: "https://www.packtpub.com/product/accelerating-server-side-development-with-fastify/9781800563582",
+};
+
+const demo = {
+	title: "fastify/demo",
+	blurb: "A concrete example of a Fastify application using what the community considers best practices.",
+	url: "https://github.com/fastify/demo",
+};
+
+const talks: Talk[] = [
+	{
+		title: "A “fast” Introduction to Fastify",
+		speaker: "Matteo Collina",
+		event: "NearForm",
+		url: "https://www.youtube.com/watch?v=MOvLdfUhqrU",
+	},
+	{
+		title: "Take Your HTTP Server to Ludicrous Speed",
+		speaker: "Matteo Collina",
+		url: "https://www.youtube.com/watch?v=gltzZjKYK1I",
+	},
+	{
+		title: "Why we built another framework",
+		speaker: "Tomas Della Vedova",
+		event: "Nordic.js 2018",
+		url: "https://www.youtube.com/watch?v=ucatti2b7E4",
+	},
+	{
+		title: "A Fastify Tale of Shapes",
+		speaker: "Matteo Collina",
+		event: "NearForm",
+		url: "https://www.youtube.com/watch?v=g-6Ig8k6Nzc",
+	},
+	{
+		title: "Build a Community, Not a Framework",
+		speaker: "Matteo Collina",
+		event: "NearForm",
+		url: "https://www.youtube.com/watch?v=e0rdy7APH-o",
+	},
+	{
+		title: "1, 2, 3… Fastify!",
+		speaker: "Matteo Collina",
+		url: "https://www.youtube.com/watch?v=-X84Cq-nsLw",
+	},
+	{
+		title: "Building a modular monolith with Fastify",
+		speaker: "Matteo Collina",
+		event: "Node Congress 2023",
+		url: "https://www.youtube.com/watch?v=e1jkA-ee_aY&t=1s",
+	},
+	{
+		title: "Decoding the Fastify plugin system",
+		speaker: "Manuel Spigolon",
+		url: "https://www.youtube.com/watch?v=BnnL7fAKqNU",
+	},
+	{
+		title: "Monoliths always pay their debts",
+		speaker: "Tomas Della Vedova",
+		event: "NodeJS Italian Conference 2018",
+		url: "https://www.youtube.com/watch?v=6ucyzQULlWw",
+	},
+	{
+		title: "From mess to mesh using Fastify",
+		speaker: "Luca Maraschi",
+		event: "NodeConf Remote 2020",
+		url: "https://www.youtube.com/watch?v=l3mQfvq07CI",
+	},
+	{
+		title: "Fastify Masterclass",
+		speaker: "Matteo Collina",
+		event: "2024",
+		url: "https://www.youtube.com/watch?v=x3SG71Ut2tA",
+	},
+];
+
+const channels = [
+	{
+		label: "GitHub",
+		href: "https://github.com/fastify/fastify",
+		blurb: "Issues, pull requests, and discussions.",
+		icon: "github",
+	},
+	{
+		label: "Discord",
+		href: "https://discord.gg/fastify",
+		blurb: "Real-time help from the community.",
+		icon: "discord",
+	},
+	{
+		label: "Stack Overflow",
+		href: "https://stackoverflow.com/questions/tagged/fastify",
+		blurb: "Tagged questions and answers.",
+		icon: "external",
+	},
+	{
+		label: "X / Twitter",
+		href: "https://x.com/fastifyjs",
+		blurb: "Releases and ecosystem updates.",
+		icon: "external",
+	},
+];
+---
+
+<BaseLayout
+  title="Community — Fastify"
+  description="Learn Fastify, contribute back, and join the channels where the Fastify community lives."
+>
+  <PageHeader eyebrow="// community" title="Join the Fastify community">
+    Fastify is built and maintained by a friendly, global community. Whether you're here to
+    learn, build, or give back, this is where to start.
+  </PageHeader>
+
+  <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6 2xl:max-w-[100rem]">
+    <div class="flex items-end justify-between gap-4">
+      <div>
+        <p class="eyebrow">// resources</p>
+        <h2 class="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+          Learn Fastify
+        </h2>
+        <p class="mt-3 max-w-2xl text-lg text-fg-soft">
+          Curated reading, code, and talks to get you from “what is Fastify?” to shipping
+          production APIs on it.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-10 grid gap-4 lg:grid-cols-2">
+      <article class="card flex flex-col gap-4 p-6 sm:p-8">
+        <div class="flex items-center gap-2">
+          <span class="font-mono text-xs uppercase tracking-[0.18em] text-amber-ink">[book]</span>
+        </div>
+        <h3 class="font-display text-xl font-semibold">{book.title}</h3>
+        <p class="text-fg-soft">{book.blurb}</p>
+        <div class="mt-auto">
+          <ButtonLink href={book.url} external>
+            Read on Packt <Icon name="external" size={16} />
+          </ButtonLink>
+        </div>
+      </article>
+
+      <article class="card flex flex-col gap-4 p-6 sm:p-8">
+        <div class="flex items-center gap-2">
+          <span class="font-mono text-xs uppercase tracking-[0.18em] text-amber-ink">[demo]</span>
+        </div>
+        <h3 class="font-mono text-xl font-semibold">{demo.title}</h3>
+        <p class="text-fg-soft">{demo.blurb}</p>
+        <div class="mt-auto">
+          <ButtonLink href={demo.url} external>
+            <Icon name="github" size={16} /> Browse the repo
+          </ButtonLink>
+        </div>
+      </article>
+    </div>
+
+    <div class="mt-10">
+      <div class="flex items-center gap-3">
+        <span class="font-mono text-xs uppercase tracking-[0.18em] text-amber-ink">[talks]</span>
+        <p class="eyebrow">// watch &amp; learn</p>
+      </div>
+      <h3 class="mt-3 font-display text-2xl font-semibold">Talks from the team</h3>
+      <p class="mt-3 max-w-2xl text-fg-soft">
+        Conference talks and deep dives from the people building Fastify.
+      </p>
+      <ul class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          talks.map((talk) => (
+            <li>
+              <a
+                href={talk.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="card group flex h-full flex-col gap-2 p-5 transition-colors hover:border-border-strong"
+              >
+                <div class="flex items-start justify-between gap-2">
+                  <h4 class="font-display text-base font-semibold leading-snug">
+                    {talk.title}
+                  </h4>
+                  <Icon
+                    name="external"
+                    size={14}
+                    class="shrink-0 text-muted opacity-0 transition-opacity group-hover:opacity-100"
+                  />
+                </div>
+                <p class="font-mono text-xs text-muted">{talk.speaker}</p>
+                {talk.event && (
+                  <p class="text-xs text-muted">{talk.event}</p>
+                )}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="border-t border-border bg-telemetry/40">
+    <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 2xl:max-w-[100rem]">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <p class="eyebrow">// contribute</p>
+          <h2 class="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+            Give back to Fastify
+          </h2>
+          <p class="mt-3 max-w-2xl text-lg text-fg-soft">
+            Bug fixes, docs, plugins, talks — every contribution shapes the framework. Start by
+            reading the contribution guidelines, then pick an issue below.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <a
+          href={withBase("/contributors/")}
+          class="card group flex items-center justify-between gap-4 p-5 transition-colors hover:border-border-strong"
+        >
+          <div>
+            <p class="font-mono text-xs uppercase tracking-[0.18em] text-amber-ink">[last 30 days]</p>
+            <h3 class="mt-2 font-display text-lg font-semibold">Active contributors</h3>
+            <p class="mt-1 text-sm text-fg-soft">Meet the people moving Fastify forward right now.</p>
+          </div>
+          <Icon name="arrow" size={18} class="text-muted transition-transform group-hover:translate-x-0.5" />
+        </a>
+        <a
+          href="https://github.com/fastify/fastify/blob/main/CONTRIBUTING.md"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="card group flex items-center justify-between gap-4 p-5 transition-colors hover:border-border-strong"
+        >
+          <div>
+            <p class="font-mono text-xs uppercase tracking-[0.18em] text-amber-ink">[guidelines]</p>
+            <h3 class="mt-2 font-display text-lg font-semibold">Contribution Guidelines</h3>
+            <p class="mt-1 text-sm text-fg-soft">How we work, review, and ship together.</p>
+          </div>
+          <Icon name="arrow" size={18} class="text-muted transition-transform group-hover:translate-x-0.5" />
+        </a>
+        <a
+          href="https://github.com/fastify/fastify/blob/main/CODE_OF_CONDUCT.md"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="card group flex items-center justify-between gap-4 p-5 transition-colors hover:border-border-strong"
+        >
+          <div>
+            <p class="font-mono text-xs uppercase tracking-[0.18em] text-amber-ink">[conduct]</p>
+            <h3 class="mt-2 font-display text-lg font-semibold">Code of Conduct</h3>
+            <p class="mt-1 text-sm text-fg-soft">The norms that keep the community welcoming.</p>
+          </div>
+          <Icon name="arrow" size={18} class="text-muted transition-transform group-hover:translate-x-0.5" />
+        </a>
+      </div>
+
+      <div class="mt-12">
+        <div class="flex items-center gap-3">
+          <span class="font-mono text-xs uppercase tracking-[0.18em] text-amber-ink">[good first issues]</span>
+          <p class="eyebrow">// a great place to start</p>
+        </div>
+        <h3 class="mt-3 font-display text-2xl font-semibold">Open issues across the org</h3>
+        <p class="mt-3 max-w-2xl text-fg-soft">
+          Pulled live from the fastify ecosystem — issues tagged{" "}
+          <span class="font-mono text-amber-ink">good first issue</span>{" "}
+          across every{" "}
+          <span class="font-mono text-amber-ink">fastify/*</span>{" "}
+          project. Filter by project to find one that fits.
+        </p>
+
+        <div
+          data-good-first-issues
+          data-org="fastify"
+          class="mt-8 grid gap-6 lg:grid-cols-[18rem_1fr]"
+        >
+          <aside class="card self-start p-5">
+            <div data-gfi-sidebar class="flex flex-col gap-1">
+              <p class="py-2 text-sm text-muted">Loading projects…</p>
+            </div>
+          </aside>
+          <div>
+            <ul data-gfi-list class="flex flex-col gap-3"></ul>
+            <p data-gfi-empty class="hidden py-12 text-center text-muted"></p>
+            <p data-gfi-loading class="py-12 text-center text-muted">Loading issues…</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6 2xl:max-w-[100rem]">
+    <p class="eyebrow">// channels</p>
+    <h2 class="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+      Where the community lives
+    </h2>
+    <p class="mt-3 max-w-2xl text-lg text-fg-soft">
+      Pick whichever channel fits the question.
+    </p>
+    <ul class="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        channels.map((c) => (
+          <li>
+            <a
+              href={c.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="card group flex h-full flex-col gap-3 p-5 transition-colors hover:border-border-strong"
+            >
+              <div class="flex items-center gap-2">
+                <Icon name={c.icon} size={18} class="text-amber-ink" />
+                <span class="font-display text-base font-semibold">{c.label}</span>
+              </div>
+              <p class="text-sm text-fg-soft">{c.blurb}</p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 pb-24 sm:px-6 2xl:max-w-[100rem]">
+    <div
+      class="relative overflow-hidden rounded-2xl border border-border bg-telemetry px-6 py-14 text-center sm:px-12"
+    >
+      <div class="pointer-events-none absolute inset-x-0 top-0 h-64 glow-amber"></div>
+      <div class="relative">
+        <p class="eyebrow">// ship something</p>
+        <h2 class="mx-auto mt-4 max-w-2xl font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+          Ready to <span class="text-velocity">build</span>?
+        </h2>
+        <p class="mx-auto mt-4 max-w-xl text-lg text-fg-soft">
+          Start with the guide, or jump straight into the API reference.
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+          <ButtonLink href={withBase("/docs/latest/Guides/Getting-Started/")} size="lg">
+            Get started <Icon name="arrow" size={18} />
+          </ButtonLink>
+          <ButtonLink href="https://github.com/fastify/fastify" variant="secondary" size="lg" external>
+            <Icon name="github" size={18} /> Open an issue
+          </ButtonLink>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import type { GoodFirstIssue } from '~/services/gfi';
+    import { getGoodFirstIssues } from '~/services/gfi';
+
+    const root = document.querySelector<HTMLElement>('[data-good-first-issues]');
+    if (root) {
+      const org = root.dataset.org ?? 'fastify';
+
+      const sidebar = root.querySelector<HTMLElement>('[data-gfi-sidebar]');
+      const list = root.querySelector<HTMLElement>('[data-gfi-list]');
+      const empty = root.querySelector<HTMLElement>('[data-gfi-empty]');
+      const loading = root.querySelector<HTMLElement>('[data-gfi-loading]');
+
+      let issues: GoodFirstIssue[] = [];
+      const selection = new Map<string, boolean>();
+      let lastError: Error | null = null;
+
+      const escapeHtml = (s: string) =>
+        s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c] ?? c);
+
+      const projectCounts = () => {
+        const counts = new Map<string, number>();
+        for (const issue of issues) counts.set(issue.project.name, (counts.get(issue.project.name) ?? 0) + 1);
+        return Array.from(counts.entries()).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+      };
+
+      const selectedCount = () => {
+        let n = 0;
+        for (const v of selection.values()) if (v) n++;
+        return n;
+      };
+
+      const renderSidebar = () => {
+        if (!sidebar) return;
+        const entries = projectCounts();
+        for (const [name] of entries) if (!selection.has(name)) selection.set(name, true);
+        const total = entries.length;
+        const allChecked = selectedCount() === total;
+        sidebar.innerHTML = `
+          <p class="eyebrow">// projects</p>
+          <label class="mt-3 flex cursor-pointer items-center gap-3 rounded-md px-2 py-1.5 hover:bg-surface-2">
+            <input type="checkbox" data-gfi-all ${allChecked ? 'checked' : ''} class="size-4 cursor-pointer accent-amber" />
+            <span class="flex-1 font-display text-sm font-semibold">All projects</span>
+            <span class="font-mono text-xs text-muted">${issues.length}</span>
+          </label>
+          <hr class="my-3 border-border" />
+          <div class="flex max-h-80 flex-col gap-0.5 overflow-y-auto pr-1">
+            ${entries
+              .map(
+                ([name, count]) => `
+              <label class="flex cursor-pointer items-center gap-3 rounded-md px-2 py-1.5 hover:bg-surface-2">
+                <input type="checkbox" data-gfi-project="${escapeHtml(name)}" ${selection.get(name) ? 'checked' : ''} class="size-4 cursor-pointer accent-amber" />
+                <span class="flex-1 truncate font-mono text-xs text-fg-soft">${escapeHtml(name)}</span>
+                <span class="font-mono text-xs text-muted">${count}</span>
+              </label>
+            `,
+              )
+              .join('')}
+          </div>
+        `;
+        sidebar
+          .querySelector<HTMLInputElement>('[data-gfi-all]')
+          ?.addEventListener('change', (e) => {
+            const checked = (e.currentTarget as HTMLInputElement).checked;
+            for (const [name] of entries) selection.set(name, checked);
+            renderSidebar();
+            renderList();
+          });
+        sidebar.querySelectorAll<HTMLInputElement>('[data-gfi-project]').forEach((input) => {
+          input.addEventListener('change', (e) => {
+            const target = e.currentTarget as HTMLInputElement;
+            const name = target.dataset.gfiProject ?? '';
+            selection.set(name, target.checked);
+            renderSidebar();
+            renderList();
+          });
+        });
+      };
+
+      const renderList = () => {
+        if (!list || !empty || !loading) return;
+        loading.classList.add('hidden');
+        const entries = projectCounts();
+        const visible = issues.filter((i) => selection.get(i.project.name) !== false);
+        if (visible.length === 0) {
+          list.innerHTML = '';
+          empty.textContent = entries.length === 0
+            ? 'No open good first issues right now — check back soon.'
+            : 'No issues match the selected projects.';
+          empty.classList.remove('hidden');
+          return;
+        }
+        empty.classList.add('hidden');
+        list.innerHTML = visible
+          .map(
+            (issue) => `
+            <li>
+              <article class="card group relative flex flex-col gap-3 p-5 transition-colors hover:border-border-strong">
+                <div class="flex items-center gap-3">
+                  <a href="${escapeHtml(issue.project.url)}" target="_blank" rel="noopener noreferrer" class="relative z-10 font-mono text-xs text-muted transition-colors hover:text-amber-ink">${escapeHtml(issue.project.name)}</a>
+                  <span class="text-muted">·</span>
+                  <span class="font-mono text-xs text-muted">${issue.comments} comment${issue.comments === 1 ? '' : 's'}</span>
+                </div>
+                <h4 class="font-display text-base font-semibold leading-snug text-fg">
+                  <a href="${escapeHtml(issue.url)}" target="_blank" rel="noopener noreferrer" class="after:absolute after:inset-0 hover:text-amber-ink">${escapeHtml(issue.title)}</a>
+                </h4>
+                ${issue.labels.length
+                  ? `<div class="flex flex-wrap gap-1.5">${issue.labels
+                      .map((label) => `<span class="rounded-full border border-border bg-surface-2 px-2 py-0.5 font-mono text-[0.65rem] uppercase tracking-wider text-muted">${escapeHtml(label)}</span>`)
+                      .join('')}</div>`
+                  : ''}
+              </article>
+            </li>
+          `,
+          )
+          .join('');
+      };
+
+      const renderError = () => {
+        if (!sidebar || !empty || !loading) return;
+        loading.classList.add('hidden');
+        sidebar.innerHTML = `<p class="text-sm text-muted">Unable to load projects.</p>`;
+        empty.innerHTML = 'Unable to load issues right now. <a href="https://github.com/search?q=label%3A%22good%20first%20issue%22+is%3Aopen+is%3Aissue+org%3Afastify&type=issues" target="_blank" rel="noopener noreferrer" class="text-amber-ink underline decoration-border-strong underline-offset-2">Search on GitHub ↗</a>';
+        empty.classList.remove('hidden');
+      };
+
+      const consume = (results: GoodFirstIssue[]) => {
+        issues = results;
+        for (const issue of issues) selection.set(issue.project.name, true);
+        renderSidebar();
+        renderList();
+      };
+
+      getGoodFirstIssues(org)
+        .then(consume)
+        .catch((err) => {
+          lastError = err;
+          renderError();
+        });
+    }
+  </script>
+</BaseLayout>

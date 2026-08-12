@@ -1,0 +1,127 @@
+---
+import FastifyLogo from "~/assets/fastify-full.svg";
+import ButtonLink from "~/components/ButtonLink.astro";
+import Icon from "~/components/Icon.astro";
+import InstallCommand from "~/components/InstallCommand.astro";
+import OrganizationLogo from "~/components/OrganizationLogo.astro";
+import VelocityMeter from "~/components/VelocityMeter.astro";
+import plugins from "~/data/plugins.json";
+import { SITE, SPONSORS } from "~/data/site";
+import { withBase } from "~/lib/href";
+
+const pluginsNumber = plugins.plugins.length;
+const marquee = [...SPONSORS, ...SPONSORS];
+---
+
+<section class="relative overflow-hidden bg-telemetry">
+  <div
+    class="pointer-events-none absolute inset-x-0 top-0 h-130 glow-amber opacity-70"
+  >
+  </div>
+  <div
+    class="relative mx-auto grid max-w-7xl gap-14 px-4 pb-16 pt-16 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:pt-24 2xl:max-w-[100rem]"
+  >
+    <div>
+      <FastifyLogo />
+
+      <div
+        class="mt-6 inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-3 py-1.5"
+      >
+        <span class="size-1.5 rounded-full bg-teal"></span>
+        <span class="font-mono text-xs text-fg-soft"
+          >Fastify {SITE.version} · Node.js 20+</span
+        >
+      </div>
+
+      <h1
+        class="mt-6 font-display text-5xl font-semibold leading-[1.04] tracking-tight sm:text-6xl lg:text-7xl"
+      >
+        Fast and low overhead.<br />
+        <span class="text-velocity">For Node.js.</span>
+      </h1>
+
+      <p class="mt-6 max-w-xl text-lg leading-relaxed text-fg-soft">
+        Fastify is a web framework focused on the best developer experience
+        with the least overhead. A powerful plugin architecture, schema-based
+        speed, and one of the fastest cores in Node.js.
+      </p>
+
+      <div class="mt-8 flex flex-wrap items-center gap-3">
+        <ButtonLink
+          href={withBase("/docs/latest/Guides/Getting-Started/")}
+          class="group"
+        >
+          Get started
+          <Icon
+            name="arrow"
+            size={18}
+            class="transition-transform group-hover:translate-x-0.5"
+          />
+        </ButtonLink>
+        <InstallCommand />
+      </div>
+
+      <dl
+        class="mt-12 grid max-w-lg grid-cols-3 gap-6 border-t border-border pt-6"
+      >
+        <div>
+          <dt
+            class="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-muted"
+          >
+            downloads / mo
+          </dt>
+          <dd class="mt-1 font-display text-2xl font-semibold text-fg" data-npm-downloads>
+            {SITE.downloads}
+          </dd>
+        </div>
+        <div>
+          <dt
+            class="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-muted"
+          >
+            github stars
+          </dt>
+          <dd
+            class="mt-1 font-display text-2xl font-semibold text-fg"
+            data-github-stars
+          >
+            {SITE.stars}
+          </dd>
+        </div>
+        <div>
+          <dt
+            class="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-muted"
+          >
+            plugins
+          </dt>
+          <dd class="mt-1 font-display text-2xl font-semibold text-fg">
+            {pluginsNumber}
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <VelocityMeter />
+  </div>
+
+  <div class="relative border-y border-border bg-surface/30 py-3">
+    <div class="mx-auto flex max-w-7xl items-center gap-6 px-4 sm:px-6 2xl:max-w-[100rem]">
+      <span
+        class="hidden shrink-0 font-mono text-[0.65rem] uppercase tracking-[0.16em] text-muted sm:block"
+        >trusted by</span
+      >
+      <div
+        class="relative flex-1 overflow-hidden py-2 mask-[linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]"
+      >
+        <div
+          class="flex w-max animate-ticker items-center gap-4 hover:[animation-play-state:paused]"
+        >
+          {
+            marquee.map((s) => (
+              <OrganizationLogo sponsor={s} variant="marquee" class="shrink-0" />
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
