@@ -39,9 +39,6 @@ jobs:
           check-latest: true
           node-version-file: ".nvmrc"
 
-      - name: Enable corepack
-        run: corepack enable
-
       - name: Install Packages
         run: npm ci --ignore-scripts
 
