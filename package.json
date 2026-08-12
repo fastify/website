@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build:website": "astro build",
     "preview": "astro preview",
     "astro": "astro",
     "lint": "biome lint",
@@ -27,7 +27,7 @@
     "astro": "^7.2.0",
     "astro-inference": "^0.2.6",
     "astro-pagefind": "^2.0.1",
-    "format-si-unit": "^0.0.11",
+    "format-si-unit": "^0.0.12",
     "isomorphic-dompurify": "^3.22.0",
     "marked": "^18.0.9",
     "mdast-util-to-string": "^4.0.0",

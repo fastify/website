@@ -57,7 +57,7 @@ jobs:
       - run: echo "Fastify is at version ${{ steps.latest-fastify.outputs.tag }}"
 
       - name: Build website
-        run: npm run build
+        run: npm run build:website
         timeout-minutes: 30
         env:
           GH_TOKEN: ${{ github.token }}
