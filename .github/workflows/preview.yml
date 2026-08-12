@@ -16,7 +16,7 @@ jobs:
     environment:
       name: sandbox
     env:
-      BASE_URL: '/'
+      BASE_URL: "/"
     steps:
       # we set the correct repository and reference sha for PR preview
       - name: Checkout PR
@@ -31,14 +31,16 @@ jobs:
         with:
           cache: npm
           check-latest: true
-          node-version: 22
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
+
+      - name: Enable corepack
+        run: corepack enable
 
       - name: Install Packages
-        run: npm ci --ignore-scripts
+        run: pnpm ci --ignore-scripts
 
       - name: Run Linting
-        run: npm run lint
+        run: pnpm lint
 
       - name: Setup Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
@@ -62,7 +64,7 @@ jobs:
 
       # Here we need the token to download the `gh` archive
       - name: Build website
-        run: npm run build:website
+        run: pnpm build:website
         timeout-minutes: 30
         env:
           GH_TOKEN: ${{ github.token }}
@@ -71,7 +73,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
-          path: './build'
+          path: "./build"
 
   deploy-to-staging:
     needs:
@@ -80,7 +82,7 @@ jobs:
       group: ${{ github.ref_name }}-staging
       cancel-in-progress: true
     env:
-      BASE_URL: ''
+      BASE_URL: ""
     permissions:
       pull-requests: write
       contents: write
@@ -100,12 +102,12 @@ jobs:
       - name: Extract artifact
         run: tar -xvf artifact.tar
         working-directory: website
-        shell: 'bash'
+        shell: "bash"
 
       - name: Clean up before deploy
         run: rm artifact.tar
         working-directory: website
-        shell: 'bash'
+        shell: "bash"
 
       - name: Display structure of downloaded files
         run: ls -R

@@ -5,10 +5,10 @@ on:
     branches:
       - main
       - next
-      - 'v*'
+      - "v*"
     paths-ignore:
-      - '.github/**'
-      - '.vscode/**'
+      - ".github/**"
+      - ".vscode/**"
   # workflow_dispatch means to manual deploy production
   workflow_dispatch:
   # workflow_call means to deploy production from external workflow
@@ -25,7 +25,7 @@ jobs:
     permissions:
       contents: read
     env:
-      BASE_URL: '/'
+      BASE_URL: "/"
     steps:
       - name: Checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
@@ -37,10 +37,13 @@ jobs:
         with:
           cache: npm
           check-latest: true
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
+
+      - name: Enable corepack
+        run: corepack enable
 
       - name: Install Packages
-        run: npm ci --ignore-scripts
+        run: pnpm ci --ignore-scripts
 
       - name: Setup Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
@@ -63,7 +66,7 @@ jobs:
           key: ${{ steps.latest-fastify.outputs.tag }}-release-cache
 
       - name: Build website
-        run: npm run build:website
+        run: pnpm build:website
         timeout-minutes: 30
         env:
           GH_TOKEN: ${{ github.token }}
@@ -72,7 +75,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
-          path: './build'
+          path: "./build"
 
   deploy-to-production:
     needs:
@@ -81,7 +84,7 @@ jobs:
       group: ${{ github.ref_name }}-production
       cancel-in-progress: true
     env:
-      BASE_URL: ''
+      BASE_URL: ""
     permissions:
       pages: write
       id-token: write
