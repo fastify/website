@@ -38,14 +38,21 @@ const maintainerLogins = new Set(
 	[...LEADS, ...COLLABORATORS].map(({ login }) => login.toLowerCase()),
 );
 
-export const ACTIVE_MAINTAINERS = CONTRIBUTORS_DATA.contributors
-	.filter((contributor) =>
-		maintainerLogins.has(contributor.login.toLowerCase()),
-	)
-	.slice(0, CONTRIBUTOR_LIMIT);
+function rankContributors(contributors: Contributor[]): Contributor[] {
+	return contributors.slice(0, CONTRIBUTOR_LIMIT).map((contributor, index) => ({
+		...contributor,
+		rank: index + 1,
+	}));
+}
 
-export const COMMUNITY_CONTRIBUTORS = CONTRIBUTORS_DATA.contributors
-	.filter(
+export const ACTIVE_MAINTAINERS = rankContributors(
+	CONTRIBUTORS_DATA.contributors.filter((contributor) =>
+		maintainerLogins.has(contributor.login.toLowerCase()),
+	),
+);
+
+export const COMMUNITY_CONTRIBUTORS = rankContributors(
+	CONTRIBUTORS_DATA.contributors.filter(
 		(contributor) => !maintainerLogins.has(contributor.login.toLowerCase()),
-	)
-	.slice(0, CONTRIBUTOR_LIMIT);
+	),
+);
