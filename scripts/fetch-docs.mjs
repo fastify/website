@@ -266,7 +266,7 @@ function transform(content, relPath, version) {
 	// 4. Inject frontmatter.
 	const section =
 		relDir === "." || relDir === "" ? "Overview" : relDir.split(path.sep)[0];
-	const title = titleFor(relPath, content).replace(/"/g, '\\"');
+	const title = titleFor(relPath, content).replaceAll('"', '\\"');
 	const order = orderFor(relPath, section);
 	const fm = `---\ntitle: "${title}"\nsection: "${section}"\norder: ${order}\nversion: "${version}"\n---\n\n`;
 	return fm + content.trimStart();
@@ -366,5 +366,5 @@ export async function fetchDocs() {
 	);
 	// Free disk: keep tarballs out of the repo.
 	if (!process.env.KEEP_CACHE)
-		await rm(CACHE, { recursive: true, force: true }).catch(() => {});
+		await rm(CACHE, { recursive: true, force: true }).catch(() => { });
 }

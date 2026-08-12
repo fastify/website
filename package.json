@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build:website": "astro build",
+    "build:website": "npm run build:data && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "lint": "biome lint",
@@ -14,7 +14,7 @@
     "format": "biome check",
     "format:fix": "biome check --write",
     "check": "astro check",
-    "postinstall": "node scripts/postinstall.mjs"
+    "build:data": "node scripts/postinstall.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^7.0.5",
