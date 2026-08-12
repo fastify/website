@@ -20,13 +20,13 @@ requests-per-second velocity gauge in the hero.
 
 | Command            | Action                                                                                                                   |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `pnpm install`     | Install dependencies                                                                                                     |
-| `pnpm run dev`     | Start the dev server at `localhost:4321`                                                                                 |
-| `pnpm run build`   | Build to `dist/` and generate the Pagefind search index                                                                  |
-| `pnpm run preview` | Preview the production build locally                                                                                     |
-| `pnpm run lint`    | Lint with [Biome](https://biomejs.dev)                                                                                   |
-| `pnpm run format`  | Format with Biome (`format` to verify)                                                                                   |
-| `pnpm run check`   | Type-check via [`astro check`](https://docs.astro.build/en/reference/cli-reference/#astro-check) (run by CI on every PR) |
+| `npm install`     | Install dependencies                                                                                                     |
+| `npm run dev`     | Start the dev server at `localhost:4321`                                                                                 |
+| `npm run build`   | Build to `dist/` and generate the Pagefind search index                                                                  |
+| `npm run preview` | Preview the production build locally                                                                                     |
+| `npm run lint`    | Lint with [Biome](https://biomejs.dev)                                                                                   |
+| `npm run format`  | Format with Biome (`format` to verify)                                                                                   |
+| `npm run check`   | Type-check via [`astro check`](https://docs.astro.build/en/reference/cli-reference/#astro-check) (run by CI on every PR) |
 
 > Search only works against a production build (`npm run build`), because the
 > Pagefind index is generated from the built HTML. In `dev` the search modal
@@ -97,17 +97,11 @@ version. When you search from a docs page, results are filtered to the selected
 version only (searching from a `v5.10.x` page returns `v5.10.x` results, never
 `v5.9.x` or `v4.x`); elsewhere search defaults to `latest`.
 
-```bash
-pnpm run fetch:docs             # fetch/refresh docs (skips already-fetched versions)
-FORCE_FETCH=1 pnpm run fetch:docs   # force a refresh
-DOCS_MIN_MAJOR=4 pnpm run fetch:docs # only fetch v4.x and newer
-```
-
 ## Deployment
 
-A GitHub Actions workflow ([`.github/workflows/deploy.yml`](.github/workflows/deploy.yml))
+A GitHub Actions workflow ([`.github/workflows/deploy-website.yml`](.github/workflows/deploy-website.yml))
 builds and publishes the site to **GitHub Pages** on every push to `main` (and
-on manual dispatch). It installs dependencies with pnpm, fetches the docs, runs
+on manual dispatch). It installs dependencies with npm, fetches the docs, runs
 `astro build` + Pagefind, and deploys the `dist/` output.
 
 To enable it: in the repository settings, set **Settings → Pages → Build and

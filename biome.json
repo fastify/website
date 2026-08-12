@@ -14,7 +14,6 @@
 			"!src/data/versions.json",
 			"!src/data/contributors.json",
 			"!**/package-lock.json",
-			"!**/pnpm-lock.yaml",
 			"!**/*.svg",
 			"!skills-lock.json",
 			"!**/.tokensave"

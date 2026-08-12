@@ -35,7 +35,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          cache: pnpm
+          cache: npm
           check-latest: true
           node-version-file: ".nvmrc"
 
@@ -43,7 +43,7 @@ jobs:
         run: corepack enable
 
       - name: Install Packages
-        run: pnpm ci --ignore-scripts
+        run: npm ci --ignore-scripts
 
       - name: Setup Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
@@ -56,21 +56,11 @@ jobs:
           releases-only: true
       - run: echo "Fastify is at version ${{ steps.latest-fastify.outputs.tag }}"
 
-      - name: Cache Fastify documentation
-        id: release-cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: |
-            scripts/releases
-            scripts/releases.tag
-          key: ${{ steps.latest-fastify.outputs.tag }}-release-cache
-
       - name: Build website
-        run: pnpm build:website
+        run: npm run build
         timeout-minutes: 30
         env:
           GH_TOKEN: ${{ github.token }}
-          SKIP_DOWNLOADS: ${{ steps.release-cache.outputs.cache-hit }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0

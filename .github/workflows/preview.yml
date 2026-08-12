@@ -29,7 +29,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          cache: pnpm
+          cache: npm
           check-latest: true
           node-version-file: ".nvmrc"
 
@@ -37,10 +37,10 @@ jobs:
         run: corepack enable
 
       - name: Install Packages
-        run: pnpm ci --ignore-scripts
+        run: npm ci --ignore-scripts
 
       - name: Run Linting
-        run: pnpm lint
+        run: npm run int
 
       - name: Setup Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
@@ -64,7 +64,7 @@ jobs:
 
       # Here we need the token to download the `gh` archive
       - name: Build website
-        run: pnpm build:website
+        run: npm run build
         timeout-minutes: 30
         env:
           GH_TOKEN: ${{ github.token }}
