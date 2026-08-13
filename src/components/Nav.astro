@@ -39,7 +39,7 @@ const isActive = (href: string) => {
       <button
         type="button"
         data-search-open
-        class="hidden items-center gap-2 rounded-md border border-border bg-surface px-3 py-2 text-sm text-muted transition-colors hover:border-border-strong hover:text-fg sm:flex"
+        class="hidden items-center gap-2 rounded-md border border-border bg-surface px-3 py-2 text-sm text-muted transition-colors hover:border-border-strong hover:text-fg sm:flex cursor-pointer"
         aria-label="Search documentation"
       >
         <Icon name="search" size={16} />
@@ -50,7 +50,7 @@ const isActive = (href: string) => {
       <button
         type="button"
         data-search-open
-        class="rounded-md border border-border bg-surface p-2 text-muted transition-colors hover:text-fg sm:hidden"
+        class="rounded-md border border-border bg-surface p-2 text-muted transition-colors hover:text-fg sm:hidden cursor-pointer"
         aria-label="Search documentation"
       >
         <Icon name="search" size={18} />
@@ -78,7 +78,7 @@ const isActive = (href: string) => {
       <button
         type="button"
         data-theme-toggle
-        class="rounded-md border border-border bg-surface p-2 text-muted transition-colors hover:text-fg"
+        class="rounded-md border border-border bg-surface p-2 text-muted transition-colors hover:text-fg cursor-pointer"
         aria-label="Toggle color theme"
       >
         <Icon name="sun" size={18} class="hidden dark:block" />
