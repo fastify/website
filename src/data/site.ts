@@ -204,6 +204,12 @@ export const SPONSORS: Sponsor[] = [
 		image: "n-ix.svg",
 		tier: "tier_3",
 	},
+	{
+		name: "TestMu AI",
+		url: "https://www.testmuai.com/?utm_medium=sponsor&utm_source=fastify",
+		image: "testmuai.svg",
+		tier: "tier_3",
+	},
 ];
 
 export const LEADS: ProfileCardPerson[] = [
