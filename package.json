@@ -9,10 +9,8 @@
 		"build:website": "npm run build:data && astro build",
 		"preview": "astro preview",
 		"astro": "astro",
-		"lint": "biome lint",
-		"lint:fix": "biome lint --write",
-		"format": "biome check",
-		"format:fix": "biome check --write",
+		"lint": "biome check",
+		"lint:fix": "biome check --write",
 		"check": "astro check",
 		"build:data": "node scripts/postinstall.mjs"
 	},
