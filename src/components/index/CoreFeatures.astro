@@ -1,0 +1,33 @@
+---
+import Icon from "~/components/Icon.astro";
+import { FEATURES } from "~/data/site";
+---
+
+<section class="mx-auto max-w-7xl px-4 pb-8 sm:px-6 2xl:max-w-[100rem]">
+  <div class="mb-10 flex items-end justify-between gap-4">
+    <div>
+      <p class="eyebrow">// core features</p>
+      <h2
+        class="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl"
+      >
+        Core strengths
+      </h2>
+    </div>
+  </div>
+  <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {
+      FEATURES.map((f) => (
+        <article class="card group relative flex flex-col p-6 transition-colors hover:border-border-strong">
+          <div class="flex items-center justify-between">
+            <span class="grid size-11 place-items-center rounded-lg border border-border bg-surface-2 text-amber-ink transition-colors group-hover:border-amber">
+              <Icon name={f.icon} size={20} />
+            </span>
+            <span class="font-mono text-xs text-muted">{f.metric}</span>
+          </div>
+          <h3 class="mt-5 font-display text-xl font-semibold">{f.title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-fg-soft">{f.body}</p>
+        </article>
+      ))
+    }
+  </div>
+</section>

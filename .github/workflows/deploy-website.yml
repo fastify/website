@@ -5,10 +5,10 @@ on:
     branches:
       - main
       - next
-      - 'v*'
+      - "v*"
     paths-ignore:
-      - '.github/**'
-      - '.vscode/**'
+      - ".github/**"
+      - ".vscode/**"
   # workflow_dispatch means to manual deploy production
   workflow_dispatch:
   # workflow_call means to deploy production from external workflow
@@ -25,7 +25,7 @@ jobs:
     permissions:
       contents: read
     env:
-      BASE_URL: '/'
+      BASE_URL: "/"
     steps:
       - name: Checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
@@ -37,7 +37,7 @@ jobs:
         with:
           cache: npm
           check-latest: true
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
 
       - name: Install Packages
         run: npm ci --ignore-scripts
@@ -45,34 +45,16 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
 
-      - name: Get latest Fastify tag
-        id: latest-fastify
-        uses: oprypin/find-latest-tag@6957ac556fa6d349727ecabfcaaf9f8e5ee37124 # v1.1.3
-        with:
-          repository: fastify/fastify
-          releases-only: true
-      - run: echo "Fastify is at version ${{ steps.latest-fastify.outputs.tag }}"
-
-      - name: Cache Fastify documentation
-        id: release-cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: |
-            scripts/releases
-            scripts/releases.tag
-          key: ${{ steps.latest-fastify.outputs.tag }}-release-cache
-
       - name: Build website
         run: npm run build:website
         timeout-minutes: 30
         env:
           GH_TOKEN: ${{ github.token }}
-          SKIP_DOWNLOADS: ${{ steps.release-cache.outputs.cache-hit }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
-          path: './build'
+          path: "./build"
 
   deploy-to-production:
     needs:
@@ -81,7 +63,7 @@ jobs:
       group: ${{ github.ref_name }}-production
       cancel-in-progress: true
     env:
-      BASE_URL: ''
+      BASE_URL: ""
     permissions:
       pages: write
       id-token: write

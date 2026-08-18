@@ -1,0 +1,352 @@
+---
+import { getCollection } from "astro:content";
+import type { MarkdownHeading } from "astro";
+import DocsNav from "~/components/DocsNav.astro";
+import Icon from "~/components/Icon.astro";
+import TableOfContents from "~/components/TableOfContents.astro";
+import VersionBanner from "~/components/VersionBanner.astro";
+import VersionSelect from "~/components/VersionSelect.astro";
+import { SITE } from "~/data/site";
+import { afterVersion, withBase } from "~/lib/href";
+
+interface Props {
+	current: string;
+	version: string;
+	headings?: MarkdownHeading[];
+	minutesRead?: string;
+}
+const { current, version, headings = [], minutesRead = "1 min read" } = Astro.props;
+
+// Table of contents: keep the top two heading levels (h2/h3) for a compact,
+// readable outline of the current page.
+const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+const hasToc = toc.length > 0;
+
+const SECTION_ORDER: Record<string, number> = {
+	Overview: 0,
+	Guides: 1,
+	Reference: 2,
+};
+
+const routeFor = (id: string) => {
+	const slug = id.replace(/\/(index|Index)$/, "");
+	return withBase(`/docs/${slug}/`);
+};
+
+const all = await getCollection("docs");
+const versionDocs = all
+	.filter((d) => d.id.split("/")[0] === version)
+	.sort((a, b) => {
+		const sa = SECTION_ORDER[a.data.section] ?? 9;
+		const sb = SECTION_ORDER[b.data.section] ?? 9;
+		if (sa !== sb) return sa - sb;
+		if (a.data.order !== b.data.order) return a.data.order - b.data.order;
+		return a.data.title.localeCompare(b.data.title);
+	});
+
+const sectionNames = [...new Set(versionDocs.map((d) => d.data.section))].sort(
+	(a, b) => (SECTION_ORDER[a] ?? 9) - (SECTION_ORDER[b] ?? 9),
+);
+const sections = sectionNames.map((name) => ({
+	name,
+	items: versionDocs.filter((d) => d.data.section === name),
+}));
+
+const idx = versionDocs.findIndex((d) => d.id === current);
+const prev = idx > 0 ? versionDocs[idx - 1] : null;
+const next =
+	idx >= 0 && idx < versionDocs.length - 1 ? versionDocs[idx + 1] : null;
+
+const breadcrumb = current
+	.split("/")
+	.slice(1)
+	.filter((s) => !/^index$/i.test(s));
+
+const editPath = `${afterVersion(current) || "index"}.md`;
+const sourceEditUrl = `${SITE.repo}/edit/main/docs/${editPath}`;
+const markdownSlug = current.replace(/\/(index|Index)$/, "");
+const markdownUrl = withBase(`/docs/${markdownSlug}.md`);
+---
+
+<div class="mx-auto max-w-7xl px-4 sm:px-6 2xl:max-w-[100rem]">
+  <div
+    class:list={[
+      "lg:grid lg:gap-10",
+      hasToc
+        ? "lg:grid-cols-[16rem_1fr] xl:grid-cols-[16rem_minmax(0,1fr)_15rem]"
+        : "lg:grid-cols-[16rem_1fr]",
+    ]}
+  >
+    <!-- Sidebar -->
+    <aside class="hidden lg:block">
+      <div
+        class="sticky top-16 max-h-[calc(100vh-4rem)] overflow-y-auto py-8 pr-4"
+      >
+        <div class="mb-3 block">
+          <span
+            class="mb-1.5 block font-mono text-[0.62rem] uppercase tracking-[0.16em] text-muted"
+            >version</span
+          >
+          <VersionSelect version={version} />
+        </div>
+
+        <button
+          type="button"
+          data-search-open
+          class="mb-5 flex w-full items-center gap-2 rounded-md border border-border bg-surface px-3 py-2 text-sm text-muted transition-colors hover:text-fg"
+        >
+          <Icon name="search" size={16} /> Search
+          <kbd
+            class="ml-auto rounded border border-border px-1.5 font-mono text-[0.65rem]"
+            >⌘K</kbd
+          >
+        </button>
+
+        <nav aria-label="Documentation">
+          <DocsNav sections={sections} current={current} />
+        </nav>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <div class="mx-auto min-w-0 w-full py-10 2xl:max-w-4xl">
+      <!-- Mobile docs navigation -->
+      <div class="mb-8 lg:hidden">
+        <div class="flex items-center gap-2">
+          <div class="flex-1">
+            <span class="sr-only">Select documentation version</span>
+            <VersionSelect version={version} />
+          </div>
+
+          <button
+            type="button"
+            data-search-open
+            class="flex shrink-0 items-center gap-2 rounded-md border border-border bg-surface px-3 py-2 text-sm text-muted transition-colors hover:text-fg"
+          >
+            <Icon name="search" size={16} /> Search
+          </button>
+        </div>
+
+        <details class="group mt-3 rounded-md border border-border bg-surface">
+          <summary
+            class="flex cursor-pointer list-none items-center justify-between px-3 py-2.5 text-sm font-medium text-fg"
+          >
+            <span>Navigation</span>
+            <Icon
+              name="arrow"
+              size={14}
+              class="rotate-90 transition-transform group-open:-rotate-90"
+            />
+          </summary>
+          <nav
+            aria-label="Documentation"
+            class="max-h-[60vh] overflow-y-auto border-t border-border px-3 py-3"
+          >
+            <DocsNav
+              sections={sections}
+              current={current}
+              groupClass="mb-4 last:mb-0"
+            />
+          </nav>
+        </details>
+      </div>
+
+      {
+        hasToc && (
+          <details class="group mb-8 rounded-md border border-border bg-surface xl:hidden">
+            <summary class="flex cursor-pointer list-none items-center justify-between px-3 py-2.5 text-sm font-medium text-fg">
+              <span>On this page</span>
+              <Icon
+                name="arrow"
+                size={14}
+                class="rotate-90 transition-transform group-open:-rotate-90"
+              />
+            </summary>
+            <nav
+              aria-label="Table of contents"
+              class="max-h-[60vh] overflow-y-auto border-t border-border px-3 py-3"
+            >
+              <TableOfContents toc={toc} />
+            </nav>
+          </details>
+        )
+      }
+
+      <VersionBanner version={version} current={current} />
+
+      <nav
+        class="mb-6 flex flex-wrap items-center gap-2 font-mono text-xs text-muted"
+        aria-label="Breadcrumb"
+      >
+        <a href={withBase("/docs/latest/")} class="hover:text-fg">docs</a>
+        <span class="rounded border border-border px-1.5 py-0.5 text-amber-ink"
+          >{version}</span
+        >
+        {
+          breadcrumb.map((seg) => (
+            <>
+              <span>/</span>
+              <span class="text-fg-soft">{seg}</span>
+            </>
+          ))
+        }
+      </nav>
+
+      <article
+        class="prose-fastify"
+        data-pagefind-body
+        data-pagefind-filter="version[data-version]"
+        data-version={version}
+      >
+        <slot />
+      </article>
+
+      <nav
+        class="mt-14 grid gap-3 border-t border-border pt-8 sm:grid-cols-2"
+        aria-label="Pagination"
+      >
+        {
+          prev ? (
+            <a
+              href={routeFor(prev.id)}
+              class="card group p-4 transition-colors hover:border-border-strong"
+            >
+              <span class="font-mono text-xs text-muted">← Previous</span>
+              <div class="mt-1 font-medium text-fg group-hover:text-amber-ink">
+                {prev.data.title}
+              </div>
+            </a>
+          ) : (
+            <span />
+          )
+        }
+        {
+          next && (
+            <a
+              href={routeFor(next.id)}
+              class="card group p-4 text-right transition-colors hover:border-border-strong sm:col-start-2"
+            >
+              <span class="font-mono text-xs text-muted">Next →</span>
+              <div class="mt-1 font-medium text-fg group-hover:text-amber-ink">
+                {next.data.title}
+              </div>
+            </a>
+          )
+        }
+      </nav>
+
+      <dl
+        class="mt-8 grid gap-4 border-t border-border pt-6 font-mono text-xs sm:grid-cols-3"
+      >
+        <div class="flex flex-col gap-1.5 text-muted">
+          <dt class="uppercase tracking-[0.16em] text-[0.65rem]">Reading time</dt>
+          <dd class="flex items-center gap-1.5 text-fg">
+            <Icon name="clock" size={14} class="text-amber-ink" />
+            <span>{minutesRead}</span>
+          </dd>
+        </div>
+        <div class="flex flex-col gap-1.5 text-muted">
+          <dt class="uppercase tracking-[0.16em] text-[0.65rem]">View as</dt>
+          <dd>
+            <a
+              href={markdownUrl}
+              class="inline-flex items-center gap-1.5 text-fg hover:text-amber-ink"
+            >
+              <Icon name="markdown" size={14} />
+              <span>Markdown</span>
+            </a>
+          </dd>
+        </div>
+        <div class="flex flex-col gap-1.5 text-muted">
+          <dt class="uppercase tracking-[0.16em] text-[0.65rem]">Contribute</dt>
+          <dd>
+            <a
+              href={sourceEditUrl}
+              class="inline-flex items-center gap-1.5 text-fg hover:text-amber-ink"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Icon name="github" size={14} />
+              <span>Edit this page</span>
+              <Icon name="external" size={12} class="opacity-60" />
+            </a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <!-- Table of contents (desktop) -->
+    {
+      hasToc && (
+        <aside class="hidden xl:block">
+          <div class="sticky top-16 max-h-[calc(100vh-4rem)] overflow-y-auto py-10 pl-4">
+            <p class="mb-2 font-mono text-[0.65rem] uppercase tracking-[0.16em] text-muted">
+              On this page
+            </p>
+            <nav aria-label="Table of contents">
+              <TableOfContents toc={toc} />
+            </nav>
+          </div>
+        </aside>
+      )
+    }
+  </div>
+</div>
+
+<script>
+  import { afterVersion, withBase } from "~/lib/href";
+
+  document
+    .querySelectorAll<HTMLSelectElement>("[data-version-switch]")
+    .forEach((sel) => {
+      sel.addEventListener("change", () => {
+        window.location.href = withBase(`/docs/${sel.value}/`);
+      });
+    });
+
+  // Scrollspy: highlight the table-of-contents link for the section in view.
+  const tocLinks = Array.from(
+    document.querySelectorAll<HTMLAnchorElement>(
+      'nav[aria-label="Table of contents"] a[href^="#"]',
+    ),
+  );
+
+  if (tocLinks.length > 0) {
+    const activeClasses = ["border-amber", "font-medium", "text-amber-ink"];
+    const linkFor = new Map<string, HTMLAnchorElement[]>();
+    for (const link of tocLinks) {
+      const id = decodeURIComponent(link.hash.slice(1));
+      const list = linkFor.get(id) ?? [];
+      list.push(link);
+      linkFor.set(id, list);
+    }
+
+    const setActive = (id: string) => {
+      for (const link of tocLinks) {
+        link.classList.remove(...activeClasses);
+        link.classList.add("border-transparent", "text-fg-soft");
+      }
+      for (const link of linkFor.get(id) ?? []) {
+        link.classList.remove("border-transparent", "text-fg-soft");
+        link.classList.add(...activeClasses);
+      }
+    };
+
+    const headings = tocLinks
+      .map((link) => document.getElementById(decodeURIComponent(link.hash.slice(1))))
+      .filter((el): el is HTMLElement => el !== null);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActive(entry.target.id);
+          }
+        }
+      },
+      { rootMargin: "0px 0px -70% 0px", threshold: 0 },
+    );
+
+    for (const heading of headings) observer.observe(heading);
+  }
+</script>

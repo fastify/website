@@ -1,0 +1,165 @@
+/* ============================================================
+   Documentation prose
+   ============================================================ */
+.prose-fastify {
+	color: var(--fg-soft);
+	font-size: 1rem;
+	line-height: 1.75;
+	max-width: none;
+}
+.prose-fastify > :first-child {
+	margin-top: 0;
+}
+.prose-fastify h1 {
+	font-family: var(--font-display);
+	font-size: 2.25rem;
+	font-weight: 600;
+	letter-spacing: -0.02em;
+	color: var(--fg);
+	margin: 0 0 1rem;
+	scroll-margin-top: 6rem;
+}
+.prose-fastify h2 {
+	font-family: var(--font-display);
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: var(--fg);
+	margin: 2.5rem 0 1rem;
+	padding-top: 1rem;
+	border-top: 1px solid var(--border);
+	scroll-margin-top: 6rem;
+}
+.prose-fastify h3 {
+	font-family: var(--font-display);
+	font-size: 1.2rem;
+	font-weight: 600;
+	color: var(--fg);
+	margin: 2rem 0 0.75rem;
+	scroll-margin-top: 6rem;
+}
+.prose-fastify p {
+	margin: 1rem 0;
+}
+.prose-fastify a {
+	color: var(--amber-ink);
+	text-decoration: underline;
+	text-decoration-color: var(--border-strong);
+	text-underline-offset: 3px;
+}
+.prose-fastify a:hover {
+	text-decoration-color: var(--amber);
+}
+.prose-fastify strong {
+	color: var(--fg);
+	font-weight: 600;
+}
+.prose-fastify ul,
+.prose-fastify ol {
+	margin: 1rem 0;
+	padding-left: 1.4rem;
+}
+.prose-fastify li {
+	margin: 0.4rem 0;
+}
+.prose-fastify ul li {
+	list-style: none;
+	position: relative;
+}
+.prose-fastify ul li::before {
+	content: "";
+	position: absolute;
+	left: -1.1rem;
+	top: 0.7rem;
+	width: 6px;
+	height: 6px;
+	border-radius: 1px;
+	background: var(--amber);
+	transform: rotate(45deg);
+}
+.prose-fastify code {
+	font-family: var(--font-mono);
+	font-size: 0.85em;
+	background: var(--surface-2);
+	color: var(--amber-ink);
+	padding: 0.15em 0.4em;
+	border-radius: 4px;
+}
+.prose-fastify pre {
+	background: #0c0f13;
+	border: 1px solid var(--border);
+	border-radius: var(--radius-md);
+	padding: 1.1rem 1.25rem;
+	overflow-x: auto;
+	margin: 1.5rem 0;
+	font-size: 0.875rem;
+	line-height: 1.6;
+}
+.prose-fastify pre code {
+	background: transparent;
+	color: inherit;
+	padding: 0;
+	font-size: inherit;
+}
+.prose-fastify blockquote {
+	border-left: 3px solid var(--amber);
+	background: color-mix(in srgb, var(--surface) 50%, transparent);
+	margin: 1.5rem 0;
+	padding: 0.5rem 1.25rem;
+	color: var(--muted);
+	font-style: italic;
+}
+.prose-fastify table {
+	display: block;
+	width: 100%;
+	overflow-x: auto;
+	border-collapse: collapse;
+	margin: 1.5rem 0;
+	font-size: 0.9rem;
+}
+.prose-fastify th,
+.prose-fastify td {
+	border: 1px solid var(--border);
+	padding: 0.6rem 0.9rem;
+	text-align: left;
+}
+.prose-fastify table td a {
+	white-space: nowrap;
+}
+.prose-fastify th {
+	background: var(--surface-2);
+	color: var(--fg);
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+.prose-fastify hr {
+	border: none;
+	border-top: 1px solid var(--border);
+	margin: 2.5rem 0;
+}
+
+/* Shiki dual-theme switching. Shiki is configured with defaultColor="dark",
+   so it emits the dark theme colors as inline styles and exposes the light
+   theme alternatives as --shiki-light / --shiki-light-bg CSS variables. We
+   only need to override when [data-theme="light"] is set on the document.
+   `!important` is required to beat Shiki's inline color/background styles. */
+[data-theme="light"] .astro-code,
+[data-theme="light"] .astro-code span {
+	/* biome-ignore lint/complexity/noImportantStyles: override Shiki inline styles */
+	color: var(--shiki-light) !important;
+	/* biome-ignore lint/complexity/noImportantStyles: override Shiki inline styles */
+	background-color: var(--shiki-light-bg) !important;
+}
+
+/* Code tabs: keep Shiki's <pre> transparent so the card surface shows through
+   in dark mode, then re-apply the light theme background when light mode is
+   active. */
+[data-codetabs] .astro-code {
+	/* biome-ignore lint/complexity/noImportantStyles: override Shiki inline styles */
+	background: transparent !important;
+}
+[data-theme="light"] [data-codetabs] .astro-code {
+	/* biome-ignore lint/complexity/noImportantStyles: override Shiki inline styles */
+	background: var(--shiki-light-bg) !important;
+}

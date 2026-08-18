@@ -1,0 +1,103 @@
+---
+import "@fontsource-variable/inter";
+import "@fontsource-variable/space-grotesk";
+import "@fontsource-variable/jetbrains-mono";
+import "~/styles/global.css";
+import Footer from "~/components/Footer.astro";
+import Nav from "~/components/Nav.astro";
+import Search from "~/components/Search.astro";
+import { SITE } from "~/data/site";
+import { withBase } from "~/lib/href";
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+const {
+	title = `${SITE.name} — ${SITE.tagline}`,
+	description = SITE.description,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.url).href;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta name="theme-color" content="#0a0b0d" />
+    <script is:inline>
+      (() => {
+        try {
+          const t = localStorage.getItem('theme');
+          if (t === 'light') document.documentElement.setAttribute('data-theme', 'light');
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen bg-bg text-fg antialiased">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-100 focus:rounded-md focus:bg-amber focus:px-4 focus:py-2 focus:text-[#0a0b0d]">
+      Skip to content
+    </a>
+    <Nav />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <Search />
+
+    <script>
+      import { formatSiUnit } from 'format-si-unit';
+      import { getRepoStars } from '~/services/github';
+      import { getMonthlyDownloads } from '~/services/npm';
+
+      const applyTheme = (theme: string) => {
+        if (theme === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+        }
+        try { localStorage.setItem('theme', theme); } catch (e) {}
+      };
+      document.querySelectorAll('[data-theme-toggle]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+          applyTheme(isLight ? 'dark' : 'light');
+        });
+      });
+
+      const menu = document.querySelector('[data-mobile-menu]');
+      const openMenu = () => menu?.classList.remove('hidden');
+      const closeMenu = () => menu?.classList.add('hidden');
+      document.querySelector('[data-menu-open]')?.addEventListener('click', openMenu);
+      document.querySelector('[data-menu-close]')?.addEventListener('click', closeMenu);
+      menu?.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', closeMenu);
+      });
+
+      (async () => {
+        const els = document.querySelectorAll('[data-github-stars]');
+        if (!els.length) return;
+        try {
+          const count = await getRepoStars('fastify', 'fastify');
+          els.forEach((el) => { el.textContent = formatSiUnit(count); });
+        } catch (e) {}
+      })();
+
+      (async () => {
+        const els = document.querySelectorAll('[data-npm-downloads]');
+        if (!els.length) return;
+        try {
+          const count = await getMonthlyDownloads('fastify');
+          els.forEach((el) => { el.textContent = formatSiUnit(count); });
+        } catch (e) {}
+      })();
+    </script>
+  </body>
+</html>

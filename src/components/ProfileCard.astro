@@ -1,0 +1,117 @@
+---
+import Icon from "~/components/Icon.astro";
+import { githubAvatarUrl } from "~/lib/avatar";
+
+export type ProfileCardPerson = {
+	name?: string;
+	login: string;
+	rank?: number;
+};
+
+interface Props {
+	person: ProfileCardPerson;
+	variant?: "card" | "chip" | "roster";
+	priority?: boolean;
+}
+
+const { person, variant = "card", priority = false } = Astro.props;
+
+const config = {
+	card: { avatar: 120, img: 72 },
+	chip: { avatar: 80, img: 40 },
+	roster: { avatar: 56, img: 56 },
+} as const;
+const { avatar, img: imageSize } = config[variant];
+
+const avatar1x = githubAvatarUrl(person);
+const avatar2x = variant === "roster" ? githubAvatarUrl(person, avatar * 2) : avatar1x;
+const rankLabel = person.rank ? String(person.rank).padStart(2, "0") : "";
+const profileUrl = `https://github.com/${person.login}`;
+---
+
+{
+	variant === "card" && (
+		<a
+			href={profileUrl}
+			target="_blank"
+			rel="noopener noreferrer"
+			class="card group flex flex-col items-center gap-3 p-6 transition-colors hover:border-border-strong"
+		>
+			<img
+				src={avatar1x}
+				alt={person.name}
+				width={imageSize}
+				height={imageSize}
+				loading="lazy"
+				class="size-18 rounded-full border-2 border-border grayscale transition-all group-hover:border-amber group-hover:grayscale-0"
+			/>
+			<span class="text-center text-sm font-medium text-fg-soft group-hover:text-fg">
+				{person.name}
+			</span>
+			<span class="font-mono text-xs text-muted">@{person.login}</span>
+		</a>
+	)
+}
+
+{
+	variant === "chip" && (
+		<a
+			href={profileUrl}
+			target="_blank"
+			rel="noopener noreferrer"
+			class="group flex items-center gap-3 rounded-lg border border-border bg-surface/40 p-3 transition-colors hover:border-border-strong"
+		>
+			<img
+				src={avatar1x}
+				alt={person.name}
+				width={imageSize}
+				height={imageSize}
+				loading="lazy"
+				class="size-10 rounded-full grayscale transition-all group-hover:grayscale-0"
+			/>
+			<span class="min-w-0 truncate text-sm text-fg-soft group-hover:text-fg">
+				{person.name}
+			</span>
+		</a>
+	)
+}
+
+{
+	variant === "roster" && (
+		<a
+			href={profileUrl}
+			target="_blank"
+			rel="noopener noreferrer"
+			class="group relative flex h-full min-h-24 min-w-0 items-center gap-4 bg-surface px-4 py-5 transition-colors hover:bg-telemetry focus-visible:z-10 sm:px-5"
+			aria-label={`Rank ${person.rank}: @${person.login} on GitHub`}
+		>
+			{person.rank && (
+				<span
+					class="w-7 shrink-0 font-mono text-xs tracking-[0.12em] text-amber-ink"
+					aria-hidden="true"
+				>
+					{rankLabel}
+				</span>
+			)}
+			<img
+				src={avatar1x}
+				srcset={`${avatar1x} 1x, ${avatar2x} 2x`}
+				alt=""
+				width={imageSize}
+				height={imageSize}
+				loading={priority ? "eager" : "lazy"}
+				fetchpriority={priority ? "high" : "auto"}
+				class="size-14 shrink-0 rounded-full border border-border grayscale transition-[filter,border-color] group-hover:border-amber group-hover:grayscale-0"
+			/>
+			<span class="min-w-0 flex-1 truncate font-display text-base font-semibold text-fg-soft transition-colors group-hover:text-fg">
+				@{person.login}
+			</span>
+			<span
+				class="shrink-0 text-muted opacity-0 transition-[color,opacity] group-hover:text-amber-ink group-hover:opacity-100 group-focus-visible:text-amber-ink group-focus-visible:opacity-100"
+				aria-hidden="true"
+			>
+				<Icon name="external" size={15} />
+			</span>
+		</a>
+	)
+}

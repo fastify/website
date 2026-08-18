@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@import "./tokens.css";
+@import "./base.css";
+@import "./utilities.css";
+@import "./prose.css";
+
+/* Dark is the default identity; light is opt-in via [data-theme="light"]. */
+@custom-variant dark (&:where(:root:not([data-theme="light"]) *));

@@ -1,0 +1,30 @@
+---
+import Icon from "~/components/Icon.astro";
+import versionsData from "~/data/versions.json";
+
+interface Props {
+	version: string;
+}
+const { version } = Astro.props;
+---
+
+<div class="relative">
+  <select
+    data-version-switch
+    class="w-full appearance-none rounded-md border border-border bg-surface-2 px-3 py-2 pr-8 text-sm font-medium text-fg focus:border-amber focus:outline-none"
+    aria-label="Select documentation version"
+  >
+    {
+      versionsData.versions.map((v) => (
+        <option value={v.name} selected={v.name === version}>
+          {v.label}
+        </option>
+      ))
+    }
+  </select>
+  <span
+    class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-muted"
+  >
+    <Icon name="arrow" size={14} class="rotate-90" />
+  </span>
+</div>

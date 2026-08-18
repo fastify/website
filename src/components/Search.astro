@@ -1,0 +1,180 @@
+---
+// Version-scoped documentation search powered by the Pagefind JS API.
+// The Pagefind index is generated at build time (`npm run build:website`).
+// On a docs page the search is filtered to that page's version; elsewhere it
+// defaults to `latest`.
+---
+<dialog
+  data-search-dialog
+  class="m-0 hidden md:w-full md:max-w-2xl rounded-xl border border-border-strong bg-surface p-0 text-fg backdrop:bg-black/60 backdrop:backdrop-blur-sm open:block"
+  style="top: 10vh; margin-inline: auto;"
+  aria-label="Search documentation"
+>
+  <div class="flex items-center gap-3 border-b border-border px-4 py-3">
+    <span class="text-muted">
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14ZM20 20l-4-4"/></svg>
+    </span>
+    <input
+      type="search"
+      data-search-input
+      placeholder="Search the documentation…"
+      class="min-w-0 flex-1 bg-transparent text-fg placeholder:text-muted focus:outline-none"
+      autocomplete="off"
+      spellcheck="false"
+      aria-label="Search query"
+    />
+    <span data-search-scope class="hidden shrink-0 rounded-md border border-border bg-surface-2 px-2 py-0.5 font-mono text-[0.65rem] text-amber-ink"></span>
+    <button type="button" data-search-close class="shrink-0 rounded-md border border-border px-2 py-1 font-mono text-xs text-muted hover:text-fg">Esc</button>
+  </div>
+
+  <div class="max-h-[60vh] overflow-y-auto p-2" data-search-scroll>
+    <p data-search-hint class="px-3 py-8 text-center text-sm text-muted">
+      Start typing to search the docs.
+    </p>
+    <p data-search-empty class="hidden px-3 py-8 text-center text-sm text-muted"></p>
+    <p data-search-fallback class="hidden px-3 py-8 text-center text-sm text-muted">
+      Search is available after a production build. Run <code class="font-mono text-amber-ink">npm run build:website</code>.
+    </p>
+    <ul data-search-results class="space-y-1"></ul>
+  </div>
+</dialog>
+
+<script>
+import DOMPurify from "isomorphic-dompurify";
+import { withBase } from "~/lib/href";
+
+  type PagefindSub = { title: string; url: string; excerpt: string };
+  type PagefindData = {
+    url: string;
+    meta?: { title?: string };
+    excerpt: string;
+    sub_results?: PagefindSub[];
+  };
+
+  const dialog = document.querySelector<HTMLDialogElement>('[data-search-dialog]');
+  const input = document.querySelector<HTMLInputElement>('[data-search-input]');
+  const results = document.querySelector<HTMLUListElement>('[data-search-results]');
+  const hint = document.querySelector<HTMLElement>('[data-search-hint]');
+  const empty = document.querySelector<HTMLElement>('[data-search-empty]');
+  const fallback = document.querySelector<HTMLElement>('[data-search-fallback]');
+  const scopeBadge = document.querySelector<HTMLElement>('[data-search-scope]');
+  const scroll = document.querySelector<HTMLElement>('[data-search-scroll]');
+
+  // The version to scope to: the current docs page's version, else `latest`.
+  const currentVersion =
+    document.querySelector<HTMLElement>('[data-pagefind-body][data-version]')?.dataset.version || 'latest';
+
+  if (scopeBadge) {
+    scopeBadge.textContent = currentVersion;
+    scopeBadge.classList.remove('hidden');
+  }
+
+  let pagefind: any = null;
+  let loadFailed = false;
+
+  async function ensurePagefind() {
+    if (pagefind || loadFailed) return pagefind;
+    try {
+      pagefind = await import(/* @vite-ignore */ `${import.meta.env.BASE_URL}/pagefind/pagefind.js`);
+      await pagefind.init?.();
+    } catch (e) {
+      loadFailed = true;
+      hint?.classList.add('hidden');
+      fallback?.classList.remove('hidden');
+    }
+    return pagefind;
+  }
+
+  function render(items: PagefindData[]) {
+    if (!results) return;
+    results.innerHTML = '';
+    for (const item of items) {
+      const li = document.createElement('li');
+      const title = item.meta?.title || item.url;
+      const subs = (item.sub_results || []).slice(0, 4);
+      li.innerHTML = `
+        <a href="${item.url}" class="block rounded-lg border border-transparent px-3 py-2.5 transition-colors hover:border-border-strong hover:bg-surface-2">
+          <span class="block text-sm font-medium text-fg">${DOMPurify.sanitize(title)}</span>
+          <span class="mt-0.5 block text-xs leading-relaxed text-muted">${item.excerpt}</span>
+        </a>
+        ${
+          subs.length
+            ? `<ul class="ml-3 mt-0.5 space-y-0.5 border-l border-border pl-2">${subs
+                .map(
+                  (s) => `<li><a href="${s.url}" class="block rounded px-2 py-1 text-xs text-fg-soft transition-colors hover:bg-surface-2 hover:text-amber-ink">${DOMPurify.sanitize(
+                    s.title,
+                  )}</a></li>`,
+                )
+                .join('')}</ul>`
+            : ''
+        }`;
+      results.appendChild(li);
+    }
+  }
+
+  async function runSearch(term: string) {
+    const pf = await ensurePagefind();
+    if (!pf) return;
+    hint?.classList.add('hidden');
+
+    if (!term.trim()) {
+      if (results) results.innerHTML = '';
+      empty?.classList.add('hidden');
+      hint?.classList.remove('hidden');
+      return;
+    }
+
+    const search = await pf.debouncedSearch(term, { filters: { version: [currentVersion] } }, 220);
+    if (search === null) return; // superseded by a newer query
+    if (scroll) scroll.scrollTop = 0;
+
+    if (!search.results.length) {
+      if (results) results.innerHTML = '';
+      if (empty) {
+        empty.textContent = `No results for “${term}” in ${currentVersion}.`;
+        empty.classList.remove('hidden');
+      }
+      return;
+    }
+    empty?.classList.add('hidden');
+    const data: PagefindData[] = await Promise.all(
+      search.results.slice(0, 8).map((r: any) => r.data()),
+    );
+    render(data);
+  }
+
+  function open() {
+    ensurePagefind();
+    dialog?.showModal();
+    setTimeout(() => input?.focus(), 40);
+  }
+  function close() {
+    dialog?.close();
+  }
+
+  document.querySelectorAll('[data-search-open]').forEach((b) => {
+    b.addEventListener('click', open);
+  });
+  document.querySelector('[data-search-close]')?.addEventListener('click', close);
+  input?.addEventListener('input', () => runSearch(input.value));
+  dialog?.addEventListener('click', (e) => {
+    if (e.target === dialog) close();
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      if (dialog?.open) close();
+      else open();
+    }
+  });
+</script>
+
+<style>
+  [data-search-results] mark {
+    background: color-mix(in srgb, var(--amber) 30%, transparent);
+    color: var(--fg);
+    border-radius: 2px;
+    padding: 0 1px;
+  }
+</style>

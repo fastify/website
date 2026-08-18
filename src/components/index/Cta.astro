@@ -1,0 +1,37 @@
+---
+import ButtonLink from "~/components/ButtonLink.astro";
+import Icon from "~/components/Icon.astro";
+import { SITE } from "~/data/site";
+import { withBase } from "~/lib/href";
+---
+
+<section class="mx-auto max-w-7xl px-4 pb-24 sm:px-6 2xl:max-w-[100rem]">
+  <div
+    class="relative overflow-hidden rounded-2xl border border-border bg-telemetry px-6 py-16 text-center sm:px-12"
+  >
+    <div class="pointer-events-none absolute inset-x-0 top-0 h-64 glow-amber">
+    </div>
+    <div class="relative">
+      <h2
+        class="mx-auto max-w-2xl font-display text-3xl font-semibold tracking-tight sm:text-5xl"
+      >
+        Ready to go <span class="text-velocity">fast</span>?
+      </h2>
+      <p class="mx-auto mt-4 max-w-xl text-lg text-fg-soft">
+        Ship a production-grade API today. Start with the guide, or dive into
+        the reference.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <ButtonLink
+          href={withBase("/docs/latest/Guides/Getting-Started/")}
+          size="lg"
+        >
+          Get started <Icon name="arrow" size={18} />
+        </ButtonLink>
+        <ButtonLink href={SITE.repo} variant="secondary" size="lg" external>
+          <Icon name="github" size={18} /> Star on GitHub
+        </ButtonLink>
+      </div>
+    </div>
+  </div>
+</section>

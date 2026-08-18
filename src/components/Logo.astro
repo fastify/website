@@ -1,0 +1,17 @@
+---
+import FastifyIcon from "~/assets/fastify-icon.svg";
+import { withBase } from "~/lib/href";
+
+interface Props {
+	class?: string;
+}
+const { class: className = "" } = Astro.props;
+---
+<a href={withBase('/')} class={`group inline-flex items-center gap-2.5 ${className}`} aria-label="Fastify home">
+  <span class="relative grid size-9 place-items-center overflow-hidden rounded-[10px] border border-border-strong bg-surface-2 text-fg transition-colors group-hover:border-amber">
+    <FastifyIcon />
+  </span>
+  <span class="font-display text-[1.15rem] font-semibold tracking-tight text-fg">
+    fastify
+  </span>
+</a>

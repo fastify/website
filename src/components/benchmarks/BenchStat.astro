@@ -1,0 +1,32 @@
+---
+import { formatMetric } from "~/data/site";
+
+type Props = {
+	value: number;
+	unit: string;
+	multiplier: string | null;
+	comparison: string;
+	decimals?: number;
+};
+
+const { value, unit, multiplier, comparison, decimals = 0 } = Astro.props;
+---
+
+<div class="mb-8 grid gap-4 sm:grid-cols-2">
+  <div>
+    <div class="font-display text-3xl font-semibold text-fg tabular-nums">
+      {formatMetric(value, decimals)}
+    </div>
+    <div class="mt-1 font-mono text-xs uppercase tracking-wider text-muted">
+      Fastify {unit}
+    </div>
+  </div>
+  <div>
+    <div class="font-display text-3xl font-semibold text-velocity tabular-nums">
+      {multiplier}×
+    </div>
+    <div class="mt-1 font-mono text-xs uppercase tracking-wider text-muted">
+      {comparison}
+    </div>
+  </div>
+</div>

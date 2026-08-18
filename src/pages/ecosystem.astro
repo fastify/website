@@ -1,0 +1,57 @@
+---
+import EcosystemCard from "~/components/EcosystemCard.astro";
+import Icon from "~/components/Icon.astro";
+import PageHeader from "~/components/PageHeader.astro";
+import pluginsData from "~/data/plugins.json";
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import { withBase } from "~/lib/href";
+
+const plugins = pluginsData.plugins;
+---
+<BaseLayout title="Ecosystem — Fastify plugins" description="Browse the Fastify plugin ecosystem: auth, databases, validation, utilities and more.">
+  <PageHeader eyebrow="// ecosystem" title="Ecosystem">
+    Fastify has an ever-growing ecosystem of {plugins.length} plugins. Core plugins are
+    maintained by the Fastify team; community plugins extend it even further.
+    Can't find what you need? <a href={withBase('/docs/latest/Reference/Plugins/')} class="text-amber-ink underline decoration-border-strong underline-offset-2">Writing one is easy.</a>
+  </PageHeader>
+
+  <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 2xl:max-w-[100rem]">
+    <div class="relative max-w-md">
+      <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted"><Icon name="search" size={18} /></span>
+      <input
+        type="search"
+        data-plugin-search
+        placeholder="Search plugins…"
+        class="w-full rounded-lg border border-border bg-surface py-2.5 pl-10 pr-4 text-sm text-fg placeholder:text-muted focus:border-amber focus:outline-none"
+        aria-label="Search plugins"
+      />
+    </div>
+
+    <div data-plugin-grid class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {plugins.map((plugin) => <EcosystemCard plugin={plugin} />)}
+    </div>
+    <p data-plugin-empty class="hidden py-16 text-center text-muted">No plugins match your search.</p>
+  </section>
+
+  <script>
+    const search = document.querySelector<HTMLInputElement>('[data-plugin-search]');
+    const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-plugin]'));
+    const empty = document.querySelector('[data-plugin-empty]');
+
+    function apply() {
+      const q = (search?.value || '').toLowerCase().trim();
+      let visible = 0;
+      cards.forEach((card) => {
+        const matchesQ =
+          !q ||
+          card.dataset.name?.includes(q) === true ||
+          card.dataset.desc?.includes(q) === true;
+        card.classList.toggle('hidden', !matchesQ);
+        if (matchesQ) visible++;
+      });
+      empty?.classList.toggle('hidden', visible > 0);
+    }
+
+    search?.addEventListener('input', apply);
+  </script>
+</BaseLayout>
