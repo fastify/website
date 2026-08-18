@@ -366,5 +366,5 @@ export async function fetchDocs() {
 	);
 	// Free disk: keep tarballs out of the repo.
 	if (!process.env.KEEP_CACHE)
-		await rm(CACHE, { recursive: true, force: true }).catch(() => { });
+		await rm(CACHE, { recursive: true, force: true }).catch(() => {});
 }
