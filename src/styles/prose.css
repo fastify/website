@@ -163,3 +163,47 @@
 	/* biome-ignore lint/complexity/noImportantStyles: override Shiki inline styles */
 	background: var(--shiki-light-bg) !important;
 }
+
+/* Keep the copy button visible while the inner <pre> scrolls horizontally. */
+.prose-fastify .docs-pre-wrap {
+	position: relative;
+	margin: 1.5rem 0;
+}
+.prose-fastify .docs-pre-wrap pre {
+	margin: 0;
+}
+.docs-copy-btn {
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
+	z-index: 10;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.375rem;
+	border-radius: 0.375rem;
+	color: #8b95a1;
+	background: rgba(12, 15, 19, 0.6);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	transition:
+		color 0.15s,
+		background 0.15s,
+		border-color 0.15s;
+	cursor: pointer;
+}
+.docs-copy-btn:hover {
+	color: #fff;
+	background: rgba(12, 15, 19, 0.85);
+	border-color: rgba(255, 255, 255, 0.15);
+}
+.docs-copy-btn:focus-visible {
+	outline: 2px solid var(--amber);
+	outline-offset: 2px;
+}
+.docs-copy-btn [data-copy-done] {
+	color: var(--amber);
+}
+.docs-pre-wrap[data-code-lines="single"] .docs-copy-btn {
+	top: 50%;
+	transform: translateY(-50%);
+}

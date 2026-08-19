@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import type { MarkdownHeading } from "astro";
+import CopyButton from "~/components/CopyButton.astro";
 import DocsNav from "~/components/DocsNav.astro";
 import Icon from "~/components/Icon.astro";
 import TableOfContents from "~/components/TableOfContents.astro";
@@ -293,6 +294,13 @@ const markdownUrl = withBase(`/docs/${markdownSlug}.md`);
   </div>
 </div>
 
+<template data-docs-copy-template>
+  <CopyButton
+    ariaLabel="Copy code to clipboard"
+    class="docs-copy-btn"
+  />
+</template>
+
 <script>
   import { afterVersion, withBase } from "~/lib/href";
 
@@ -348,5 +356,20 @@ const markdownUrl = withBase(`/docs/${markdownSlug}.md`);
     );
 
     for (const heading of headings) observer.observe(heading);
+  }
+
+  const copyTemplate = document.querySelector<HTMLTemplateElement>(
+    "[data-docs-copy-template]",
+  );
+  const copySource =
+    copyTemplate?.content.querySelector<HTMLButtonElement>("[data-copy-btn]");
+  if (copySource) {
+    document
+      .querySelectorAll<HTMLElement>("article.prose-fastify .docs-pre-wrap")
+      .forEach((wrapper) => {
+        if (wrapper.querySelector(":scope > [data-copy-btn]")) return;
+        const button = copySource.cloneNode(true);
+        if (button instanceof HTMLButtonElement) wrapper.appendChild(button);
+      });
   }
 </script>

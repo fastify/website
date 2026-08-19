@@ -7,7 +7,14 @@ import { defineConfig } from "astro/config";
 import astroInference from "astro-inference";
 import pagefind from "astro-pagefind";
 import baseConfig from "./astro.base.config.mjs";
+import { rehypeCodeCopy } from "./src/lib/rehype-code-copy.mjs";
 import { remarkReadingTime } from "./src/lib/remark-reading-time.mjs";
+
+const markdownProcessor = () =>
+	unified({
+		remarkPlugins: [remarkReadingTime],
+		rehypePlugins: [rehypeCodeCopy],
+	});
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,15 +22,11 @@ export default defineConfig({
 	base: baseConfig.base,
 	outDir: "./build",
 	markdown: {
-		processor: unified({
-			remarkPlugins: [remarkReadingTime],
-		}),
+		processor: markdownProcessor(),
 	},
 	integrations: [
 		mdx({
-			processor: unified({
-				remarkPlugins: [remarkReadingTime],
-			}),
+			processor: markdownProcessor(),
 		}),
 		sitemap(),
 		pagefind(),
