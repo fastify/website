@@ -79,8 +79,11 @@ const jsonLd = JSON.stringify({
 
     <script>
       import { formatSiUnit } from 'format-si-unit';
+      import { initCopyButtons } from '~/lib/copy';
       import { getRepoStars } from '~/services/github';
       import { getMonthlyDownloads } from '~/services/npm';
+
+      initCopyButtons();
 
       const applyTheme = (theme: string) => {
         if (theme === 'light') {

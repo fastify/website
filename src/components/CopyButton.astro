@@ -1,15 +1,13 @@
 ---
-// Copy-to-clipboard button. Two variants: icon-swap (copy↔check) and
-// label-swap (icon + "Copy" → "Copied"). The host wraps the button and
-// the copy source inside an element with `data-copy-root` so the auto
-// script below can resolve the text.
-import Icon from "~/components/Icon.astro";
+import CheckIcon from "~/assets/icons/check.svg";
+import CopyIcon from "~/assets/icons/copy.svg";
 
 interface Props {
 	text?: string;
 	textSelector?: string;
 	variant?: "icon-swap" | "label-swap";
 	copyLabel?: string;
+	copiedLabel?: string;
 	ariaLabel?: string;
 	class?: string;
 }
@@ -19,6 +17,7 @@ const {
 	textSelector,
 	variant = "icon-swap",
 	copyLabel = "Copy",
+	copiedLabel = "Copied",
 	ariaLabel = "Copy code",
 	class: className = "",
 } = Astro.props;
@@ -29,6 +28,8 @@ const {
 	data-copy-btn
 	data-copy-text={text}
 	data-copy-target={textSelector}
+	data-copy-label={copyLabel}
+	data-copied-label={copiedLabel}
 	aria-label={ariaLabel}
 	class:list={[
 		"inline-flex items-center gap-1.5 rounded-md transition-colors",
@@ -39,25 +40,17 @@ const {
 		variant === "icon-swap" ? (
 			<>
 				<span data-copy-idle>
-					<Icon name="copy" size={14} />
+					<CopyIcon width={14} height={14} aria-hidden="true" />
 				</span>
 				<span data-copy-done class="hidden text-amber">
-					<Icon name="check" size={14} />
+					<CheckIcon width={14} height={14} aria-hidden="true" />
 				</span>
 			</>
 		) : (
 			<>
-				<Icon name="copy" size={14} />
-				<span data-copy-label>{copyLabel}</span>
+				<CopyIcon width={14} height={14} aria-hidden="true" />
+				<span data-copy-label-text>{copyLabel}</span>
 			</>
 		)
 	}
 </button>
-
-<script>
-	import { COPY_BTN_SELECTOR, wireCopyButton } from "~/lib/copy";
-
-	document
-		.querySelectorAll<HTMLButtonElement>(COPY_BTN_SELECTOR)
-		.forEach(wireCopyButton);
-</script>
