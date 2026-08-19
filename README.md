@@ -22,13 +22,13 @@ requests-per-second velocity gauge in the hero.
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------ |
 | `npm install`     | Install dependencies                                                                                                     |
 | `npm run dev`     | Start the dev server at `localhost:4321`                                                                                 |
-| `npm run build`   | Build to `build/` and generate the Pagefind search index                                                                  |
+| `npm run build:website` | Build to `build/` and generate the Pagefind search index                                                        |
 | `npm run preview` | Preview the production build locally                                                                                     |
 | `npm run lint`    | Lint with [Biome](https://biomejs.dev)                                                                                   |
 | `npm run format`  | Format with Biome (`format` to verify)                                                                                   |
 | `npm run check`   | Type-check via [`astro check`](https://docs.astro.build/en/reference/cli-reference/#astro-check) (run by CI on every PR) |
 
-> Search only works against a production build (`npm run build`), because the
+> Search only works against a production build (`npm run build:website`), because the
 > Pagefind index is generated from the built HTML. In `dev` the search modal
 > shows a graceful fallback message.
 >
@@ -70,7 +70,7 @@ Docusaurus site:
 The documentation is **not** stored in this repository — it lives in the
 [`fastify/fastify`](https://github.com/fastify/fastify) repo and is fetched at
 build time by [`scripts/fetch-docs.mjs`](scripts/fetch-docs.mjs), which runs
-automatically via the `prebuild`/`predev` npm hooks.
+as part of `npm run build:website`.
 
 The script:
 
