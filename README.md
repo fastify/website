@@ -22,7 +22,7 @@ requests-per-second velocity gauge in the hero.
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------ |
 | `npm install`     | Install dependencies                                                                                                     |
 | `npm run dev`     | Start the dev server at `localhost:4321`                                                                                 |
-| `npm run build:website` | Build to `build/`, generate the Pagefind search index, and verify the search assets                               |
+| `npm run build:website` | Build to `build/` and generate the Pagefind search index                                                        |
 | `npm run preview` | Preview the production build locally                                                                                     |
 | `npm run lint`    | Lint with [Biome](https://biomejs.dev)                                                                                   |
 | `npm run format`  | Format with Biome (`format` to verify)                                                                                   |

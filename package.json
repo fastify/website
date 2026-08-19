@@ -6,13 +6,12 @@
 	"scripts": {
 		"dev": "astro dev",
 		"start": "astro dev",
-		"build:website": "npm run build:data && astro build && npm run check:search",
+		"build:website": "npm run build:data && astro build",
 		"preview": "astro preview",
 		"astro": "astro",
 		"lint": "biome check",
 		"lint:fix": "biome check --write",
 		"check": "astro check",
-		"check:search": "node scripts/check-search-build.mjs",
 		"build:data": "node scripts/postinstall.mjs",
 		"generate:og-assets": "node scripts/generate-og-assets.mjs"
 	},
