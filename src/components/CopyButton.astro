@@ -1,0 +1,69 @@
+---
+// Shared copy-to-clipboard primitive. Two visual variants:
+//   - "icon-swap": copy icon ↔ check icon (used by InstallCommand and docs)
+//   - "label-swap": copy icon + text "Copy" → "Copied" (used by CodeTabs)
+//
+// Host components are responsible for wrapping both the button and the copy
+// source inside an element with `data-copy-root` (e.g. InstallCommand's
+// existing [data-install] wrapper, or CodeTabs's [data-codetabs] wrapper).
+// The script below wires every [data-copy-btn] on the page; it resolves the
+// text to copy from the button's own attributes, falling back to walking the
+// root for a <pre>/<code> element.
+import Icon from "~/components/Icon.astro";
+
+interface Props {
+	text?: string;
+	textSelector?: string;
+	variant?: "icon-swap" | "label-swap";
+	copyLabel?: string;
+	ariaLabel?: string;
+	class?: string;
+}
+
+const {
+	text,
+	textSelector,
+	variant = "icon-swap",
+	copyLabel = "Copy",
+	ariaLabel = "Copy code",
+	class: className = "",
+} = Astro.props;
+---
+
+<button
+	type="button"
+	data-copy-btn
+	data-copy-text={text}
+	data-copy-target={textSelector}
+	aria-label={ariaLabel}
+	class:list={[
+		"inline-flex items-center gap-1.5 rounded-md transition-colors",
+		className,
+	]}
+>
+	{
+		variant === "icon-swap" ? (
+			<>
+				<span data-copy-idle>
+					<Icon name="copy" size={14} />
+				</span>
+				<span data-copy-done class="hidden text-amber">
+					<Icon name="check" size={14} />
+				</span>
+			</>
+		) : (
+			<>
+				<Icon name="copy" size={14} />
+				<span data-copy-label>{copyLabel}</span>
+			</>
+		)
+	}
+</button>
+
+<script>
+	import { COPY_BTN_SELECTOR, wireCopyButton } from "~/lib/copy";
+
+	document
+		.querySelectorAll<HTMLButtonElement>(COPY_BTN_SELECTOR)
+		.forEach(wireCopyButton);
+</script>

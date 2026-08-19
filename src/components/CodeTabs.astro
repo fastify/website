@@ -1,6 +1,6 @@
 ---
 import { Code } from "astro:components";
-import Icon from "~/components/Icon.astro";
+import CopyButton from "~/components/CopyButton.astro";
 
 interface Tab {
 	label: string;
@@ -14,90 +14,81 @@ interface Props {
 }
 const { tabs, title, id } = Astro.props;
 ---
-<div class="overflow-hidden rounded-xl border border-border bg-surface" data-codetabs>
-  <div class="flex items-center justify-between border-b border-border bg-surface-2 px-2">
-    <div class="flex" role="tablist" aria-label={title}>
-      {tabs.map((tab, i) => (
-        <button
-          type="button"
-          role="tab"
-          id={`${id}-tab-${i}`}
-          aria-selected={i === 0 ? 'true' : 'false'}
-          aria-controls={`${id}-panel-${i}`}
-          data-tab={i}
-          class:list={[
-            'relative px-4 py-2.5 font-mono text-xs transition-colors',
-            i === 0 ? 'text-amber' : 'text-muted hover:text-fg',
-          ]}
-        >
-          {tab.label}
-          <span
-            data-tab-underline
-            class:list={['absolute inset-x-2 -bottom-px h-px', i === 0 ? 'bg-amber' : 'bg-transparent']}
-          ></span>
-        </button>
-      ))}
-    </div>
-    <button
-      type="button"
-      data-copy
-      class="mr-1 flex items-center gap-1.5 rounded-md px-2.5 py-1.5 font-mono text-xs text-muted transition-colors hover:text-fg"
-      aria-label="Copy code"
-    >
-      <Icon name="copy" size={14} />
-      <span data-copy-label>Copy</span>
-    </button>
-  </div>
+<div class="overflow-hidden rounded-xl border border-border bg-surface" data-codetabs data-copy-root={id}>
+	<div class="flex items-center justify-between border-b border-border bg-surface-2 px-2">
+		<div class="flex" role="tablist" aria-label={title}>
+			{tabs.map((tab, i) => (
+				<button
+					type="button"
+					role="tab"
+					id={`${id}-tab-${i}`}
+					aria-selected={i === 0 ? "true" : "false"}
+					aria-controls={`${id}-panel-${i}`}
+					data-tab={i}
+					class:list={[
+						"relative px-4 py-2.5 font-mono text-xs transition-colors",
+						i === 0 ? "text-amber" : "text-muted hover:text-fg",
+					]}
+				>
+					{tab.label}
+					<span
+						data-tab-underline
+						class:list={[
+							"absolute inset-x-2 -bottom-px h-px",
+							i === 0 ? "bg-amber" : "bg-transparent",
+						]}
+					/>
+				</button>
+			))}
+		</div>
+		<CopyButton
+			variant="label-swap"
+			ariaLabel="Copy code"
+			textSelector="[data-panel]:not(.hidden) [data-raw]"
+			class="mr-1 px-2.5 py-1.5 font-mono text-xs text-muted hover:text-fg"
+		/>
+	</div>
 
-  {tabs.map((tab, i) => (
-    <div
-      role="tabpanel"
-      id={`${id}-panel-${i}`}
-      aria-labelledby={`${id}-tab-${i}`}
-      data-panel={i}
-      class:list={['overflow-x-auto p-4 text-sm', i === 0 ? '' : 'hidden']}
-    >
-      <div class="hidden" data-raw set:text={tab.code}></div>
-      <Code code={tab.code} lang={tab.lang as any} themes={{ light: "github-light", dark: "github-dark" }} defaultColor="dark" />
-    </div>
-  ))}
+	{tabs.map((tab, i) => (
+		<div
+			role="tabpanel"
+			id={`${id}-panel-${i}`}
+			aria-labelledby={`${id}-tab-${i}`}
+			data-panel={i}
+			class:list={["overflow-x-auto p-4 text-sm", i === 0 ? "" : "hidden"]}
+		>
+			<div class="hidden" data-raw set:text={tab.code} />
+			<Code
+				code={tab.code}
+				lang={tab.lang as any}
+				themes={{ light: "github-light", dark: "github-dark" }}
+				defaultColor="dark"
+			/>
+		</div>
+	))}
 </div>
 
 <script>
-  document.querySelectorAll('[data-codetabs]').forEach((root) => {
-    const tabs = root.querySelectorAll<HTMLButtonElement>('[data-tab]');
-    const panels = root.querySelectorAll<HTMLElement>('[data-panel]');
-    const underlines = root.querySelectorAll<HTMLElement>('[data-tab-underline]');
+	document.querySelectorAll("[data-codetabs]").forEach((root) => {
+		const tabs = root.querySelectorAll<HTMLButtonElement>("[data-tab]");
+		const panels = root.querySelectorAll<HTMLElement>("[data-panel]");
+		const underlines = root.querySelectorAll<HTMLElement>("[data-tab-underline]");
 
-    tabs.forEach((tab) => {
-      tab.addEventListener('click', () => {
-        const idx = tab.dataset.tab;
-        tabs.forEach((t, i) => {
-          const active = String(i) === idx;
-          t.setAttribute('aria-selected', active ? 'true' : 'false');
-          t.classList.toggle('text-amber', active);
-          t.classList.toggle('text-muted', !active);
-          underlines[i]?.classList.toggle('bg-amber', active);
-          underlines[i]?.classList.toggle('bg-transparent', !active);
-        });
-        panels.forEach((p, i) => {
-          p.classList.toggle('hidden', String(i) !== idx);
-        });
-      });
-    });
-
-    const copyBtn = root.querySelector<HTMLButtonElement>('[data-copy]');
-    const label = root.querySelector('[data-copy-label]');
-    copyBtn?.addEventListener('click', async () => {
-      const visible = root.querySelector<HTMLElement>('[data-panel]:not(.hidden)');
-      const raw = visible?.querySelector('[data-raw]')?.textContent ?? '';
-      try {
-        await navigator.clipboard.writeText(raw);
-        if (label) {
-          label.textContent = 'Copied';
-          setTimeout(() => (label.textContent = 'Copy'), 1600);
-        }
-      } catch (e) {}
-    });
-  });
+		tabs.forEach((tab) => {
+			tab.addEventListener("click", () => {
+				const idx = tab.dataset.tab;
+				tabs.forEach((t, i) => {
+					const active = String(i) === idx;
+					t.setAttribute("aria-selected", active ? "true" : "false");
+					t.classList.toggle("text-amber", active);
+					t.classList.toggle("text-muted", !active);
+					underlines[i]?.classList.toggle("bg-amber", active);
+					underlines[i]?.classList.toggle("bg-transparent", !active);
+				});
+				panels.forEach((p, i) => {
+					p.classList.toggle("hidden", String(i) !== idx);
+				});
+			});
+		});
+	});
 </script>
