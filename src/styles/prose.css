@@ -207,3 +207,9 @@
 .docs-copy-btn [data-copy-done] {
 	color: var(--amber);
 }
+/* Single-line snippets: center the icon alongside the code rather than
+   pinning it to the top-right corner where it floats above empty padding. */
+.docs-copy-btn.is-single-line {
+	top: 50%;
+	transform: translateY(-50%);
+}

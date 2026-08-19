@@ -382,6 +382,16 @@ const markdownUrl = withBase(`/docs/${markdownSlug}.md`);
       btn.className = "docs-copy-btn";
       btn.dataset.copyBtn = "";
       btn.setAttribute("aria-label", "Copy code to clipboard");
+      // Center the icon vertically for single-line snippets so it sits
+      // alongside the code rather than floating in a corner above it.
+      // Shiki wraps every source line in <span class="line">; we fall back
+      // to splitting textContent by newline if those hooks aren't present.
+      const lineCount =
+        pre.querySelectorAll("span.line").length ||
+        (pre.textContent?.split("\n").length ?? 0);
+      if (lineCount <= 1) {
+        btn.classList.add("is-single-line");
+      }
       btn.innerHTML =
         `<span data-copy-idle>${COPY_SVG}</span>` +
         `<span data-copy-done class="hidden">${CHECK_SVG}</span>`;
