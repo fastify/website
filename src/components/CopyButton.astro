@@ -1,14 +1,8 @@
 ---
-// Shared copy-to-clipboard primitive. Two visual variants:
-//   - "icon-swap": copy icon ↔ check icon (used by InstallCommand and docs)
-//   - "label-swap": copy icon + text "Copy" → "Copied" (used by CodeTabs)
-//
-// Host components are responsible for wrapping both the button and the copy
-// source inside an element with `data-copy-root` (e.g. InstallCommand's
-// existing [data-install] wrapper, or CodeTabs's [data-codetabs] wrapper).
-// The script below wires every [data-copy-btn] on the page; it resolves the
-// text to copy from the button's own attributes, falling back to walking the
-// root for a <pre>/<code> element.
+// Copy-to-clipboard button. Two variants: icon-swap (copy↔check) and
+// label-swap (icon + "Copy" → "Copied"). The host wraps the button and
+// the copy source inside an element with `data-copy-root` so the auto
+// script below can resolve the text.
 import Icon from "~/components/Icon.astro";
 
 interface Props {

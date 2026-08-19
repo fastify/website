@@ -164,11 +164,9 @@
 	background: var(--shiki-light-bg) !important;
 }
 
-/* ============================================================
-   Docs copy button (injected at runtime by DocsShell.astro).
+/* Docs copy button (injected at runtime by DocsShell.astro).
    The wrap is the positioning context so the button stays visible
-   while the inner <pre> scrolls horizontally.
-   ============================================================ */
+   while the inner <pre> scrolls horizontally. */
 .prose-fastify .docs-pre-wrap {
 	position: relative;
 	margin: 1.5rem 0;
@@ -207,8 +205,8 @@
 .docs-copy-btn [data-copy-done] {
 	color: var(--amber);
 }
-/* Single-line snippets: center the icon alongside the code rather than
-   pinning it to the top-right corner where it floats above empty padding. */
+/* Single-line snippets: pin to the vertical center rather than the
+   top-right corner, where it would float above empty padding. */
 .docs-copy-btn.is-single-line {
 	top: 50%;
 	transform: translateY(-50%);

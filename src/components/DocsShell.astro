@@ -351,14 +351,11 @@ const markdownUrl = withBase(`/docs/${markdownSlug}.md`);
     for (const heading of headings) observer.observe(heading);
   }
 
-  // Copy buttons on every docs code block. The MDX source is fetched from
-  // fastify/fastify at build time, so we inject at runtime instead of
-  // editing upstream files. Each <pre> is wrapped in a positioning div so
-  // the button stays visible across horizontal scroll.
+  // Inject copy buttons into every docs <pre>. The MDX source is fetched
+  // from fastify/fastify at build time, so we can't edit it.
   const proseRoot = document.querySelector<HTMLElement>("article.prose-fastify");
   if (proseRoot) {
-    // Inline Lucide paths match @lucide/astro's Copy / Check components.
-    // Plain inline SVG avoids <Icon>, which is a build-time Astro component.
+    // Inline Lucide paths; <Icon> is a build-time Astro component.
     const COPY_SVG =
       '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>';
     const CHECK_SVG =
@@ -371,8 +368,6 @@ const markdownUrl = withBase(`/docs/${markdownSlug}.md`);
       const wrap = document.createElement("div");
       wrap.className = "docs-pre-wrap";
       wrap.setAttribute("data-copy-root", "");
-      // Defensive: keeps the wrapper out of the Pagefind index even though
-      // the button is textless.
       wrap.setAttribute("data-pagefind-ignore", "");
       pre.parentElement?.insertBefore(wrap, pre);
       wrap.appendChild(pre);
@@ -382,10 +377,8 @@ const markdownUrl = withBase(`/docs/${markdownSlug}.md`);
       btn.className = "docs-copy-btn";
       btn.dataset.copyBtn = "";
       btn.setAttribute("aria-label", "Copy code to clipboard");
-      // Center the icon vertically for single-line snippets so it sits
-      // alongside the code rather than floating in a corner above it.
-      // Shiki wraps every source line in <span class="line">; we fall back
-      // to splitting textContent by newline if those hooks aren't present.
+      // Center the icon vertically for single-line snippets (Shiki emits
+      // one <span class="line"> per source line; fall back to textContent).
       const lineCount =
         pre.querySelectorAll("span.line").length ||
         (pre.textContent?.split("\n").length ?? 0);
