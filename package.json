@@ -12,7 +12,8 @@
 		"lint": "biome check",
 		"lint:fix": "biome check --write",
 		"check": "astro check",
-		"build:data": "node scripts/postinstall.mjs"
+		"build:data": "node scripts/postinstall.mjs",
+		"generate:og-assets": "node scripts/generate-og-assets.mjs"
 	},
 	"dependencies": {
 		"@astrojs/mdx": "^7.0.5",
