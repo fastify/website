@@ -22,10 +22,24 @@ export default defineConfig({
 	base: baseConfig.base,
 	outDir: "./build",
 	markdown: {
+		shikiConfig: {
+			themes: {
+				light: "github-light",
+				dark: "github-dark",
+			},
+			defaultColor: "dark",
+		},
 		processor: markdownProcessor(),
 	},
 	integrations: [
 		mdx({
+			shikiConfig: {
+				themes: {
+					light: "github-light",
+					dark: "github-dark",
+				},
+				defaultColor: "dark",
+			},
 			processor: markdownProcessor(),
 		}),
 		sitemap(),
