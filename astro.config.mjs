@@ -56,7 +56,6 @@ export default defineConfig({
 		plugins: [
 			tailwindcss(),
 			ViteImageOptimizer({
-				include: /organizations[\\/].*\.svg$/i,
 				includePublic: true,
 				svg: { multipass: true },
 			}),
