@@ -22,7 +22,7 @@ requests-per-second velocity gauge in the hero.
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------ |
 | `npm install`     | Install dependencies                                                                                                     |
 | `npm run dev`     | Start the dev server at `localhost:4321`                                                                                 |
-| `npm run build:website` | Build to `build/` and generate the Pagefind search index                                                        |
+| `npm run build:website` | Build to `build/`, optimize production SVGs, and generate the Pagefind search index                                       |
 | `npm run preview` | Preview the production build locally                                                                                     |
 | `npm run lint`    | Lint with [Biome](https://biomejs.dev)                                                                                   |
 | `npm run format`  | Format with Biome (`format` to verify)                                                                                   |
@@ -31,6 +31,9 @@ requests-per-second velocity gauge in the hero.
 > Search only works against a production build (`npm run build:website`), because the
 > Pagefind index is generated from the built HTML. In `dev` the search modal
 > shows a graceful fallback message.
+>
+> Production builds optimize imported SVG components with Astro and organization
+> logos copied from `public/` with Vite. Source SVG files are not modified.
 >
 > Icons come from [Lucide](https://lucide.dev) (`@lucide/astro`). The GitHub
 > star count is fetched client-side on page load so it always matches GitHub.
