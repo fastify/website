@@ -7,9 +7,11 @@
 	line-height: 1.75;
 	max-width: none;
 }
+
 .prose-fastify > :first-child {
 	margin-top: 0;
 }
+
 .prose-fastify h1 {
 	font-family: var(--font-display);
 	font-size: 2.25rem;
@@ -19,6 +21,7 @@
 	margin: 0 0 1rem;
 	scroll-margin-top: 6rem;
 }
+
 .prose-fastify h2 {
 	font-family: var(--font-display);
 	font-size: 1.5rem;
@@ -29,6 +32,7 @@
 	border-top: 1px solid var(--border);
 	scroll-margin-top: 6rem;
 }
+
 .prose-fastify h3 {
 	font-family: var(--font-display);
 	font-size: 1.2rem;
@@ -37,34 +41,42 @@
 	margin: 2rem 0 0.75rem;
 	scroll-margin-top: 6rem;
 }
+
 .prose-fastify p {
 	margin: 1rem 0;
 }
+
 .prose-fastify a {
 	color: var(--amber-ink);
 	text-decoration: underline;
 	text-decoration-color: var(--border-strong);
 	text-underline-offset: 3px;
 }
+
 .prose-fastify a:hover {
 	text-decoration-color: var(--amber);
 }
+
 .prose-fastify strong {
 	color: var(--fg);
 	font-weight: 600;
 }
+
 .prose-fastify ul,
 .prose-fastify ol {
 	margin: 1rem 0;
 	padding-left: 1.4rem;
 }
+
 .prose-fastify li {
 	margin: 0.4rem 0;
 }
+
 .prose-fastify ul li {
 	list-style: none;
 	position: relative;
 }
+
 .prose-fastify ul li::before {
 	content: "";
 	position: absolute;
@@ -76,6 +88,7 @@
 	background: var(--amber);
 	transform: rotate(45deg);
 }
+
 .prose-fastify code {
 	font-family: var(--font-mono);
 	font-size: 0.85em;
@@ -84,6 +97,7 @@
 	padding: 0.15em 0.4em;
 	border-radius: 4px;
 }
+
 .prose-fastify pre {
 	background: #0c0f13;
 	border: 1px solid var(--border);
@@ -94,12 +108,14 @@
 	font-size: 0.875rem;
 	line-height: 1.6;
 }
+
 .prose-fastify pre code {
 	background: transparent;
 	color: inherit;
 	padding: 0;
 	font-size: inherit;
 }
+
 .prose-fastify blockquote {
 	border-left: 3px solid var(--amber);
 	background: color-mix(in srgb, var(--surface) 50%, transparent);
@@ -108,6 +124,7 @@
 	color: var(--muted);
 	font-style: italic;
 }
+
 .prose-fastify table {
 	display: block;
 	width: 100%;
@@ -116,15 +133,18 @@
 	margin: 1.5rem 0;
 	font-size: 0.9rem;
 }
+
 .prose-fastify th,
 .prose-fastify td {
 	border: 1px solid var(--border);
 	padding: 0.6rem 0.9rem;
 	text-align: left;
 }
+
 .prose-fastify table td a {
 	white-space: nowrap;
 }
+
 .prose-fastify th {
 	background: var(--surface-2);
 	color: var(--fg);
@@ -133,6 +153,7 @@
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
 }
+
 .prose-fastify hr {
 	border: none;
 	border-top: 1px solid var(--border);
@@ -159,6 +180,7 @@
 	/* biome-ignore lint/complexity/noImportantStyles: override Shiki inline styles */
 	background: transparent !important;
 }
+
 [data-theme="light"] [data-codetabs] .astro-code {
 	/* biome-ignore lint/complexity/noImportantStyles: override Shiki inline styles */
 	background: var(--shiki-light-bg) !important;
@@ -169,9 +191,11 @@
 	position: relative;
 	margin: 1.5rem 0;
 }
+
 .prose-fastify .docs-pre-wrap pre {
 	margin: 0;
 }
+
 .docs-copy-btn {
 	position: absolute;
 	top: 0.5rem;
@@ -182,27 +206,23 @@
 	justify-content: center;
 	padding: 0.375rem;
 	border-radius: 0.375rem;
-	color: #8b95a1;
-	background: rgba(12, 15, 19, 0.6);
-	border: 1px solid rgba(255, 255, 255, 0.08);
-	transition:
-		color 0.15s,
-		background 0.15s,
-		border-color 0.15s;
-	cursor: pointer;
+	color: var(--muted);
+	transition: color 0.15s;
 }
+
 .docs-copy-btn:hover {
-	color: #fff;
-	background: rgba(12, 15, 19, 0.85);
-	border-color: rgba(255, 255, 255, 0.15);
+	color: var(--fg);
 }
+
 .docs-copy-btn:focus-visible {
 	outline: 2px solid var(--amber);
 	outline-offset: 2px;
 }
+
 .docs-copy-btn [data-copy-done] {
 	color: var(--amber);
 }
+
 .docs-pre-wrap[data-code-lines="single"] .docs-copy-btn {
 	top: 50%;
 	transform: translateY(-50%);
