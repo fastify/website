@@ -8,7 +8,7 @@
 	max-width: none;
 }
 
-.prose-fastify> :first-child {
+.prose-fastify > :first-child {
 	margin-top: 0;
 }
 
