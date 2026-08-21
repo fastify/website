@@ -183,18 +183,11 @@
 	padding: 0.375rem;
 	border-radius: 0.375rem;
 	color: var(--muted);
-	background: color-mix(in srgb, var(--surface) 80%, transparent);
-	border: 1px solid var(--border);
-	transition:
-		color 0.15s,
-		background 0.15s,
-		border-color 0.15s;
+	transition: color 0.15s;
 	cursor: pointer;
 }
 .docs-copy-btn:hover {
 	color: var(--fg);
-	background: color-mix(in srgb, var(--surface) 95%, transparent);
-	border-color: var(--border-strong);
 }
 .docs-copy-btn:focus-visible {
 	outline: 2px solid var(--amber);
