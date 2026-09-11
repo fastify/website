@@ -91,7 +91,7 @@ export async function fetchCommitRange(client, organization, fromDate, toDate) {
 
 /**
  * @param {GraphqlClient} client
- * @param {{ organization: string; kind: "pr" | "issue"; qualifier: "updated" | "created"; fromDate: string; toDate: string; document: string }} options
+ * @param {{ organization: string; kind: "pr" | "issue"; qualifier: "updated" | "created" | "merged"; fromDate: string; toDate: string; document: string }} options
  * @returns {Promise<any[]>}
  */
 export async function fetchGraphqlSearchRange(client, options) {
@@ -230,12 +230,20 @@ export async function collectGitHubActivity(
 ) {
 	const fromDate = toDateKey(period.from);
 	const toDate = toDateKey(period.to);
-	const [commits, pullRequests, issues] = await Promise.all([
+	const [commits, prsByCreated, prsByMerged, issues] = await Promise.all([
 		fetchCommitRange(client, organization, fromDate, toDate),
 		fetchGraphqlSearchRange(client, {
 			organization,
 			kind: "pr",
-			qualifier: "updated",
+			qualifier: "created",
+			fromDate,
+			toDate,
+			document: PULL_REQUEST_SEARCH,
+		}),
+		fetchGraphqlSearchRange(client, {
+			organization,
+			kind: "pr",
+			qualifier: "merged",
 			fromDate,
 			toDate,
 			document: PULL_REQUEST_SEARCH,
@@ -249,6 +257,11 @@ export async function collectGitHubActivity(
 			document: ISSUE_SEARCH,
 		}),
 	]);
+
+	const prById = new Map(
+		[...prsByCreated, ...prsByMerged].map((pr) => [pr.id, pr]),
+	);
+	const pullRequests = [...prById.values()];
 
 	const pullRequestsWithReviews = await mapWithConcurrency(
 		pullRequests,
