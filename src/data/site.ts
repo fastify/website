@@ -174,6 +174,12 @@ export const SPONSORS: Sponsor[] = [
 		tier: "tier_3",
 	},
 	{
+		name: "Cloudways",
+		url: "https://www.cloudways.com/en/velocity.php?id=1258368&data1=fastify",
+		image: "cloudways.svg",
+		tier: "tier_4",
+	},
+	{
 		name: "SerpApi",
 		url: "https://serpapi.com/?utm_source=fastify",
 		image: "serpapi.svg",
