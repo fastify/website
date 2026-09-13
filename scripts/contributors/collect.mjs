@@ -10,6 +10,7 @@
  * check needs the first page's total before deciding whether to split the range.
  */
 import {
+	log,
 	ORGANIZATION,
 	REVIEW_CONCURRENCY,
 	SEARCH_PAGE_SIZE,
@@ -51,21 +52,27 @@ export async function fetchCommitRange(client, organization, fromDate, toDate) {
 			`GitHub returned incomplete commit results for ${fromDate}..${toDate}`,
 		);
 	}
+	let truncated = false;
 	if (first.total_count > SEARCH_RESULT_CAP) {
 		const split = splitDateRange(fromDate, toDate);
 		if (!split) {
-			throw new Error(`Commit search exceeds 1,000 results on ${fromDate}`);
+			log.warn(
+				`Commit search exceeds 1,000 results on ${fromDate}; keeping the first ${SEARCH_RESULT_CAP} and continuing`,
+			);
+			truncated = true;
+		} else {
+			const [left, right] = await Promise.all(
+				split.map(([from, to]) =>
+					fetchCommitRange(client, organization, from, to),
+				),
+			);
+			return [...left, ...right];
 		}
-		const [left, right] = await Promise.all(
-			split.map(([from, to]) =>
-				fetchCommitRange(client, organization, from, to),
-			),
-		);
-		return [...left, ...right];
 	}
 
 	const items = [...(first.items ?? [])];
-	const pages = Math.ceil(first.total_count / SEARCH_PAGE_SIZE);
+	const expected = truncated ? SEARCH_RESULT_CAP : first.total_count;
+	const pages = Math.ceil(expected / SEARCH_PAGE_SIZE);
 	for (let page = 2; page <= pages; page++) {
 		const { data: result } = await getPage(page);
 		if (
@@ -81,9 +88,9 @@ export async function fetchCommitRange(client, organization, fromDate, toDate) {
 		}
 		items.push(...(result.items ?? []));
 	}
-	if (items.length !== first.total_count) {
+	if (items.length !== expected) {
 		throw new Error(
-			`GitHub commit search returned ${items.length} of ${first.total_count} results`,
+			`GitHub commit search returned ${items.length} of ${expected} results`,
 		);
 	}
 	return items;
@@ -112,26 +119,34 @@ export async function fetchGraphqlSearchRange(client, options) {
 	) {
 		throw new Error("GitHub GraphQL search response is invalid");
 	}
+	let truncated = false;
 	if (first.issueCount > SEARCH_RESULT_CAP) {
 		const split = splitDateRange(fromDate, toDate);
 		if (!split) {
-			throw new Error(`${kind} search exceeds 1,000 results on ${fromDate}`);
+			log.warn(
+				`${kind} search exceeds 1,000 results on ${fromDate}; keeping the first ${SEARCH_RESULT_CAP} and continuing`,
+			);
+			truncated = true;
+		} else {
+			const [left, right] = await Promise.all(
+				split.map(([from, to]) =>
+					fetchGraphqlSearchRange(client, {
+						...options,
+						fromDate: from,
+						toDate: to,
+					}),
+				),
+			);
+			return [...left, ...right];
 		}
-		const [left, right] = await Promise.all(
-			split.map(([from, to]) =>
-				fetchGraphqlSearchRange(client, {
-					...options,
-					fromDate: from,
-					toDate: to,
-				}),
-			),
-		);
-		return [...left, ...right];
 	}
 
 	const nodes = [...(first.nodes ?? [])].filter(Boolean);
 	let pageInfo = first.pageInfo;
 	while (pageInfo?.hasNextPage) {
+		if (truncated && nodes.length >= SEARCH_RESULT_CAP) {
+			break;
+		}
 		const data = await client.graphql(document, {
 			searchQuery,
 			cursor: pageInfo.endCursor,
@@ -152,7 +167,7 @@ export async function fetchGraphqlSearchRange(client, options) {
 	const uniqueNodes = [
 		...new Map(nodes.map((node) => [node.id, node])).values(),
 	];
-	if (uniqueNodes.length < first.issueCount) {
+	if (!truncated && uniqueNodes.length < first.issueCount) {
 		throw new Error(
 			`GitHub GraphQL search returned ${uniqueNodes.length} of ${first.issueCount} results`,
 		);
