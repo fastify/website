@@ -3,7 +3,9 @@ name: Preview
 on:
   # pull-request means to deploy preview
   # we need to access the environment secrets
-  pull_request_target:
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: read
