@@ -24,7 +24,7 @@
 		"@lucide/astro": "^1.31.0",
 		"@tailwindcss/vite": "^4.3.3",
 		"astro": "^7.2.0",
-		"astro-inference": "^0.2.6",
+		"astro-inference": "^0.3.0",
 		"astro-pagefind": "^2.0.1",
 		"format-si-unit": "^0.0.12",
 		"isomorphic-dompurify": "^3.22.0",
