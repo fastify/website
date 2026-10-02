@@ -27,7 +27,7 @@
 		"astro-inference": "^0.3.0",
 		"astro-pagefind": "^2.0.1",
 		"format-si-unit": "^0.0.12",
-		"isomorphic-dompurify": "^3.22.0",
+		"isomorphic-dompurify": "^4.3.0",
 		"marked": "^18.0.9",
 		"mdast-util-to-string": "^4.0.0",
 		"reading-time": "^1.5.0",
