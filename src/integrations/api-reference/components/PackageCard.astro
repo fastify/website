@@ -1,0 +1,76 @@
+---
+// Collapsible card with the exports of one package. Core fastify is split
+// into its declaration files; plugins are a single grid.
+import { entryHref, getApi, kindOf, statusOf } from "../data.js";
+import { renderDoc } from "../markdown.js";
+import type { ApiEntry, ApiPackage } from "../types";
+import Icon from "./Icon.astro";
+import KindBadge from "./KindBadge.astro";
+
+interface Props {
+	pkg: ApiPackage;
+	open?: boolean;
+	/** Id of the entry being viewed, highlighted in the grid. */
+	current?: string;
+	headingLevel?: "h2" | "h3" | "p";
+}
+const { pkg, open = true, current, headingLevel = "h3" } = Astro.props;
+const api = await getApi();
+const Heading = headingLevel;
+const count = pkg.entries.length;
+type Section = { label?: string; icon?: string; entries: ApiEntry[] };
+const sections: Section[] = pkg.groups.length > 0 ? pkg.groups : [{ entries: pkg.entries }];
+const description = renderDoc(pkg.description, new Map(), { inline: true });
+---
+
+<details class="far-package far-card" open={open} data-package={pkg.slug} id={pkg.slug}>
+  <summary>
+    <span class="far-tile"><Icon name={pkg.icon} size={18} class="" /></span>
+    <div class="far-package-title">
+      <Heading class="far-package-name">
+        {pkg.scope && <span class="far-scope">{pkg.scope}</span>}<span>{pkg.short}</span>
+      </Heading>
+      {description && <p class="far-package-desc" set:html={description} />}
+    </div>
+    <span class="far-package-meta">
+      {pkg.version && <span class="far-package-version">v{pkg.version}</span>}
+      <span data-package-count>{count}</span>{" "}<span data-package-count-label>{count === 1 ? "export" : "exports"}</span>
+    </span>
+    <Icon name="chevron" class="far-chevron" />
+  </summary>
+
+  <div class="far-package-body">
+    {
+      sections.map((section) => (
+        <div data-section>
+          {section.label && (
+            <p class="far-label far-section-label">
+              {section.icon && <Icon name={section.icon} size={14} />}
+              {section.label}
+            </p>
+          )}
+          <ul class="far-grid">
+            {section.entries.map((e) => {
+              const kind = kindOf(e.data);
+              const status = statusOf(e.data);
+              return (
+                <li data-entry data-name={`${e.data.name} ${e.data.augments ?? ""}`.toLowerCase()} data-kind={kind} data-status={status}>
+                  <a
+                    href={entryHref(api, e)}
+                    class="far-entry"
+                    data-status={status}
+                    aria-current={e.id === current ? "page" : undefined}
+                    title={e.data.augments ? `${e.data.name} (augments ${e.data.augments})` : e.data.name}
+                  >
+                    <KindBadge kind={kind} />
+                    <span>{e.data.name}</span>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</details>

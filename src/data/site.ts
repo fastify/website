@@ -17,6 +17,7 @@ export const SITE = {
 
 export const NAV = [
 	{ label: "Docs", href: "/docs/latest" },
+	{ label: "API", href: "/api/" },
 	{ label: "Ecosystem", href: "/ecosystem/" },
 	{ label: "Benchmarks", href: "/benchmarks/" },
 	{ label: "Organizations", href: "/organizations/" },

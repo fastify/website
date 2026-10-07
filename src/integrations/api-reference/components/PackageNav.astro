@@ -1,0 +1,78 @@
+---
+// Left sidebar of an export page: the package and every export in it,
+// laid out like the fastify.dev docs navigation.
+import { entryHref, getApi, indexHref, kindOf } from "../data.js";
+import type { ApiEntry, ApiPackage } from "../types";
+import Icon from "./Icon.astro";
+import KindBadge from "./KindBadge.astro";
+
+interface Props {
+	pkg: ApiPackage;
+	current: string;
+}
+const { pkg, current } = Astro.props;
+const api = await getApi();
+type Section = { label?: string; entries: ApiEntry[] };
+const sections: Section[] = pkg.groups.length > 0 ? pkg.groups : [{ entries: pkg.entries }];
+---
+
+<aside class="far-sidebar">
+  <div class="far-sidebar-inner">
+    <a href={indexHref(api, pkg.slug)} class="far-side-back">
+      <Icon name="back" size={14} class="" /> All packages
+    </a>
+
+    <div class="far-side-pkg">
+      <span class="far-tile"><Icon name={pkg.icon} size={18} class="" /></span>
+      <div>
+        <p>{pkg.scope && <span class="far-scope">{pkg.scope}</span>}{pkg.short}</p>
+        {pkg.version && <small>v{pkg.version} · {pkg.entries.length} exports</small>}
+        {pkg.docs && (
+          <a class="far-side-docs" href={pkg.docs.url} target="_blank" rel="noopener noreferrer">
+            <Icon name="book" size={12} class="" /> {pkg.docs.label}
+          </a>
+        )}
+      </div>
+    </div>
+
+    <details class="far-side-packages" data-side-packages open>
+      <summary>
+        <span class="far-side-label">exports</span>
+        <Icon name="chevron" size={14} class="far-side-chevron" />
+      </summary>
+      <nav aria-label={`${pkg.name} exports`}>
+        {
+          sections.map((section) => (
+            <div class="far-side-group">
+              {section.label && <p class="far-side-label">{section.label}</p>}
+              <ul class="far-side-nav far-side-nav-entries">
+                {section.entries.map((e) => (
+                  <li>
+                    <a href={entryHref(api, e)} aria-current={e.id === current ? "page" : undefined} title={e.data.name}>
+                      <KindBadge kind={kindOf(e.data)} />
+                      <span>{e.data.name}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </nav>
+    </details>
+  </div>
+</aside>
+
+<script>
+  // phones: the export list starts collapsed, like the docs navigation
+  const side = document.querySelector<HTMLDetailsElement>("[data-side-packages]");
+  if (side && window.matchMedia("(max-width: 1023px)").matches) side.open = false;
+  // desktop: if the current export is below the fold of the sidebar, scroll the
+  // sidebar (not the page) just enough to show it; otherwise keep the header visible
+  const inner = document.querySelector<HTMLElement>(".far-sidebar-inner");
+  const active = document.querySelector<HTMLElement>('.far-side-nav [aria-current="page"]');
+  if (inner && active) {
+    const bottom = active.getBoundingClientRect().bottom - inner.getBoundingClientRect().top;
+    if (bottom > inner.clientHeight) inner.scrollTop = bottom - inner.clientHeight + 48;
+  }
+</script>

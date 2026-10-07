@@ -1,0 +1,31 @@
+---
+// A code example in the three modes of the language switch. TypeScript is the
+// source; the JavaScript versions are generated at build time. Equal versions
+// render once.
+import { variantGroups } from "../data.js";
+import { exampleVariants } from "../examples.js";
+import ApiCode from "./ApiCode.astro";
+
+interface Props {
+	code: string;
+	links: Map<string, string>;
+	self?: string;
+}
+const { code, self } = Astro.props;
+// in examples `fastify` is nearly always the instance (`async (fastify) => …`),
+// not the factory: leave it unlinked
+const links = new Map([...Astro.props.links].filter(([name]) => name !== "fastify"));
+const groups = variantGroups(exampleVariants(code));
+---
+
+{
+  groups.length === 1 ? (
+    <ApiCode code={groups[0].value} links={links} self={self} />
+  ) : (
+    groups.map((g) => (
+      <div class="far-variant" data-far-variant={g.modes}>
+        <ApiCode code={g.value} links={links} self={self} lang={g.modes.includes("ts") ? "ts" : "js"} />
+      </div>
+    ))
+  )
+}

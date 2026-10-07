@@ -1,0 +1,166 @@
+---
+// Type filter with the kind tiles next to each option. A native <select> cannot
+// show icons, so this is a button + listbox (WAI-ARIA "select-only combobox").
+// The value lives in a hidden input `[data-filter-kind]` that fires `change`,
+// so the page script treats it like the old <select>.
+
+import { KINDS } from "../data.js";
+import Icon from "./Icon.astro";
+import KindBadge from "./KindBadge.astro";
+
+interface Props {
+	id: string;
+	/** kinds present, with how many exports each has */
+	kinds: { kind: keyof typeof KINDS; count: number }[];
+	total: number;
+}
+const { id, kinds, total } = Astro.props;
+const options = [
+	{ value: "", label: "All types", count: total },
+	...kinds.map((k) => ({ value: k.kind, label: KINDS[k.kind].plural, count: k.count })),
+];
+---
+
+<div class="far-select far-kind-select" data-kind-select>
+  <input type="hidden" data-filter-kind value="" />
+  <button
+    type="button"
+    id={id}
+    class="far-kind-select-button"
+    role="combobox"
+    aria-haspopup="listbox"
+    aria-expanded="false"
+    aria-controls={`${id}-list`}
+  >
+    <span class="far-kind-select-current" data-current>
+      <span class="far-kind far-kind-letter far-kind-all" aria-hidden="true"><Icon name="blocks" size={12} class="" /></span>
+      <span data-current-label>All types</span>
+    </span>
+    <Icon name="chevron" size={14} class="far-select-caret" />
+  </button>
+  <div class="far-kind-select-list" id={`${id}-list`} role="listbox" aria-labelledby={id} tabindex="-1" hidden>
+    {
+      options.map((o, i) => (
+        <button type="button" role="option" tabindex={-1} id={`${id}-opt-${i}`} data-value={o.value} aria-selected={o.value === "" ? "true" : "false"}>
+          {o.value === "" ? (
+            <span class="far-kind far-kind-letter far-kind-all" aria-hidden="true"><Icon name="blocks" size={12} class="" /></span>
+          ) : (
+            <KindBadge kind={o.value as keyof typeof KINDS} />
+          )}
+          <span class="far-kind-select-label">{o.label}</span>
+          <small>{o.count}</small>
+          <Icon name="check" size={14} class="far-kind-select-check" />
+        </button>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  /** The element, or a clear error when the markup above changed. */
+  function must<T extends Element>(root: Element, selector: string): T {
+    const el = root.querySelector<T>(selector);
+    if (!el) throw new Error(`KindSelect: ${selector} not found`);
+    return el;
+  }
+
+  for (const root of document.querySelectorAll<HTMLElement>("[data-kind-select]")) {
+    const input = must<HTMLInputElement>(root, "[data-filter-kind]");
+    const button = must<HTMLButtonElement>(root, "button[role=combobox]");
+    const list = must<HTMLElement>(root, "[role=listbox]");
+    const current = must<HTMLElement>(root, "[data-current]");
+    const options = Array.from(list.querySelectorAll<HTMLElement>("[role=option]"));
+    let active = 0;
+
+    const selectedIndex = () => Math.max(0, options.findIndex((o) => o.dataset.value === input.value));
+
+    function render() {
+      const i = selectedIndex();
+      for (const [j, o] of options.entries()) o.setAttribute("aria-selected", String(j === i));
+      // the button shows the chosen tile and plural label
+      const source = options[i].firstElementChild;
+      if (!source) return;
+      const tile = source.cloneNode(true) as HTMLElement;
+      tile.removeAttribute("title");
+      tile.removeAttribute("role");
+      tile.setAttribute("aria-hidden", "true");
+      current.replaceChildren(tile, Object.assign(document.createElement("span"), {
+        textContent: options[i].querySelector(".far-kind-select-label")?.textContent ?? "",
+      }));
+    }
+
+    function highlight(i: number) {
+      active = (i + options.length) % options.length;
+      for (const [j, o] of options.entries()) o.classList.toggle("is-active", j === active);
+      button.setAttribute("aria-activedescendant", options[active].id);
+      options[active].scrollIntoView({ block: "nearest" });
+    }
+
+    function open() {
+      list.hidden = false;
+      button.setAttribute("aria-expanded", "true");
+      highlight(selectedIndex());
+    }
+
+    function close(focus = true) {
+      list.hidden = true;
+      button.setAttribute("aria-expanded", "false");
+      button.removeAttribute("aria-activedescendant");
+      if (focus) button.focus();
+    }
+
+    function choose(i: number) {
+      const value = options[i].dataset.value ?? "";
+      const changed = value !== input.value;
+      input.value = value;
+      render();
+      close();
+      if (changed) input.dispatchEvent(new Event("change"));
+    }
+
+    button.addEventListener("click", () => (list.hidden ? open() : close()));
+    button.addEventListener("keydown", (e) => {
+      const isOpen = !list.hidden;
+      switch (e.key) {
+        case "ArrowDown":
+        case "ArrowUp":
+          e.preventDefault();
+          if (!isOpen) open();
+          else highlight(active + (e.key === "ArrowDown" ? 1 : -1));
+          break;
+        case "Home":
+        case "End":
+          if (!isOpen) return;
+          e.preventDefault();
+          highlight(e.key === "Home" ? 0 : options.length - 1);
+          break;
+        case "Enter":
+        case " ":
+          e.preventDefault();
+          if (isOpen) choose(active);
+          else open();
+          break;
+        case "Escape":
+          if (isOpen) {
+            e.preventDefault();
+            close();
+          }
+          break;
+        case "Tab":
+          if (isOpen) close(false);
+          break;
+      }
+    });
+    options.forEach((o, i) => {
+      o.addEventListener("mousemove", () => active !== i && highlight(i));
+      o.addEventListener("click", () => choose(i));
+    });
+    // mousedown inside keeps focus on the button
+    list.addEventListener("mousedown", (e) => e.preventDefault());
+    document.addEventListener("click", (e) => {
+      if (!list.hidden && !root.contains(e.target as Node)) close(false);
+    });
+    // "Clear filters" sets the value from outside
+    input.addEventListener("change", render);
+  }
+</script>
