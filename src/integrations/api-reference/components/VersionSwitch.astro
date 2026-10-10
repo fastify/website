@@ -1,0 +1,55 @@
+---
+// Fastify major switch. The list of versions is read at runtime from
+// `<site root>/versions.json`, written by `fastify-api-versions` when the site
+// is assembled, so a version frozen long ago still lists the newer ones.
+// With a single version it is just a label ("Fastify v5"); with more it becomes a menu.
+import { getApi } from "../data.js";
+
+const api = await getApi();
+const { label, archive, root } = api.version;
+---
+
+{
+  label && (
+    <div class="far-version" data-far-version data-root={root} data-current={label} data-archive={archive ?? ""}>
+      <span class="far-label">Fastify</span>
+      <span class="far-version-chip" data-far-version-chip>{label}</span>
+      <div class="far-select far-select-sm" data-far-version-menu hidden>
+        <select aria-label="Fastify version">
+          <option value="" selected>{label}</option>
+        </select>
+        <span class="far-select-caret" aria-hidden="true">▾</span>
+      </div>
+    </div>
+  )
+}
+
+<script>
+  type Version = { label: string; path: string };
+
+  for (const el of document.querySelectorAll<HTMLElement>("[data-far-version]")) {
+    const root = el.dataset.root ?? "/";
+    const archive = el.dataset.archive ?? "";
+    const select = el.querySelector("select");
+    fetch(`${root}versions.json`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: { versions?: Version[] } | null) => {
+        const versions = data?.versions ?? [];
+        if (!select || versions.length < 2) return;
+        const current = archive ? `${archive}/` : "";
+        // the same page in another version: swap the version folder in the path
+        const rest = location.pathname.slice(root.length + (location.pathname.startsWith(root + current) ? current.length : 0));
+        select.replaceChildren(
+          ...versions.map((v, i) => {
+            const option = new Option(i === 0 ? `${v.label} (latest)` : v.label, `${root}${v.path}${rest}${location.hash}`);
+            option.selected = v.path === current;
+            return option;
+          }),
+        );
+        select.addEventListener("change", () => location.assign(select.value));
+        el.querySelector<HTMLElement>("[data-far-version-chip]")?.setAttribute("hidden", "");
+        el.querySelector<HTMLElement>("[data-far-version-menu]")?.removeAttribute("hidden");
+      })
+      .catch(() => {});
+  }
+</script>

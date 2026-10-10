@@ -1,0 +1,117 @@
+---
+// What every plugin adds to fastify: one row per plugin, one column per
+// decorated object, each member linking to its documentation.
+import Layout from "virtual:fastify-api-reference/layout";
+import "../styles.css";
+import Icon from "../components/Icon.astro";
+import VersionBanner from "../components/VersionBanner.astro";
+import VersionSwitch from "../components/VersionSwitch.astro";
+import { DECORATION_COLUMNS, decorationsOf, getApi, indexHref } from "../data.js";
+
+const api = await getApi();
+const rows = decorationsOf(api);
+// only the columns some plugin uses
+const columns = DECORATION_COLUMNS.filter((c) => rows.some((r) => r.columns[c.id].length > 0));
+const total = rows.reduce((n, r) => n + r.count, 0);
+const counts = Object.fromEntries(columns.map((c) => [c.id, rows.filter((r) => r.columns[c.id].length > 0).length]));
+---
+
+<Layout
+  title={`Plugin decorations — ${api.config.title}`}
+  description="What each official Fastify plugin adds to fastify, request, reply and the route options."
+>
+  <div class="far">
+    <VersionBanner />
+    <section class="far-hero far-hero-sm">
+      <div class="far-wrap">
+        <a href={indexHref(api)} class="far-side-back"><Icon name="back" size={14} class="" /> All packages</a>
+        <div class="far-hero-top">
+          <p class="far-eyebrow">// plugin decorations</p>
+          <VersionSwitch />
+        </div>
+        <h1>What each plugin adds</h1>
+        <p class="far-lede">
+          The members every plugin declares on <code>fastify</code>, <code>request</code>, <code>reply</code> and
+          the route options once registered. Each one links to its type.
+        </p>
+        <dl class="far-stats">
+          <div><dt>plugins</dt><dd>{rows.length}</dd></div>
+          {columns.slice(0, 3).map((c) => (
+            <div><dt>extend {c.label}</dt><dd>{counts[c.id]}</dd></div>
+          ))}
+          <div><dt>members</dt><dd>{total}</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <div class="far-wrap far-deco">
+      <div class="far-deco-toolbar">
+        <div class="far-search">
+          <Icon name="search" class="" />
+          <input type="search" data-deco-filter placeholder="Filter by plugin or member (jwt, cookie, setCookie…)" autocomplete="off" aria-label="Filter plugins" />
+        </div>
+        <p data-deco-summary aria-live="polite">{rows.length} plugins</p>
+      </div>
+
+      <div class="far-deco-table" style={`--far-deco-cols: ${columns.length}`}>
+        <table>
+          <caption class="far-sr-only">Members added by each plugin</caption>
+          <thead>
+            <tr class="far-deco-row far-deco-head">
+              <th scope="col">Plugin</th>
+              {columns.map((c) => (
+                <th scope="col" title={c.hint}>{c.id === "route" || c.id === "other" ? c.label : <code>{c.label}</code>}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {
+              rows.map((r) => (
+                <tr class="far-deco-row" data-deco-row data-name={[r.pkg.name, ...columns.flatMap((c) => r.columns[c.id].map((m) => m.label))].join(" ").toLowerCase()}>
+                  <th scope="row" class="far-deco-pkg">
+                    <a href={indexHref(api, r.pkg.slug)}>
+                      <span class="far-tile far-tile-sm"><Icon name={r.pkg.icon} size={14} class="" /></span>
+                      <span>{r.pkg.scope && <span class="far-scope">{r.pkg.scope}</span>}{r.pkg.short}</span>
+                    </a>
+                  </th>
+                  {columns.map((c) => (
+                    <td data-label={c.label}>
+                      {r.columns[c.id].length > 0 ? (
+                        <span class="far-tokens">
+                          {r.columns[c.id].map((m) => (
+                            <a href={m.href} class="far-token" title={m.type}>{m.label.split(".").map((part: string, i: number) => (i === 0 ? part : <><wbr />.{part}</>))}</a>
+                          ))}
+                        </span>
+                      ) : (
+                        <span class="far-deco-none">—<span class="far-sr-only">nothing</span></span>
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <p data-deco-empty hidden class="far-card far-empty">No plugin matches this filter.</p>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const input = document.querySelector<HTMLInputElement>("[data-deco-filter]");
+  const rows = Array.from(document.querySelectorAll<HTMLElement>("[data-deco-row]"));
+  const summary = document.querySelector<HTMLElement>("[data-deco-summary]");
+  const empty = document.querySelector<HTMLElement>("[data-deco-empty]");
+  input?.addEventListener("input", () => {
+    const q = input.value.trim().toLowerCase();
+    let shown = 0;
+    for (const row of rows) {
+      const ok = !q || (row.dataset.name ?? "").includes(q);
+      row.hidden = !ok;
+      if (ok) shown++;
+    }
+    if (summary) summary.textContent = `${shown} ${shown === 1 ? "plugin" : "plugins"}`;
+    if (empty) empty.hidden = shown > 0;
+  });
+</script>

@@ -1,0 +1,21 @@
+---
+// Letter tile (lists) or labelled pill (page titles) for an export kind.
+import { KINDS } from "../data.js";
+
+interface Props {
+	kind: keyof typeof KINDS;
+	variant?: "letter" | "label";
+}
+const { kind, variant = "letter" } = Astro.props;
+const meta = KINDS[kind];
+---
+
+{
+  variant === "letter" ? (
+    <span class="far-kind far-kind-letter" data-kind={kind} title={meta.label} role="img" aria-label={meta.label}>
+      {meta.letter}
+    </span>
+  ) : (
+    <span class="far-kind far-kind-label" data-kind={kind}>{meta.label}</span>
+  )
+}

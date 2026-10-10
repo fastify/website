@@ -1,0 +1,100 @@
+---
+// Lucide icons used by the reference, plus the GitHub mark (Lucide ships no brand icons).
+import {
+	Activity,
+	ArrowDownToLine,
+	ArrowLeft,
+	ArrowLeftRight,
+	ArrowUpFromLine,
+	Blocks,
+	BookOpen,
+	Braces,
+	Check,
+	ChevronDown,
+	ChevronsDownUp,
+	Clock,
+	Cloud,
+	Cookie,
+	Database,
+	ExternalLink,
+	Factory,
+	FileCode,
+	Gauge,
+	KeyRound,
+	LayoutTemplate,
+	Package,
+	Plug,
+	Radio,
+	Route,
+	ScrollText,
+	Search,
+	Server,
+	Settings2,
+	ShieldCheck,
+	TriangleAlert,
+	Type,
+	Upload,
+	Webhook,
+	Wrench,
+	Zap,
+} from "@lucide/astro";
+
+interface Props {
+	name: string;
+	size?: number;
+	class?: string;
+}
+const { name, size = 16, class: className = "far-icon" } = Astro.props;
+
+const ICONS = {
+	zap: Zap,
+	server: Server,
+	request: ArrowDownToLine,
+	reply: ArrowUpFromLine,
+	route: Route,
+	hook: Webhook,
+	plug: Plug,
+	package: Package,
+	braces: Braces,
+	file: FileCode,
+	type: Type,
+	log: ScrollText,
+	alert: TriangleAlert,
+	settings: Settings2,
+	factory: Factory,
+	wrench: Wrench,
+	key: KeyRound,
+	cookie: Cookie,
+	shield: ShieldCheck,
+	database: Database,
+	radio: Radio,
+	proxy: ArrowLeftRight,
+	gauge: Gauge,
+	book: BookOpen,
+	upload: Upload,
+	layout: LayoutTemplate,
+	activity: Activity,
+	clock: Clock,
+	blocks: Blocks,
+	cloud: Cloud,
+	back: ArrowLeft,
+	check: Check,
+	chevron: ChevronDown,
+	collapse: ChevronsDownUp,
+	external: ExternalLink,
+	search: Search,
+} as const;
+const Component = ICONS[name as keyof typeof ICONS];
+---
+
+{
+  name === "github" ? (
+    <svg class={className} width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 .5C5.73.5.75 5.48.75 11.75c0 4.97 3.22 9.18 7.69 10.67.56.1.77-.24.77-.54v-1.9c-3.13.68-3.79-1.51-3.79-1.51-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.64 1.22 3.28.93.1-.73.39-1.22.71-1.5-2.5-.28-5.13-1.25-5.13-5.57 0-1.23.44-2.24 1.16-3.03-.12-.28-.5-1.43.11-2.99 0 0 .95-.3 3.1 1.16a10.8 10.8 0 0 1 5.64 0c2.15-1.46 3.1-1.16 3.1-1.16.61 1.56.23 2.71.11 2.99.72.79 1.16 1.8 1.16 3.03 0 4.33-2.64 5.28-5.15 5.56.4.35.76 1.03.76 2.08v3.09c0 .3.2.65.78.54 4.46-1.49 7.68-5.7 7.68-10.67C23.25 5.48 18.27.5 12 .5Z" />
+    </svg>
+  ) : Component ? (
+    <Component size={size} stroke-width={1.75} class={className} aria-hidden="true" />
+  ) : (
+    <Plug size={size} stroke-width={1.75} class={className} aria-hidden="true" />
+  )
+}

@@ -4,7 +4,7 @@
 // corresponding Lucide component. Brand marks (GitHub, Discord) are kept as
 // inline SVGs because Lucide intentionally does not ship brand icons.
 import {
-	AlertTriangle,
+	TriangleAlert,
 	ArrowRight,
 	Braces,
 	Clock,
@@ -32,7 +32,7 @@ interface Props {
 const { name, class: className = "", size = 24 } = Astro.props;
 
 const lucide: Record<string, any> = {
-	alert: AlertTriangle,
+	alert: TriangleAlert,
 	bolt: Zap,
 	plug: Plug,
 	schema: Braces,

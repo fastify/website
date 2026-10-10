@@ -1,0 +1,31 @@
+---
+interface Props {
+	items: { depth: number; slug: string; text: string }[];
+}
+const { items } = Astro.props;
+---
+
+<ul class="far-toc">
+  {items.map((h) => (<li><a href={`#${h.slug}`} data-depth={h.depth} data-toc-link>{h.text}</a></li>))}
+</ul>
+
+<script>
+  // Highlight the section in view
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-toc-link]"));
+  const targets = links
+    .map((a) => document.getElementById(decodeURIComponent(a.hash.slice(1))))
+    .filter((el): el is HTMLElement => el !== null);
+  if (targets.length) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          for (const a of links) a.toggleAttribute("aria-current", a.hash === `#${entry.target.id}`);
+          for (const a of links) if (a.hasAttribute("aria-current")) a.setAttribute("aria-current", "true");
+        }
+      },
+      { rootMargin: "0px 0px -70% 0px" },
+    );
+    for (const target of targets) observer.observe(target);
+  }
+</script>
