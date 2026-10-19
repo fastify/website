@@ -28,12 +28,12 @@ const ROOT = path.resolve(import.meta.dirname, "..");
 
 const SCENARIOS = [
 	{
-		results: "benchmark-results.json",
+		sourceFile: "benchmark-results.json",
 		output: path.join(ROOT, "src/data/benchmarks.json"),
 		required: true,
 	},
 	{
-		results: "benchmark-results-post.json",
+		sourceFile: "benchmark-results-post.json",
 		output: path.join(ROOT, "src/data/benchmarks-post.json"),
 		required: false,
 	},
@@ -58,13 +58,13 @@ export async function downloadBenchmarks() {
 	await Promise.all(SCENARIOS.map(downloadScenario));
 }
 
-async function downloadScenario({ results, output, required }) {
+async function downloadScenario({ sourceFile, output, required }) {
 	let data;
 	try {
-		data = await downloadBenchmarksFromFile(results);
+		data = await downloadBenchmarksFromFile(sourceFile);
 	} catch (err) {
 		if (required || err.status !== 404) throw err;
-		log.warn(`Skipping ${results}: ${err.message}`);
+		log.warn(`Skipping ${sourceFile}: ${err.message}`);
 		data = { date: "Unknown", reference: 0, frameworks: [] };
 	}
 	await writeFile(output, `${JSON.stringify(data, null, 2)}\n`);
@@ -73,40 +73,42 @@ async function downloadScenario({ results, output, required }) {
 	);
 }
 
-async function downloadBenchmarksFromFile(results) {
-	const data = await getJSON(`${RAW_BASE_URL}/${results}`);
+async function downloadBenchmarksFromFile(sourceFile) {
+	const data = await getJSON(`${RAW_BASE_URL}/${sourceFile}`);
 	if (isValidBenchmark(data)) {
-		const date = await getBenchmarkDate(results);
+		const date = await getBenchmarkDate(sourceFile);
 		return buildBenchmarksJSON(data, date);
 	}
 
-	log.warn(`${results} contains \`N/A\` data. Searching for previous revision`);
+	log.warn(
+		`${sourceFile} contains \`N/A\` data. Searching for previous revision`,
+	);
 
-	const commits = await getCommits(results);
+	const commits = await getCommits(sourceFile);
 	for (let i = 0; i < commits.length; i++) {
 		log.debug(`Checking commit ${commits[i]}`);
 		const treeUrl = await getTree(commits[i]);
-		const blobUrl = await getUrlFromTree(treeUrl, results);
+		const blobUrl = await getUrlFromTree(treeUrl, sourceFile);
 		const data = await getBlob(blobUrl);
 		if (isValidBenchmark(data)) {
-			const date = await getBenchmarkDate(results, i);
+			const date = await getBenchmarkDate(sourceFile, i);
 			return buildBenchmarksJSON(data, date);
 		}
 	}
 
-	throw new Error(`Unable to find a valid benchmark result in ${results}`);
+	throw new Error(`Unable to find a valid benchmark result in ${sourceFile}`);
 }
 
-async function getBenchmarkDate(results, offset = 0) {
+async function getBenchmarkDate(sourceFile, offset = 0) {
 	const commits = await getJSON(
-		`${GITHUB_BASE_URL}/commits?path=${results}&per_page=10`,
+		`${GITHUB_BASE_URL}/commits?path=${sourceFile}&per_page=10`,
 	);
 	return commits[offset]?.commit?.committer?.date ?? "Unknown";
 }
 
-async function getCommits(results) {
+async function getCommits(sourceFile) {
 	const commits = await getJSON(
-		`${GITHUB_BASE_URL}/commits?path=${results}&per_page=10`,
+		`${GITHUB_BASE_URL}/commits?path=${sourceFile}&per_page=10`,
 	);
 	return commits.map((commit) => commit.sha);
 }
@@ -116,9 +118,9 @@ async function getTree(commitSha) {
 	return commit.tree.url;
 }
 
-async function getUrlFromTree(treeUrl, results) {
+async function getUrlFromTree(treeUrl, sourceFile) {
 	const tree = await getJSON(treeUrl);
-	return tree.tree.find((item) => item.path === results).url;
+	return tree.tree.find((item) => item.path === sourceFile).url;
 }
 
 async function getBlob(blobUrl) {

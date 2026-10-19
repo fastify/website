@@ -58,7 +58,7 @@ const hasTabs = scenarios.length > 1;
             type="button"
             role="tab"
             id={`bench-tab-${scenario.id}`}
-            aria-selected={i === 0 ? "true" : "false"}
+            aria-selected={i === 0}
             aria-controls={`bench-panel-${scenario.id}`}
             data-bench-tab={scenario.id}
             class:list={[

@@ -10,6 +10,7 @@
 			"!src/content/docs",
 			"!public/docs",
 			"!src/data/benchmarks.json",
+			"!src/data/benchmarks-post.json",
 			"!src/data/plugins.json",
 			"!src/data/plugins-by-downloads.json",
 			"!src/data/versions.json",

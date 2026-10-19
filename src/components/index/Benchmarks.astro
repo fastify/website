@@ -2,6 +2,7 @@
 import BenchBars from "~/components/BenchBars.astro";
 import ButtonLink from "~/components/ButtonLink.astro";
 import Icon from "~/components/Icon.astro";
+import { BENCHMARKS } from "~/data/site";
 import { withBase } from "~/lib/href";
 ---
 
@@ -31,7 +32,7 @@ import { withBase } from "~/lib/href";
       </ButtonLink>
     </div>
     <div class="card p-6 sm:p-8">
-      <BenchBars valueKey="reqs" unit="req/s" betterIs="higher" decimals={0} />
+      <BenchBars valueKey="reqs" unit="req/s" betterIs="higher" decimals={0} benchmarks={BENCHMARKS} />
     </div>
   </div>
 </section>

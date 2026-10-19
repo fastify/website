@@ -1,5 +1,5 @@
 ---
-import { BENCHMARKS, type Bench, formatMetric } from "~/data/site";
+import { type Bench, formatMetric } from "~/data/site";
 
 type Metric = "reqs" | "latency" | "throughput";
 
@@ -8,7 +8,7 @@ type Props = {
 	unit: string;
 	betterIs: "higher" | "lower";
 	decimals?: number;
-	benchmarks?: Bench[];
+	benchmarks: Bench[];
 };
 
 const {
@@ -16,7 +16,7 @@ const {
 	unit,
 	betterIs,
 	decimals = 0,
-	benchmarks = BENCHMARKS,
+	benchmarks,
 } = Astro.props;
 
 const rows = [...benchmarks].sort((a, b) => b[valueKey] - a[valueKey]);
