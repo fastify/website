@@ -1,0 +1,59 @@
+---
+import BenchBars from "~/components/BenchBars.astro";
+import BenchStat from "~/components/benchmarks/BenchStat.astro";
+import type { Bench, BenchmarkStats } from "~/data/site";
+
+type Props = {
+	stats: BenchmarkStats;
+	benchmarks: Bench[];
+};
+
+const { stats, benchmarks } = Astro.props;
+const {
+	self: fastify,
+	multiplier,
+	latencyMultiplier,
+	throughputMultiplier,
+} = stats;
+
+const lastUpdated = (
+	Number.isNaN(Date.parse(stats.date)) ? new Date() : new Date(stats.date)
+).toLocaleDateString("en-US", {
+	year: "numeric",
+	month: "long",
+	day: "numeric",
+});
+---
+
+<div class="space-y-8">
+  <div class="card p-6 sm:p-10">
+    <div class="mb-8 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
+      <h2 class="font-display text-2xl font-semibold">Requests per second</h2>
+      <span class="font-mono text-xs text-muted"
+        >Node.js · single instance · updated {lastUpdated}</span
+      >
+    </div>
+    <BenchStat value={fastify.reqs} unit="req/s" multiplier={multiplier} comparison="faster than Express" />
+    <BenchBars valueKey="reqs" unit="req/s" betterIs="higher" decimals={0} benchmarks={benchmarks} />
+  </div>
+  <div class="card p-6 sm:p-10">
+    <div class="mb-8 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
+      <h2 class="font-display text-2xl font-semibold">Latency</h2>
+      <span class="font-mono text-xs text-muted"
+        >Node.js · single instance · updated {lastUpdated}</span
+      >
+    </div>
+    <BenchStat value={fastify.latency} unit="ms" multiplier={latencyMultiplier} comparison="lower than Express" decimals={2} />
+    <BenchBars valueKey="latency" unit="ms" betterIs="lower" decimals={2} benchmarks={benchmarks} />
+  </div>
+  <div class="card p-6 sm:p-10">
+    <div class="mb-8 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
+      <h2 class="font-display text-2xl font-semibold">Throughput</h2>
+      <span class="font-mono text-xs text-muted"
+        >Node.js · single instance · updated {lastUpdated}</span
+      >
+    </div>
+    <BenchStat value={fastify.throughput} unit="MB/s" multiplier={throughputMultiplier} comparison="faster than Express" decimals={2} />
+    <BenchBars valueKey="throughput" unit="MB/s" betterIs="higher" decimals={2} benchmarks={benchmarks} />
+  </div>
+</div>

@@ -1,28 +1,38 @@
 ---
-import BenchBars from "~/components/BenchBars.astro";
 import ButtonLink from "~/components/ButtonLink.astro";
-import BenchStat from "~/components/benchmarks/BenchStat.astro";
+import BenchCards from "~/components/benchmarks/BenchCards.astro";
 import Icon from "~/components/Icon.astro";
 import PageHeader from "~/components/PageHeader.astro";
-import { BENCHMARK_STATS } from "~/data/site";
+import {
+	BENCHMARK_STATS,
+	BENCHMARKS,
+	POST_BENCHMARK_STATS,
+	POST_BENCHMARKS,
+} from "~/data/site";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 
-const {
-	self: fastify,
-	multiplier,
-	latencyMultiplier,
-	throughputMultiplier,
-} = BENCHMARK_STATS;
-
-const lastUpdated = (
-	Number.isNaN(Date.parse(BENCHMARK_STATS.date))
-		? new Date()
-		: new Date(BENCHMARK_STATS.date)
-).toLocaleDateString("en-US", {
-	year: "numeric",
-	month: "long",
-	day: "numeric",
-});
+const scenarios = [
+	{
+		id: "get",
+		label: "GET",
+		description: "GET / responding with { hello: 'world' }",
+		stats: BENCHMARK_STATS,
+		benchmarks: BENCHMARKS,
+	},
+	...(POST_BENCHMARK_STATS
+		? [
+				{
+					id: "post",
+					label: "POST",
+					description:
+						"POST / with a { hello: 'world' } JSON body, parsed and echoed back",
+					stats: POST_BENCHMARK_STATS,
+					benchmarks: POST_BENCHMARKS,
+				},
+			]
+		: []),
+];
+const hasTabs = scenarios.length > 1;
 ---
 
 <BaseLayout
@@ -36,38 +46,87 @@ const lastUpdated = (
   </PageHeader>
 
   <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6 2xl:max-w-[100rem]">
-    <div class="space-y-8">
-      <div class="card p-6 sm:p-10">
-        <div class="mb-8 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
-          <h2 class="font-display text-2xl font-semibold">Requests per second</h2>
-          <span class="font-mono text-xs text-muted"
-            >Node.js · single instance · updated {lastUpdated}</span
+    {hasTabs && (
+      <div
+        class="mb-4 inline-flex rounded-lg border border-border bg-surface-2 p-1"
+        role="tablist"
+        aria-label="Benchmark scenario"
+        data-bench-tabs
+      >
+        {scenarios.map((scenario, i) => (
+          <button
+            type="button"
+            role="tab"
+            id={`bench-tab-${scenario.id}`}
+            aria-selected={i === 0 ? "true" : "false"}
+            aria-controls={`bench-panel-${scenario.id}`}
+            data-bench-tab={scenario.id}
+            class:list={[
+              "rounded-md px-4 py-1.5 font-mono text-xs transition-colors",
+              i === 0 ? "bg-surface text-amber-ink" : "text-muted hover:text-fg",
+            ]}
           >
-        </div>
-        <BenchStat value={fastify.reqs} unit="req/s" multiplier={multiplier} comparison="faster than Express" />
-        <BenchBars valueKey="reqs" unit="req/s" betterIs="higher" decimals={0} />
+            {scenario.label}
+          </button>
+        ))}
       </div>
-      <div class="card p-6 sm:p-10">
-        <div class="mb-8 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
-          <h2 class="font-display text-2xl font-semibold">Latency</h2>
-          <span class="font-mono text-xs text-muted"
-            >Node.js · single instance · updated {lastUpdated}</span
-          >
-        </div>
-        <BenchStat value={fastify.latency} unit="ms" multiplier={latencyMultiplier} comparison="lower than Express" decimals={2} />
-        <BenchBars valueKey="latency" unit="ms" betterIs="lower" decimals={2} />
+    )}
+
+    {scenarios.map((scenario, i) => (
+      <div
+        id={`bench-panel-${scenario.id}`}
+        {...(hasTabs && {
+          role: "tabpanel",
+          "aria-labelledby": `bench-tab-${scenario.id}`,
+        })}
+        data-bench-panel={scenario.id}
+        class:list={[i === 0 ? "" : "hidden"]}
+      >
+        <p class="mb-6 font-mono text-xs text-muted">{scenario.description}</p>
+        <BenchCards stats={scenario.stats} benchmarks={scenario.benchmarks} />
       </div>
-      <div class="card p-6 sm:p-10">
-        <div class="mb-8 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
-          <h2 class="font-display text-2xl font-semibold">Throughput</h2>
-          <span class="font-mono text-xs text-muted"
-            >Node.js · single instance · updated {lastUpdated}</span
-          >
-        </div>
-        <BenchStat value={fastify.throughput} unit="MB/s" multiplier={throughputMultiplier} comparison="faster than Express" decimals={2} />
-        <BenchBars valueKey="throughput" unit="MB/s" betterIs="higher" decimals={2} />
-      </div>
-    </div>
+    ))}
+
+    {/* Inline, right after the panels, so `#post` applies before first paint. */}
+    <script is:inline>
+      (() => {
+        const tablist = document.querySelector("[data-bench-tabs]");
+        if (!tablist) return;
+        const tabs = tablist.querySelectorAll("[data-bench-tab]");
+        const panels = document.querySelectorAll("[data-bench-panel]");
+        const select = (id) => {
+          tabs.forEach((tab) => {
+            const active = tab.dataset.benchTab === id;
+            tab.setAttribute("aria-selected", active ? "true" : "false");
+            tab.classList.toggle("bg-surface", active);
+            tab.classList.toggle("text-amber-ink", active);
+            tab.classList.toggle("text-muted", !active);
+            tab.classList.toggle("hover:text-fg", !active);
+          });
+          panels.forEach((panel) => {
+            panel.classList.toggle("hidden", panel.dataset.benchPanel !== id);
+          });
+        };
+
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            const id = tab.dataset.benchTab;
+            select(id);
+            const url = id === "get" ? location.pathname + location.search : `#${id}`;
+            history.replaceState(null, "", url);
+          });
+        });
+
+        // Only react to hashes this toggle owns; e.g. the `#main` skip link
+        // must not reset the selection.
+        const selectFromHash = () => {
+          if (location.hash === "#post") select("post");
+          else if (!location.hash || location.hash === "#get") select("get");
+        };
+        window.addEventListener("hashchange", selectFromHash);
+        selectFromHash();
+      })();
+    </script>
 
     <div
       class="mt-8 rounded-xl border border-border bg-surface/40 p-6 text-sm leading-relaxed text-fg-soft"

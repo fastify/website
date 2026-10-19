@@ -1,5 +1,5 @@
 ---
-import { BENCHMARKS, formatMetric } from "~/data/site";
+import { BENCHMARKS, type Bench, formatMetric } from "~/data/site";
 
 type Metric = "reqs" | "latency" | "throughput";
 
@@ -8,11 +8,18 @@ type Props = {
 	unit: string;
 	betterIs: "higher" | "lower";
 	decimals?: number;
+	benchmarks?: Bench[];
 };
 
-const { valueKey, unit, betterIs, decimals = 0 } = Astro.props;
+const {
+	valueKey,
+	unit,
+	betterIs,
+	decimals = 0,
+	benchmarks = BENCHMARKS,
+} = Astro.props;
 
-const rows = [...BENCHMARKS].sort((a, b) => b[valueKey] - a[valueKey]);
+const rows = [...benchmarks].sort((a, b) => b[valueKey] - a[valueKey]);
 const max = Math.max(...rows.map((b) => b[valueKey]));
 ---
 
