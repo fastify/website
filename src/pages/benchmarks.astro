@@ -116,43 +116,43 @@ const hasTabs = scenarios.length > 1;
       </ButtonLink>
     </div>
   </section>
-</BaseLayout>
 
-<script>
-  const tablist = document.querySelector("[data-bench-tabs]");
-  if (tablist) {
-    const tabs = tablist.querySelectorAll<HTMLButtonElement>("[data-bench-tab]");
-    const panels = document.querySelectorAll<HTMLElement>("[data-bench-panel]");
-    const select = (id: string) => {
+  <script>
+    const tablist = document.querySelector("[data-bench-tabs]");
+    if (tablist) {
+      const tabs = tablist.querySelectorAll<HTMLButtonElement>("[data-bench-tab]");
+      const panels = document.querySelectorAll<HTMLElement>("[data-bench-panel]");
+      const select = (id: string) => {
+        tabs.forEach((tab) => {
+          const active = tab.dataset.benchTab === id;
+          tab.setAttribute("aria-selected", active ? "true" : "false");
+          tab.classList.toggle("bg-surface", active);
+          tab.classList.toggle("text-amber-ink", active);
+          tab.classList.toggle("text-muted", !active);
+          tab.classList.toggle("hover:text-fg", !active);
+        });
+        panels.forEach((panel) => {
+          panel.classList.toggle("hidden", panel.dataset.benchPanel !== id);
+        });
+      };
+
       tabs.forEach((tab) => {
-        const active = tab.dataset.benchTab === id;
-        tab.setAttribute("aria-selected", active ? "true" : "false");
-        tab.classList.toggle("bg-surface", active);
-        tab.classList.toggle("text-amber-ink", active);
-        tab.classList.toggle("text-muted", !active);
-        tab.classList.toggle("hover:text-fg", !active);
+        tab.addEventListener("click", () => {
+          const id = tab.dataset.benchTab ?? "get";
+          select(id);
+          const url = id === "get" ? location.pathname + location.search : `#${id}`;
+          history.replaceState(null, "", url);
+        });
       });
-      panels.forEach((panel) => {
-        panel.classList.toggle("hidden", panel.dataset.benchPanel !== id);
-      });
-    };
 
-    tabs.forEach((tab) => {
-      tab.addEventListener("click", () => {
-        const id = tab.dataset.benchTab ?? "get";
-        select(id);
-        const url = id === "get" ? location.pathname + location.search : `#${id}`;
-        history.replaceState(null, "", url);
-      });
-    });
-
-    // Only react to hashes this toggle owns; e.g. the `#main` skip link
-    // must not reset the selection.
-    const selectFromHash = () => {
-      if (location.hash === "#post") select("post");
-      else if (!location.hash || location.hash === "#get") select("get");
-    };
-    window.addEventListener("hashchange", selectFromHash);
-    selectFromHash();
-  }
-</script>
+      // Only react to hashes this toggle owns; e.g. the `#main` skip link
+      // must not reset the selection.
+      const selectFromHash = () => {
+        if (location.hash === "#post") select("post");
+        else if (!location.hash || location.hash === "#get") select("get");
+      };
+      window.addEventListener("hashchange", selectFromHash);
+      selectFromHash();
+    }
+  </script>
+</BaseLayout>
