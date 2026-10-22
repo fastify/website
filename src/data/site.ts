@@ -1,5 +1,8 @@
 import type { ProfileCardPerson } from "~/components/ProfileCard.astro";
 import benchmarksData from "~/data/benchmarks.json" with { type: "json" };
+import postBenchmarksData from "~/data/benchmarks-post.json" with {
+	type: "json",
+};
 
 export const SITE = {
 	name: "Fastify",
@@ -33,17 +36,32 @@ export type Bench = {
 	self?: boolean;
 };
 
-// Requests/sec from the official fastify/benchmarks suite, refreshed at build
-// time by `scripts/download-benchmarks.mjs` (see `prebuild` / `predev`).
-export const BENCHMARKS: Bench[] = benchmarksData.frameworks.map(
-	({ name, requests, version, latency, throughput }) => ({
+type BenchmarksFile = {
+	date: string;
+	frameworks: {
+		name: string;
+		requests: number;
+		version: string;
+		latency: number;
+		throughput: number;
+	}[];
+};
+
+const toBenchmarks = ({ frameworks }: BenchmarksFile): Bench[] =>
+	frameworks.map(({ name, requests, version, latency, throughput }) => ({
 		name,
 		reqs: requests,
 		latency,
 		throughput,
 		version,
 		self: name === "Fastify",
-	}),
+	}));
+
+// Requests/sec from the official fastify/benchmarks suite, refreshed at build
+// time by `scripts/download-benchmarks.mjs` (see `npm run build:data`).
+export const BENCHMARKS: Bench[] = toBenchmarks(benchmarksData);
+export const POST_BENCHMARKS: Bench[] = toBenchmarks(
+	postBenchmarksData as BenchmarksFile,
 );
 
 export const formatMetric = (n: number, decimals = 0) =>
@@ -55,14 +73,14 @@ export const formatMetric = (n: number, decimals = 0) =>
 // Derived metrics shared by every benchmark surface (gauge, bars, summary
 // tiles). Computed once at module load so callers stay in sync if the data
 // ever changes.
-export const BENCHMARK_STATS = {
-	date: benchmarksData.date,
-	self: BENCHMARKS.find((b) => b.self) ?? BENCHMARKS[0],
-	max: Math.max(...BENCHMARKS.map((b) => b.reqs)),
-	maxLatency: Math.max(...BENCHMARKS.map((b) => b.latency)),
-	maxThroughput: Math.max(...BENCHMARKS.map((b) => b.throughput)),
-	peers: BENCHMARKS.filter((b) => !b.self),
-	express: BENCHMARKS.find((b) => b.name === "Express") ?? null,
+const benchmarkStats = (benchmarks: Bench[], date: string) => ({
+	date,
+	self: benchmarks.find((b) => b.self) ?? benchmarks[0],
+	max: Math.max(...benchmarks.map((b) => b.reqs)),
+	maxLatency: Math.max(...benchmarks.map((b) => b.latency)),
+	maxThroughput: Math.max(...benchmarks.map((b) => b.throughput)),
+	peers: benchmarks.filter((b) => !b.self),
+	express: benchmarks.find((b) => b.name === "Express") ?? null,
 	get multiplier(): string | null {
 		return this.express
 			? (this.self.reqs / this.express.reqs).toFixed(1)
@@ -78,7 +96,15 @@ export const BENCHMARK_STATS = {
 			? (this.self.throughput / this.express.throughput).toFixed(1)
 			: null;
 	},
-};
+});
+
+export type BenchmarkStats = ReturnType<typeof benchmarkStats>;
+
+export const BENCHMARK_STATS = benchmarkStats(BENCHMARKS, benchmarksData.date);
+// `null` until fastify/benchmarks has published POST results.
+export const POST_BENCHMARK_STATS = POST_BENCHMARKS.length
+	? benchmarkStats(POST_BENCHMARKS, postBenchmarksData.date)
+	: null;
 
 export type Feature = {
 	title: string;
