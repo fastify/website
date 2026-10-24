@@ -1,0 +1,37 @@
+---
+// On a frozen major (`/v5/…`): says so, and links to the same page in the
+// latest version, whose label comes from `<site root>/versions.json`.
+import { getApi } from "../data.js";
+
+const api = await getApi();
+const { label, archive, root } = api.version;
+const latest = `${root}${api.config.base.replace(/^\//, "")}/`;
+---
+
+{
+  archive && (
+    <div class="far-version-banner" role="note" data-far-version-banner data-root={root} data-archive={archive}>
+      <div class="far-wrap">
+        <span>You're viewing the API reference for <strong>Fastify {label}</strong>.</span>
+        <a href={latest} data-far-latest>Go to the latest version →</a>
+      </div>
+    </div>
+  )
+}
+
+<script>
+  for (const el of document.querySelectorAll<HTMLElement>("[data-far-version-banner]")) {
+    const root = el.dataset.root ?? "/";
+    const prefix = `${root}${el.dataset.archive}/`;
+    const link = el.querySelector<HTMLAnchorElement>("[data-far-latest]");
+    if (!link || !location.pathname.startsWith(prefix)) continue;
+    link.href = `${root}${location.pathname.slice(prefix.length)}${location.hash}`;
+    fetch(`${root}versions.json`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: { versions?: { label: string }[] } | null) => {
+        const latest = data?.versions?.[0]?.label;
+        if (latest) link.textContent = `Go to Fastify ${latest}, the latest version →`;
+      })
+      .catch(() => {});
+  }
+</script>

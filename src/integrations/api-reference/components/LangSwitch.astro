@@ -1,0 +1,70 @@
+---
+// TS / JS switch. The choice lives on <html data-far-lang="esm|cjs"> (none =
+// TypeScript) and in localStorage, so every page opens in the last language.
+// Content for each mode is rendered ahead as `.far-variant` elements; CSS shows
+// the one that matches.
+interface Props {
+	/** show import / require: only when the page has something that differs between them */
+	formats?: boolean;
+}
+const { formats = true } = Astro.props;
+---
+
+<div class="far-lang">
+  <span class="far-label">Language</span>
+  <fieldset class="far-seg" aria-label="Code language">
+    <button type="button" data-far-set="ts" aria-pressed="true">TS</button>
+    <button type="button" data-far-set="js" aria-pressed="false">JS</button>
+  </fieldset>
+  {
+    formats && (
+      <div class="far-variant" data-far-variant="esm cjs">
+        <fieldset class="far-seg" aria-label="Module format">
+          <button type="button" data-far-set="esm" aria-pressed="false">import</button>
+          <button type="button" data-far-set="cjs" aria-pressed="false">require</button>
+        </fieldset>
+      </div>
+    )
+  }
+</div>
+
+<script>
+  const root = document.documentElement;
+  const read = (key: string) => {
+    try {
+      return localStorage.getItem(key);
+    } catch {
+      return null;
+    }
+  };
+  const write = (key: string, value: string) => {
+    try {
+      localStorage.setItem(key, value);
+    } catch {}
+  };
+
+  function sync() {
+    const mode = root.getAttribute("data-far-lang") ?? "ts";
+    for (const button of document.querySelectorAll<HTMLButtonElement>("[data-far-set]")) {
+      const set = button.dataset.farSet;
+      const pressed = set === "js" ? mode !== "ts" : set === mode;
+      button.setAttribute("aria-pressed", String(pressed));
+    }
+  }
+
+  function choose(set: string) {
+    const mode = set === "js" ? (read("far-lang-js") === "cjs" ? "cjs" : "esm") : set;
+    if (mode === "ts") root.removeAttribute("data-far-lang");
+    else {
+      root.setAttribute("data-far-lang", mode);
+      write("far-lang-js", mode);
+    }
+    write("far-lang", mode);
+    sync();
+  }
+
+  for (const button of document.querySelectorAll<HTMLButtonElement>("[data-far-set]")) {
+    button.addEventListener("click", () => choose(button.dataset.farSet ?? "ts"));
+  }
+  sync();
+</script>

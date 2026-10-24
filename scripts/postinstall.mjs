@@ -3,13 +3,14 @@ import { downloadBenchmarks } from "./download-benchmarks.mjs";
 import { fetchContributors } from "./fetch-contributors.mjs";
 import { fetchDocs } from "./fetch-docs.mjs";
 import { fetchPluginDownloads } from "./fetch-plugin-downloads.mjs";
+import { installApiPackages } from "./install-api-packages.mjs";
 
 const tasks = [
 	downloadBenchmarks(),
 	fetchContributors(),
 	fetchDocs()
 		.then(() => buildPluginList())
-		.then(() => fetchPluginDownloads()),
+		.then(() => Promise.all([fetchPluginDownloads(), installApiPackages()])),
 ];
 
 await Promise.all(tasks).catch((err) => {

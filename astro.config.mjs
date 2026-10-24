@@ -8,8 +8,12 @@ import astroInference from "astro-inference";
 import pagefind from "astro-pagefind";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 import baseConfig from "./astro.base.config.mjs";
+import apiReference from "./src/integrations/api-reference/index.js";
 import { rehypeCodeCopy } from "./src/lib/rehype-code-copy.mjs";
 import { remarkReadingTime } from "./src/lib/remark-reading-time.mjs";
+
+// The API reference adds ~750 pages: setting SKIP_API_REFERENCE leaves it out (faster local dev).
+const withApiReference = !process.env.SKIP_API_REFERENCE;
 
 const markdownProcessor = () =>
 	unified({
@@ -47,6 +51,10 @@ export default defineConfig({
 			processor: markdownProcessor(),
 		}),
 		sitemap(),
+		// API reference at /api/, from the packages installed by scripts/postinstall.mjs
+		...(withApiReference
+			? [apiReference({ layout: "./src/layouts/BaseLayout.astro" })]
+			: []),
 		pagefind(),
 		astroInference({
 			exclude: ["resources/**", "benchmarks/**", "organizations/**"],

@@ -1,0 +1,339 @@
+---
+import Layout from "virtual:fastify-api-reference/layout";
+import CopyButton from "~/components/CopyButton.astro";
+import "../styles.css";
+import ApiCode from "../components/ApiCode.astro";
+import DocTags from "../components/DocTags.astro";
+import Icon from "../components/Icon.astro";
+import KindBadge from "../components/KindBadge.astro";
+import LangSwitch from "../components/LangSwitch.astro";
+import PackageNav from "../components/PackageNav.astro";
+import Toc from "../components/Toc.astro";
+import VersionBanner from "../components/VersionBanner.astro";
+import VersionSwitch from "../components/VersionSwitch.astro";
+import {
+	docsOf,
+	entryHref,
+	extensionsOf,
+	getApi,
+	importLines,
+	indexHref,
+	KINDS,
+	kindOf,
+	linkTargets,
+	memberSlug,
+	sourceOf,
+	statusOf,
+	summaryOf,
+	variantGroups,
+	withBase,
+} from "../data.js";
+import { switchEffect } from "../examples.js";
+import { renderDoc } from "../markdown.js";
+import type { ApiEntry } from "../types";
+
+export async function getStaticPaths() {
+	const api = await getApi();
+	return api.entries.map((entry) => ({
+		params: {
+			pkg: api.packageOf.get(entry.id)?.slug ?? "unknown",
+			name: api.segment.get(entry.id) ?? entry.data.name,
+		},
+		props: { id: entry.id },
+	}));
+}
+
+const { id } = Astro.props;
+const api = await getApi();
+const entry = api.byId.get(id);
+if (!entry) throw new Error(`Unknown API entry: ${id}`);
+const doc = entry.data;
+const pkg = api.packageOf.get(id);
+const links = linkTargets(api, pkg);
+const kind = kindOf(doc);
+const status = statusOf(doc);
+const imports = importLines(doc);
+const importGroups = imports ? variantGroups(imports) : [];
+// the switch only appears where something changes with the language
+// (import / require only where the two differ: a type's JSDoc @typedef is the same in both)
+const exampleTexts = [doc.tags, ...doc.signatures.map((x) => x.tags), ...doc.members.map((m) => m.tags)]
+	.flatMap((tags) => tags.filter((t) => t.name === "example").map((t) => t.text as string));
+const effect = switchEffect(imports, exampleTexts);
+const showSwitch = effect.language || effect.format;
+const source = sourceOf(pkg, doc);
+const docs = docsOf(pkg, doc);
+// interfaces and classes read as one outline (header + members), even when the
+// declaration is merged from several blocks; so do augmentations
+const outlined = Boolean(doc.augments) || ((doc.kind === "interface" || doc.kind === "class") && doc.signatures.length > 0);
+const overloads = !outlined && doc.signatures.length > 1;
+const members = doc.members;
+const extensions = extensionsOf(api, entry);
+const augmented = doc.augments === "fastify" ? api.coreByName.get(doc.name) : undefined;
+const aliases = doc.aliases.filter((a: string) => a !== "default");
+
+// An augmentation reads best as the block a plugin actually writes
+const indent = (code: string, pad: string) => code.split("\n").map((l) => pad + l).join("\n");
+// long outlines stop after OUTLINE_MAX members: the Members section lists them all
+const OUTLINE_MAX = 30;
+const outline = (pad: string) => {
+	const lines = members
+		.slice(0, OUTLINE_MAX)
+		.flatMap((m) => m.signatures.map((s) => indent(s.code, pad)));
+	if (members.length > OUTLINE_MAX) lines.push(`${pad}// … ${members.length - OUTLINE_MAX} more members, listed below`);
+	return lines.join("\n");
+};
+const header = (doc.signatures.find((x) => /\b(extends|implements)\b/.test(x.code)) ?? doc.signatures[0])?.code;
+const signatures = doc.augments
+	? [
+			{
+				...doc.signatures[0],
+				code: `declare module '${doc.augments}' {\n  interface ${doc.name} {\n${outline("    ")}\n  }\n}`,
+			},
+		]
+	: outlined
+		? [{ ...doc.signatures[0], code: members.length ? `${header} {\n${outline("  ")}\n}` : `${header} {}` }]
+		: doc.signatures;
+
+const related = [
+	{ label: "Uses", ids: doc.uses },
+	{ label: "Used by", ids: doc.usedBy },
+]
+	.map((r) => ({ ...r, entries: r.ids.map((i: string) => api.byId.get(i)).filter((e): e is ApiEntry => e !== undefined) }))
+	.filter((r) => r.entries.length > 0);
+
+const toc = [
+	{ depth: 2, slug: "signature", text: overloads ? "Overloads" : "Signature" },
+	...(members.length
+		? [
+				{ depth: 2, slug: "members", text: "Members" },
+				...members.map((m) => ({ depth: 3, slug: memberSlug(m.name), text: m.name })),
+			]
+		: []),
+	...(extensions.length ? [{ depth: 2, slug: "extended-by-plugins", text: "Extended by plugins" }] : []),
+	...(related.length ? [{ depth: 2, slug: "related", text: "Related" }] : []),
+];
+
+// Previous / next inside the same package
+const siblings = pkg?.groups.length ? pkg.groups.flatMap((g) => g.entries) : (pkg?.entries ?? []);
+const idx = siblings.findIndex((e) => e.id === id);
+const prev = idx > 0 ? siblings[idx - 1] : null;
+const next = idx >= 0 && idx < siblings.length - 1 ? siblings[idx + 1] : null;
+
+const title = doc.augments ? `${doc.name} (${doc.package})` : doc.name;
+---
+
+<Layout title={`${title} — Fastify API`} description={summaryOf(doc.description) || `${KINDS[kind].label} ${doc.name} from ${doc.package}.`}>
+  <script is:inline>
+    try {
+      const farLang = localStorage.getItem("far-lang");
+      if (farLang === "esm" || farLang === "cjs") document.documentElement.setAttribute("data-far-lang", farLang);
+    } catch (e) {}
+  </script>
+  <div class="far">
+    <VersionBanner />
+    <div class="far-wrap far-docs far-docs-entry">
+      {pkg && <PackageNav pkg={pkg} current={id} />}
+
+      <div class="far-main">
+        <div>
+          <div class="far-crumbs-row">
+            <nav class="far-breadcrumb" aria-label="Breadcrumb">
+              <a href={indexHref(api)}>api</a>
+              {pkg?.version && <span class="far-breadcrumb-version">v{pkg.version}</span>}
+              <span>/</span>
+              <a href={indexHref(api, pkg?.slug)}>{doc.package}</a>
+              <span>/</span>
+              <span class="far-breadcrumb-current">{doc.augments ? `${doc.name} (augments ${doc.augments})` : doc.name}</span>
+            </nav>
+            <div class="far-crumbs-tools">
+              <VersionSwitch />
+              {showSwitch && <LangSwitch formats={effect.format} />}
+            </div>
+          </div>
+
+          <header class="far-header">
+            <div class="far-title-row">
+              <h1>{doc.name}</h1>
+              <KindBadge kind={kind} variant="label" />
+              {status !== "stable" && <span class="far-status" data-status={status}>{status}</span>}
+            </div>
+            <div class="far-meta">
+              {
+                importGroups.map((g) => (
+                  <div class="far-variant" data-far-variant={g.modes}>
+                    <div class="far-import">
+                      <code>{g.value}</code>
+                      <CopyButton text={g.value} ariaLabel="Copy import statement" class="far-copy" />
+                    </div>
+                  </div>
+                ))
+              }
+              {
+                source && (
+                  <a href={source.url} target="_blank" rel="noopener noreferrer" class="far-source">
+                    <Icon name="github" size={14} class="" />
+                    {source.label}
+                    <Icon name="external" size={12} class="" />
+                  </a>
+                )
+              }
+              {
+                docs && (
+                  <a href={docs.url} target="_blank" rel="noopener noreferrer" class="far-source">
+                    <Icon name="book" size={14} class="" />
+                    {docs.label}
+                    <Icon name="external" size={12} class="" />
+                  </a>
+                )
+              }
+              {aliases.length > 0 && <span>also exported as {aliases.map((a: string) => <code>{a}</code>)}</span>}
+            </div>
+          </header>
+
+          {
+            doc.augments && (
+              <p class="far-note">
+                Members that <code>{doc.package}</code> adds to{" "}
+                {augmented ? <a href={entryHref(api, augmented)} class="far-link far-mono">{doc.name}</a> : <code>{doc.name}</code>}{" "}
+                from <code>{doc.augments}</code> once the plugin is registered.
+              </p>
+            )
+          }
+
+          <article class="far-article" data-pagefind-body data-pagefind-meta={`title:${title}`}>
+            {doc.description && <div class="far-prose" set:html={renderDoc(doc.description, links)} />}
+
+            <section class="far-block">
+              <div class="far-block-head">
+                <h2 id="signature" class="far-h2">{overloads ? `Overloads (${doc.signatures.length})` : "Signature"}</h2>
+                {showSwitch && (
+                  <div class="far-variant" data-far-variant="esm cjs">
+                    <span class="far-js-note">Signatures stay in TypeScript: they describe the same API you call from JavaScript.</span>
+                  </div>
+                )}
+              </div>
+              <div class="far-col">
+                {
+                  signatures.map((sig) => (
+                    <div>
+                      <ApiCode code={sig.code} links={links} self={doc.name} />
+                      {overloads && sig.description && sig.description !== doc.description && (
+                        <div class="far-prose far-prose-sm" style="margin-top: 0.75rem" set:html={renderDoc(sig.description, links)} />
+                      )}
+                      {overloads && <DocTags tags={sig.tags} links={links} self={doc.name} />}
+                    </div>
+                  ))
+                }
+              </div>
+              {!overloads && <DocTags tags={doc.tags} links={links} self={doc.name} />}
+            </section>
+
+            {
+              members.length > 0 && (
+                <section class="far-block">
+                  <div class="far-block-head">
+                    <h2 id="members" class="far-h2">Members</h2>
+                    <span>{members.length}</span>
+                  </div>
+                  <div class="far-col">
+                    {members.map((m) => (
+                      <section id={memberSlug(m.name)} class="far-member far-card">
+                        <div class="far-member-head">
+                          <a href={`#${memberSlug(m.name)}`}>{m.name}</a>
+                          <span class="far-member-kind">{m.kind}</span>
+                          {m.optional && <span class="far-status">optional</span>}
+                          {m.tags.some((t) => t.name === "deprecated") && <span class="far-status" data-status="deprecated">deprecated</span>}
+                        </div>
+                        <div class="far-col">
+                          {m.signatures.map((s) => <ApiCode code={s.code} links={links} self={doc.name} />)}
+                        </div>
+                        {m.description && <div class="far-prose far-prose-md" set:html={renderDoc(m.description, links)} />}
+                        <DocTags tags={m.tags} links={links} self={doc.name} />
+                      </section>
+                    ))}
+                  </div>
+                </section>
+              )
+            }
+
+            {
+              extensions.length > 0 && (
+                <section class="far-block">
+                  <div class="far-block-head">
+                    <h2 id="extended-by-plugins" class="far-h2">Extended by plugins</h2>
+                    <span>{extensions.length}</span>
+                  </div>
+                  <p class="far-block-intro">Official plugins that add members to <code class="far-mono">{doc.name}</code> when registered. <a href={withBase(`${api.config.base}/decorations/`)}>See every plugin side by side</a>.</p>
+                  <div class="far-ext">
+                    {extensions.map((ext) => (
+                      <div>
+                        <a href={entryHref(api, ext)}>{ext.data.package}</a>
+                        <div class="far-tokens">
+                          {ext.data.members.map((m) => (
+                            <a href={entryHref(api, ext, memberSlug(m.name))} class="far-token">{m.name}</a>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )
+            }
+
+            {
+              related.length > 0 && (
+                <section class="far-block">
+                  <h2 id="related" class="far-h2">Related</h2>
+                  <dl class="far-related">
+                    {related.map((r) => (
+                      <div>
+                        <dt class="far-label">{r.label}</dt>
+                        <dd>
+                          {r.entries.map((t) => (
+                            <a href={entryHref(api, t)} class="far-ref">
+                              <KindBadge kind={kindOf(t.data)} />
+                              {t.data.name}
+                              {t.data.package !== doc.package && <small>{t.data.package}</small>}
+                            </a>
+                          ))}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                </section>
+              )
+            }
+          </article>
+
+          <nav class="far-pager" aria-label="Pagination">
+            {
+              prev ? (
+                <a href={entryHref(api, prev)} class="far-card">
+                  <span>← Previous</span>
+                  <div><KindBadge kind={kindOf(prev.data)} /> {prev.data.name}</div>
+                </a>
+              ) : (
+                <span />
+              )
+            }
+            {
+              next && (
+                <a href={entryHref(api, next)} class="far-card far-next">
+                  <span>Next →</span>
+                  <div>{next.data.name} <KindBadge kind={kindOf(next.data)} /></div>
+                </a>
+              )
+            }
+          </nav>
+        </div>
+      </div>
+
+      <aside class="far-aside">
+        <div>
+          <p class="far-label">On this page</p>
+          <nav aria-label="Table of contents"><Toc items={toc} /></nav>
+        </div>
+      </aside>
+    </div>
+  </div>
+</Layout>

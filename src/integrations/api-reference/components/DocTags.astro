@@ -1,0 +1,80 @@
+---
+// Standard JSDoc tags: deprecation, parameters, return value, examples, see / since.
+import { tagsNamed } from "../data.js";
+import { splitExample } from "../examples.js";
+import { renderDoc } from "../markdown.js";
+import ExampleCode from "./ExampleCode.astro";
+
+interface Props {
+	tags: { name: string; param?: string; text: string }[];
+	links: Map<string, string>;
+	self?: string;
+}
+const { tags, links, self } = Astro.props;
+
+const deprecated = tagsNamed(tags, "deprecated")[0];
+const params = tagsNamed(tags, "param");
+const returns = [...tagsNamed(tags, "returns"), ...tagsNamed(tags, "return")][0];
+const examples = tagsNamed(tags, "example");
+const see = tagsNamed(tags, "see");
+const since = tagsNamed(tags, "since")[0];
+const clean = (text: string) => text.replace(/^-\s*/, "");
+
+---
+
+{
+  deprecated && (
+    <div class="far-deprecated">
+      <strong>Deprecated.</strong>{" "}
+      <span set:html={renderDoc(deprecated.text || "This API will be removed in a future major version.", links, { inline: true })} />
+    </div>
+  )
+}
+
+{
+  params.length > 0 && (
+    <div class="far-tags-block">
+      <p class="far-label">Parameters</p>
+      <dl class="far-params">
+        {params.map((p) => (
+          <div>
+            <dt>{p.param}</dt>
+            <dd set:html={renderDoc(clean(p.text), links, { inline: true }) || "—"} />
+          </div>
+        ))}
+      </dl>
+    </div>
+  )
+}
+
+{
+  returns?.text && (
+    <p class="far-inline">
+      <span><span class="far-label">Returns</span><span set:html={renderDoc(returns.text, links, { inline: true })} /></span>
+    </p>
+  )
+}
+
+{
+  examples.map((ex) => (
+    <div class="far-tags-block">
+      <p class="far-label">Example</p>
+      {splitExample(ex.text).map((part) =>
+        part.code !== undefined ? (
+          <ExampleCode code={part.code} links={links} self={self} />
+        ) : (
+          <div class="far-prose" set:html={renderDoc(part.text, links)} />
+        ),
+      )}
+    </div>
+  ))
+}
+
+{
+  (see.length > 0 || since) && (
+    <p class="far-inline">
+      {since && (<span><span class="far-label">Since</span>{since.text}</span>)}
+      {see.map((s) => (<span><span class="far-label">See</span><span set:html={renderDoc(s.text, links, { inline: true })} /></span>))}
+    </p>
+  )
+}

@@ -1,0 +1,2035 @@
+/* biome-ignore-all lint/style/noDescendingSpecificity: rules are grouped by component, and later, more specific rules override earlier ones on purpose */
+/* ============================================================
+   fastify-api-reference
+   Built on the fastify.dev "Telemetry" tokens (--bg, --surface, --fg,
+   --amber…). On fastify.dev the site's own tokens win; anywhere else the
+   defaults below apply. Every class is prefixed with `far-`.
+   ============================================================ */
+
+@layer far-defaults {
+	:root {
+		--bg: #0a0b0d;
+		--bg-grid: rgba(255, 255, 255, 0.04);
+		--surface: #101419;
+		--surface-2: #161c23;
+		--border: #232b33;
+		--border-strong: #313b45;
+		--fg: #e9ecef;
+		--fg-soft: #c2cad2;
+		--muted: #8b95a1;
+		--amber: #c99a4a;
+		--amber-soft: #e8c078;
+		--amber-ink: #c99a4a;
+		--teal: #e8d9b0;
+		--red: #ff5d5d;
+		--glow-amber: rgba(201, 154, 74, 0.5);
+		color-scheme: dark;
+	}
+	:root[data-theme="light"] {
+		--bg: #f6f4ef;
+		--bg-grid: rgba(20, 24, 28, 0.05);
+		--surface: #ffffff;
+		--surface-2: #f1ede4;
+		--border: #e3ddd0;
+		--border-strong: #d3cbba;
+		--fg: #14181c;
+		--fg-soft: #333c45;
+		--muted: #5c6670;
+		--amber: #c99a4a;
+		--amber-soft: #e8c078;
+		--amber-ink: #8c6b2e;
+		--teal: #b8a06e;
+		--red: #d93a3a;
+		--glow-amber: rgba(201, 154, 74, 0.35);
+		color-scheme: light;
+	}
+}
+
+:root {
+	--far-display: var(
+		--font-display,
+		"Space Grotesk Variable",
+		"Space Grotesk",
+		ui-sans-serif,
+		system-ui,
+		sans-serif
+	);
+	--far-sans: var(
+		--font-sans,
+		"Inter Variable",
+		Inter,
+		ui-sans-serif,
+		system-ui,
+		sans-serif
+	);
+	--far-mono: var(
+		--font-mono,
+		"JetBrains Mono Variable",
+		"JetBrains Mono",
+		ui-monospace,
+		SFMono-Regular,
+		monospace
+	);
+	--far-radius: var(--radius-md, 12px);
+	--far-code-bg: #0c0f13;
+	--kind-function: #d9a95a;
+	--kind-interface: #8cc7b4;
+	--kind-type: #b5c77a;
+	--kind-class: #8fb0e3;
+	--kind-const: #c1a6e3;
+	--kind-enum: #e39a76;
+	--kind-namespace: #a2acb6;
+	--kind-augmentation: #e8d9b0;
+}
+:root[data-theme="light"] {
+	--far-code-bg: #fbfaf7;
+	--kind-function: #8c6b2e;
+	--kind-interface: #2c7462;
+	--kind-type: #5b7424;
+	--kind-class: #2f5c9a;
+	--kind-const: #6a4d9c;
+	--kind-enum: #a24f2b;
+	--kind-namespace: #5c6670;
+	--kind-augmentation: #7a6431;
+}
+
+/* ---------- shared ---------- */
+
+.far {
+	font-family: var(--far-sans);
+	color: var(--fg);
+}
+.far *,
+.far *::before,
+.far *::after {
+	box-sizing: border-box;
+}
+/* zero-specificity reset, so every component class below wins */
+:where(.far) a {
+	color: inherit;
+	text-decoration: none;
+}
+.far :focus-visible {
+	outline: 2px solid var(--amber);
+	outline-offset: 2px;
+	border-radius: 4px;
+}
+.far [hidden] {
+	/* biome-ignore lint/complexity/noImportantStyles: `hidden` must win over the display of any far- component */
+	display: none !important;
+}
+.far-wrap {
+	max-width: 80rem;
+	margin-inline: auto;
+	padding-inline: 1rem;
+}
+@media (min-width: 640px) {
+	.far-wrap {
+		padding-inline: 1.5rem;
+	}
+}
+@media (min-width: 1536px) {
+	.far-wrap {
+		max-width: 100rem;
+	}
+}
+.far-mono {
+	font-family: var(--far-mono);
+}
+.far-label {
+	font-family: var(--far-mono);
+	font-size: 0.65rem;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+.far-chipcode {
+	font-family: var(--far-mono);
+	font-size: 0.85em;
+	color: var(--amber-ink);
+	background: var(--surface-2);
+	padding: 0.1em 0.4em;
+	border-radius: 4px;
+}
+.far-card {
+	background: color-mix(in srgb, var(--surface) 88%, transparent);
+	border: 1px solid var(--border);
+	border-radius: var(--far-radius);
+}
+.far-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	border: 1px solid var(--border);
+	border-radius: 0.375rem;
+	background: transparent;
+	color: var(--fg-soft);
+	font: inherit;
+	font-size: 0.875rem;
+	padding: 0.375rem 0.75rem;
+	cursor: pointer;
+	transition:
+		color 0.15s,
+		border-color 0.15s;
+}
+.far-btn:hover {
+	color: var(--fg);
+	border-color: var(--border-strong);
+}
+.far-link {
+	color: var(--amber-ink);
+	text-decoration: underline;
+	text-decoration-color: var(--border-strong);
+	text-underline-offset: 2px;
+}
+.far-link:hover {
+	text-decoration-color: var(--amber);
+}
+
+/* ---------- kind badges & status ---------- */
+
+.far-kind {
+	--k: var(--kind-namespace);
+	color: var(--k);
+	background: color-mix(in srgb, var(--k) 12%, transparent);
+	border: 1px solid color-mix(in srgb, var(--k) 38%, transparent);
+	font-family: var(--far-mono);
+	font-weight: 600;
+	line-height: 1;
+}
+.far-kind[data-kind="function"] {
+	--k: var(--kind-function);
+}
+.far-kind[data-kind="interface"] {
+	--k: var(--kind-interface);
+}
+.far-kind[data-kind="type"] {
+	--k: var(--kind-type);
+}
+.far-kind[data-kind="class"] {
+	--k: var(--kind-class);
+}
+.far-kind[data-kind="const"] {
+	--k: var(--kind-const);
+}
+.far-kind[data-kind="enum"] {
+	--k: var(--kind-enum);
+}
+.far-kind[data-kind="augmentation"] {
+	--k: var(--kind-augmentation);
+}
+
+.far-kind-letter {
+	display: inline-flex;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: center;
+	width: 1.25rem;
+	height: 1.25rem;
+	border-radius: 4px;
+	font-size: 0.62rem;
+}
+.far-kind-label,
+.far-status {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.3rem 0.5rem;
+	border-radius: 5px;
+	font-family: var(--far-mono);
+	font-size: 0.66rem;
+	font-weight: 600;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	line-height: 1;
+}
+.far-status {
+	color: var(--muted);
+	border: 1px solid var(--border-strong);
+}
+.far-status[data-status="deprecated"] {
+	color: var(--red);
+	border-color: color-mix(in srgb, var(--red) 40%, transparent);
+	background: color-mix(in srgb, var(--red) 10%, transparent);
+}
+.far-status[data-status="experimental"] {
+	color: var(--amber-ink);
+	border-color: color-mix(in srgb, var(--amber) 40%, transparent);
+	background: color-mix(in srgb, var(--amber) 10%, transparent);
+}
+
+/* ---------- icon tiles ---------- */
+
+.far-tile {
+	display: inline-flex;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: center;
+	width: 2.25rem;
+	height: 2.25rem;
+	border-radius: 0.375rem;
+	color: var(--amber-ink);
+	background: color-mix(in srgb, var(--amber) 10%, transparent);
+	border: 1px solid color-mix(in srgb, var(--amber) 35%, transparent);
+}
+.far-icon {
+	flex-shrink: 0;
+	color: var(--amber-ink);
+}
+
+/* ---------- index hero ---------- */
+
+.far-hero {
+	position: relative;
+	overflow: hidden;
+	border-bottom: 1px solid var(--border);
+	background-image:
+		linear-gradient(var(--bg-grid) 1px, transparent 1px),
+		linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+	background-size: 56px 56px;
+	background-position: center;
+}
+.far-hero::before {
+	content: "";
+	position: absolute;
+	inset: 0 0 auto;
+	height: 18rem;
+	background: radial-gradient(
+		60% 60% at 50% 0%,
+		var(--glow-amber) 0%,
+		transparent 70%
+	);
+	opacity: 0.6;
+	pointer-events: none;
+}
+.far-hero > .far-wrap {
+	position: relative;
+	padding-block: 4rem 3rem;
+}
+.far-eyebrow {
+	margin: 0;
+	font-family: var(--far-mono);
+	font-size: 0.72rem;
+	letter-spacing: 0.22em;
+	text-transform: uppercase;
+	color: var(--amber-ink);
+}
+.far-hero h1 {
+	margin: 1rem 0 0;
+	font-family: var(--far-display);
+	font-size: clamp(2.25rem, 5vw, 3rem);
+	font-weight: 600;
+	letter-spacing: -0.025em;
+	line-height: 1.1;
+	text-wrap: balance;
+}
+.far-accent {
+	background: linear-gradient(
+		100deg,
+		var(--amber) 0%,
+		var(--amber-soft) 55%,
+		var(--teal) 130%
+	);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+.far-lede {
+	margin: 1rem 0 0;
+	font-size: 1.125rem;
+	line-height: 1.6;
+	color: var(--fg-soft);
+}
+
+/* numbers under the title, in the style of the fastify.dev benchmark figures */
+.far-stats {
+	margin: 2.25rem 0 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.25rem 3rem;
+}
+.far-stats > div {
+	display: flex;
+	flex-direction: column-reverse;
+	gap: 0.25rem;
+}
+.far-stats dt {
+	font-family: var(--far-mono);
+	font-size: 0.75rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+.far-stats dd {
+	margin: 0;
+	font-family: var(--far-display);
+	font-size: 1.875rem;
+	font-weight: 600;
+	line-height: 1;
+	font-variant-numeric: tabular-nums;
+	color: var(--fg);
+}
+.far-stats dd a:hover {
+	color: var(--amber-ink);
+}
+
+/* ---------- docs layout: sidebar | content (| table of contents) ---------- */
+
+.far-docs {
+	display: grid;
+}
+@media (min-width: 1024px) {
+	.far-docs {
+		grid-template-columns: 16rem minmax(0, 1fr);
+		column-gap: 2.5rem;
+	}
+}
+@media (min-width: 1280px) {
+	.far-docs-entry {
+		grid-template-columns: 16rem minmax(0, 1fr) 15rem;
+	}
+}
+.far-content {
+	min-width: 0;
+	padding-block: 2.5rem;
+}
+.far-sidebar {
+	min-width: 0;
+}
+.far-sidebar-inner {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+	padding-block: 1.5rem 0;
+}
+@media (min-width: 1024px) {
+	.far-sidebar-inner {
+		position: sticky;
+		top: 4rem;
+		max-height: calc(100vh - 4rem);
+		overflow-y: auto;
+		padding: 2.5rem 1rem 2.5rem 0;
+		scrollbar-width: thin;
+	}
+}
+.far-side-label {
+	display: block;
+	margin: 0 0 0.375rem;
+	font-family: var(--far-mono);
+	font-size: 0.62rem;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+.far-sidebar .far-search,
+.far-sidebar .far-select {
+	width: 100%;
+	min-width: 0;
+}
+.far-sidebar .far-select select {
+	padding-left: 0.75rem;
+}
+.far-side-packages > summary {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	list-style: none;
+	cursor: pointer;
+}
+.far-side-packages > summary::-webkit-details-marker {
+	display: none;
+}
+.far-side-packages > summary .far-side-label {
+	margin: 0;
+}
+.far-side-chevron {
+	color: var(--muted);
+	transition: transform 0.2s;
+}
+.far-side-packages[open] .far-side-chevron {
+	transform: rotate(180deg);
+}
+/* phones: the list sits in a bordered box that opens on tap, like the docs "Navigation" */
+@media (max-width: 1023px) {
+	.far-side-packages {
+		border: 1px solid var(--border);
+		border-radius: 0.375rem;
+		background: var(--surface);
+	}
+	.far-side-packages > summary {
+		padding: 0.625rem 0.75rem;
+	}
+	.far-side-packages > nav {
+		max-height: 60vh;
+		overflow-y: auto;
+		border-top: 1px solid var(--border);
+		padding: 0.75rem;
+	}
+}
+@media (min-width: 1024px) {
+	.far-side-packages > summary {
+		pointer-events: none;
+		margin-bottom: 0.75rem;
+	}
+	.far-side-chevron {
+		display: none;
+	}
+}
+.far-side-group + .far-side-group {
+	margin-top: 1.5rem;
+}
+.far-side-group > .far-side-label {
+	color: var(--fg-soft);
+}
+.far-side-nav {
+	margin: 0.5rem 0 0;
+	padding: 0;
+	list-style: none;
+	border-left: 1px solid var(--border);
+}
+.far-side-nav a {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+	margin-left: -1px;
+	padding: 0.3rem 0 0.3rem 0.875rem;
+	border-left: 2px solid transparent;
+	font-size: 0.875rem;
+	color: var(--fg-soft);
+	transition:
+		color 0.15s,
+		border-color 0.15s;
+}
+.far-side-nav a > span {
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.far-side-nav a small {
+	flex-shrink: 0;
+	font-family: var(--far-mono);
+	font-size: 0.7rem;
+	color: var(--muted);
+}
+.far-side-nav .far-scope {
+	color: var(--muted);
+}
+.far-side-nav a:hover {
+	color: var(--fg);
+	border-color: var(--border-strong);
+}
+.far-side-nav a[aria-current] {
+	color: var(--amber-ink);
+	border-color: var(--amber);
+	font-weight: 500;
+}
+.far-side-nav-entries a {
+	justify-content: flex-start;
+}
+.far-side-back {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.375rem;
+	font-family: var(--far-mono);
+	font-size: 0.75rem;
+	color: var(--muted);
+}
+.far-side-back:hover {
+	color: var(--amber-ink);
+}
+.far-side-pkg {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	min-width: 0;
+}
+.far-side-pkg > div {
+	min-width: 0;
+}
+.far-side-pkg p {
+	margin: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-family: var(--far-display);
+	font-size: 1.05rem;
+	font-weight: 600;
+}
+.far-side-pkg .far-scope {
+	color: var(--muted);
+	font-weight: 500;
+}
+.far-side-pkg small {
+	font-family: var(--far-mono);
+	font-size: 0.7rem;
+	color: var(--muted);
+}
+
+/* ---------- TS / JS switch ---------- */
+
+/* Every mode's content is in the page; <html data-far-lang> picks one (none = TypeScript).
+   display: contents keeps the wrapped element's own layout. */
+.far-variant {
+	display: contents;
+}
+.far-variant:not([data-far-variant~="ts"]) {
+	display: none;
+}
+:root[data-far-lang="esm"] .far-variant,
+:root[data-far-lang="cjs"] .far-variant {
+	display: none;
+}
+:root[data-far-lang="esm"] .far-variant[data-far-variant~="esm"],
+:root[data-far-lang="cjs"] .far-variant[data-far-variant~="cjs"] {
+	display: contents;
+}
+.far-crumbs-row {
+	margin-bottom: 1.5rem;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem 1.5rem;
+}
+.far-crumbs-row .far-breadcrumb {
+	margin-bottom: 0;
+}
+.far-lang {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+}
+.far-lang > .far-label {
+	margin-right: 0.125rem;
+}
+.far-seg {
+	/* a <fieldset>: no default margin or minimum width */
+	margin: 0;
+	min-inline-size: 0;
+	display: inline-flex;
+	gap: 2px;
+	padding: 3px;
+	border: 1px solid var(--border);
+	border-radius: 0.5rem;
+	background: var(--surface);
+}
+.far-seg button {
+	min-height: 30px;
+	padding: 0.35rem 0.75rem;
+	border: 0;
+	border-radius: 0.375rem;
+	background: transparent;
+	color: var(--muted);
+	font-family: var(--far-mono);
+	font-size: 0.75rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition:
+		color 0.15s,
+		background 0.15s;
+}
+.far-seg button:hover {
+	color: var(--fg);
+}
+.far-seg button[aria-pressed="true"] {
+	color: var(--amber-ink);
+	background: color-mix(in srgb, var(--amber) 16%, transparent);
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--amber) 50%, transparent);
+}
+.far-js-note {
+	font-size: 0.8rem;
+	color: var(--muted);
+	text-align: right;
+}
+@media (max-width: 639px) {
+	.far-lang {
+		width: 100%;
+	}
+	.far-lang > .far-label {
+		display: none;
+	}
+	.far-lang .far-seg {
+		flex: 1;
+	}
+	.far-lang .far-seg button {
+		flex: 1;
+		min-height: 38px;
+	}
+	.far-js-note {
+		text-align: left;
+	}
+}
+
+/* breadcrumb, as on the docs pages */
+.far-breadcrumb {
+	margin-bottom: 1.5rem;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+	font-family: var(--far-mono);
+	font-size: 0.75rem;
+	color: var(--muted);
+}
+.far-breadcrumb a:hover {
+	color: var(--fg);
+}
+.far-breadcrumb-version {
+	border: 1px solid var(--border);
+	border-radius: 4px;
+	padding: 0.125rem 0.375rem;
+	color: var(--amber-ink);
+}
+.far-breadcrumb-current {
+	color: var(--fg-soft);
+	overflow-wrap: anywhere;
+}
+.far-docs-entry .far-header {
+	margin-top: 0;
+}
+
+/* ---------- filters ---------- */
+
+.far-filters {
+	margin-top: 2rem;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0.75rem;
+}
+@media (min-width: 640px) {
+	.far-filters {
+		display: flex;
+		flex-wrap: wrap;
+	}
+}
+.far-select {
+	position: relative;
+	display: flex;
+	align-items: center;
+	min-width: 0;
+	border: 1px solid var(--border);
+	border-radius: 0.5rem;
+	background: var(--surface);
+}
+/* one focus ring per field: the frame shows it, the control inside does not */
+.far-select:focus-within,
+.far-search:focus-within {
+	border-color: var(--amber);
+	box-shadow: 0 0 0 1px var(--amber);
+}
+.far .far-select select:focus-visible,
+.far .far-search input:focus-visible {
+	outline: none;
+}
+@media (min-width: 640px) {
+	.far-select {
+		min-width: 12rem;
+	}
+}
+.far-select .far-label {
+	padding-left: 0.75rem;
+	pointer-events: none;
+}
+.far-select select {
+	width: 100%;
+	appearance: none;
+	background: transparent;
+	border: 0;
+	color: var(--fg);
+	font: inherit;
+	font-size: 0.875rem;
+	padding: 0.625rem 2rem 0.625rem 0.5rem;
+	cursor: pointer;
+	outline: none;
+}
+.far-select select option {
+	background: var(--surface);
+	color: var(--fg);
+}
+.far-select-caret {
+	position: absolute;
+	right: 0.75rem;
+	color: var(--muted);
+	pointer-events: none;
+}
+.far-search {
+	position: relative;
+	grid-column: span 2;
+	display: flex;
+	align-items: center;
+	border: 1px solid var(--border);
+	border-radius: 0.5rem;
+	background: var(--surface);
+}
+@media (min-width: 640px) {
+	.far-search {
+		width: 20rem;
+	}
+}
+.far-search svg {
+	position: absolute;
+	left: 0.75rem;
+	color: var(--muted);
+	pointer-events: none;
+}
+.far-search input {
+	width: 100%;
+	background: transparent;
+	border: 0;
+	color: var(--fg);
+	font: inherit;
+	font-size: 0.875rem;
+	padding: 0.625rem 1rem 0.625rem 2.25rem;
+	outline: none;
+}
+.far-search input::placeholder {
+	color: var(--muted);
+}
+
+.far-chips {
+	margin-top: 1.5rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+.far-chip-group {
+	margin-top: 1.25rem;
+}
+.far-chip-group > .far-label {
+	margin: 0;
+}
+.far-chip-group .far-chips {
+	margin-top: 0.5rem;
+}
+
+/* phones: one scrollable row per group instead of a wall of chips */
+@media (max-width: 639px) {
+	.far-chips {
+		flex-wrap: nowrap;
+		overflow-x: auto;
+		margin-inline: -1rem;
+		padding: 0 1rem 0.25rem;
+		scrollbar-width: none;
+		mask-image: linear-gradient(
+			90deg,
+			transparent 0,
+			#000 1rem,
+			#000 calc(100% - 2rem),
+			transparent
+		);
+	}
+	.far-chips::-webkit-scrollbar {
+		display: none;
+	}
+	.far-chip {
+		flex-shrink: 0;
+	}
+}
+.far-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	border: 1px solid var(--border);
+	border-radius: 0.375rem;
+	background: var(--surface);
+	color: var(--fg-soft);
+	font-family: var(--far-mono);
+	font-size: 0.75rem;
+	padding: 0.375rem 0.625rem;
+	cursor: pointer;
+	transition:
+		color 0.15s,
+		border-color 0.15s,
+		background 0.15s;
+}
+.far-chip:hover {
+	color: var(--fg);
+	border-color: var(--border-strong);
+}
+.far-chip[aria-pressed="true"] {
+	color: var(--amber-ink);
+	border-color: var(--amber);
+	background: color-mix(in srgb, var(--amber) 10%, transparent);
+}
+
+/* ---------- index list ---------- */
+
+.far-list {
+	padding-block: 2.5rem;
+}
+.far-toolbar {
+	margin-bottom: 1.25rem;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem;
+}
+.far-toolbar p {
+	margin: 0;
+	font-family: var(--far-mono);
+	font-size: 0.75rem;
+	color: var(--muted);
+}
+.far-stack {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+}
+.far-empty {
+	padding: 4rem 1.5rem;
+	text-align: center;
+	color: var(--fg-soft);
+}
+.far-empty p {
+	margin: 0 0 0.75rem;
+	font-family: var(--far-display);
+	font-size: 1.125rem;
+	color: var(--fg);
+}
+
+/* ---------- categories ---------- */
+
+.far-category + .far-category {
+	margin-top: 3rem;
+}
+.far-category-head {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 1rem;
+}
+.far-category-head h2 {
+	margin: 0;
+	font-family: var(--far-display);
+	font-size: 1.5rem;
+	font-weight: 600;
+	letter-spacing: -0.02em;
+}
+.far-category-head span {
+	font-family: var(--far-mono);
+	font-size: 0.75rem;
+	color: var(--muted);
+}
+.far-category-desc {
+	margin: 0.25rem 0 1rem;
+	font-size: 0.875rem;
+	color: var(--muted);
+}
+
+/* ---------- package cards ---------- */
+
+.far-package > summary {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	padding: 1rem 1.25rem;
+	border-radius: inherit;
+	cursor: pointer;
+	list-style: none;
+	transition: background 0.15s;
+}
+.far-package > summary::-webkit-details-marker {
+	display: none;
+}
+.far-package > summary:hover {
+	background: color-mix(in srgb, var(--surface-2) 40%, transparent);
+}
+@media (min-width: 640px) {
+	.far-package > summary {
+		gap: 1rem;
+		padding-inline: 1.5rem;
+	}
+}
+.far-package-title {
+	min-width: 0;
+	flex: 1;
+}
+.far-package-name {
+	margin: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-family: var(--far-display);
+	font-size: 1.25rem;
+	font-weight: 500;
+	letter-spacing: -0.02em;
+}
+@media (min-width: 640px) {
+	.far-package-name {
+		font-size: 1.5rem;
+	}
+}
+.far-package-name .far-scope {
+	color: var(--muted);
+}
+.far-package-desc {
+	margin: 0.125rem 0 0;
+	display: none;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 0.875rem;
+	color: var(--muted);
+}
+.far-package-desc code {
+	font-family: var(--far-mono);
+	font-size: 0.85em;
+}
+@media (min-width: 640px) {
+	.far-package-desc {
+		display: block;
+	}
+}
+.far-package-meta {
+	flex-shrink: 0;
+	font-family: var(--far-mono);
+	font-size: 0.75rem;
+	color: var(--muted);
+}
+.far-package-version {
+	display: none;
+	margin-right: 0.75rem;
+}
+@media (min-width: 768px) {
+	.far-package-version {
+		display: inline;
+	}
+}
+.far-chevron {
+	flex-shrink: 0;
+	color: var(--muted);
+	transition: transform 0.2s;
+}
+.far-package[open] .far-chevron {
+	transform: rotate(180deg);
+}
+.far-package-body {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+	border-top: 1px solid var(--border);
+	padding: 1rem 1.25rem;
+}
+@media (min-width: 640px) {
+	.far-package-body {
+		padding-inline: 1.5rem;
+	}
+}
+.far-package-note {
+	margin: 0;
+	border: 1px dashed var(--border-strong);
+	border-radius: 0.375rem;
+	padding: 0.5rem 0.75rem;
+	font-size: 0.8125rem;
+	color: var(--muted);
+}
+.far-package-note code {
+	font-family: var(--far-mono);
+	color: var(--amber-ink);
+}
+.far-section-label {
+	margin: 0 0 0.5rem;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+.far-grid {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: grid;
+	column-gap: 1.5rem;
+	row-gap: 0.25rem;
+}
+@media (min-width: 640px) {
+	.far-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+@media (min-width: 1024px) {
+	.far-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+@media (min-width: 1280px) {
+	.far-grid {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+}
+.far-entry {
+	display: flex;
+	min-width: 0;
+	align-items: center;
+	gap: 0.625rem;
+	margin-inline: -0.5rem;
+	padding: 0.375rem 0.5rem;
+	border-radius: 0.375rem;
+	font-size: 0.95rem;
+	color: var(--fg-soft);
+	transition:
+		background 0.15s,
+		color 0.15s;
+}
+.far-entry:hover {
+	background: var(--surface-2);
+	color: var(--fg);
+}
+.far-entry[aria-current="page"] {
+	background: color-mix(in srgb, var(--amber) 10%, transparent);
+	color: var(--amber-ink);
+	font-weight: 500;
+}
+.far-entry[data-status="deprecated"] span:last-child {
+	text-decoration: line-through;
+	text-decoration-color: var(--muted);
+}
+.far-entry span:last-child {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* ---------- entry page ---------- */
+
+.far-page {
+	display: grid;
+}
+@media (min-width: 1280px) {
+	.far-page {
+		grid-template-columns: minmax(0, 1fr) 15rem;
+		column-gap: 3rem;
+	}
+}
+.far-main {
+	min-width: 0;
+	padding-block: 2.5rem;
+}
+.far-main > div {
+	max-width: 64rem;
+	margin-inline: auto;
+}
+.far-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	background: var(--surface);
+	color: var(--fg-soft);
+	font-size: 0.875rem;
+	padding: 0.375rem 0.875rem;
+	transition:
+		color 0.15s,
+		border-color 0.15s;
+}
+.far-pill:hover {
+	color: var(--fg);
+	border-color: var(--border-strong);
+}
+.far-header {
+	margin-top: 2rem;
+}
+.far-title-row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.75rem;
+}
+.far-title-row h1 {
+	margin: 0;
+	word-break: break-all;
+	font-family: var(--far-display);
+	font-size: clamp(1.875rem, 4vw, 2.25rem);
+	font-weight: 600;
+	letter-spacing: -0.025em;
+	line-height: 1.15;
+}
+.far-meta {
+	margin-top: 1rem;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	column-gap: 1.25rem;
+	row-gap: 0.75rem;
+	font-family: var(--far-mono);
+	font-size: 0.75rem;
+	color: var(--muted);
+}
+.far-import {
+	display: inline-flex;
+	max-width: 100%;
+	align-items: center;
+	gap: 0.25rem;
+	border: 1px solid var(--border);
+	border-radius: 0.375rem;
+	background: var(--surface);
+	padding-left: 0.75rem;
+	color: var(--fg-soft);
+}
+.far-import code {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding-block: 0.375rem;
+	font-family: var(--far-mono);
+}
+.far-copy {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.375rem;
+	border: 0;
+	border-radius: 0.375rem;
+	background: transparent;
+	color: var(--muted);
+	cursor: pointer;
+}
+.far-copy:hover {
+	color: var(--fg);
+}
+.far-source {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.375rem;
+	transition: color 0.15s;
+}
+.far-source:hover {
+	color: var(--amber-ink);
+}
+.far-meta code {
+	color: var(--fg-soft);
+	font-family: var(--far-mono);
+}
+.far-note {
+	margin: 1.5rem 0 0;
+	border: 1px solid var(--border);
+	border-radius: 0.375rem;
+	background: var(--surface);
+	padding: 0.75rem 1rem;
+	font-size: 0.875rem;
+	color: var(--fg-soft);
+}
+.far-note code {
+	font-family: var(--far-mono);
+	color: var(--amber-ink);
+}
+.far-article {
+	margin-top: 2rem;
+}
+.far-block {
+	margin-top: 3rem;
+}
+.far-block:first-child {
+	margin-top: 2.5rem;
+}
+.far-block-head {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 1rem;
+}
+.far-block-head span {
+	font-family: var(--far-mono);
+	font-size: 0.75rem;
+	color: var(--muted);
+}
+.far-h2 {
+	margin: 0;
+	scroll-margin-top: 5rem;
+	font-family: var(--far-display);
+	font-size: 1.25rem;
+	font-weight: 600;
+	letter-spacing: -0.02em;
+}
+.far-block-intro {
+	margin: 0.5rem 0 0;
+	font-size: 0.875rem;
+	color: var(--muted);
+}
+.far-col {
+	margin-top: 1rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+/* prose: descriptions coming from JSDoc and package.json */
+.far-prose {
+	color: var(--fg-soft);
+	line-height: 1.75;
+}
+.far-prose > :first-child {
+	margin-top: 0;
+}
+.far-prose > :last-child {
+	margin-bottom: 0;
+}
+.far-prose p,
+.far-prose ul,
+.far-prose ol {
+	margin: 0 0 1rem;
+}
+.far-prose ul,
+.far-prose ol {
+	padding-left: 1.25rem;
+}
+.far-prose a {
+	color: var(--amber-ink);
+	text-decoration: underline;
+	text-decoration-color: var(--border-strong);
+	text-underline-offset: 2px;
+}
+.far-prose a:hover {
+	text-decoration-color: var(--amber);
+}
+.far-prose code {
+	font-family: var(--far-mono);
+	font-size: 0.85em;
+	background: var(--surface-2);
+	color: var(--amber-ink);
+	padding: 0.15em 0.4em;
+	border-radius: 4px;
+}
+.far-prose pre {
+	margin: 1rem 0;
+	padding: 1rem 1.25rem;
+	overflow-x: auto;
+	border: 1px solid var(--border);
+	border-radius: var(--far-radius);
+	background: var(--far-code-bg);
+	font-size: 0.84rem;
+	line-height: 1.65;
+}
+.far-prose pre code {
+	background: none;
+	padding: 0;
+	color: inherit;
+	font-size: inherit;
+}
+.far-prose-sm {
+	font-size: 0.875rem;
+}
+.far-prose-md {
+	font-size: 0.95rem;
+}
+
+/* code blocks: same frame as docs code, Shiki colors inside */
+.far-code .astro-code {
+	margin: 0;
+	padding: 1.1rem 1.25rem;
+	border: 1px solid var(--border);
+	border-radius: var(--far-radius);
+	overflow-x: auto;
+	font-family: var(--far-mono);
+	font-size: 0.84rem;
+	line-height: 1.65;
+	/* biome-ignore lint/complexity/noImportantStyles: Shiki sets the code background inline */
+	background-color: var(--far-code-bg) !important;
+}
+[data-theme="light"] .far-code .astro-code,
+[data-theme="light"] .far-code .astro-code span {
+	/* biome-ignore lint/complexity/noImportantStyles: Shiki sets the dark colours inline */
+	color: var(--shiki-light) !important;
+}
+[data-theme="light"] .far-code .astro-code {
+	/* biome-ignore lint/complexity/noImportantStyles: Shiki sets the code background inline */
+	background-color: var(--far-code-bg) !important;
+}
+[data-theme="light"] .far-code .astro-code span {
+	/* biome-ignore lint/complexity/noImportantStyles: Shiki sets token backgrounds inline */
+	background-color: transparent !important;
+}
+.far-code a.far-type-link {
+	color: inherit;
+	text-decoration: underline;
+	text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+	text-decoration-style: dotted;
+	text-underline-offset: 3px;
+}
+.far-code a.far-type-link:hover {
+	text-decoration-color: currentColor;
+	text-decoration-style: solid;
+}
+
+/* JSDoc tags */
+.far-tags-block {
+	margin-block: 1.25rem;
+}
+.far-tags-block > .far-label {
+	margin: 0 0 0.5rem;
+}
+.far-deprecated {
+	margin-block: 1.25rem;
+	border: 1px solid color-mix(in srgb, var(--red) 40%, transparent);
+	background: color-mix(in srgb, var(--red) 10%, transparent);
+	border-radius: 0.375rem;
+	padding: 0.75rem 1rem;
+	font-size: 0.875rem;
+}
+.far-deprecated strong {
+	color: var(--red);
+}
+.far-params {
+	margin: 0;
+	border: 1px solid var(--border);
+	border-radius: 0.375rem;
+}
+.far-params > div {
+	display: grid;
+	gap: 0.25rem;
+	padding: 0.625rem 1rem;
+}
+.far-params > div + div {
+	border-top: 1px solid var(--border);
+}
+@media (min-width: 640px) {
+	.far-params > div {
+		grid-template-columns: minmax(8rem, max-content) 1fr;
+		gap: 1.5rem;
+	}
+}
+.far-params dt {
+	font-family: var(--far-mono);
+	font-size: 0.875rem;
+	color: var(--amber-ink);
+}
+.far-params dd {
+	margin: 0;
+	font-size: 0.875rem;
+	color: var(--fg-soft);
+}
+.far-inline {
+	margin-block: 1.25rem;
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: 1.5rem;
+	row-gap: 0.25rem;
+	font-size: 0.875rem;
+	color: var(--fg-soft);
+}
+.far-inline .far-label {
+	margin-right: 0.5rem;
+}
+.far-params code,
+.far-inline code {
+	font-family: var(--far-mono);
+	font-size: 0.85em;
+	color: var(--amber-ink);
+}
+.far-inline a,
+.far-params a {
+	color: var(--amber-ink);
+}
+
+/* members */
+.far-member {
+	scroll-margin-top: 5rem;
+	padding: 1rem;
+}
+@media (min-width: 640px) {
+	.far-member {
+		padding: 1.25rem;
+	}
+}
+.far-member:target {
+	border-color: color-mix(in srgb, var(--amber) 55%, transparent);
+}
+.far-member-head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+}
+.far-member-head > a {
+	font-family: var(--far-mono);
+	font-size: 0.95rem;
+	font-weight: 600;
+}
+.far-member-head > a:hover {
+	color: var(--amber-ink);
+}
+.far-member-kind {
+	font-family: var(--far-mono);
+	font-size: 0.62rem;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+.far-member .far-col {
+	margin-top: 0.75rem;
+	gap: 0.5rem;
+}
+.far-member .far-prose {
+	margin-top: 0.75rem;
+}
+
+/* extended by plugins */
+.far-ext {
+	margin-top: 1rem;
+	border: 1px solid var(--border);
+	border-radius: 0.375rem;
+}
+.far-ext > div {
+	display: grid;
+	gap: 0.5rem;
+	padding: 0.75rem 1rem;
+}
+.far-ext > div + div {
+	border-top: 1px solid var(--border);
+}
+@media (min-width: 640px) {
+	.far-ext > div {
+		grid-template-columns: 13rem 1fr;
+		gap: 1.5rem;
+	}
+}
+.far-ext > div > a {
+	font-family: var(--far-mono);
+	font-size: 0.875rem;
+}
+.far-ext > div > a:hover {
+	color: var(--amber-ink);
+}
+.far-tokens {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.375rem;
+}
+.far-token {
+	border: 1px solid var(--border);
+	border-radius: 4px;
+	background: var(--surface);
+	padding: 0.125rem 0.375rem;
+	font-family: var(--far-mono);
+	font-size: 0.75rem;
+	color: var(--fg-soft);
+	transition:
+		color 0.15s,
+		border-color 0.15s;
+}
+.far-token:hover {
+	color: var(--amber-ink);
+	border-color: var(--border-strong);
+}
+
+/* related */
+.far-related {
+	margin: 1rem 0 0;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+.far-related > div {
+	display: grid;
+	gap: 0.5rem;
+}
+@media (min-width: 640px) {
+	.far-related > div {
+		grid-template-columns: 6rem 1fr;
+	}
+}
+.far-related dt {
+	padding-top: 0.375rem;
+}
+.far-related dd {
+	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+.far-ref {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	border: 1px solid var(--border);
+	border-radius: 0.375rem;
+	background: var(--surface);
+	padding: 0.375rem 0.625rem;
+	font-size: 0.875rem;
+	color: var(--fg-soft);
+	transition:
+		color 0.15s,
+		border-color 0.15s;
+}
+.far-ref:hover {
+	color: var(--fg);
+	border-color: var(--border-strong);
+}
+.far-ref small {
+	font-family: var(--far-mono);
+	font-size: 0.75rem;
+	color: var(--muted);
+}
+
+/* pagination */
+.far-pager {
+	margin-top: 3.5rem;
+	padding-top: 2rem;
+	border-top: 1px solid var(--border);
+	display: grid;
+	gap: 0.75rem;
+}
+@media (min-width: 640px) {
+	.far-pager {
+		grid-template-columns: 1fr 1fr;
+	}
+	.far-pager .far-next {
+		grid-column-start: 2;
+	}
+}
+.far-pager a {
+	padding: 1rem;
+	transition: border-color 0.15s;
+}
+.far-pager a:hover {
+	border-color: var(--border-strong);
+}
+.far-pager a > span {
+	font-family: var(--far-mono);
+	font-size: 0.75rem;
+	color: var(--muted);
+}
+.far-pager a > div {
+	margin-top: 0.25rem;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-weight: 500;
+}
+.far-pager a:hover > div {
+	color: var(--amber-ink);
+}
+.far-pager .far-next {
+	text-align: right;
+}
+.far-pager .far-next > div {
+	justify-content: flex-end;
+}
+
+/* table of contents */
+.far-aside {
+	display: none;
+}
+@media (min-width: 1280px) {
+	.far-aside {
+		display: block;
+	}
+}
+.far-aside > div {
+	position: sticky;
+	top: 4rem;
+	max-height: calc(100vh - 4rem);
+	overflow-y: auto;
+	padding: 2.5rem 0 2.5rem 1rem;
+}
+.far-toc {
+	margin: 0.5rem 0 0;
+	padding: 0;
+	list-style: none;
+	border-left: 1px solid var(--border);
+}
+.far-toc a {
+	display: block;
+	margin-left: -1px;
+	padding: 0.375rem 0 0.375rem 1rem;
+	border-left: 2px solid transparent;
+	font-size: 0.875rem;
+	color: var(--fg-soft);
+	transition:
+		color 0.15s,
+		border-color 0.15s;
+}
+.far-toc a:hover {
+	color: var(--fg);
+	border-color: var(--border-strong);
+}
+.far-toc a[data-depth="3"] {
+	padding-left: 2rem;
+}
+.far-toc a[aria-current="true"] {
+	color: var(--amber-ink);
+	border-color: var(--amber);
+	font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.far *,
+	.far *::before,
+	.far *::after {
+		/* biome-ignore lint/complexity/noImportantStyles: reduced motion overrides every transition */
+		transition-duration: 0.01ms !important;
+	}
+}
+
+.far-block-head .far-js-note {
+	font-family: var(--far-sans);
+	font-size: 0.8rem;
+}
+.far-block-head {
+	flex-wrap: wrap;
+}
+
+/* Type filter: button + listbox with the kind tiles */
+.far-kind-select {
+	position: relative;
+}
+.far .far-kind-select-button {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+	width: 100%;
+	min-width: 0;
+	padding: 0.5rem 0.75rem;
+	border: 0;
+	background: transparent;
+	color: var(--fg);
+	font: inherit;
+	font-size: 0.875rem;
+	text-align: left;
+	cursor: pointer;
+	outline: none;
+}
+.far-kind-select-current {
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+	min-width: 0;
+}
+.far-kind-select-current > span:last-child {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.far-kind-select .far-select-caret {
+	position: static;
+	flex-shrink: 0;
+	transition: transform 0.2s;
+}
+.far-kind-select-button[aria-expanded="true"] .far-select-caret {
+	transform: rotate(180deg);
+}
+.far-kind-all {
+	--k: var(--muted);
+}
+.far-kind-select-list {
+	position: absolute;
+	z-index: 30;
+	top: calc(100% + 0.375rem);
+	left: -1px;
+	right: -1px;
+	margin: 0;
+	padding: 0.3rem;
+	list-style: none;
+	max-height: min(22rem, 60vh);
+	overflow-y: auto;
+	border: 1px solid var(--border-strong);
+	border-radius: 0.5rem;
+	background: var(--surface);
+	box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.55);
+}
+.far-kind-select-list[hidden] {
+	display: none;
+}
+.far-kind-select-list [role="option"] {
+	/* a <button>: no native look */
+	width: 100%;
+	border: 0;
+	background: none;
+	font: inherit;
+	text-align: left;
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+	padding: 0.45rem 0.5rem;
+	border-radius: 0.375rem;
+	font-size: 0.875rem;
+	color: var(--fg-soft);
+	cursor: pointer;
+}
+.far-kind-select-list [role="option"].is-active {
+	background: var(--surface-2);
+	color: var(--fg);
+}
+.far-kind-select-list [role="option"][aria-selected="true"] {
+	color: var(--amber-soft);
+}
+:root[data-theme="light"]
+	.far-kind-select-list
+	[role="option"][aria-selected="true"] {
+	color: var(--amber-ink);
+}
+.far-kind-select-label {
+	flex: 1;
+	min-width: 0;
+}
+.far-kind-select-list small {
+	font-family: var(--far-mono);
+	font-size: 0.7rem;
+	color: var(--muted);
+}
+.far-kind-select-check {
+	flex-shrink: 0;
+	visibility: hidden;
+	color: var(--amber);
+}
+.far-kind-select-list [aria-selected="true"] .far-kind-select-check {
+	visibility: visible;
+}
+:root[data-theme="light"] .far-kind-select-list {
+	box-shadow: 0 12px 32px -12px rgba(20, 24, 28, 0.18);
+}
+
+/* Plugin decorations: one row per plugin, one column per decorated object */
+.far-hero-sm .far-side-back {
+	margin-bottom: 1rem;
+}
+.far-tile-sm {
+	width: 1.75rem;
+	height: 1.75rem;
+}
+.far-deco {
+	padding-top: 2rem;
+	padding-bottom: 4rem;
+}
+.far-deco-toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem 1.5rem;
+	margin-bottom: 1rem;
+}
+.far-deco-toolbar .far-search {
+	flex: 1 1 22rem;
+	max-width: 32rem;
+}
+.far-deco-toolbar p {
+	margin: 0;
+	font-family: var(--far-mono);
+	font-size: 0.75rem;
+	color: var(--muted);
+}
+.far-deco-table {
+	border: 1px solid var(--border);
+	border-radius: 0.75rem;
+	background: var(--surface);
+	overflow: hidden;
+}
+.far-deco-table table,
+.far-deco-table thead,
+.far-deco-table tbody {
+	display: block;
+	width: 100%;
+	border-collapse: collapse;
+}
+.far-deco-row th,
+.far-deco-row td {
+	padding: 0;
+	text-align: left;
+	vertical-align: top;
+	font-weight: inherit;
+}
+.far-deco-row {
+	display: grid;
+	grid-template-columns: minmax(10rem, 0.8fr) repeat(
+			var(--far-deco-cols, 5),
+			minmax(0, 1fr)
+		);
+	gap: 1rem;
+	padding: 0.875rem 1.25rem;
+	border-top: 1px solid var(--border);
+	align-items: start;
+}
+.far-deco-row[hidden] {
+	display: none;
+}
+.far-deco-head {
+	border-top: 0;
+	position: sticky;
+	top: 0;
+	z-index: 1;
+	background: var(--surface-2);
+	font-family: var(--far-mono);
+	font-size: 0.68rem;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+.far-deco-head code {
+	text-transform: none;
+	letter-spacing: 0;
+	font-size: 0.8rem;
+	color: var(--fg-soft);
+}
+.far-deco-pkg a {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.6rem;
+	color: var(--fg);
+	font-weight: 500;
+	font-size: 0.9rem;
+}
+.far-deco-pkg a:hover {
+	color: var(--amber-ink);
+}
+.far-deco-none {
+	color: var(--border-strong);
+}
+@media (max-width: 1023px) {
+	/* phones and tablets: every plugin becomes a card, columns become labelled lines */
+	.far-deco-head {
+		display: none;
+	}
+	.far-deco-row {
+		grid-template-columns: 1fr;
+		gap: 0.6rem;
+	}
+	.far-deco-row td:has(.far-deco-none) {
+		display: none;
+	}
+	.far-deco-row td::before {
+		content: attr(data-label);
+		display: block;
+		margin-bottom: 0.3rem;
+		font-family: var(--far-mono);
+		font-size: 0.66rem;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--muted);
+	}
+}
+
+/* call-to-action under the index stats */
+.far-hero-links {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	margin-top: 1.75rem;
+}
+.far-cta {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	border: 1px solid color-mix(in srgb, var(--amber) 45%, transparent);
+	border-radius: 0.5rem;
+	background: color-mix(in srgb, var(--amber) 10%, transparent);
+	padding: 0.55rem 0.9rem;
+	color: var(--amber-ink);
+	font-size: 0.875rem;
+	font-weight: 500;
+	transition:
+		background 0.15s,
+		border-color 0.15s;
+}
+.far-cta:hover {
+	background: color-mix(in srgb, var(--amber) 18%, transparent);
+	border-color: var(--amber);
+}
+.far-side-docs {
+	display: flex;
+	width: fit-content;
+	align-items: center;
+	gap: 0.3rem;
+	margin-top: 0.25rem;
+	font-size: 0.75rem;
+	color: var(--muted);
+}
+.far-side-docs:hover {
+	color: var(--amber-ink);
+}
+.far-deco-row .far-token {
+	max-width: 100%;
+	overflow-wrap: break-word;
+}
+.far-deco-pkg,
+.far-deco-pkg a,
+.far-deco-pkg a > span:last-child {
+	min-width: 0;
+	overflow-wrap: anywhere;
+}
+
+/* Fastify major switch and the banner of frozen versions */
+.far-version {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+.far-version[hidden] {
+	display: none;
+}
+.far-version .far-label {
+	margin: 0;
+}
+.far .far-select-sm {
+	min-width: 0;
+}
+.far .far-select-sm select {
+	padding: 0.3rem 1.75rem 0.3rem 0.6rem;
+	font-family: var(--far-mono);
+	font-size: 0.75rem;
+}
+.far-select-sm .far-select-caret {
+	right: 0.6rem;
+	font-size: 0.7rem;
+}
+.far-version-banner {
+	border-bottom: 1px solid color-mix(in srgb, var(--amber) 40%, transparent);
+	background: color-mix(in srgb, var(--amber) 12%, var(--bg));
+	color: var(--fg);
+	font-size: 0.875rem;
+}
+.far-version-banner .far-wrap {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem 1.5rem;
+	padding-top: 0.65rem;
+	padding-bottom: 0.65rem;
+}
+.far-version-banner a {
+	color: var(--amber-ink);
+	font-weight: 500;
+}
+.far-hero-top {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem;
+}
+.far-crumbs-tools {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.75rem 1.25rem;
+}
+.far-version-chip {
+	border: 1px solid var(--border);
+	border-radius: 0.375rem;
+	background: var(--surface);
+	padding: 0.25rem 0.55rem;
+	font-family: var(--far-mono);
+	font-size: 0.75rem;
+	color: var(--fg-soft);
+}
+.far-version-chip[hidden],
+.far-version [data-far-version-menu][hidden] {
+	display: none;
+}
+
+.far-sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}

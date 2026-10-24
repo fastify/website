@@ -1,0 +1,252 @@
+---
+import Layout from "virtual:fastify-api-reference/layout";
+import "../styles.css";
+import Icon from "../components/Icon.astro";
+import KindSelect from "../components/KindSelect.astro";
+import PackageCard from "../components/PackageCard.astro";
+import VersionBanner from "../components/VersionBanner.astro";
+import VersionSwitch from "../components/VersionSwitch.astro";
+import { CATEGORIES, getApi, KINDS, kindOf, withBase } from "../data.js";
+
+const api = await getApi();
+const { entries, packages } = api;
+const categories = Object.entries(CATEGORIES)
+	.map(([id, meta]) => ({ id, ...meta, packages: packages.filter((p) => p.category === id) }))
+	.filter((c) => c.packages.length > 0);
+const kinds = Object.keys(KINDS)
+	.map((kind) => ({ kind: kind as keyof typeof KINDS, count: entries.filter((e) => kindOf(e.data) === kind).length }))
+	.filter((k) => k.count > 0);
+const count = (id: string) => categories.find((c) => c.id === id)?.packages.length ?? 0;
+const stats = [
+	{ value: count("plugin"), label: "official plugins", href: "#category-plugin" },
+	{ value: count("library"), label: "libraries", href: "#category-library" },
+	{ value: entries.length, label: "typed exports" },
+].filter((s) => s.value > 0);
+---
+
+<Layout
+  title={`${api.config.title} — Fastify`}
+  description="Every export of the Fastify ecosystem: the framework, the official plugins and the libraries maintained by the Fastify team."
+>
+  <div class="far">
+    <VersionBanner />
+    <section class="far-hero">
+      <div class="far-wrap">
+        <div class="far-hero-top">
+          <p class="far-eyebrow">// api reference</p>
+          <VersionSwitch />
+        </div>
+        <h1>API Reference</h1>
+        <p class="far-lede">
+          Every export of the Fastify ecosystem: the framework, the official plugins and the libraries
+          maintained by the Fastify team.
+        </p>
+        <dl class="far-stats">
+          {
+            stats.map((s) => (
+              <div>
+                <dt>{s.label}</dt>
+                <dd>{s.href ? <a href={s.href}>{s.value}</a> : s.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <div class="far-hero-links">
+          <a class="far-cta" href={withBase(`${api.config.base}/decorations/`)}>
+            <Icon name="plug" size={16} class="" /> What each plugin adds to fastify, request and reply
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="far-wrap far-docs">
+      <aside class="far-sidebar">
+        <div class="far-sidebar-inner">
+          <div class="far-side-block">
+            <label class="far-side-label" for="far-filter">search</label>
+            <div class="far-search">
+              <Icon name="search" class="" />
+              <input id="far-filter" type="search" data-filter-text placeholder={`Filter ${entries.length} exports`} autocomplete="off" />
+            </div>
+          </div>
+          <div class="far-side-block">
+            <label class="far-side-label" for="far-kind">type</label>
+            <KindSelect id="far-kind" kinds={kinds} total={entries.length} />
+          </div>
+
+          <details class="far-side-packages" data-side-packages open>
+            <summary>
+              <span class="far-side-label">packages</span>
+              <Icon name="chevron" size={14} class="far-side-chevron" />
+            </summary>
+            <nav aria-label="Packages">
+              {
+                categories.map((c) => (
+                  <div class="far-side-group">
+                    <p class="far-side-label">{c.label}</p>
+                    <ul class="far-side-nav">
+                      {c.packages.map((p) => (
+                        <li data-nav-package={p.slug}>
+                          <a href={`#${p.slug}`}>
+                            <span>{p.scope && <span class="far-scope">{p.scope}</span>}{p.short}</span>
+                            <small data-nav-count>{p.entries.length}</small>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))
+              }
+            </nav>
+          </details>
+        </div>
+      </aside>
+
+      <div class="far-content">
+        <div class="far-toolbar">
+          <p data-summary aria-live="polite">{entries.length} exports in {packages.length} packages</p>
+          <button type="button" class="far-btn" data-toggle-all>
+            <Icon name="collapse" size={14} class="" />
+            <span data-toggle-label>Collapse all</span>
+          </button>
+        </div>
+
+        {
+          categories.map((c) => (
+            <section class="far-category" data-category={c.id} id={`category-${c.id}`}>
+              <div class="far-category-head">
+                <h2>{c.label}</h2>
+                <span data-category-count>{c.packages.length} {c.packages.length === 1 ? "package" : "packages"}</span>
+              </div>
+              <p class="far-category-desc">{c.description}</p>
+              <div class="far-stack">
+                {c.packages.map((p) => <PackageCard pkg={p} />)}
+              </div>
+            </section>
+          ))
+        }
+
+        <div data-empty hidden class="far-card far-empty">
+          <p>No exports match these filters.</p>
+          <button type="button" class="far-btn" data-reset>Clear filters</button>
+        </div>
+
+        {
+          entries.length === 0 && (
+            <div class="far-card far-empty">
+              <p>Nothing to show yet.</p>
+              Run <code class="far-chipcode">fastify-api-install</code> to install the packages to document.
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const kindSelect = document.querySelector<HTMLInputElement>("[data-filter-kind]");
+  const textInput = document.querySelector<HTMLInputElement>("[data-filter-text]");
+  const cards = Array.from(document.querySelectorAll<HTMLDetailsElement>("[data-package]"));
+  const navItems = new Map(
+    Array.from(document.querySelectorAll<HTMLElement>("[data-nav-package]")).map((li) => [li.dataset.navPackage, li]),
+  );
+  const summary = document.querySelector<HTMLElement>("[data-summary]");
+  const empty = document.querySelector<HTMLElement>("[data-empty]");
+  const toggleAll = document.querySelector<HTMLButtonElement>("[data-toggle-all]");
+  const toggleLabel = document.querySelector<HTMLElement>("[data-toggle-label]");
+  const sidePackages = document.querySelector<HTMLDetailsElement>("[data-side-packages]");
+
+  // phones: the package list starts collapsed, like the docs navigation
+  if (sidePackages && window.matchMedia("(max-width: 1023px)").matches) sidePackages.open = false;
+
+  function apply() {
+    const kind = kindSelect?.value ?? "";
+    const q = (textInput?.value ?? "").trim().toLowerCase();
+    const filtering = Boolean(kind || q);
+    let total = 0;
+    let visiblePackages = 0;
+
+    for (const card of cards) {
+      let visible = 0;
+      for (const section of card.querySelectorAll<HTMLElement>("[data-section]")) {
+        let inSection = 0;
+        for (const li of section.querySelectorAll<HTMLElement>("[data-entry]")) {
+          const ok = (!kind || li.dataset.kind === kind) && (!q || (li.dataset.name ?? "").includes(q));
+          li.hidden = !ok;
+          if (ok) inSection++;
+        }
+        section.hidden = inSection === 0;
+        visible += inSection;
+      }
+      card.hidden = visible === 0;
+      if (filtering && visible > 0) card.open = true;
+      const count = card.querySelector("[data-package-count]");
+      const label = card.querySelector("[data-package-count-label]");
+      if (count) count.textContent = String(visible);
+      if (label) label.textContent = visible === 1 ? "export" : "exports";
+      const nav = navItems.get(card.dataset.package);
+      if (nav) {
+        nav.hidden = visible === 0;
+        const navCount = nav.querySelector("[data-nav-count]");
+        if (navCount) navCount.textContent = String(visible);
+      }
+      total += visible;
+      if (visible > 0) visiblePackages++;
+    }
+
+    for (const section of document.querySelectorAll<HTMLElement>("[data-category]")) {
+      const shown = section.querySelectorAll("[data-package]:not([hidden])").length;
+      section.hidden = shown === 0;
+      const label = section.querySelector("[data-category-count]");
+      if (label) label.textContent = `${shown} ${shown === 1 ? "package" : "packages"}`;
+    }
+    for (const group of document.querySelectorAll<HTMLElement>(".far-side-group")) {
+      group.hidden = group.querySelectorAll("[data-nav-package]:not([hidden])").length === 0;
+    }
+    if (summary) summary.textContent = `${total} exports in ${visiblePackages} packages`;
+    if (empty) empty.hidden = total > 0 || cards.length === 0;
+  }
+
+  kindSelect?.addEventListener("change", apply);
+  textInput?.addEventListener("input", apply);
+
+  document.querySelector("[data-reset]")?.addEventListener("click", () => {
+    if (kindSelect) {
+      kindSelect.value = "";
+      kindSelect.dispatchEvent(new Event("change"));
+    }
+    if (textInput) textInput.value = "";
+    apply();
+  });
+
+  toggleAll?.addEventListener("click", () => {
+    const anyOpen = cards.some((c) => !c.hidden && c.open);
+    for (const card of cards) card.open = !anyOpen;
+    if (toggleLabel) toggleLabel.textContent = anyOpen ? "Expand all" : "Collapse all";
+  });
+
+  // a package link always lands on an open card
+  const openFromHash = () => {
+    const card = cards.find((c) => c.id === decodeURIComponent(location.hash.slice(1)));
+    if (card) card.open = true;
+  };
+  window.addEventListener("hashchange", openFromHash);
+  openFromHash();
+
+  // highlight the package in view, like the docs table of contents
+  const links = new Map(
+    Array.from(navItems.entries()).map(([slug, li]) => [slug, li.querySelector("a")]),
+  );
+  const observer = new IntersectionObserver(
+    (records) => {
+      for (const record of records) {
+        if (!record.isIntersecting) continue;
+        const slug = (record.target as HTMLElement).dataset.package;
+        for (const [key, a] of links) a?.toggleAttribute("aria-current", key === slug);
+      }
+    },
+    { rootMargin: "-80px 0px -70% 0px" },
+  );
+  for (const card of cards) observer.observe(card);
+</script>

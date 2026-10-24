@@ -1,0 +1,59 @@
+---
+// TypeScript code highlighted with Shiki (github-light / github-dark, like
+// fastify.dev); names of documented exports become links to their page.
+
+import { Code } from "astro:components";
+import type { ShikiTransformer } from "shiki";
+
+const { code, links, self, lang = "ts" } = Astro.props;
+
+/** Opens or closes a string literal. */
+const QUOTE_CHAR = /['"`]/;
+/** A JS identifier; capturing, so `split` keeps the names at odd indexes. */
+const IDENTIFIER = /([A-Za-z_$][\w$]*)/;
+/** A name right after one of these is inside a string, a decorator or a path: never a link. */
+const NOT_LINKABLE_AFTER = /['"`@/]/;
+
+// Shiki splits code differently depending on context (`a: fastifyJwt.Verify`
+// can be one token), so every token is scanned for identifiers and only the
+// known names are wrapped in links, keeping the token's colour.
+const linkTypes: ShikiTransformer = {
+	name: "far-type-links",
+	span(node, _line, _col, _el, token) {
+		const content = token?.content;
+		if (!content) return;
+		// never link inside string literals such as `declare module 'fastify'`
+		if (QUOTE_CHAR.test(this.source[token.offset - 1] ?? "") || QUOTE_CHAR.test(content.trimStart()[0] ?? "")) return;
+		const parts = content.split(IDENTIFIER);
+		const linkable = (part: string, i: number) =>
+			i % 2 === 1 && part !== self && links.has(part) && !NOT_LINKABLE_AFTER.test(parts[i - 1]?.slice(-1) ?? "") &&
+			parts[i + 1]?.[0] !== "/";
+		if (!parts.some(linkable)) return;
+		node.children = parts
+			.map((part, i) => ({ part, i }))
+			.filter(({ part }) => part !== "")
+			.map(({ part, i }) => {
+				const href = linkable(part, i) ? links.get(part) : undefined;
+				return href
+					? {
+							type: "element" as const,
+							tagName: "a",
+							properties: { href, class: "far-type-link" },
+							children: [{ type: "text" as const, value: part }],
+						}
+					: { type: "text" as const, value: part };
+			});
+	},
+};
+---
+
+<div class="far-code">
+  <Code
+    code={code}
+    lang={lang}
+    themes={{ light: "github-light", dark: "github-dark" }}
+    defaultColor="dark"
+    transformers={[linkTypes]}
+    wrap={false}
+  />
+</div>
