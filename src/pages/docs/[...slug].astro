@@ -16,7 +16,7 @@ const { Content, headings, remarkPluginFrontmatter } = await render(doc);
 const version = doc.id.split("/")[0];
 const minutesRead = remarkPluginFrontmatter?.minutesRead ?? "1 min read";
 ---
-<BaseLayout ads title={`${doc.data.title} — Fastify ${version}`} description={doc.data.description}>
+<BaseLayout title={`${doc.data.title} — Fastify ${version}`} description={doc.data.description}>
   <DocsShell current={doc.id} version={version} headings={headings} minutesRead={minutesRead}>
     <Content />
   </DocsShell>

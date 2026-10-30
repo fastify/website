@@ -8,13 +8,15 @@ import "~/styles/carbon-ads.css";
  */
 interface Props {
 	format: "top-bar" | "sidebar";
+	/** Extra classes, e.g. spacing; they vanish with the slot when it is empty. */
+	class?: string;
 }
-const { format } = Astro.props;
+const { format, class: className } = Astro.props;
 ---
 {
   format === "top-bar" ? (
     <aside
-      class="carbon-slot carbon-slot--top-bar"
+      class:list={["carbon-slot carbon-slot--top-bar", className]}
       aria-label="Advertisement"
       data-carbon-slot="top-bar"
       data-pagefind-ignore="all"
@@ -22,7 +24,7 @@ const { format } = Astro.props;
     />
   ) : (
     <div
-      class="carbon-slot carbon-slot--sidebar"
+      class:list={["carbon-slot carbon-slot--sidebar", className]}
       data-carbon-slot="sidebar"
       data-carbon-media="(min-width: 80rem)"
       data-pagefind-ignore="all"

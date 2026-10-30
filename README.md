@@ -111,7 +111,7 @@ slots.
 
 | Format  | Zone key   | Where                                                                    |
 | ------- | ---------- | ------------------------------------------------------------------------ |
-| Top Bar | `CWBI45QW` | Below the header on pages that pass `ads` to `BaseLayout`                |
+| Top Bar | `CWBI45QW` | Compact card above the docs title, and below `PageHeader` when it gets `ads` |
 | Sidebar | `CWBI45QI` | Below "On this page" in docs, only at the `xl` breakpoint and with a TOC |
 
 The homepage, 404 page, docs redirect, Markdown exports, and generated
