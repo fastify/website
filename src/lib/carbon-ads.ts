@@ -379,21 +379,21 @@ export interface CarbonEnv extends ViewabilityEnv {
 }
 
 const SLOT_SELECTOR = "[data-carbon-slot]";
-
-function isFormat(value: string | undefined): value is CarbonFormat {
-	return value === "top-bar" || value === "sidebar";
-}
+const FORMAT_PRIORITY: readonly CarbonFormat[] = ["sidebar", "top-bar"];
 
 /**
- * Discover every ad slot in the document and load each eligible one exactly
- * once for this document view. Slots start `hidden`, so with JavaScript
- * disabled (or on no-fill/failure) they take up no space.
+ * Show at most one ad per page view. Among the slots in the document, the
+ * first eligible one in `FORMAT_PRIORITY` order is requested, exactly once;
+ * the others stay hidden. A slot with `data-carbon-media` is only eligible if
+ * that media query matches when the page loads, so on docs the Sidebar wins
+ * on wide screens and the Top Bar is used otherwise. Resizing later never
+ * loads a second ad.
  *
- * A slot with `data-carbon-media` is only requested once that media query
- * matches; it is never re-requested on later resizes. In-flight requests are
- * aborted on `pagehide`. A page restored from the back/forward cache is the
- * same document view: rendered creatives stay, an unfinished view timer
- * resumes, and nothing is re-requested.
+ * Slots start `hidden`, so with JavaScript disabled (or on no-fill/failure)
+ * they take up no space. In-flight requests are aborted on `pagehide`. A page
+ * restored from the back/forward cache is the same document view: the
+ * rendered creative stays, an unfinished view timer resumes, and nothing is
+ * re-requested.
  *
  * Returns a teardown function (used by tests; the browser relies on
  * `pagehide`).
@@ -401,7 +401,6 @@ function isFormat(value: string | undefined): value is CarbonFormat {
 export function startCarbonAds(env: CarbonEnv): () => void {
 	const controllers = new Set<AbortController>();
 	const disposers = new Set<() => void>();
-	const mediaCleanups = new Set<() => void>();
 	let torn = false;
 
 	const collapse = (slot: HTMLElement) => {
@@ -449,34 +448,23 @@ export function startCarbonAds(env: CarbonEnv): () => void {
 		disposers.add(dispose);
 	};
 
-	for (const slot of env.document.querySelectorAll<HTMLElement>(
-		SLOT_SELECTOR,
-	)) {
-		const format = slot.dataset.carbonSlot;
-		if (!isFormat(format) || slot.dataset.carbonInit === "true") continue;
-		slot.dataset.carbonInit = "true";
+	const slots = [
+		...env.document.querySelectorAll<HTMLElement>(SLOT_SELECTOR),
+	].filter((slot) => slot.dataset.carbonInit !== "true");
+	for (const slot of slots) slot.dataset.carbonInit = "true";
 
+	const eligible = (slot: HTMLElement) => {
 		const media = slot.dataset.carbonMedia;
-		if (!media) {
+		return !media || env.window.matchMedia(media).matches;
+	};
+	for (const format of FORMAT_PRIORITY) {
+		const slot = slots.find(
+			(s) => s.dataset.carbonSlot === format && eligible(s),
+		);
+		if (slot) {
 			void load(slot, format);
-			continue;
+			break;
 		}
-		const mql = env.window.matchMedia(media);
-		if (mql.matches) {
-			void load(slot, format);
-			continue;
-		}
-		const onChange = (event: MediaQueryListEvent) => {
-			if (!event.matches) return;
-			cleanup();
-			void load(slot, format);
-		};
-		const cleanup = () => {
-			mql.removeEventListener("change", onChange);
-			mediaCleanups.delete(cleanup);
-		};
-		mql.addEventListener("change", onChange);
-		mediaCleanups.add(cleanup);
 	}
 
 	const teardown = (full: boolean) => {
@@ -484,7 +472,6 @@ export function startCarbonAds(env: CarbonEnv): () => void {
 		if (!full) return;
 		torn = true;
 		for (const dispose of disposers) dispose();
-		for (const cleanup of mediaCleanups) cleanup();
 		disposers.clear();
 	};
 

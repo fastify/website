@@ -559,39 +559,50 @@ describe("startCarbonAds", () => {
 		assert.equal(t.requests.length, 0);
 	});
 
-	test("wide docs with TOC: one Top Bar and one Sidebar request", async () => {
+	test("wide docs with TOC: only the Sidebar is requested", async () => {
 		const t = setup(TOP + SIDE);
 		startCarbonAds(t.env);
 		await flush();
 		assert.deepEqual(t.requests, [
-			"https://srv.carbonads.net/ads/CWBI45QW.json?ignore=yes",
 			"https://srv.carbonads.net/ads/CWBI45QI.json?ignore=yes",
 		]);
 		const [top, side] =
 			t.document.querySelectorAll<HTMLElement>("[data-carbon-slot]");
-		assert.equal(top.hidden, false);
-		assert.equal(top.dataset.carbonState, "filled");
-		assert.ok(top.querySelector(".carbon-top-bar"));
+		assert.equal(top.hidden, true);
+		assert.equal(top.childElementCount, 0);
+		assert.equal(side.hidden, false);
+		assert.equal(side.dataset.carbonState, "filled");
 		assert.ok(side.querySelector(".carbon-sidebar"));
 	});
 
-	test("narrow: Sidebar waits; resizing in loads it once", async () => {
+	test("narrow docs: only the Top Bar; resizing never adds a second ad", async () => {
 		const t = setup(TOP + SIDE, { wide: false });
 		startCarbonAds(t.env);
 		await flush();
-		assert.equal(t.requests.length, 1);
+		assert.deepEqual(t.requests, [
+			"https://srv.carbonads.net/ads/CWBI45QW.json?ignore=yes",
+		]);
 		const side = t.document.querySelector<HTMLElement>(
 			'[data-carbon-slot="sidebar"]',
 		);
 		assert.equal(side?.hidden, true);
 
 		t.mql.set(true);
-		await flush();
 		t.mql.set(false);
 		t.mql.set(true);
 		await flush();
-		assert.equal(t.requests.length, 2);
+		assert.equal(t.requests.length, 1);
+		assert.equal(side?.hidden, true);
 		assert.equal(t.mql.listeners.size, 0);
+	});
+
+	test("page with only a Top Bar slot requests it", async () => {
+		const t = setup(TOP);
+		startCarbonAds(t.env);
+		await flush();
+		assert.deepEqual(t.requests, [
+			"https://srv.carbonads.net/ads/CWBI45QW.json?ignore=yes",
+		]);
 	});
 
 	test("repeated initialisation does not add requests", async () => {
@@ -599,7 +610,7 @@ describe("startCarbonAds", () => {
 		startCarbonAds(t.env);
 		startCarbonAds(t.env);
 		await flush();
-		assert.equal(t.requests.length, 2);
+		assert.equal(t.requests.length, 1);
 	});
 
 	for (const [name, body] of [

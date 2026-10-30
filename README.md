@@ -114,9 +114,11 @@ slots.
 | Top Bar | `CWBI45QW` | Compact card above the docs title, and below `PageHeader` when it gets `ads` |
 | Sidebar | `CWBI45QI` | Below "On this page" in docs, only at the `xl` breakpoint and with a TOC |
 
+A page shows **at most one ad**: on docs, the Sidebar when the page loads at
+`xl` with a TOC, otherwise the Top Bar. Resizing never loads a second one.
 The homepage, 404 page, docs redirect, Markdown exports, and generated
 machine-readable files have no ads. Ads are never fetched at build time, and
-each slot makes at most one request per page view. If there is no fill or the
+each page view makes at most one ad request. If there is no fill or the
 request fails, the slot collapses and takes no space.
 
 **Counting is off by default.** Every build sends `ignore=yes` (so Carbon
