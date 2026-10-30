@@ -3,6 +3,7 @@ import "@fontsource-variable/inter";
 import "@fontsource-variable/space-grotesk";
 import "@fontsource-variable/jetbrains-mono";
 import "~/styles/global.css";
+import CarbonAd from "~/components/CarbonAd.astro";
 import Footer from "~/components/Footer.astro";
 import Nav from "~/components/Nav.astro";
 import Search from "~/components/Search.astro";
@@ -12,10 +13,13 @@ import { withBase } from "~/lib/href";
 interface Props {
 	title?: string;
 	description?: string;
+	/** Opt in to the Carbon Ads Top Bar below the primary navigation. */
+	ads?: boolean;
 }
 const {
 	title = `${SITE.name} — ${SITE.tagline}`,
 	description = SITE.description,
+	ads = false,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.url).href;
 const socialImage = new URL(withBase("/og-image.png"), Astro.site ?? SITE.url).href;
@@ -71,6 +75,7 @@ const jsonLd = JSON.stringify({
       Skip to content
     </a>
     <Nav />
+    {ads && <CarbonAd format="top-bar" />}
     <main id="main">
       <slot />
     </main>

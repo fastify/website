@@ -1,0 +1,239 @@
+/* ============================================================
+   Carbon Ads — Top Bar and Sidebar formats.
+   Units are created at runtime, so these rules are global (Astro's
+   scoped styles would not match them) and namespaced under .carbon-*.
+   Advertiser colours arrive as --carbon-* custom properties and are
+   resolved against the page's color-scheme via light-dark().
+   ============================================================ */
+
+.carbon-slot[hidden] {
+	display: none;
+}
+
+.carbon-slot a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.carbon-slot a:focus-visible {
+	outline: 2px solid currentColor;
+	outline-offset: 2px;
+	border-radius: 2px;
+}
+
+/* ---------- Top Bar ---------- */
+
+.carbon-slot--top-bar {
+	display: block;
+	container-type: inline-size;
+}
+
+.carbon-slot--top-bar[data-carbon-state="loading"] {
+	min-height: 56px;
+}
+
+@media (width < 600px) {
+	.carbon-slot--top-bar[data-carbon-state="loading"] {
+		min-height: 88px;
+	}
+}
+
+.carbon-top-bar {
+	background: var(--carbon-bg);
+	color: var(--carbon-fg);
+	font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+}
+
+/* Matches the site's max-w-7xl px-4 sm:px-6 2xl:max-w-[100rem] container. */
+.carbon-top-bar__inner {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	box-sizing: border-box;
+	min-height: 56px;
+	max-width: 80rem;
+	margin-inline: auto;
+	padding: 0.5rem 1rem;
+}
+
+@media (width >= 40rem) {
+	.carbon-top-bar__inner {
+		padding-inline: 1.5rem;
+	}
+}
+
+@media (width >= 96rem) {
+	.carbon-top-bar__inner {
+		max-width: 100rem;
+	}
+}
+
+.carbon-top-bar__link {
+	display: flex;
+	flex: 1 1 auto;
+	align-items: center;
+	gap: 0.75rem 1rem;
+	min-width: 0;
+}
+
+.carbon-top-bar__image {
+	flex: none;
+	width: 40px;
+	height: 40px;
+	border-radius: 4px;
+}
+
+.carbon-top-bar__description {
+	flex: 1 1 auto;
+	min-width: 0;
+	font-size: 0.875rem;
+	line-height: 1.35;
+}
+
+.carbon-top-bar__cta {
+	flex: none;
+	padding: 0.375rem 0.875rem;
+	border-radius: 999px;
+	background: var(--carbon-cta-bg);
+	color: var(--carbon-cta-fg);
+	font-size: 0.8125rem;
+	font-weight: 600;
+	line-height: 1.2;
+	white-space: nowrap;
+}
+
+.carbon-top-bar__link:hover .carbon-top-bar__cta {
+	filter: brightness(0.95);
+}
+
+.carbon-top-bar__label {
+	flex: none;
+	font-size: 0.6875rem;
+	letter-spacing: 0.04em;
+	opacity: 0.8;
+}
+
+.carbon-top-bar__label:hover {
+	opacity: 1;
+	text-decoration: underline;
+}
+
+@container (width < 600px) {
+	.carbon-top-bar__inner {
+		align-items: flex-start;
+	}
+
+	.carbon-top-bar__link {
+		flex-wrap: wrap;
+		column-gap: 0.75rem;
+	}
+
+	/* Image + description on the first row, CTA wraps beneath the copy. */
+	.carbon-top-bar__description {
+		flex: 1 1 calc(100% - 40px - 0.75rem);
+	}
+
+	.carbon-top-bar__cta {
+		margin-left: calc(40px + 0.75rem);
+	}
+}
+
+/* ---------- Sidebar ---------- */
+
+.carbon-slot--sidebar {
+	display: block;
+	margin-top: 2rem;
+}
+
+.carbon-slot--sidebar[data-carbon-state="loading"] {
+	min-height: 320px;
+}
+
+.carbon-sidebar {
+	position: relative;
+	box-sizing: border-box;
+	width: 176px;
+	min-height: 320px;
+	overflow: hidden;
+	border-radius: var(--radius-sm, 8px);
+	background: var(--carbon-bg);
+	color: var(--carbon-fg);
+	font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+}
+
+.carbon-sidebar__link {
+	display: flex;
+	flex-direction: column;
+	min-height: 320px;
+}
+
+.carbon-sidebar__media {
+	position: relative;
+	display: block;
+	aspect-ratio: 1;
+}
+
+.carbon-sidebar__image {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+/* The creative's background colour fades upward into the image. */
+.carbon-sidebar__media::after {
+	content: "";
+	position: absolute;
+	inset: auto 0 0;
+	height: 35%;
+	background: linear-gradient(to top, var(--carbon-bg), transparent);
+}
+
+.carbon-sidebar__body {
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding: 0.25rem 0.875rem 1rem;
+}
+
+.carbon-sidebar__title {
+	font-size: 0.875rem;
+	font-weight: 600;
+	line-height: 1.25;
+}
+
+.carbon-sidebar__description {
+	font-size: 0.8125rem;
+	line-height: 1.4;
+}
+
+.carbon-sidebar__cta {
+	align-self: flex-start;
+	margin-top: auto;
+	padding: 0.3125rem 0.75rem;
+	border: 1px solid currentColor;
+	border-radius: 999px;
+	font-size: 0.75rem;
+	font-weight: 600;
+	line-height: 1.2;
+}
+
+.carbon-sidebar__link:hover .carbon-sidebar__cta {
+	background: color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.carbon-sidebar__label {
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
+	padding: 0.125rem 0.375rem;
+	border-radius: 4px;
+	background: var(--carbon-bg);
+	color: var(--carbon-fg);
+	font-size: 0.625rem;
+	letter-spacing: 0.04em;
+}
+
+.carbon-sidebar__label:hover {
+	text-decoration: underline;
+}

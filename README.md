@@ -27,6 +27,7 @@ requests-per-second velocity gauge in the hero.
 | `npm run lint`    | Lint with [Biome](https://biomejs.dev)                                                                                   |
 | `npm run format`  | Format with Biome (`format` to verify)                                                                                   |
 | `npm run check`   | Type-check via [`astro check`](https://docs.astro.build/en/reference/cli-reference/#astro-check) (run by CI on every PR) |
+| `npm test`        | Run unit tests with the Node.js test runner                                                                              |
 
 > Search only works against a production build (`npm run build:website`), because the
 > Pagefind index is generated from the built HTML. In `dev` the search modal
@@ -99,6 +100,35 @@ Fetched content is git-ignored so the source of truth stays in `fastify/fastify`
 version. When you search from a docs page, results are filtered to the selected
 version only (searching from a `v5.10.x` page returns `v5.10.x` results, never
 `v5.9.x` or `v4.x`); elsewhere search defaults to `latest`.
+
+## Carbon Ads
+
+The site shows [Carbon Ads](https://www.carbonads.net/) from the OpenJS
+Foundation program using Carbon's JSON API — there is no third-party script.
+`src/lib/carbon-ads.ts` fetches, validates, and renders creatives in the
+browser, and `src/components/CarbonAd.astro` emits the (initially hidden)
+slots.
+
+| Format  | Zone key   | Where                                                                    |
+| ------- | ---------- | ------------------------------------------------------------------------ |
+| Top Bar | `CWBI45QW` | Below the header on pages that pass `ads` to `BaseLayout`                |
+| Sidebar | `CWBI45QI` | Below "On this page" in docs, only at the `xl` breakpoint and with a TOC |
+
+The homepage, 404 page, docs redirect, Markdown exports, and generated
+machine-readable files have no ads. Ads are never fetched at build time, and
+each slot makes at most one request per page view. If there is no fill or the
+request fails, the slot collapses and takes no space.
+
+**Counting is off by default.** Every build sends `ignore=yes` (so Carbon
+counts no impressions, views, or clicks) unless it is built with:
+
+```sh
+PUBLIC_CARBON_ADS_PRODUCTION=true npm run build:website
+```
+
+The variable is inlined into browser JavaScript, so it must be set on the
+**build** step. Setting it on the deploy job has no effect. Set it only for
+the real `fastify.dev` production build, never for PR previews.
 
 ## Deployment
 
