@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import type { MarkdownHeading } from "astro";
+import CarbonAd from "~/components/CarbonAd.astro";
 import CopyButton from "~/components/CopyButton.astro";
 import DocsNav from "~/components/DocsNav.astro";
 import Icon from "~/components/Icon.astro";
@@ -193,6 +194,8 @@ const markdownUrl = withBase(`/docs/${markdownSlug}.md`);
         }
       </nav>
 
+      <CarbonAd format="top-bar" class="mb-8" />
+
       <article
         class="prose-fastify"
         data-pagefind-body
@@ -287,6 +290,7 @@ const markdownUrl = withBase(`/docs/${markdownSlug}.md`);
             <nav aria-label="Table of contents">
               <TableOfContents toc={toc} />
             </nav>
+            <CarbonAd format="sidebar" />
           </div>
         </aside>
       )

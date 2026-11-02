@@ -1,0 +1,42 @@
+---
+import "~/styles/carbon-ads.css";
+
+/**
+ * An empty, hidden Carbon Ads slot. The creative is fetched and rendered in
+ * the browser (see `~/lib/carbon-ads`); never fetch it here, as frontmatter
+ * runs at build time.
+ */
+interface Props {
+	format: "top-bar" | "sidebar";
+	/** Extra classes, e.g. spacing; they vanish with the slot when it is empty. */
+	class?: string;
+}
+const { format, class: className } = Astro.props;
+---
+{
+  format === "top-bar" ? (
+    <aside
+      class:list={["carbon-slot carbon-slot--top-bar", className]}
+      aria-label="Advertisement"
+      data-carbon-slot="top-bar"
+      data-pagefind-ignore="all"
+      hidden
+    />
+  ) : (
+    <div
+      class:list={["carbon-slot carbon-slot--sidebar", className]}
+      data-carbon-slot="sidebar"
+      data-carbon-media="(min-width: 80rem)"
+      data-pagefind-ignore="all"
+      hidden
+    />
+  )
+}
+
+<script>
+  import { initCarbonAds } from "~/lib/carbon-ads";
+
+  initCarbonAds({
+    production: import.meta.env.PUBLIC_CARBON_ADS_PRODUCTION === "true",
+  });
+</script>
