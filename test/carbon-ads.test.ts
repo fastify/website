@@ -304,10 +304,35 @@ describe("parseCarbonResponse", () => {
 
 // --- Rendering ----------------------------------------------------------------
 
+const escapeAttribute = (value: string) =>
+	value.replaceAll("&", "&amp;").replaceAll('"', "&quot;");
+
+/**
+ * Serialize a rendered unit as indented HTML, one element per line, so that
+ * snapshots stay readable. Text is HTML-escaped, as in `outerHTML`.
+ */
+function prettyHtml(node: Element, depth = 0): string {
+	const pad = "  ".repeat(depth);
+	const tag = node.tagName.toLowerCase();
+	const attrs = [...node.attributes]
+		.map((a) => ` ${a.name}="${escapeAttribute(a.value)}"`)
+		.join("");
+	if (node.children.length === 0) {
+		const content = node.innerHTML;
+		return tag === "img"
+			? `${pad}<${tag}${attrs}>`
+			: `${pad}<${tag}${attrs}>${content}</${tag}>`;
+	}
+	const children = [...node.children].map((c) => prettyHtml(c, depth + 1));
+	return [`${pad}<${tag}${attrs}>`, ...children, `${pad}</${tag}>`].join("\n");
+}
+
+const asHtml = { serializers: [(value: unknown) => String(value)] };
+
 describe("renderCarbonAd", () => {
 	const { document } = new JSDOM("<!doctype html><body></body>").window;
 
-	test("Top Bar renders full copy, image, CTA and a separate label", () => {
+	test("Top Bar", (t) => {
 		const ad = parseCarbonResponse("top-bar", {
 			ads: [
 				{
@@ -317,60 +342,25 @@ describe("renderCarbonAd", () => {
 				},
 			],
 		});
-		assert.ok(ad && ad.format === "top-bar");
+		assert.ok(ad);
 		const unit = renderCarbonAd(document, ad);
-		const links = unit.querySelectorAll("a");
-		assert.equal(links.length, 2);
-		const [main, label] = links;
-		assert.equal(main.getAttribute("href"), ad.statlink);
-		assert.equal(main.target, "_blank");
-		assert.equal(main.rel, "sponsored noopener");
-		assert.equal(label.textContent, "Ad");
-		assert.equal(label.getAttribute("href"), ad.adViaLink);
-		assert.equal(label.rel, "noopener");
-		assert.equal(main.contains(label), false);
-
-		const img = unit.querySelector("img");
-		assert.equal(img?.getAttribute("src"), ad.image);
-		assert.equal(img?.alt, "Acme");
-		assert.equal(img?.width, 40);
-
-		const desc = unit.querySelector(".carbon-top-bar__description");
-		assert.equal(
-			desc?.textContent,
-			"<img src=x onerror=alert(1)> very long copy",
-		);
+		// Advertiser text is rendered as text, never parsed as HTML.
 		assert.equal(unit.querySelectorAll("img").length, 1);
-		assert.equal(
-			unit.querySelector(".carbon-top-bar__cta")?.textContent,
-			"Try it",
-		);
-		assert.equal(
-			unit.style.getPropertyValue("--carbon-bg"),
-			"light-dark(#112233, #000000)",
-		);
-		assert.equal(unit.style.getPropertyValue("--carbon-fg"), "#ffffff");
+		t.assert.snapshot(prettyHtml(unit), asHtml);
 	});
 
-	test("Sidebar renders title when present and nothing when absent", () => {
-		const withTitle = parseCarbonResponse("sidebar", { ads: [sidebarAd()] });
-		assert.ok(withTitle && withTitle.format === "sidebar");
-		const unit = renderCarbonAd(document, withTitle);
-		assert.equal(
-			unit.querySelector(".carbon-sidebar__title")?.textContent,
-			"Acme Cloud",
-		);
-		assert.equal(
-			unit.querySelector("img")?.getAttribute("src"),
-			withTitle.largeImage,
-		);
+	test("Sidebar with a title", (t) => {
+		const ad = parseCarbonResponse("sidebar", { ads: [sidebarAd()] });
+		assert.ok(ad);
+		t.assert.snapshot(prettyHtml(renderCarbonAd(document, ad)), asHtml);
+	});
 
+	test("Sidebar without a title", (t) => {
 		const raw: Record<string, unknown> = sidebarAd();
 		delete raw.title;
-		const noTitle = parseCarbonResponse("sidebar", { ads: [raw] });
-		assert.ok(noTitle);
-		const bare = renderCarbonAd(document, noTitle);
-		assert.equal(bare.querySelector(".carbon-sidebar__title"), null);
+		const ad = parseCarbonResponse("sidebar", { ads: [raw] });
+		assert.ok(ad);
+		t.assert.snapshot(prettyHtml(renderCarbonAd(document, ad)), asHtml);
 	});
 });
 

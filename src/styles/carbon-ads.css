@@ -1,5 +1,8 @@
 /* ============================================================
    Carbon Ads — Top Bar and Sidebar formats.
+   The design follows nodejs.org (nodejs/nodejs.org#9250). Sizes are
+   spelled out rather than taken from the theme, because this site
+   overrides Tailwind's radius scale.
    Units are created at runtime, so these rules are global (Astro's
    scoped styles would not match them) and namespaced under .carbon-*.
    Advertiser colours arrive as --carbon-* custom properties and are
@@ -21,210 +24,158 @@
 	border-radius: 2px;
 }
 
+/* Small outlined "Ad" badge, in the creative's text colour. */
+.carbon-badge {
+	flex-shrink: 0;
+	padding: 0 0.375rem;
+	border: 1px solid currentColor;
+	border-radius: 0.25rem;
+	font-size: 0.75rem;
+	line-height: 1rem;
+	opacity: 0.7;
+}
+
+.carbon-badge:hover {
+	opacity: 1;
+}
+
 /* ---------- Top Bar ---------- */
 
 .carbon-slot--top-bar {
 	display: block;
-	container-type: inline-size;
 }
 
-/* Rendered inside the content column, so reserve only a compact card. */
+/*
+ * While loading, reserve the bar's minimum height from 64rem up, so one- and
+ * two-line creatives don't shift the page. Narrower screens reserve nothing,
+ * as the height there depends too much on the length of the copy.
+ */
 .carbon-slot--top-bar[data-carbon-state="loading"] {
-	min-height: 52px;
+	display: none;
 }
 
-@media (width < 600px) {
+@media (width >= 64rem) {
 	.carbon-slot--top-bar[data-carbon-state="loading"] {
-		min-height: 88px;
+		display: block;
+		min-height: 3.5rem;
 	}
 }
 
 .carbon-top-bar {
-	border-radius: var(--radius-sm, 8px);
-	background: var(--carbon-bg);
-	color: var(--carbon-fg);
-	font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
-}
-
-.carbon-top-bar__inner {
 	display: flex;
 	align-items: center;
-	gap: 0.875rem;
-	box-sizing: border-box;
-	min-height: 52px;
-	padding: 0.375rem 0.875rem;
+	gap: 0.75rem;
+	padding: 0.5rem 1rem;
+	border-radius: 0.375rem;
+	background: var(--carbon-bg);
+	color: var(--carbon-fg);
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+}
+
+@media (width >= 64rem) {
+	.carbon-top-bar {
+		min-height: 3.5rem;
+	}
 }
 
 .carbon-top-bar__link {
 	display: flex;
 	flex: 1 1 auto;
 	align-items: center;
-	gap: 0.625rem 0.875rem;
+	gap: 0.75rem;
 	min-width: 0;
 }
 
-.carbon-top-bar__image {
-	flex: none;
-	width: 40px;
-	height: 40px;
-	border-radius: 4px;
+.carbon-top-bar__logo {
+	flex-shrink: 0;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 0.25rem;
 }
 
 .carbon-top-bar__description {
 	flex: 1 1 auto;
 	min-width: 0;
-	font-size: 0.8125rem;
-	line-height: 1.35;
 }
 
+/* Hidden on phones, where the whole bar is the link anyway. */
 .carbon-top-bar__cta {
-	flex: none;
-	padding: 0.3125rem 0.75rem;
-	border-radius: 6px;
+	display: none;
+	flex-shrink: 0;
+	padding: 0.25rem 0.75rem;
+	border-radius: 0.375rem;
 	background: var(--carbon-cta-bg);
 	color: var(--carbon-cta-fg);
 	font-size: 0.75rem;
 	font-weight: 600;
-	line-height: 1.2;
+	line-height: 1rem;
 	white-space: nowrap;
 }
 
-.carbon-top-bar__link:hover .carbon-top-bar__cta {
-	filter: brightness(0.95);
-}
-
-/* Small outlined badge in the creative's text colour. */
-.carbon-top-bar__label {
-	flex: none;
-	padding: 0 0.3125rem;
-	border: 1px solid currentColor;
-	border-radius: 3px;
-	font-size: 0.625rem;
-	line-height: 1.4;
-	opacity: 0.75;
-}
-
-.carbon-top-bar__label:hover {
-	opacity: 1;
-}
-
-@container (width < 600px) {
-	.carbon-top-bar__inner {
-		align-items: flex-start;
-		padding-block: 0.625rem;
-	}
-
-	.carbon-top-bar__link {
-		flex-wrap: wrap;
-		column-gap: 0.625rem;
-	}
-
-	/* Image + description on the first row, CTA wraps beneath the copy. */
-	.carbon-top-bar__description {
-		flex: 1 1 calc(100% - 40px - 0.625rem);
-	}
-
+@media (width >= 40rem) {
 	.carbon-top-bar__cta {
-		margin-left: calc(40px + 0.625rem);
+		display: block;
 	}
 }
 
 /* ---------- Sidebar ---------- */
 
+/* No space is reserved while loading: the card is last in its column. */
 .carbon-slot--sidebar {
 	display: block;
 	margin-top: 2rem;
 }
 
-.carbon-slot--sidebar[data-carbon-state="loading"] {
-	min-height: 320px;
-}
-
 .carbon-sidebar {
 	position: relative;
-	box-sizing: border-box;
-	width: 176px;
-	min-height: 320px;
+	width: 11rem;
 	overflow: hidden;
-	border-radius: var(--radius-sm, 8px);
+	border-radius: 0.5rem;
 	background: var(--carbon-bg);
 	color: var(--carbon-fg);
-	font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
 }
 
 .carbon-sidebar__link {
 	display: flex;
 	flex-direction: column;
-	min-height: 320px;
-}
-
-.carbon-sidebar__media {
-	position: relative;
-	display: block;
-	aspect-ratio: 1;
 }
 
 .carbon-sidebar__image {
 	display: block;
 	width: 100%;
-	height: 100%;
-}
-
-/* The creative's background colour fades upward into the image. */
-.carbon-sidebar__media::after {
-	content: "";
-	position: absolute;
-	inset: auto 0 0;
-	height: 35%;
-	background: linear-gradient(to top, var(--carbon-bg), transparent);
+	height: auto;
+	aspect-ratio: 1;
+	object-fit: cover;
 }
 
 .carbon-sidebar__body {
 	display: flex;
-	flex: 1 1 auto;
 	flex-direction: column;
-	gap: 0.5rem;
-	padding: 0.25rem 0.875rem 1rem;
+	align-items: flex-start;
+	gap: 0.25rem;
+	padding: 0.875rem;
+	font-size: 0.75rem;
+	line-height: 1rem;
 }
 
 .carbon-sidebar__title {
-	font-size: 0.8125rem;
-	font-weight: 600;
-	line-height: 1.25;
-}
-
-.carbon-sidebar__description {
-	font-size: 0.75rem;
-	line-height: 1.4;
+	font-weight: 700;
 }
 
 .carbon-sidebar__cta {
-	align-self: flex-start;
-	margin-top: auto;
-	padding: 0.25rem 0.625rem;
+	margin-top: 0.5rem;
+	padding: 0.25rem 0.75rem;
 	border: 1px solid currentColor;
-	border-radius: 999px;
-	font-size: 0.6875rem;
+	border-radius: 9999px;
 	font-weight: 600;
-	line-height: 1.2;
 }
 
-.carbon-sidebar__link:hover .carbon-sidebar__cta {
-	background: color-mix(in srgb, currentColor 12%, transparent);
-}
-
-.carbon-sidebar__label {
+.carbon-badge--overlay {
 	position: absolute;
 	top: 0.5rem;
 	right: 0.5rem;
-	padding: 0 0.3125rem;
-	border-radius: 3px;
-	background: rgb(0 0 0 / 0.35);
+	border-color: transparent;
+	background: rgb(10 10 10 / 0.5);
 	color: #fff;
-	font-size: 0.625rem;
-	line-height: 1.5;
-}
-
-.carbon-sidebar__label:hover {
-	background: rgb(0 0 0 / 0.55);
 }

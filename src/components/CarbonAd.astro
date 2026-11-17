@@ -1,4 +1,5 @@
 ---
+import type { CarbonFormat } from "~/lib/carbon-ads";
 import "~/styles/carbon-ads.css";
 
 /**
@@ -7,7 +8,7 @@ import "~/styles/carbon-ads.css";
  * runs at build time.
  */
 interface Props {
-	format: "top-bar" | "sidebar";
+	format: CarbonFormat;
 	/** Extra classes, e.g. spacing; they vanish with the slot when it is empty. */
 	class?: string;
 }

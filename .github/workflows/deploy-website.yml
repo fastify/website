@@ -50,6 +50,9 @@ jobs:
         timeout-minutes: 30
         env:
           GH_TOKEN: ${{ github.token }}
+          # Production counts Carbon Ads impressions, views and clicks. It is
+          # inlined at build time; PR previews pin it to "false".
+          PUBLIC_CARBON_ADS_PRODUCTION: "true"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0

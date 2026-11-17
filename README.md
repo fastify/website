@@ -28,6 +28,7 @@ requests-per-second velocity gauge in the hero.
 | `npm run format`  | Format with Biome (`format` to verify)                                                                                   |
 | `npm run check`   | Type-check via [`astro check`](https://docs.astro.build/en/reference/cli-reference/#astro-check) (run by CI on every PR) |
 | `npm test`        | Run unit tests with the Node.js test runner                                                                              |
+| `npm run test:update-snapshots` | Run unit tests and rewrite their snapshots (`test/*.snapshot`)                                            |
 
 > Search only works against a production build (`npm run build:website`), because the
 > Pagefind index is generated from the built HTML. In `dev` the search modal
@@ -107,7 +108,7 @@ The site shows [Carbon Ads](https://www.carbonads.net/) from the OpenJS
 Foundation program using Carbon's JSON API — there is no third-party script.
 `src/lib/carbon-ads.ts` fetches, validates, and renders creatives in the
 browser, and `src/components/CarbonAd.astro` emits the (initially hidden)
-slots.
+slots. The design follows the [nodejs.org integration](https://github.com/nodejs/nodejs.org/pull/9250).
 
 | Format  | Zone key   | Where                                                                    |
 | ------- | ---------- | ------------------------------------------------------------------------ |
@@ -129,8 +130,12 @@ PUBLIC_CARBON_ADS_PRODUCTION=true npm run build:website
 ```
 
 The variable is inlined into browser JavaScript, so it must be set on the
-**build** step. Setting it on the deploy job has no effect. Set it only for
-the real `fastify.dev` production build, never for PR previews.
+**build** step. Setting it on the deploy job has no effect. The production
+workflow (`deploy-website.yml`) sets it to `true`, and PR previews
+(`preview.yml`) pin it to `false`.
+
+The integration stores nothing in the browser: ad requests are sent without
+cookies (`credentials: "omit"`), and Carbon's responses set none.
 
 ## Deployment
 

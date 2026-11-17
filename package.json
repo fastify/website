@@ -14,7 +14,8 @@
 		"check": "astro check",
 		"build:data": "node scripts/postinstall.mjs",
 		"generate:og-assets": "node scripts/generate-og-assets.mjs",
-		"test": "node --test test/*.test.ts"
+		"test": "node --test test/*.test.ts",
+		"test:update-snapshots": "node --test --test-update-snapshots test/*.test.ts"
 	},
 	"dependencies": {
 		"@astrojs/mdx": "^7.0.5",

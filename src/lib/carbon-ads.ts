@@ -10,12 +10,12 @@
  * with `node --test`; everything browser-specific is injectable.
  */
 
+export type CarbonFormat = "top-bar" | "sidebar";
+
 export const CARBON_ZONES = {
 	"top-bar": "CWBI45QW",
 	sidebar: "CWBI45QI",
-} as const;
-
-export type CarbonFormat = keyof typeof CARBON_ZONES;
+} as const satisfies Record<CarbonFormat, string>;
 
 const ENDPOINT = "https://srv.carbonads.net/ads/";
 const REQUEST_TIMEOUT_MS = 5000;
@@ -209,21 +209,36 @@ function el<K extends keyof HTMLElementTagNameMap>(
 	return node;
 }
 
-function adLinks(
-	doc: Document,
-	ad: CarbonAd,
-	prefix: string,
-): { main: HTMLAnchorElement; label: HTMLAnchorElement } {
-	const main = el(doc, "a", `${prefix}__link`);
-	main.href = ad.statlink;
-	main.target = "_blank";
-	main.rel = "sponsored noopener";
+function adLink(doc: Document, ad: CarbonAd, className: string) {
+	const link = el(doc, "a", className);
+	link.href = ad.statlink;
+	link.target = "_blank";
+	link.rel = "sponsored noopener";
+	return link;
+}
 
-	const label = el(doc, "a", `${prefix}__label`, "Ad");
-	label.href = ad.adViaLink;
-	label.target = "_blank";
-	label.rel = "noopener";
-	return { main, label };
+/** The small "Ad" badge, linking to Carbon's "advertise here" page. */
+function adBadge(doc: Document, ad: CarbonAd, className: string) {
+	const badge = el(doc, "a", className, "Ad");
+	badge.href = ad.adViaLink;
+	badge.target = "_blank";
+	badge.rel = "noopener";
+	return badge;
+}
+
+function adImage(
+	doc: Document,
+	className: string,
+	src: string,
+	alt: string,
+	size: number,
+) {
+	const img = el(doc, "img", className);
+	img.src = src;
+	img.alt = alt;
+	img.width = size;
+	img.height = size;
+	return img;
 }
 
 function applyColors(unit: HTMLElement, colors: CarbonColors): void {
@@ -238,8 +253,11 @@ function applyColors(unit: HTMLElement, colors: CarbonColors): void {
 }
 
 /**
- * Build the DOM for a validated ad. Advertiser text only ever goes through
- * `textContent`; URLs and colours have been validated by the parser.
+ * Build the DOM for a validated ad, following the nodejs.org markup. The
+ * Top Bar is a logo, the copy and a CTA, with the "Ad" badge at the end; the
+ * Sidebar is a square image over the copy, with the badge in the corner.
+ * Advertiser text only ever goes through `textContent`; URLs and colours have
+ * been validated by the parser.
  */
 export function renderCarbonAd(doc: Document, ad: CarbonAd): HTMLElement {
 	if (ad.format === "top-bar") {
@@ -254,42 +272,33 @@ export function renderCarbonAd(doc: Document, ad: CarbonAd): HTMLElement {
 			lightDark(ad.cta.text, ad.cta.textDark),
 		);
 
-		const inner = el(doc, "div", "carbon-top-bar__inner");
-		const { main, label } = adLinks(doc, ad, "carbon-top-bar");
-		const img = el(doc, "img", "carbon-top-bar__image");
-		img.src = ad.image;
-		img.alt = ad.company;
-		img.width = 40;
-		img.height = 40;
-		main.append(
-			img,
+		const link = adLink(doc, ad, "carbon-top-bar__link");
+		link.append(
+			adImage(doc, "carbon-top-bar__logo", ad.image, ad.company, 32),
 			el(doc, "span", "carbon-top-bar__description", ad.description),
 			el(doc, "span", "carbon-top-bar__cta", ad.callToAction),
 		);
-		inner.append(main, label);
-		unit.append(inner);
+		unit.append(link, adBadge(doc, ad, "carbon-badge"));
 		return unit;
 	}
 
 	const unit = el(doc, "div", "carbon-sidebar");
 	applyColors(unit, ad.colors);
-	const { main, label } = adLinks(doc, ad, "carbon-sidebar");
-	const media = el(doc, "span", "carbon-sidebar__media");
-	const img = el(doc, "img", "carbon-sidebar__image");
-	img.src = ad.largeImage;
-	img.alt = ad.company;
-	img.width = 176;
-	img.height = 176;
-	media.append(img);
+	const link = adLink(doc, ad, "carbon-sidebar__link");
 
 	const body = el(doc, "span", "carbon-sidebar__body");
-	if (ad.title) body.append(el(doc, "span", "carbon-sidebar__title", ad.title));
+	if (ad.title) {
+		body.append(el(doc, "strong", "carbon-sidebar__title", ad.title));
+	}
 	body.append(
 		el(doc, "span", "carbon-sidebar__description", ad.description),
 		el(doc, "span", "carbon-sidebar__cta", ad.callToAction),
 	);
-	main.append(media, body);
-	unit.append(main, label);
+	link.append(
+		adImage(doc, "carbon-sidebar__image", ad.largeImage, ad.company, 176),
+		body,
+	);
+	unit.append(link, adBadge(doc, ad, "carbon-badge carbon-badge--overlay"));
 	return unit;
 }
 
