@@ -1,9 +1,13 @@
 ---
+import CarbonAd from "~/components/CarbonAd.astro";
+
 interface Props {
 	eyebrow: string;
 	title: string;
+	/** Show the Carbon Ads Top Bar below the header. */
+	ads?: boolean;
 }
-const { eyebrow, title } = Astro.props;
+const { eyebrow, title, ads = false } = Astro.props;
 ---
 
 <section class="relative overflow-hidden border-b border-border bg-telemetry">
@@ -23,3 +27,10 @@ const { eyebrow, title } = Astro.props;
     </p>
   </div>
 </section>
+{
+  ads && (
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 2xl:max-w-[100rem]">
+      <CarbonAd format="top-bar" class="mt-8" />
+    </div>
+  )
+}
