@@ -1,0 +1,37 @@
+exports[`renderCarbonAd > Sidebar with a title 1`] = `
+<div class="carbon-sidebar" style="--carbon-bg: #112233; --carbon-fg: #ffffff;">
+  <a class="carbon-sidebar__link" href="https://srv.carbonads.net/ads/click/x/DEF" target="_blank" rel="sponsored noopener">
+    <img class="carbon-sidebar__image" src="https://cdn4.buysellads.net/acme-500.png" alt="Acme" width="176" height="176">
+    <span class="carbon-sidebar__body">
+      <strong class="carbon-sidebar__title">Acme Cloud</strong>
+      <span class="carbon-sidebar__description">Ship faster with Acme.</span>
+      <span class="carbon-sidebar__cta">Learn more</span>
+    </span>
+  </a>
+  <a class="carbon-badge carbon-badge--overlay" href="https://openjsf.bsa-whitelabel.com/" target="_blank" rel="noopener">Ad</a>
+</div>
+`;
+
+exports[`renderCarbonAd > Sidebar without a title 1`] = `
+<div class="carbon-sidebar" style="--carbon-bg: #112233; --carbon-fg: #ffffff;">
+  <a class="carbon-sidebar__link" href="https://srv.carbonads.net/ads/click/x/DEF" target="_blank" rel="sponsored noopener">
+    <img class="carbon-sidebar__image" src="https://cdn4.buysellads.net/acme-500.png" alt="Acme" width="176" height="176">
+    <span class="carbon-sidebar__body">
+      <span class="carbon-sidebar__description">Ship faster with Acme.</span>
+      <span class="carbon-sidebar__cta">Learn more</span>
+    </span>
+  </a>
+  <a class="carbon-badge carbon-badge--overlay" href="https://openjsf.bsa-whitelabel.com/" target="_blank" rel="noopener">Ad</a>
+</div>
+`;
+
+exports[`renderCarbonAd > Top Bar 1`] = `
+<div class="carbon-top-bar" style="--carbon-bg: light-dark(#112233, #000000); --carbon-fg: #ffffff; --carbon-cta-bg: #ffffff; --carbon-cta-fg: #112233;">
+  <a class="carbon-top-bar__link" href="https://srv.carbonads.net/ads/click/x/ABC/ignore/yes" target="_blank" rel="sponsored noopener">
+    <img class="carbon-top-bar__logo" src="https://cdn4.buysellads.net/acme-128.png" alt="Acme" width="32" height="32">
+    <span class="carbon-top-bar__description">&lt;img src=x onerror=alert(1)&gt; very long copy</span>
+    <span class="carbon-top-bar__cta">Try it</span>
+  </a>
+  <a class="carbon-badge" href="https://openjsf.bsa-whitelabel.com/checkout/new/?a=1&amp;b=2" target="_blank" rel="noopener">Ad</a>
+</div>
+`;

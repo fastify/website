@@ -1,0 +1,181 @@
+/* ============================================================
+   Carbon Ads — Top Bar and Sidebar formats.
+   The design follows nodejs.org (nodejs/nodejs.org#9250). Sizes are
+   spelled out rather than taken from the theme, because this site
+   overrides Tailwind's radius scale.
+   Units are created at runtime, so these rules are global (Astro's
+   scoped styles would not match them) and namespaced under .carbon-*.
+   Advertiser colours arrive as --carbon-* custom properties and are
+   resolved against the page's color-scheme via light-dark().
+   ============================================================ */
+
+.carbon-slot[hidden] {
+	display: none;
+}
+
+.carbon-slot a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.carbon-slot a:focus-visible {
+	outline: 2px solid currentColor;
+	outline-offset: 2px;
+	border-radius: 2px;
+}
+
+/* Small outlined "Ad" badge, in the creative's text colour. */
+.carbon-badge {
+	flex-shrink: 0;
+	padding: 0 0.375rem;
+	border: 1px solid currentColor;
+	border-radius: 0.25rem;
+	font-size: 0.75rem;
+	line-height: 1rem;
+	opacity: 0.7;
+}
+
+.carbon-badge:hover {
+	opacity: 1;
+}
+
+/* ---------- Top Bar ---------- */
+
+.carbon-slot--top-bar {
+	display: block;
+}
+
+/*
+ * While loading, reserve the bar's minimum height from 64rem up, so one- and
+ * two-line creatives don't shift the page. Narrower screens reserve nothing,
+ * as the height there depends too much on the length of the copy.
+ */
+.carbon-slot--top-bar[data-carbon-state="loading"] {
+	display: none;
+}
+
+@media (width >= 64rem) {
+	.carbon-slot--top-bar[data-carbon-state="loading"] {
+		display: block;
+		min-height: 3.5rem;
+	}
+}
+
+.carbon-top-bar {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	padding: 0.5rem 1rem;
+	border-radius: 0.375rem;
+	background: var(--carbon-bg);
+	color: var(--carbon-fg);
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+}
+
+@media (width >= 64rem) {
+	.carbon-top-bar {
+		min-height: 3.5rem;
+	}
+}
+
+.carbon-top-bar__link {
+	display: flex;
+	flex: 1 1 auto;
+	align-items: center;
+	gap: 0.75rem;
+	min-width: 0;
+}
+
+.carbon-top-bar__logo {
+	flex-shrink: 0;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 0.25rem;
+}
+
+.carbon-top-bar__description {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+/* Hidden on phones, where the whole bar is the link anyway. */
+.carbon-top-bar__cta {
+	display: none;
+	flex-shrink: 0;
+	padding: 0.25rem 0.75rem;
+	border-radius: 0.375rem;
+	background: var(--carbon-cta-bg);
+	color: var(--carbon-cta-fg);
+	font-size: 0.75rem;
+	font-weight: 600;
+	line-height: 1rem;
+	white-space: nowrap;
+}
+
+@media (width >= 40rem) {
+	.carbon-top-bar__cta {
+		display: block;
+	}
+}
+
+/* ---------- Sidebar ---------- */
+
+/* No space is reserved while loading: the card is last in its column. */
+.carbon-slot--sidebar {
+	display: block;
+	margin-top: 2rem;
+}
+
+.carbon-sidebar {
+	position: relative;
+	width: 11rem;
+	overflow: hidden;
+	border-radius: 0.5rem;
+	background: var(--carbon-bg);
+	color: var(--carbon-fg);
+}
+
+.carbon-sidebar__link {
+	display: flex;
+	flex-direction: column;
+}
+
+.carbon-sidebar__image {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 1;
+	object-fit: cover;
+}
+
+.carbon-sidebar__body {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.25rem;
+	padding: 0.875rem;
+	font-size: 0.75rem;
+	line-height: 1rem;
+}
+
+.carbon-sidebar__title {
+	font-weight: 700;
+}
+
+.carbon-sidebar__cta {
+	margin-top: 0.5rem;
+	padding: 0.25rem 0.75rem;
+	border: 1px solid currentColor;
+	border-radius: 9999px;
+	font-weight: 600;
+}
+
+.carbon-badge--overlay {
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
+	border-color: transparent;
+	background: rgb(10 10 10 / 0.5);
+	color: #fff;
+}
